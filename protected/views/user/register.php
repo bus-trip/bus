@@ -91,7 +91,7 @@
 
 		<div class="row">
 			<?php echo $form->labelEx($model, 'sex'); ?>
-			<?php echo $form->radioButtonList($model, 'sex', array('Мужской', 'Женский')); ?>
+			<?php echo $form->dropDownList($model, 'sex', array('none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский')); ?>
 			<?php echo $form->error($model, 'sex'); ?>
 		</div>
 
