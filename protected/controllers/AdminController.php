@@ -70,10 +70,21 @@ class AdminController extends Controller
 			// )
 		// );
 		
-		$dataProvider = Trips::model()->findAll(array('condition'=>'departure>=:departure','params'=>array(':departure'=>date('Y-m-d'))));
-		
+        $currentDate['year'] = isset($_POST['yearSelect']) && !empty($_POST['yearSelect']) ? $_POST['yearSelect'] : date('Y');
+        $currentDate['month'] = isset($_POST['monthSelect']) && !empty($_POST['monthSelect']) ? $_POST['monthSelect'] : date('m');
+        $currentDate['day'] = isset($_POST['day']) && !empty($_POST['day']) ? $_POST['day'] : date('d');
+        $dataProvider = Trips::model()->findAll(
+            array(
+                'condition'=>'departure>=:departure',
+                'params'=>array(
+                    ':departure'=>date($currentDate['year'].'-'.$currentDate['month'].'-01')
+                )
+            )
+        );
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
+            'currentDate'=>$currentDate,
 		));
 		
 		
@@ -94,4 +105,16 @@ class AdminController extends Controller
 		}
 	}
 
+    /**
+     * Performs the AJAX validation.
+     * @param Trips $model the model to be validated
+     */
+    protected function performAjaxValidation($model)
+    {
+        if(isset($_POST['ajax']) && $_POST['ajax']==='trips-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 }
