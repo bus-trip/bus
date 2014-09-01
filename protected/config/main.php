@@ -6,19 +6,19 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Bus',
+	'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+	'name'       => 'Bus',
 
 	// preloading 'log' component
-	'preload'=>array('log'),
+	'preload'    => array('log'),
 
 	// autoloading model and component classes
-	'import'=>array(
+	'import'     => array(
 		'application.models.*',
 		'application.components.*',
 	),
 
-	'modules'=>array(
+	'modules'    => array(
 		// uncomment the following to enable the Gii tool
 		'gii' => array(
 			'class'     => 'system.gii.GiiModule',
@@ -29,20 +29,23 @@ return array(
 	),
 
 	// application components
-	'components'=>array(
-		'user'=>array(
+	'components' => array(
+		'user'         => array(
 			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-			'loginUrl' => null,
+			'allowAutoLogin' => TRUE,
+			'loginUrl'       => NULL,
 		),
 		// uncomment the following to enable URLs in path-format
-		'urlManager'=>array(
-			'urlFormat'=>'path',
-			'rules'=>array(
-				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-				'account' => 'account/profile',
+		'urlManager'   => array(
+			'urlFormat' => 'path',
+			'rules'     => array(
+				'<controller:\w+>/<id:\d+>'              => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'          => '<controller>/<action>',
+				'account'                                => 'account/profile',
+				'account/passengers/add'                 => 'account/passengersadd',
+				'account/passengers/delete/<id:\d+>'     => 'account/passengersdelete',
+				'account/passengers/edit/<id:\d+>'       => 'account/passengersedit',
 			),
 		),
 		/*
@@ -51,27 +54,24 @@ return array(
 		),
 		*/
 
-		'db'=>array(
+		'db'           => array(
 //			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
 //			'emulatePrepare' => true,
 //			'username' => 'root',
 //			'password' => '',
 //			'charset' => 'utf8',
 
-
-
-
 		),
-		'errorHandler'=>array(
+		'errorHandler' => array(
 			// use 'site/error' action to display errors
-			'errorAction'=>'site/error',
+			'errorAction' => 'site/error',
 		),
-		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
+		'log'          => array(
+			'class'  => 'CLogRouter',
+			'routes' => array(
 				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
+					'class'  => 'CFileLogRoute',
+					'levels' => 'error, warning',
 				),
 				// uncomment the following to show log messages on web pages
 				/*
@@ -85,8 +85,8 @@ return array(
 
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
-	'params'=>array(
+	'params'     => array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail' => 'webmaster@example.com',
 	),
 );

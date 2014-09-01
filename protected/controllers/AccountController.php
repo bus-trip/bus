@@ -50,12 +50,58 @@ class AccountController extends Controller
 		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
 	}
 
-	public function actionPassengers(){
-
+	public function actionPassengers()
+	{
+		$profiles = Profiles::model()
+							->findAllByAttributes(array('uid' => $this->user->id), array('order' => 'created DESC'));
 
 		$this->pageTitle = 'Мои профили';
-		$this->content = $this->renderPartial('passengers', array(), TRUE);
+		$this->content = $this->renderPartial('passengers', array('profiles' => $profiles), TRUE);
 		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
+	}
+
+	public function actionPassengersAdd()
+	{
+		$model = new Profiles();
+		if (isset($_POST['Profiles'])) {
+			$model->attributes = $_POST['Profiles'];
+			$model->uid = $this->user->id;
+			if ($model->validate() && $model->save()) {
+				Yii::app()->user->setFlash('success', "Профиль &laquo;" . $model->shortName() . "&raquo; создан");
+
+				$url = $this->createUrl('/account/passengers');
+				$this->redirect($url);
+			}
+		}
+		$this->pageTitle = 'Создание нового профиля';
+		$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
+		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
+	}
+
+	public function actionPassengersDelete($id)
+	{
+		if ($model = Profiles::model()->findByPk($id)) {
+			if ($model->uid == $this->user->id) {
+				$model->delete();
+
+				Yii::app()->user->setFlash('success', "Профиль &laquo;" . $model->shortName() . "&raquo; удален");
+				$url = $this->createUrl('/account/passengers');
+				$this->redirect($url);
+			}
+		}
+		throw new CHttpException(400, "Страница не найдена");
+	}
+
+	public function actionPassengersEdit($id)
+	{
+		if ($model = Profiles::model()->findByPk($id)) {
+			if ($model->uid == $this->user->id) {
+				$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
+
+				return $this->render('index', array('content' => $this->content, 'name' => $this->user->login));
+			}
+		}
+		throw new CHttpException(400, "Страница не найдена");
 	}
 
 	/**

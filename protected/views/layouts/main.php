@@ -94,8 +94,4 @@
 <!-- page -->
 
 </body>
-
-<?php Yii::app()->clientScript->registerCoreScript('jquery'); ?>
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jscript.js"></script>
-
 </html>
