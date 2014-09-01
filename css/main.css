@@ -227,3 +227,18 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.wrapper
+{
+	padding: 20px;
+}
+
+#tabs{
+	margin-left: -10px;
+	padding-left: 0;
+}
+
+#tabs li{
+	display: inline;
+	padding: 0 10px;
+}

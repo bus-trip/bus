@@ -1,29 +1,29 @@
 <?php
 
 /**
- * This is the model class for table "users".
+ * This is the model class for table "profiles".
  *
- * The followings are the available columns in table 'users':
+ * The followings are the available columns in table 'profiles':
  * @property integer $id
  * @property string $last_name
  * @property string $name
  * @property string $middle_name
  * @property integer $passport
- * @property string $mail
- * @property string $pass
  * @property integer $phone
- * @property string $birth
  * @property integer $sex
+ * @property string $birth
+ *
+ * The followings are the available model relations:
+ * @property Tickets[] $tickets
  */
-class Users extends CActiveRecord
+class Profiles extends CActiveRecord
 {
-	public $pass2;
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'users';
+		return 'profiles';
 	}
 
 	/**
@@ -34,18 +34,13 @@ class Users extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('last_name, name, passport, mail, pass, pass2, phone', 'required'),
+			array('last_name, name, passport, phone', 'required'),
 			array('passport, phone, sex', 'numerical', 'integerOnly'=>true),
-			array('last_name, name, middle_name, mail', 'length', 'max'=>255),
-			array('mail', 'email'),
-			array('birth', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'dd.mm.yyyy'),
-			array('pass, pass2', 'length', 'max' => 32),
-			array('pass2', 'compare', 'compareAttribute' => 'pass', 'message' => "Пароль не совпадает"),
-			array('passport, phone', 'length', 'max' => 10, 'min' => 10),
-			array('sex', 'length', 'max' => 1, 'min' => 1),
+			array('last_name, name, middle_name', 'length', 'max'=>255),
+			array('birth', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, last_name, name, middle_name, passport, mail, pass, phone, birth, sex', 'safe', 'on'=>'search'),
+			array('id, last_name, name, middle_name, passport, phone, sex, birth', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,6 +52,7 @@ class Users extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'tickets' => array(self::HAS_MANY, 'Tickets', 'idProfile'),
 		);
 	}
 
@@ -71,12 +67,9 @@ class Users extends CActiveRecord
 			'name' => 'Имя',
 			'middle_name' => 'Отчество',
 			'passport' => 'Серия и номер паспорта',
-			'mail' => 'E-mail',
-			'pass' => 'Пароль',
-			'pass2' => 'Повторите пароль',
 			'phone' => 'Телефон',
-			'birth' => 'Дата рождения',
 			'sex' => 'Пол',
+			'birth' => 'Дата рождения',
 		);
 	}
 
@@ -103,11 +96,9 @@ class Users extends CActiveRecord
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('middle_name',$this->middle_name,true);
 		$criteria->compare('passport',$this->passport);
-		$criteria->compare('mail',$this->mail,true);
-		$criteria->compare('pass',$this->pass,true);
 		$criteria->compare('phone',$this->phone);
-		$criteria->compare('birth',$this->birth,true);
 		$criteria->compare('sex',$this->sex);
+		$criteria->compare('birth',$this->birth,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -118,30 +109,10 @@ class Users extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Users the static model class
+	 * @return Profiles the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
-	}
-
-	protected function beforeSave()
-	{
-		if (parent::beforeSave()) {
-			if ($this->isNewRecord) {
-				$this->pass = md5('spyderman2' . $this->pass);
-			}
-
-			$this->last_name = mb_ucfirst($this->last_name);
-			$this->name = mb_ucfirst($this->name);
-			$this->middle_name = mb_ucfirst($this->middle_name);
-
-			if($this->birth){
-				$date = explode('.', $this->birth);
-				$this->birth = $date[2] . '-' . $date[1] . '-' . $date[0];
-			}
-		}
-
-		return TRUE;
 	}
 }
