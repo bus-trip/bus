@@ -50,6 +50,14 @@ class AccountController extends Controller
 		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
 	}
 
+	public function actionPassengers(){
+
+
+		$this->pageTitle = 'Мои профили';
+		$this->content = $this->renderPartial('passengers', array(), TRUE);
+		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
+	}
+
 	/**
 	 * @return array action filters
 	 */
