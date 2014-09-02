@@ -2,28 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/AdminController.php" afterPath="$PROJECT_DIR$/protected/controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Buses.php" afterPath="$PROJECT_DIR$/protected/models/Buses.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/BusesController.php" afterPath="$PROJECT_DIR$/protected/controllers/BusesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Directions.php" afterPath="$PROJECT_DIR$/protected/models/Directions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Tickets.php" afterPath="$PROJECT_DIR$/protected/models/Tickets.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Trips.php" afterPath="$PROJECT_DIR$/protected/models/Trips.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/_form.php" afterPath="$PROJECT_DIR$/protected/views/buses/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_form.php" afterPath="$PROJECT_DIR$/protected/views/trips/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_search.php" afterPath="$PROJECT_DIR$/protected/views/trips/_search.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/_view.php" afterPath="$PROJECT_DIR$/protected/views/buses/_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_view.php" afterPath="$PROJECT_DIR$/protected/views/trips/_view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/admin.php" afterPath="$PROJECT_DIR$/protected/views/buses/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/admin.php" afterPath="$PROJECT_DIR$/protected/views/trips/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/create.php" afterPath="$PROJECT_DIR$/protected/views/buses/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/create.php" afterPath="$PROJECT_DIR$/protected/views/trips/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/admin/index.php" afterPath="$PROJECT_DIR$/protected/views/admin/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/index.php" afterPath="$PROJECT_DIR$/protected/views/buses/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/controllers/AccountController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/models/Profiles.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/edit.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/jquery.maskedinput.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/user/login.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/one_passenger.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/one_passenger_data.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/passengers.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/account/profile.php" />
+      <change type="DELETED" beforePath="W:\home\localhost\bus\protected\models\Passengers.php" afterPath="" />
+      <change type="DELETED" beforePath="W:\home\localhost\bus\protected\views\site\login.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/components/Controller.php" afterPath="$PROJECT_DIR$/protected/components/Controller.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/LoginForm.php" afterPath="$PROJECT_DIR$/protected/models/LoginForm.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/SiteController.php" afterPath="$PROJECT_DIR$/protected/controllers/SiteController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/UserController.php" afterPath="$PROJECT_DIR$/protected/controllers/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/components/UserIdentity.php" afterPath="$PROJECT_DIR$/protected/components/UserIdentity.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/jscript.js" afterPath="$PROJECT_DIR$/js/jscript.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/main.css" afterPath="$PROJECT_DIR$/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/config/main.php" afterPath="$PROJECT_DIR$/protected/config/main.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/layouts/main.php" afterPath="$PROJECT_DIR$/protected/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/update.php" afterPath="$PROJECT_DIR$/protected/views/buses/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/update.php" afterPath="$PROJECT_DIR$/protected/views/trips/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/view.php" afterPath="$PROJECT_DIR$/protected/views/trips/view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/user/register.php" afterPath="$PROJECT_DIR$/protected/views/user/register.php" />
+      <change type="MOVED" beforePath="W:\home\localhost\bus\protected\models\Users.php" afterPath="$PROJECT_DIR$/protected/models/User.php" />
     </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -505,7 +506,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292" />
+        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
@@ -520,7 +523,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292" />
+        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
@@ -552,7 +557,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292" />
+        <state line="21" column="15" selection-start="1036" selection-end="1036" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1292">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
@@ -699,7 +706,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="45" selection-start="1842" selection-end="1842" vertical-scroll-proportion="0.67019403" vertical-offset="334" max-vertical-offset="1360" />
+        <state line="42" column="45" selection-start="1842" selection-end="1842" vertical-scroll-proportion="0.67019403" vertical-offset="334" max-vertical-offset="1360">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/admin.php">
