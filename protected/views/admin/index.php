@@ -109,8 +109,11 @@ $monthNames = array(
                         echo "</form></div>";
                     }
                     $tripCounts = 0;
-                    foreach($dataProvider as $d){
-                        if($d->attributes['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00' && $d->attributes['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 23:59:59')
+                    echo '<pre>';
+//                    print_r($dataProvider->getData());
+                    echo '</pre>';
+                    foreach($dataProvider->getData() as $d){
+                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 23:59:59')
                             $tripCounts++;
                     }
                     if($tripCounts != 0){

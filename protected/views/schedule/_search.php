@@ -1,6 +1,6 @@
 <?php
-/* @var $this TripsController */
-/* @var $model Trips */
+/* @var $this ScheduleController */
+/* @var $model Schedule */
 /* @var $form CActiveForm */
 ?>
 
@@ -17,13 +17,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'idDirection'); ?>
-		<?php echo $form->textField($model,'idDirection'); ?>
+		<?php echo $form->label($model,'idTrip'); ?>
+		<?php echo $form->textField($model,'idTrip'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'idBus'); ?>
-		<?php echo $form->textField($model,'idBus'); ?>
+		<?php echo $form->label($model,'idDirection'); ?>
+		<?php echo $form->textField($model,'idDirection'); ?>
 	</div>
 
 	<div class="row">
@@ -34,11 +34,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'arrival'); ?>
 		<?php echo $form->textField($model,'arrival'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

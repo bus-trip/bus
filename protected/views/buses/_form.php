@@ -31,6 +31,18 @@
 		<?php echo $form->error($model,'places'); ?>
 	</div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'model'); ?>
+        <?php echo $form->textField($model,'model',array('size'=>10,'maxlength'=>10)); ?>
+        <?php echo $form->error($model,'model'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'description'); ?>
+        <?php echo $form->textField($model,'description',array('size'=>20,'maxlength'=>100)); ?>
+        <?php echo $form->error($model,'description'); ?>
+    </div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

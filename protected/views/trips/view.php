@@ -25,5 +25,7 @@ $this->menu=array(
 		'idDirection',
 		'idBus',
 		'departure',
+		'arrival',
+		'description',
 	),
 )); ?>

@@ -3,19 +3,16 @@
 /* @var $model Buses */
 
 $this->breadcrumbs=array(
-	'Buses'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Автобусы'=>array('admin'),
+	'Редактирование',
 );
 
 $this->menu=array(
-	array('label'=>'List Buses', 'url'=>array('index')),
-	array('label'=>'Create Buses', 'url'=>array('create')),
-	array('label'=>'View Buses', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Buses', 'url'=>array('admin')),
+	array('label'=>'Добавить автобус', 'url'=>array('create')),
+	array('label'=>'Управление автобусами', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update Buses <?php echo $model->id; ?></h1>
+<h1>Редактирование автобуса <?php echo $model->model.", госномер: ".$model->number; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

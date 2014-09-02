@@ -1,28 +1,27 @@
 <?php
 
 /**
- * This is the model class for table "buses".
+ * This is the model class for table "schedule".
  *
- * The followings are the available columns in table 'buses':
+ * The followings are the available columns in table 'schedule':
  * @property integer $id
- * @property string $model
- * @property string $number
- * @property integer $places
- * @property string $description
- * @property integer $status
+ * @property integer $idTrip
+ * @property integer $idDirection
+ * @property string $departure
+ * @property string $arrival
  *
  * The followings are the available model relations:
- * @property Tickets[] $tickets
- * @property Trips[] $trips
+ * @property Trips $idTrip0
+ * @property Directions $idDirection0
  */
-class Buses extends CActiveRecord
+class Schedule extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'buses';
+		return 'schedule';
 	}
 
 	/**
@@ -33,13 +32,12 @@ class Buses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('model, number, places, description, status', 'required'),
-			array('places, status', 'numerical', 'integerOnly'=>true),
-			array('model', 'length', 'max'=>100),
-			array('number', 'length', 'max'=>20),
+			array('idTrip, idDirection', 'required'),
+			array('idTrip, idDirection', 'numerical', 'integerOnly'=>true),
+			array('departure, arrival', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, model, number, places, description, status', 'safe', 'on'=>'search'),
+			array('id, idTrip, idDirection, departure, arrival', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,8 +49,8 @@ class Buses extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idBus'),
-			'trips' => array(self::HAS_MANY, 'Trips', 'idBus'),
+			'idTrip0' => array(self::BELONGS_TO, 'Trips', 'idTrip'),
+			'idDirection0' => array(self::BELONGS_TO, 'Directions', 'idDirection'),
 		);
 	}
 
@@ -63,11 +61,10 @@ class Buses extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'model' => 'Model',
-			'number' => 'Number',
-			'places' => 'Places',
-			'description' => 'Description',
-			'status' => 'Status',
+			'idTrip' => 'Id Trip',
+			'idDirection' => 'Id Direction',
+			'departure' => 'Departure',
+			'arrival' => 'Arrival',
 		);
 	}
 
@@ -90,11 +87,10 @@ class Buses extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('number',$this->number,true);
-		$criteria->compare('places',$this->places);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('idTrip',$this->idTrip);
+		$criteria->compare('idDirection',$this->idDirection);
+		$criteria->compare('departure',$this->departure,true);
+		$criteria->compare('arrival',$this->arrival,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -105,7 +101,7 @@ class Buses extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Buses the static model class
+	 * @return Schedule the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

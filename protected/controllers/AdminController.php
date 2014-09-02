@@ -59,28 +59,23 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		// $dataProvider=new CActiveDataProvider(
-			// 'Trips',
-			// array(
-				// 'criteria'=>array(
-					// 'select'=>'*',
-					// 'condition'=>'departure>=:departure',
-					// 'params'=>array(':departure'=>date('Y-m-d'))
-				// )
-			// )
-		// );
-		
         $currentDate['year'] = isset($_POST['yearSelect']) && !empty($_POST['yearSelect']) ? $_POST['yearSelect'] : date('Y');
         $currentDate['month'] = isset($_POST['monthSelect']) && !empty($_POST['monthSelect']) ? $_POST['monthSelect'] : date('m');
         $currentDate['day'] = isset($_POST['day']) && !empty($_POST['day']) ? $_POST['day'] : date('d');
-        $dataProvider = Trips::model()->findAll(
-            array(
-                'condition'=>'departure>=:departure',
-                'params'=>array(
-                    ':departure'=>date($currentDate['year'].'-'.$currentDate['month'].'-01')
-                )
-            )
-        );
+
+//        $query = "select * from trips as t left join schedule as s on s.idDirection = t.idDirection where s.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
+        $query = "select
+                    t.id,
+                    t.idDirection,
+                    t.idBus,
+                    t.departure,
+                    s.arrival
+                   from trips as t
+                   left join schedule as s on s.idDirection = t.idDirection
+                   where t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
+
+        $tripsData = Yii::app()->db->createCommand($query)->queryAll();
+        $dataProvider = new CArrayDataProvider($tripsData);
 
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

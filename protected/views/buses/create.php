@@ -3,13 +3,12 @@
 /* @var $model Buses */
 
 $this->breadcrumbs=array(
-	'Buses'=>array('index'),
-	'Create',
+	'Автобусы'=>array('admin'),
+	'Создать',
 );
 
 $this->menu=array(
-	array('label'=>'List Buses', 'url'=>array('index')),
-	array('label'=>'Manage Buses', 'url'=>array('admin')),
+	array('label'=>'Управление автобусами', 'url'=>array('admin')),
 );
 ?>
 

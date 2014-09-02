@@ -8,8 +8,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List Trips', 'url'=>array('index')),
-	array('label'=>'Manage Trips', 'url'=>array('admin')),
+	array('label'=>'Управление автобусами', 'url'=>array('admin')),
 );
 ?>
 

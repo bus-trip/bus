@@ -1,6 +1,6 @@
 <?php
 
-class BusesController extends Controller
+class ScheduleController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -51,8 +51,21 @@ class BusesController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+        $query = "
+            select distinct s.id, d.startPoint, d.endPoint, s.departure, s.arrival
+            from schedule as s
+            left join directions as d on d.id = s.idDirection
+            left join trips as t on t.id = s.idTrip
+            where s.idTrip = (select idTrip from schedule where id = ${id})
+            order by s.id
+        ";
+        $schData = Yii::app()->db->createCommand($query)->queryAll();
+        $arrschData = new CArrayDataProvider($schData, array('keyField' => 'id'));
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
+            'schData'=>$arrschData,
 		));
 	}
 
@@ -62,16 +75,16 @@ class BusesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Buses;
+		$model=new Schedule;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Buses']))
+		if(isset($_POST['Schedule']))
 		{
-			$model->attributes=$_POST['Buses'];
+			$model->attributes=$_POST['Schedule'];
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
@@ -91,11 +104,11 @@ class BusesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Buses']))
+		if(isset($_POST['Schedule']))
 		{
-			$model->attributes=$_POST['Buses'];
+			$model->attributes=$_POST['Schedule'];
 			if($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
@@ -122,7 +135,7 @@ class BusesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Buses');
+		$dataProvider=new CActiveDataProvider('Schedule');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -133,13 +146,25 @@ class BusesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Buses('search');
+		$model=new Schedule('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Buses']))
-			$model->attributes=$_GET['Buses'];
+		if(isset($_GET['Schedule']))
+			$model->attributes=$_GET['Schedule'];
+
+
+        $query = "
+            select distinct s.id, d.startPoint, d.endPoint, s.departure, s.arrival
+            from schedule as s
+            left join directions as d on d.id = s.idDirection
+            where d.parentId = 0
+        ";
+        $schData = Yii::app()->db->createCommand($query)->queryAll();
+        $arrschData = new CArrayDataProvider($schData, array('keyField' => 'id'));
+
 
 		$this->render('admin',array(
 			'model'=>$model,
+            'schData'=>$arrschData,
 		));
 	}
 
@@ -147,12 +172,12 @@ class BusesController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Buses the loaded model
+	 * @return Schedule the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Buses::model()->findByPk($id);
+		$model=Schedule::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +185,11 @@ class BusesController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Buses $model the model to be validated
+	 * @param Schedule $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='buses-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='schedule-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

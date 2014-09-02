@@ -5,17 +5,19 @@
  *
  * The followings are the available columns in table 'tickets':
  * @property integer $id
- * @property integer $idPassenger
+ * @property integer $idProfile
  * @property integer $idDirection
  * @property integer $idTrip
  * @property integer $idBus
  * @property integer $place
+ * @property integer $status
+ * @property integer $price
  *
  * The followings are the available model relations:
- * @property Buses $idBus0
- * @property Passengers $idPassenger0
+ * @property Profiles $idProfile0
  * @property Directions $idDirection0
  * @property Trips $idTrip0
+ * @property Buses $idBus0
  */
 class Tickets extends CActiveRecord
 {
@@ -35,11 +37,11 @@ class Tickets extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idPassenger, idDirection, idTrip, idBus, place', 'required'),
-			array('idPassenger, idDirection, idTrip, idBus, place', 'numerical', 'integerOnly'=>true),
+			array('idProfile, idDirection, idTrip, idBus, place, status, price', 'required'),
+			array('idProfile, idDirection, idTrip, idBus, place, status, price', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idPassenger, idDirection, idTrip, idBus, place', 'safe', 'on'=>'search'),
+			array('id, idProfile, idDirection, idTrip, idBus, place, status, price', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,10 +53,10 @@ class Tickets extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
-			'idPassenger0' => array(self::BELONGS_TO, 'Passengers', 'idPassenger'),
+			'idProfile0' => array(self::BELONGS_TO, 'Profiles', 'idProfile'),
 			'idDirection0' => array(self::BELONGS_TO, 'Directions', 'idDirection'),
 			'idTrip0' => array(self::BELONGS_TO, 'Trips', 'idTrip'),
+			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
 		);
 	}
 
@@ -65,11 +67,13 @@ class Tickets extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'idPassenger' => 'Id Passenger',
+			'idProfile' => 'Id Profile',
 			'idDirection' => 'Id Direction',
 			'idTrip' => 'Id Trip',
 			'idBus' => 'Id Bus',
 			'place' => 'Place',
+			'status' => 'Status',
+			'price' => 'Price',
 		);
 	}
 
@@ -92,11 +96,13 @@ class Tickets extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('idPassenger',$this->idPassenger);
+		$criteria->compare('idProfile',$this->idProfile);
 		$criteria->compare('idDirection',$this->idDirection);
 		$criteria->compare('idTrip',$this->idTrip);
 		$criteria->compare('idBus',$this->idBus);
 		$criteria->compare('place',$this->place);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('price',$this->price);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

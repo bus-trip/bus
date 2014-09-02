@@ -62,21 +62,32 @@ class TripsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Trips;
+        $model=new Trips;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['Trips']))
-		{
-			$model->attributes=$_POST['Trips'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
-		}
-		
-		if (isset($_POST['trips-date'])){
-			$model->departure = $_POST['trips-date'];
-		}
+        if(isset($_POST['Trips']))
+        {
+            $model->attributes=$_POST['Trips'];
+            if($model->save())
+                // Создаём запись в таблице расписаний (для начального и конечного пункта)
+                $schData = array(
+                    'idTrip' => $model->id,
+                    'idDirection' => $_POST['Trips']['idDirection'],
+                    'departure' => $_POST['Trips']['departure'],
+                    'arrival' => $_POST['Trips']['arrival'],
+                );
+                $schedule = new Schedule;
+                $schedule->attributes = $schData;
+                $schedule->save();
+
+                $this->redirect(array('admin','id'=>$model->id));
+        }
+
+        if (isset($_POST['trips-date'])){
+            $model->departure = $_POST['trips-date'];
+        }
 
         $data = Directions::model()->findAll(array('condition'=>'parentId=:parentId','params'=>array(':parentId'=>0)));
         $directions = array();
@@ -92,11 +103,11 @@ class TripsController extends Controller
             $buses[$d->id] = $d->number.' (Мест: '. $d->places.')';
         }
 
-		$this->render('create',array(
-			'model'=>$model,
+        $this->render('create',array(
+            'model'=>$model,
             'directions'=>$directions,
             'buses'=>$buses,
-		));
+        ));
 	}
 
 	/**
@@ -115,8 +126,9 @@ class TripsController extends Controller
 		{
 			$model->attributes=$_POST['Trips'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin','id'=>$model->id));
 		}
+
         $data = Directions::model()->findAll(array('condition'=>'parentId=:parentId','params'=>array(':parentId'=>0)));
         $directions = array();
         $directions['empty'] = 'Выберите направление';
@@ -131,12 +143,13 @@ class TripsController extends Controller
             $buses[$d->id] = $d->number.' (Мест: '. $d->places.')';
         }
 
-		$this->render('update',array(
-			'model'=>$model,
+        $this->render('update',array(
+            'model'=>$model,
             'directions'=>$directions,
             'buses'=>$buses,
-		));
-	}
+        ));
+    }
+
 
 	/**
 	 * Deletes a particular model.
@@ -146,6 +159,13 @@ class TripsController extends Controller
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
+
+        // Удаление записей расписания, связанных с данным рейсом.
+        $schData = Yii::app()->db->createCommand("select id from schedule where idTrip=".$id)->queryAll();
+        foreach($schData as $d){
+            $schModel = Schedule::model()->findByPk($d["id"]);
+            $schModel->delete();
+        }
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -177,13 +197,19 @@ class TripsController extends Controller
             $model->departure = $_POST['trips-date'];
         }
 
+        $schData = Yii::app()->db->createCommand("select id from schedule where idTrip=1")->queryAll();
+        foreach($schData as $d){
+            $schModel = Schedule::model()->findByPk($d["id"]);
+        }
+
         $query = "
             select
-              t.id as id,
-              t.departure as departure,
-              d.startPoint as startPoint,
-              d.endPoint as endPoint,
-              b.number as number
+              t.id,
+              t.departure,
+              t.arrival,
+              d.startPoint,
+              d.endPoint,
+              b.number
             from trips as t
             left join buses as b on b.id = t.idBus
             left join directions as d on d.id = t.idDirection
@@ -194,10 +220,10 @@ class TripsController extends Controller
 
         $dpTripsData = new CArrayDataProvider($tripsData, array('keyField' => 'id'));
 
-		$this->render('admin',array(
+        $this->render('admin',array(
 //			'model'=>$model,
             'tripsData'=>$dpTripsData,
-		));
+        ));
 	}
 
 	/**

@@ -8,7 +8,7 @@
  * @property integer $parentId
  * @property string $startPoint
  * @property string $endPoint
- * @property double $price
+ * @property integer $price
  *
  * The followings are the available model relations:
  * @property Tickets[] $tickets
@@ -33,8 +33,7 @@ class Directions extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('parentId, startPoint, endPoint, price', 'required'),
-			array('parentId', 'numerical', 'integerOnly'=>true),
-			array('price', 'numerical'),
+			array('parentId, price', 'numerical', 'integerOnly'=>true),
 			array('startPoint, endPoint', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

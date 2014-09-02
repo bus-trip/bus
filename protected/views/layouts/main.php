@@ -34,12 +34,16 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu', array(
 			'items' => array(
-				array('label' => 'Home', 'url' => array('/site/index')),
-				array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-				array('label' => 'Contact', 'url' => array('/site/contact')),
-				array('label' => 'Register', 'url' => array('/user/register', 'visible' => Yii::app()->user->isGuest)),
-				array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-				array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+				array('label' => 'Главная', 'url' => array('/admin/index')),
+//				array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
+//				array('label' => 'Contact', 'url' => array('/site/contact')),
+                array('label' => 'Автобусы', 'url' => array('/buses/admin')),
+                array('label' => 'Рейсы', 'url' => array('/trips/admin')),
+                array('label' => 'Расписание', 'url' => array('/schedule/admin')),
+                array('label' => 'Направления', 'url' => array('/directions/admin')),
+				array('label' => 'Регистрация', 'url' => array('/user/register', 'visible' => Yii::app()->user->isGuest)),
+				array('label' => 'Войти', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
+				array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 			),
 		)); ?>
 	</div>

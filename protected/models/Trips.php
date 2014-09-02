@@ -8,11 +8,14 @@
  * @property integer $idDirection
  * @property integer $idBus
  * @property string $departure
+ * @property string $arrival
+ * @property string $description
  *
  * The followings are the available model relations:
+ * @property Schedule[] $schedules
  * @property Tickets[] $tickets
- * @property Buses $idBus0
  * @property Directions $idDirection0
+ * @property Buses $idBus0
  */
 class Trips extends CActiveRecord
 {
@@ -32,11 +35,12 @@ class Trips extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idDirection, idBus, departure', 'required'),
+			array('idDirection, idBus, description, departure, arrival', 'required'),
 			array('idDirection, idBus', 'numerical', 'integerOnly'=>true),
+//			array('departure', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idDirection, idBus, departure', 'safe', 'on'=>'search'),
+			array('id, idDirection, idBus, departure, arrival, description', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,9 +52,10 @@ class Trips extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'schedules' => array(self::HAS_MANY, 'Schedule', 'idTrip'),
 			'tickets' => array(self::HAS_MANY, 'Tickets', 'idTrip'),
-			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
 			'idDirection0' => array(self::BELONGS_TO, 'Directions', 'idDirection'),
+			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
 		);
 	}
 
@@ -61,9 +66,11 @@ class Trips extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'idDirection' => 'Направление', //'Id Direction',
-			'idBus' => 'Автобус',//'Id Bus',
-			'departure' => 'Время отправления', //'Departure',
+			'idDirection' => 'Id Direction',
+			'idBus' => 'Id Bus',
+			'departure' => 'Departure',
+            'arrival' => 'Arrival',
+			'description' => 'Description',
 		);
 	}
 
@@ -89,6 +96,8 @@ class Trips extends CActiveRecord
 		$criteria->compare('idDirection',$this->idDirection);
 		$criteria->compare('idBus',$this->idBus);
 		$criteria->compare('departure',$this->departure,true);
+        $criteria->compare('arrival',$this->arrival,true);
+		$criteria->compare('description',$this->description,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
