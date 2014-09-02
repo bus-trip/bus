@@ -1,28 +1,28 @@
 <?php
 
 /**
- * This is the model class for table "passengers".
+ * This is the model class for table "users".
  *
- * The followings are the available columns in table 'passengers':
- * @property integer $id
- * @property string $name
- * @property string $birthdate
- * @property string $sex
- * @property string $passport
- * @property string $phone
- * @property string $email
+ * The followings are the available columns in table 'users':
+ * @property integer    $id
+ * @property string     $login
+ * @property string     $pass
+ * @property string     $mail
  *
  * The followings are the available model relations:
- * @property Tickets[] $tickets
+ * @property Profiles[] $profiles
  */
-class Passengers extends CActiveRecord
+class User extends CActiveRecord
 {
+	public $pass2;
+	public $rememberMe;
+
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'passengers';
+		return 'user';
 	}
 
 	/**
@@ -33,13 +33,14 @@ class Passengers extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, birthdate, sex, passport, phone, email', 'required'),
-			array('sex', 'length', 'max'=>3),
-			array('name, email', 'length', 'max'=>255),
-			array('passport, phone', 'length', 'max'=>15),
+			array('login, pass, pass2', 'required'),
+			array('mail', 'email'),
+			array('pass, pass2', 'length', 'max' => 32),
+			array('pass2', 'compare', 'compareAttribute' => 'pass', 'message' => "Пароль не совпадает"),
+			array('login, mail', 'length', 'max' => 255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, name, birthdate, sex, passport, phone, email', 'safe', 'on'=>'search'),
+			array('id, login, pass, mail', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -51,7 +52,7 @@ class Passengers extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idPassenger'),
+			'profiles' => array(self::HAS_MANY, 'Profiles', 'uid'),
 		);
 	}
 
@@ -61,13 +62,11 @@ class Passengers extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'name' => 'Name',
-			'birthdate' => 'Birthdate',
-			'sex' => 'Sex',
-			'passport' => 'Passport',
-			'phone' => 'Phone',
-			'email' => 'Email',
+			'id'    => 'ID',
+			'login' => 'Логин',
+			'pass'  => 'Пароль',
+			'pass2' => 'Повторите пароль',
+			'mail'  => 'E-mail',
 		);
 	}
 
@@ -87,29 +86,53 @@ class Passengers extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('birthdate',$this->birthdate,true);
-		$criteria->compare('sex',$this->sex);
-		$criteria->compare('passport',$this->passport,true);
-		$criteria->compare('phone',$this->phone,true);
-		$criteria->compare('email',$this->email,true);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('login', $this->login, TRUE);
+		$criteria->compare('pass', $this->pass, TRUE);
+		$criteria->compare('mail', $this->mail, TRUE);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 *
 	 * @param string $className active record class name.
-	 * @return Passengers the static model class
+	 *
+	 * @return User the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	protected function beforeSave()
+	{
+		if (parent::beforeSave()) {
+			if ($this->pass == $this->pass2) {
+				$this->pass = md5('spyderman2' . $this->pass);
+			}
+		}
+
+		return TRUE;
+	}
+
+	public function validate($attributes = NULL, $clearErrors = TRUE)
+	{
+		if ($this->isNewRecord) {
+			$user_e = User::model()->find('LOWER(login)=?', array(strtolower($this->login)));
+			if ($user_e !== NULL) {
+				$this->addError('login', 'Логин занят');
+
+				return FALSE;
+			}
+		}
+
+		return parent::validate($attributes, $clearErrors);
 	}
 }

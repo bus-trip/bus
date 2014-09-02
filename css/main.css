@@ -227,3 +227,73 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.wrapper
+{
+	padding: 20px;
+}
+
+#tabs{
+	margin-left: -10px;
+	padding-left: 0;
+}
+
+#tabs li{
+	display: inline;
+	padding: 0 10px;
+}
+
+
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+
+/*
+ * Edit profiles
+ */
+.profiles-data .label, .profiles-data .value{
+	display: inline;
+}
+
+#passengers .item{
+	border: 1px dotted;
+	margin: 10px 0;
+	padding: 10px;
+}
+#passengers .item .name{
+	float: left;
+}
+#passengers .item .name span{
+	border-bottom: 1px dashed;
+	cursor: pointer;
+}
+#passengers .item .rule{
+	float: right;
+}
+#passengers .item .data{
+	clear: both;
+	display: none;
+	padding: 10px 0;
+}
+#passengers .item .data .label{
+	font-weight: bold;
+}
