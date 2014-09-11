@@ -114,4 +114,9 @@ class Trips extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function __set($key, $value){
+		$this->{$key} = $value;
+	}
+
 }

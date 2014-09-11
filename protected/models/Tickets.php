@@ -4,20 +4,16 @@
  * This is the model class for table "tickets".
  *
  * The followings are the available columns in table 'tickets':
- * @property integer $id
- * @property integer $idProfile
- * @property integer $idDirection
- * @property integer $idTrip
- * @property integer $idBus
- * @property integer $place
- * @property integer $status
- * @property integer $price
+ * @property integer  $id
+ * @property integer  $idProfile
+ * @property integer  $idTrip
+ * @property integer  $place
+ * @property integer  $price
+ * @property integer  $status
  *
  * The followings are the available model relations:
+ * @property Trips    $idTrip0
  * @property Profiles $idProfile0
- * @property Directions $idDirection0
- * @property Trips $idTrip0
- * @property Buses $idBus0
  */
 class Tickets extends CActiveRecord
 {
@@ -37,11 +33,11 @@ class Tickets extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idProfile, idDirection, idTrip, idBus, place, status, price', 'required'),
-			array('idProfile, idDirection, idTrip, idBus, place, status, price', 'numerical', 'integerOnly'=>true),
+			array('idProfile, idTrip', 'required'),
+			array('idProfile, idTrip, place, price, status', 'numerical', 'integerOnly' => TRUE),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idProfile, idDirection, idTrip, idBus, place, status, price', 'safe', 'on'=>'search'),
+			array('id, idProfile, idTrip, place, price, status', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -53,10 +49,8 @@ class Tickets extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idTrip0'    => array(self::BELONGS_TO, 'Trips', 'idTrip'),
 			'idProfile0' => array(self::BELONGS_TO, 'Profiles', 'idProfile'),
-			'idDirection0' => array(self::BELONGS_TO, 'Directions', 'idDirection'),
-			'idTrip0' => array(self::BELONGS_TO, 'Trips', 'idTrip'),
-			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
 		);
 	}
 
@@ -66,14 +60,12 @@ class Tickets extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id'        => 'ID',
 			'idProfile' => 'Id Profile',
-			'idDirection' => 'Id Direction',
-			'idTrip' => 'Id Trip',
-			'idBus' => 'Id Bus',
-			'place' => 'Place',
-			'status' => 'Status',
-			'price' => 'Price',
+			'idTrip'    => 'Id Trip',
+			'place'     => 'Место',
+			'price'     => 'Цена билета',
+			'status'    => 'Статус',
 		);
 	}
 
@@ -93,29 +85,29 @@ class Tickets extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('idProfile',$this->idProfile);
-		$criteria->compare('idDirection',$this->idDirection);
-		$criteria->compare('idTrip',$this->idTrip);
-		$criteria->compare('idBus',$this->idBus);
-		$criteria->compare('place',$this->place);
-		$criteria->compare('status',$this->status);
-		$criteria->compare('price',$this->price);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('idProfile', $this->idProfile);
+		$criteria->compare('idTrip', $this->idTrip);
+		$criteria->compare('place', $this->place);
+		$criteria->compare('price', $this->price);
+		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 *
 	 * @param string $className active record class name.
+	 *
 	 * @return Tickets the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}

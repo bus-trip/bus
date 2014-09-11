@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'profiles':
  * @property integer   $id
+ * @property integer   $uid
  * @property string    $last_name
  * @property string    $name
  * @property string    $middle_name
@@ -35,7 +36,7 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('last_name, name, passport, phone', 'required'),
-			array('passport', 'numerical', 'integerOnly' => TRUE),
+			array('uid, passport, sex', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
 			array('birth', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'dd.mm.yyyy'),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
@@ -56,7 +57,7 @@ class Profiles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idProfile'),
+			'u' => array(self::BELONGS_TO, 'User', 'uid'),
 		);
 	}
 
@@ -67,6 +68,7 @@ class Profiles extends CActiveRecord
 	{
 		return array(
 			'id'          => 'ID',
+			'uid'         => 'Uid',
 			'last_name'   => 'Фамилия',
 			'name'        => 'Имя',
 			'middle_name' => 'Отчество',
@@ -74,6 +76,7 @@ class Profiles extends CActiveRecord
 			'phone'       => 'Телефон',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
+			'created'     => 'Created',
 		);
 	}
 
@@ -96,6 +99,7 @@ class Profiles extends CActiveRecord
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
+		$criteria->compare('uid', $this->uid);
 		$criteria->compare('last_name', $this->last_name, TRUE);
 		$criteria->compare('name', $this->name, TRUE);
 		$criteria->compare('middle_name', $this->middle_name, TRUE);
@@ -103,6 +107,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('phone', $this->phone);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth, TRUE);
+		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
