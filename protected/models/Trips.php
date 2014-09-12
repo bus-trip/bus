@@ -4,21 +4,23 @@
  * This is the model class for table "trips".
  *
  * The followings are the available columns in table 'trips':
- * @property integer $id
- * @property integer $idDirection
- * @property integer $idBus
- * @property string $departure
- * @property string $arrival
- * @property string $description
+ * @property integer    $id
+ * @property integer    $idDirection
+ * @property integer    $idBus
+ * @property string     $departure
+ * @property string     $arrival
+ * @property string     $description
  *
  * The followings are the available model relations:
  * @property Schedule[] $schedules
- * @property Tickets[] $tickets
+ * @property Tickets[]  $tickets
  * @property Directions $idDirection0
- * @property Buses $idBus0
+ * @property Buses      $idBus0
  */
 class Trips extends CActiveRecord
 {
+	public $qty = 1;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,11 +38,11 @@ class Trips extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idDirection, idBus, description, departure, arrival', 'required'),
-			array('idDirection, idBus', 'numerical', 'integerOnly'=>true),
-//			array('departure', 'safe'),
+			array('idDirection, idBus', 'numerical', 'integerOnly' => TRUE),
+			//			array('departure', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idDirection, idBus, departure, arrival, description', 'safe', 'on'=>'search'),
+			array('id, idDirection, idBus, departure, arrival, description', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -52,10 +54,10 @@ class Trips extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'schedules' => array(self::HAS_MANY, 'Schedule', 'idTrip'),
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idTrip'),
+			'schedules'    => array(self::HAS_MANY, 'Schedule', 'idTrip'),
+			'tickets'      => array(self::HAS_MANY, 'Tickets', 'idTrip'),
 			'idDirection0' => array(self::BELONGS_TO, 'Directions', 'idDirection'),
-			'idBus0' => array(self::BELONGS_TO, 'Buses', 'idBus'),
+			'idBus0'       => array(self::BELONGS_TO, 'Buses', 'idBus'),
 		);
 	}
 
@@ -65,11 +67,11 @@ class Trips extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
+			'id'          => 'ID',
 			'idDirection' => 'Id Direction',
-			'idBus' => 'Id Bus',
-			'departure' => 'Departure',
-            'arrival' => 'Arrival',
+			'idBus'       => 'Id Bus',
+			'departure'   => 'Departure',
+			'arrival'     => 'Arrival',
 			'description' => 'Description',
 		);
 	}
@@ -90,33 +92,35 @@ class Trips extends CActiveRecord
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria = new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('idDirection',$this->idDirection);
-		$criteria->compare('idBus',$this->idBus);
-		$criteria->compare('departure',$this->departure,true);
-        $criteria->compare('arrival',$this->arrival,true);
-		$criteria->compare('description',$this->description,true);
+		$criteria->compare('id', $this->id);
+		$criteria->compare('idDirection', $this->idDirection);
+		$criteria->compare('idBus', $this->idBus);
+		$criteria->compare('departure', $this->departure, TRUE);
+		$criteria->compare('arrival', $this->arrival, TRUE);
+		$criteria->compare('description', $this->description, TRUE);
 
 		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
+			'criteria' => $criteria,
 		));
 	}
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
+	 *
 	 * @param string $className active record class name.
+	 *
 	 * @return Trips the static model class
 	 */
-	public static function model($className=__CLASS__)
+	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
 	}
 
-	public function __set($key, $value){
+	public function __set($key, $value)
+	{
 		$this->{$key} = $value;
 	}
-
 }

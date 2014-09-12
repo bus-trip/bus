@@ -17,12 +17,11 @@ class SController extends Controller
 		}
 		*/
 
-		if (isset($_POST['Trips'])) {
-			$_POST['Trips'];
+		if (isset($_GET['Trips'])) {
 
-			$date_from = explode('.', $_POST['Trips']['departure']);
+			$date_from = explode('.', $_GET['Trips']['departure']);
 
-			$from = $date_from[2] . '-' . $date_from[1] . '-' . $date_from[1] . ' ' . $_POST['Trips']['tdeparture'];
+			$from = $date_from[2] . '-' . $date_from[1] . '-' . $date_from[1] . ' ' . $_GET['Trips']['tdeparture'];
 
 			$criteria = new CDbCriteria();
 			$criteria->addCondition('DATE(departure) >= :from');
@@ -38,7 +37,18 @@ class SController extends Controller
 		$this->render('search_form', array('model' => $model));
 	}
 
+	public function actionTrip()
+	{
 
+		var_dump($_POST);
+		$this->render('trip');
+	}
+
+
+	public function actionTicket(){
+
+		$this->render('ticket');
+	}
 
 	// Uncomment the following methods and override them if needed
 	/*
