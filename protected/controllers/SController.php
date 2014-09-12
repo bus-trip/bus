@@ -7,6 +7,9 @@ class SController extends Controller
 		$model = new Trips;
 		$model->departure = date('d.m.Y', time());
 		$model->tdeparture = date('H:i', time());
+		$model->places = 1;
+		$model->startPoint = '';
+		$model->endPoint = '';
 
 		// uncomment the following code to enable ajax-based validation
 		/*
@@ -37,6 +40,34 @@ class SController extends Controller
 		$this->render('search_form', array('model' => $model));
 	}
 
+	public function actionStartPoint($term)
+	{
+		$res = array();
+		if ($term) {
+			$qtxt = "SELECT startPoint FROM directions WHERE startPoint LIKE :startPoint GROUP BY startPoint";
+			$command = Yii::app()->db->createCommand($qtxt);
+			$command->bindValue(":startPoint", $term . '%', PDO::PARAM_STR);
+			$res = $command->queryColumn();
+		}
+
+		echo CJSON::encode($res);
+		Yii::app()->end();
+	}
+
+	public function actionEndPoint($term)
+	{
+		$res = array();
+		if ($term) {
+			$qtxt = "SELECT endPoint FROM directions WHERE endPoint LIKE :endPoint GROUP BY endPoint";
+			$command = Yii::app()->db->createCommand($qtxt);
+			$command->bindValue(":endPoint", $term . '%', PDO::PARAM_STR);
+			$res = $command->queryColumn();
+		}
+
+		echo CJSON::encode($res);
+		Yii::app()->end();
+	}
+
 	public function actionTrip()
 	{
 
@@ -44,11 +75,13 @@ class SController extends Controller
 		$this->render('trip');
 	}
 
-
-	public function actionTicket(){
+	public function actionTicket()
+	{
 
 		$this->render('ticket');
 	}
+
+
 
 	// Uncomment the following methods and override them if needed
 	/*

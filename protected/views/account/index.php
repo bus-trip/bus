@@ -3,6 +3,7 @@
 		<li><a href="<?php echo $this->createUrl('/account'); ?>">Аккаунт</a></li>
 		<li><a href="<?php echo $this->createUrl('/account/edit'); ?>">Редактировать</a></li>
 		<li><a href="<?php echo $this->createUrl('/account/passengers'); ?>">Мои профили</a></li>
+		<li><a href="<?php echo $this->createUrl('/account/tickets'); ?>">Мои Билеты</a></li>
 	</ul>
 	<h1><?php echo $this->pageTitle ?></h1>
 	<h2>Пользователь: <?php echo $name; ?></h2>

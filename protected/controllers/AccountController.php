@@ -104,6 +104,13 @@ class AccountController extends Controller
 		throw new CHttpException(400, "Страница не найдена");
 	}
 
+	public function actionTickets(){
+		$this->pageTitle = 'Мои билеты';
+		$this->content = $this->renderPartial('tickets', array(), TRUE);
+
+		return $this->render('index', array('content' => $this->content, 'name' => $this->user->login));
+	}
+
 	/**
 	 * @return array action filters
 	 */
