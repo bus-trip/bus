@@ -95,6 +95,18 @@ class AccountController extends Controller
 	public function actionPassengersEdit($id)
 	{
 		if ($model = Profiles::model()->findByPk($id)) {
+
+				if (isset($_POST['Profiles'])) {
+				$model->attributes = $_POST['Profiles'];
+				$model->uid = $this->user->id;
+				if ($model->validate() && $model->save()) {
+					Yii::app()->user->setFlash('success', "Профиль &laquo;" . $model->shortName() . "&raquo; сохранен");
+					$url = $this->createUrl('/account/passengers');
+					$this->redirect($url);
+				}
+			}
+
+
 			if ($model->uid == $this->user->id) {
 				$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
 

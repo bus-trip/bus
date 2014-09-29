@@ -60,8 +60,18 @@ $this->breadcrumbs = array(
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model, 'address'); ?>
+		<?php echo $form->textField($model, 'address'); ?>
+		<?php echo $form->error($model, 'address'); ?>
+	</div>
+
+	<div class="row">
+		<?php
+		$sex = array('none' => '-Выберите-', 0 => 'Мужской', 1 => 'Женский');
+		$model->sex = array_keys($sex, $model->sex);
+		?>
 		<?php echo $form->labelEx($model, 'sex'); ?>
-		<?php echo $form->dropDownList($model, 'sex', array('none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский')); ?>
+		<?php echo $form->dropDownList($model, 'sex', $sex); ?>
 		<?php echo $form->error($model, 'sex'); ?>
 	</div>
 

@@ -11,6 +11,7 @@
  * @property string    $middle_name
  * @property integer   $passport
  * @property integer   $phone
+ * @property string    $address
  * @property integer   $sex
  * @property string    $birth
  *
@@ -43,9 +44,10 @@ class Profiles extends CActiveRecord
 			array('phone', 'length', 'max' => 17),
 			array('sex', 'length', 'max' => 1, 'min' => 1),
 			array('birth', 'safe'),
+			array('address', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, last_name, name, middle_name, passport, phone, sex, birth', 'safe', 'on' => 'search'),
+			array('id, uid, last_name, name, middle_name, passport, phone, address, sex, birth, created', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -57,7 +59,8 @@ class Profiles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'u' => array(self::BELONGS_TO, 'User', 'uid'),
+			'u'       => array(self::BELONGS_TO, 'User', 'uid'),
+			'tickets' => array(self::HAS_MANY, 'Tickets', 'idProfile'),
 		);
 	}
 
@@ -74,6 +77,7 @@ class Profiles extends CActiveRecord
 			'middle_name' => 'Отчество',
 			'passport'    => 'Серия и номер паспорта',
 			'phone'       => 'Телефон',
+			'address'     => 'Адрес',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
 			'created'     => 'Created',
@@ -105,6 +109,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('middle_name', $this->middle_name, TRUE);
 		$criteria->compare('passport', $this->passport);
 		$criteria->compare('phone', $this->phone);
+		$criteria->compare('address', $this->address, TRUE);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth, TRUE);
 		$criteria->compare('created', $this->created, TRUE);
