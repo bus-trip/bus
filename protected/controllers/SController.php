@@ -22,17 +22,25 @@ class SController extends Controller
 
 		if (isset($_GET['Trips'])) {
 
+			if (empty($_GET['Trips']['startPoint']) || empty($_GET['Trips']['endPoint']) || empty($_GET['Trips']['departure'])) {
+				// throw Exception ....
+			}
 			$date_from = explode('.', $_GET['Trips']['departure']);
-
 			$from = $date_from[2] . '-' . $date_from[1] . '-' . $date_from[1] . ' ' . $_GET['Trips']['tdeparture'];
 
 			$criteria = new CDbCriteria();
 			$criteria->addCondition('DATE(departure) >= :from');
+			$criteria->addCondition('startPoint = "' . htmlspecialchars($_GET['Trips']['startPoint']) . '"');
+			$criteria->addCondition('endPoint = "' . htmlspecialchars($_GET['Trips']['endPoint']) . '"');
+			$criteria->addCondition('idBus0.status = 1');
 			$criteria->params = array(':from' => $from);
 			$criteria->order = 'departure ASC';
 
 			$trips = Trips::model()->with('idDirection0', 'idBus0')->findAll($criteria);
-			$this->render('searched_trips', array('trips' => $trips));
+			$this->render('searched_trips', array('trips'      => $trips,
+												  'departure'  => $_GET['Trips']['departure'] . ' - ' . $_GET['Trips']['tdeparture'],
+												  'startPoint' => $_GET['Trips']['startPoint'],
+												  'endPoint'   => $_GET['Trips']['endPoint']));
 
 			// form inputs are valid, do something here
 			return;

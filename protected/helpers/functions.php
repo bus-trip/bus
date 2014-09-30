@@ -16,3 +16,10 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
 		return $string;
 	}
 }
+
+function cdate_format($date)
+{
+	$date = strtotime($date);
+
+	return date('d.m.Y - H:i', $date);
+}

@@ -107,4 +107,11 @@ class Directions extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	/**
+	 * Get main direction
+	 */
+	public function getParentDirection(){
+		return Directions::model()->findByPk($this->parentId);
+	}
 }

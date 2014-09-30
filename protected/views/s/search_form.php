@@ -35,7 +35,7 @@
 			'attribute' => 'departure',
 			'language'  => 'ru',
 			'options'   => array(
-				'altFormat' => 'd.m.Y',
+				'altFormat' => 'dd.mm.yy',
 			)
 		))  ?>
 		<?php echo $form->error($model, 'departure'); ?>
