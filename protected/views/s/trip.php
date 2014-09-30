@@ -1,8 +1,11 @@
-<div>Билет....</div>
+<div class="itrip">
+	<h2>Билет</h2>
+	<?php print $trip; ?>
 
-
-
-
+	<div class="qty">
+		Количество мест: <?php print $qty; ?>
+	</div>
+</div>
 
 <?php $form = $this->beginWidget('CActiveForm', array(
 	'enableAjaxValidation' => FALSE,
@@ -10,7 +13,10 @@
 ));
 ?>
 
-<div>Профили.....</div>
+<div class="profiles">
+	<h2>Профили</h2>
+
+</div>
 
 
 <div class="row buttons">

@@ -78,9 +78,12 @@ class SController extends Controller
 
 	public function actionTrip()
 	{
-
-		var_dump($_POST);
-		$this->render('trip');
+		if (!empty($_POST['Trips'])) {
+			$model = Trips::model()->findByPk($_POST['Trips']['id']);
+			$trip = $this->renderPartial('searched_one_trip', array('trip' => $model), TRUE);
+			$this->render('trip', array('trip' => $trip,
+										'qty'  => $_POST['Trips']['qty']));
+		} else throw new CHttpException(400, "Страница не найдена");
 	}
 
 	public function actionTicket()
