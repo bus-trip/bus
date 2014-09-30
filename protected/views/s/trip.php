@@ -14,8 +14,7 @@
 ?>
 
 <div class="profiles">
-	<h2>Профили</h2>
-
+	<?php print $chose_profile; ?>
 </div>
 
 

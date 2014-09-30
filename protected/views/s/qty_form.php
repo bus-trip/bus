@@ -7,7 +7,7 @@
 	?>
 
 	<div class="row">
-		<?php echo $form->label($trip, 'Количество'); ?>
+		Количество
 		<?php echo $form->textField($trip, 'qty') ?>
 	</div>
 

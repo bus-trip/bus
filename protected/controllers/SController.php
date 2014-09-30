@@ -2,6 +2,14 @@
 
 class SController extends Controller
 {
+	public $user;
+
+	public function init()
+	{
+		$user_id = Yii::app()->user->id;
+		$this->user = User::model()->findByPk($user_id);
+	}
+
 	public function actionSearch()
 	{
 		$model = new Trips;
@@ -81,8 +89,23 @@ class SController extends Controller
 		if (!empty($_POST['Trips'])) {
 			$model = Trips::model()->findByPk($_POST['Trips']['id']);
 			$trip = $this->renderPartial('searched_one_trip', array('trip' => $model), TRUE);
-			$this->render('trip', array('trip' => $trip,
-										'qty'  => $_POST['Trips']['qty']));
+
+			$profiles = Profiles::model()
+								->findAllByAttributes(array('uid' => $this->user->id), array('order' => 'created DESC'));
+
+			$profiles_data = array();
+			foreach ($profiles as $profile) {
+				$profiles_data[] = array(
+					'id'   => $profile->id,
+					'name' => $profile->shortName(),
+					'data' => $this->renderPartial('application.views.account.one_passenger_data', array('data' => $profile), TRUE)
+				);
+			}
+
+			$chose_profile = $this->renderPartial('chose_profile', array('data' => $profiles_data));
+			$this->render('trip', array('trip'          => $trip,
+										'qty'           => $_POST['Trips']['qty'],
+										'chose_profile' => $chose_profile));
 		} else throw new CHttpException(400, "Страница не найдена");
 	}
 
