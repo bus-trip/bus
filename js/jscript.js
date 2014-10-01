@@ -37,5 +37,13 @@ $(function () {
 	$('.code, .number').on('keyup', phonekey);
 	$('.phone').mask("+9 (999) 999-9999");
 
+
+	$('.chose-profile').on('change', function () {
+		var id = $(this).val(),
+			wrap = $(this).parent('.item-profile');
+
+		wrap.find('.profile-data').addClass('hide');
+		wrap.find('.profile-data[data-id=' + id + ']').removeClass('hide');
+	})
 });
 

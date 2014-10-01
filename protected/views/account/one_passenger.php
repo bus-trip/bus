@@ -1,12 +1,3 @@
-<?php
-
-$this->breadcrumbs = array(
-	'Аккаунт'     => array('/account'),
-	'Мои профили' => array('/account/passengers'),
-	'Добавление профиля'
-);
-?>
-
 <div class="item-profile form">
 
 	<?php $form = $this->beginWidget('CActiveForm', array(
@@ -88,10 +79,11 @@ $this->breadcrumbs = array(
 		<?php echo $form->error($model, 'birth'); ?>
 	</div>
 
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
-	</div>
+	<?php if (!$trip) { ?>
+		<div class="row buttons">
+			<?php echo CHtml::submitButton('Submit'); ?>
+		</div>
+	<?php } ?>
 
 	<?php $this->endWidget(); ?>
 

@@ -102,9 +102,10 @@ class SController extends Controller
 				);
 			}
 
-			$chose_profile = $this->renderPartial('chose_profile', array('data' => $profiles_data));
+			$chose_profile = $this->renderPartial('chose_profile', array('data' => $profiles_data), TRUE);
 			$this->render('trip', array('trip'          => $trip,
 										'qty'           => $_POST['Trips']['qty'],
+										'profile_data'  => $profiles_data,
 										'chose_profile' => $chose_profile));
 		} else throw new CHttpException(400, "Страница не найдена");
 	}

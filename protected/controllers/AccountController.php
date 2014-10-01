@@ -74,7 +74,12 @@ class AccountController extends Controller
 			}
 		}
 		$this->pageTitle = 'Создание нового профиля';
-		$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
+		$this->breadcrumbs = array(
+			'Аккаунт'     => array('/account'),
+			'Мои профили' => array('/account/passengers'),
+			'Добавление профиля'
+		);
+		$this->content = $this->renderPartial('one_passenger', array('model' => $model, 'trip' => FALSE), TRUE);
 		$this->render('index', array('content' => $this->content, 'name' => $this->user->login));
 	}
 
@@ -96,7 +101,7 @@ class AccountController extends Controller
 	{
 		if ($model = Profiles::model()->findByPk($id)) {
 
-				if (isset($_POST['Profiles'])) {
+			if (isset($_POST['Profiles'])) {
 				$model->attributes = $_POST['Profiles'];
 				$model->uid = $this->user->id;
 				if ($model->validate() && $model->save()) {
@@ -105,7 +110,6 @@ class AccountController extends Controller
 					$this->redirect($url);
 				}
 			}
-
 
 			if ($model->uid == $this->user->id) {
 				$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
@@ -116,7 +120,8 @@ class AccountController extends Controller
 		throw new CHttpException(400, "Страница не найдена");
 	}
 
-	public function actionTickets(){
+	public function actionTickets()
+	{
 		$this->pageTitle = 'Мои билеты';
 		$this->content = $this->renderPartial('tickets', array(), TRUE);
 
