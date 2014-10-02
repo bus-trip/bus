@@ -10,6 +10,7 @@
  * @property string $departure
  * @property string $arrival
  * @property string $description
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property Schedule[] $schedules
@@ -35,12 +36,12 @@ class Trips extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('idDirection, idBus, description, departure, arrival', 'required'),
-			array('idDirection, idBus', 'numerical', 'integerOnly'=>true),
+			array('idDirection, idBus, departure, arrival, status', 'required'),
+			array('idDirection, idBus, status', 'numerical', 'integerOnly'=>true),
 //			array('departure', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idDirection, idBus, departure, arrival, description', 'safe', 'on'=>'search'),
+			array('id, idDirection, idBus, departure, arrival, description, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -66,11 +67,12 @@ class Trips extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'idDirection' => 'Id Direction',
-			'idBus' => 'Id Bus',
-			'departure' => 'Departure',
-            'arrival' => 'Arrival',
-			'description' => 'Description',
+			'idDirection' => 'Id направления',
+			'idBus' => 'Id автобуса',
+			'departure' => 'Время отправления',
+            'arrival' => 'Время прибытия',
+			'description' => 'Описание рейса',
+            'status' => 'Статус рейса',
 		);
 	}
 
@@ -98,6 +100,7 @@ class Trips extends CActiveRecord
 		$criteria->compare('departure',$this->departure,true);
         $criteria->compare('arrival',$this->arrival,true);
 		$criteria->compare('description',$this->description,true);
+        $criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

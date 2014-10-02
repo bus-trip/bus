@@ -15,36 +15,43 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поля, отмеченные <span class="required">*</span> обязательны к заполнению.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'number'); ?>
+		<?php echo $form->labelEx($model,'Госномер автобуса'); ?>
 		<?php echo $form->textField($model,'number',array('size'=>10,'maxlength'=>10)); ?>
 		<?php echo $form->error($model,'number'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'places'); ?>
+		<?php echo $form->labelEx($model,'Количество мест'); ?>
 		<?php echo $form->textField($model,'places'); ?>
 		<?php echo $form->error($model,'places'); ?>
 	</div>
 
     <div class="row">
-        <?php echo $form->labelEx($model,'model'); ?>
+        <?php echo $form->labelEx($model,'Модель автобуса'); ?>
         <?php echo $form->textField($model,'model',array('size'=>10,'maxlength'=>10)); ?>
         <?php echo $form->error($model,'model'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model,'description'); ?>
+        <?php echo $form->labelEx($model,'Краткое описание'); ?>
         <?php echo $form->textField($model,'description',array('size'=>20,'maxlength'=>100)); ?>
         <?php echo $form->error($model,'description'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'Статус автобуса'); ?>
+        <?php echo $form->dropDownList($model,'status',array(1=>'Работает',0=>'Не работает')); ?>
+        <?php // echo $form->textField($model,'status',array('size'=>20,'maxlength'=>100)); ?>
+        <?php echo $form->error($model,'status'); ?>
+    </div>
+
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Обновить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

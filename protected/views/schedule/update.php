@@ -3,19 +3,16 @@
 /* @var $model Schedule */
 
 $this->breadcrumbs=array(
-	'Schedules'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Расписание'=>array('index'),
+	'Редактирование',
 );
 
 $this->menu=array(
-	array('label'=>'List Schedule', 'url'=>array('index')),
-	array('label'=>'Create Schedule', 'url'=>array('create')),
-	array('label'=>'View Schedule', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Schedule', 'url'=>array('admin')),
+    array('label'=>'Управление расписанием маршрутов', 'url'=>array('admin')),
+    array('label'=>'Вернуться к расписанию маршрута', 'url'=>array($idSchedule)),
 );
 ?>
 
-<h1>Update Schedule <?php echo $model->id; ?></h1>
+<h1>Обновление расписания № <?php echo $model->id; ?></h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model,'trips'=>$trips,'directions'=>$directions)); ?>

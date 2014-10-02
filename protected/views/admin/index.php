@@ -22,7 +22,7 @@ $monthNames = array(
 	    <caption>
             <div style="float: left;"><b>Рейсы на <?php echo $currentDate['year'].'  '.$monthNames[$currentDate['month']]; ?></b></div>
             <div style="float: right;">
-                <form action='/index.php?r=admin/index' method='post' style="float: left;">
+                <form action='/index.php/admin/index' method='post' style="float: left;">
                     <?php echo CHtml::submitButton('Текущий месяц', array('submit'=>array('admin/index'))); ?>
                 </form>
                 <?php
@@ -40,7 +40,7 @@ $monthNames = array(
                                 ),
                                 'ajax' => array(
                                     'type' => 'POST',
-                                    'url' => '/index.php?r=admin/index',
+                                    'url' => '/index.php/admin/index',
                                     'data' => array(
                                         'monthSelect' => 'js:this.value',
                                         'yearSelect' => 'js:document.getElementById("yearSelect").value'
@@ -67,7 +67,7 @@ $monthNames = array(
                                 ),
                                 'ajax' => array(
                                     'type' => 'POST',
-                                    'url' => '/index.php?r=admin/index',
+                                    'url' => '/index.php/admin/index',
                                     'data' => array(
                                         'monthSelect' => 'js:document.getElementById("monthSelect").value',
                                         'yearSelect' => 'js:this.value'
@@ -103,7 +103,7 @@ $monthNames = array(
                     echo "</div>";
                     if($i <= $maxDays+$firstDOW-1 && strtotime(date("d.m.Y")) <= strtotime($i+1-$firstDOW.".".$currentDate['month'].".".$currentDate['year'])){
                         echo "<div style='width: 30px; float: right; margin: -5px -12px 0 0;'>";
-                        echo "<form action='/index.php?r=trips/create' method='post' target='_blank'>";
+                        echo "<form action='/index.php/trips/create' method='post' target='_blank'>";
                         echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00');
                         echo CHtml::submitButton('+', array('submit'=>array('trips/create')));
                         echo "</form></div>";
@@ -117,7 +117,7 @@ $monthNames = array(
                             $tripCounts++;
                     }
                     if($tripCounts != 0){
-                        echo "<form action='/index.php?r=trips/admin' method='post' target='_blank'>";
+                        echo "<form action='/index.php/trips/admin' method='post' target='_blank'>";
                         echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)));
                         echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin')));
                         echo "</form>";

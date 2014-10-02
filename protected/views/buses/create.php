@@ -12,6 +12,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create Buses</h1>
+<h2>Новый автобус</h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

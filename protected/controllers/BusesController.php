@@ -72,7 +72,7 @@ class BusesController extends Controller
 			$model->attributes=$_POST['Buses'];
 			if($model->save())
 				$this->redirect(array('admin'));
-		}
+        }
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -110,7 +110,9 @@ class BusesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+        $model->status = 0;
+        $model->save();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -138,8 +140,42 @@ class BusesController extends Controller
 		if(isset($_GET['Buses']))
 			$model->attributes=$_GET['Buses'];
 
+        $data = Buses::model()->findAll();
+        $arrData = array();
+        foreach($data as $d){
+            $arrData[] = array(
+                'id' => $d->id,
+                'model' => $d->model,
+                'number' => $d->number,
+                'places' => $d->places,
+                'description' => $d->description,
+                'status' => ($d->status == 1 ? 'Работает' : 'Не работает'),
+            );
+        }
+
+        $modelData = new CArrayDataProvider(
+            $arrData,
+            array(
+                'keyField' => 'id',
+                'sort' => array(
+                    'attributes' => array(
+                        'id',
+                        'model',
+                        'number',
+                        'places',
+                        'description',
+                        'status'
+                    )
+                ),
+                'pagination'=>array(
+                    'pageSize'=>20,
+                ),
+            )
+        );
+
 		$this->render('admin',array(
 			'model'=>$model,
+            'modelData'=>$modelData,
 		));
 	}
 

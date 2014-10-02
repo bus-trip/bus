@@ -57,15 +57,25 @@ class ScheduleController extends Controller
             from schedule as s
             left join directions as d on d.id = s.idDirection
             left join trips as t on t.id = s.idTrip
-            where s.idTrip = (select idTrip from schedule where id = ${id})
+            where s.idTrip = (select idTrip from schedule where id = ${id}) and d.parentId!=0
             order by s.id
         ";
         $schData = Yii::app()->db->createCommand($query)->queryAll();
         $arrschData = new CArrayDataProvider($schData, array('keyField' => 'id'));
 
-		$this->render('view',array(
+        $query = "
+            select distinct s.id, d.startPoint, d.endPoint, s.departure, s.arrival
+            from schedule as s
+            left join directions as d on d.id = s.idDirection
+            where d.parentId = 0 and s.id=${id}
+        ";
+        $schData = Yii::app()->db->createCommand($query)->queryAll();
+        $arrTrData = new CArrayDataProvider($schData, array('keyField' => 'id'));
+
+        $this->render('view',array(
 			'model'=>$this->loadModel($id),
             'schData'=>$arrschData,
+            'trData'=>$arrTrData->rawData[0],
 		));
 	}
 
@@ -86,9 +96,40 @@ class ScheduleController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+        if(isset($_GET['id'])) $arrWhere = 's.id='.$_GET['id'];
+        else $arrWhere = 'd.parentId=0';
 
+        $data = Yii::app()->db->createCommand()
+            ->select('s.idTrip as id,d.startPoint,d.endPoint')
+            ->from('schedule s')
+            ->join('directions d', 'd.id=s.idDirection')
+            ->join('trips t','t.id=s.idTrip')
+            ->where($arrWhere)
+            ->queryAll();
+        $trips['empty'] = 'Выберите рейс';
+        foreach($data as $d){
+            $trips[$d['id']]=$d['startPoint'].' - '.$d['endPoint'];
+        }
+        $trOptions = array(
+            'data' => $trips,
+            'selOptions' => array(
+            ),
+        );
+
+        if(isset($_GET['id'])){
+            $trKeys = array_keys($trips);
+            $trOptions['selOptions']['options'] = array($trKeys[1] => array('selected'=>true));
+        }
+
+        $data = Directions::model()->findAll();
+        $directions['empty'] = 'Выберите направление';
+        foreach($data as $d){
+            $directions[$d->id] = $d->startPoint.' - '.$d->endPoint;
+        }
 		$this->render('create',array(
 			'model'=>$model,
+            'trips'=>$trOptions,
+            'directions'=>$directions,
 		));
 	}
 
@@ -107,12 +148,59 @@ class ScheduleController extends Controller
 		if(isset($_POST['Schedule']))
 		{
 			$model->attributes=$_POST['Schedule'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+
+//            Проверка допустимых условий
+            $schTrip = Trips::model()->findByPk($_POST['Schedule']['idTrip']);
+            if($model->departure < $schTrip->departure || $schTrip->arrival > $model->arrival){
+                $this->redirect(array('update','id'=>$model->id));
+            }
+
+			if($model->save()) $this->redirect(array('view','id'=>$model->id));
 		}
+
+
+        $data = Yii::app()->db->createCommand()
+            ->select('s.idTrip as id,dp.startPoint,dp.endPoint')
+            ->from('directions d')
+            ->join('schedule s', 'd.id=s.idDirection')
+            ->join('directions dp','dp.id=IF( d.parentId =0, s.idDirection, d.parentId )')
+            ->where('s.id='.$model->id)
+            ->queryAll();
+
+        foreach($data as $d){
+            $trips[$d['id']]=$d['startPoint'].' - '.$d['endPoint'];
+        }
+
+        $trOptions = array(
+            'data' => $trips,
+            'selOptions' => array(
+                'empty' => 'Выберите рейс',
+                'options' => array(
+                    strval($data[0]['id']) => array(
+                        'selected' => true,
+                    ),
+                ),
+            ),
+        );
+
+        $data = Directions::model()->findAll(array('condition'=>'parentId!=:parentId','params'=>array(':parentId'=>$model->id)));
+        $directions['empty'] = 'Выберите направление';
+        foreach($data as $d){
+            $directions[$d->id] = $d->startPoint.' - '.$d->endPoint;
+        }
+
+        $data = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from('schedule')
+            ->where('idTrip = (select idTrip from schedule where id='.$id.')')
+            ->order('MAX(TO_DAYS(arrival)-TO_DAYS(departure))')
+            ->queryAll();
 
 		$this->render('update',array(
 			'model'=>$model,
+            'trips'=>$trOptions,
+            'directions'=>$directions,
+            'idSchedule'=>$data[0]['id'],
 		));
 	}
 
@@ -191,6 +279,7 @@ class ScheduleController extends Controller
 	{
 		if(isset($_POST['ajax']) && $_POST['ajax']==='schedule-form')
 		{
+            echo "Ajax checked data";
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

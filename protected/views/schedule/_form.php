@@ -20,26 +20,56 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'idTrip'); ?>
-		<?php echo $form->textField($model,'idTrip'); ?>
+		<?php echo $form->labelEx($model,'Рейс'); ?>
+		<?php //echo $form->textField($model,'idTrip'); ?>
+        <?php echo $form->dropDownList($model,'idTrip',$trips['data'],$trips['selOptions']); ?>
 		<?php echo $form->error($model,'idTrip'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'idDirection'); ?>
-		<?php echo $form->textField($model,'idDirection'); ?>
+		<?php echo $form->labelEx($model,'Направление'); ?>
+		<?php //echo $form->textField($model,'idDirection'); ?>
+        <?php echo $form->dropDownList($model,'idDirection',$directions); ?>
 		<?php echo $form->error($model,'idDirection'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'departure'); ?>
-		<?php echo $form->textField($model,'departure'); ?>
+		<?php echo $form->labelEx($model,'Время отправления'); ?>
+		<?php //echo $form->textField($model,'departure');
+        Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+        $this->widget('CJuiDateTimePicker',array(
+            'model'=>$model,
+            'attribute'=>'departure',
+            'mode'=>'datetime',
+            'options'=>array(
+                'dateFormat' => 'yy-mm-dd', //'dd.mm.yy',
+                'timeFormat' => 'hh:mm:ss',
+                'changeMonth' => true,
+                'changeYear' => true,
+            ),
+            'language'=>'ru',
+        ));
+        ?>
 		<?php echo $form->error($model,'departure'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'arrival'); ?>
-		<?php echo $form->textField($model,'arrival'); ?>
+		<?php echo $form->labelEx($model,'Время прибытия'); ?>
+		<?php //echo $form->textField($model,'arrival');
+        Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+        $this->widget('CJuiDateTimePicker',array(
+            'model'=>$model,
+            'attribute'=>'arrival',
+            'mode'=>'datetime',
+            'options'=>array(
+                'dateFormat' => 'yy-mm-dd', //'dd.mm.yy',
+                'timeFormat' => 'hh:mm:ss',
+                'changeMonth' => true,
+                'changeYear' => true,
+            ),
+            'language'=>'ru',
+        ));
+        ?>
 		<?php echo $form->error($model,'arrival'); ?>
 	</div>
 

@@ -47,20 +47,19 @@
 	<!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu', array(
-			'items' => array(
-				array('label' => 'Главная', 'url' => array('/admin/index')),
-//				array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
-//				array('label' => 'Contact', 'url' => array('/site/contact')),
-                array('label' => 'Автобусы', 'url' => array('/buses/admin')),
-                array('label' => 'Рейсы', 'url' => array('/trips/admin')),
-                array('label' => 'Расписание', 'url' => array('/schedule/admin')),
-                array('label' => 'Направления', 'url' => array('/directions/admin')),
-				array('label' => 'Регистрация', 'url' => array('/user/register', 'visible' => Yii::app()->user->isGuest)),
-				array('label' => 'Войти', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
-				array('label' => 'Выйти (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
-			),
-		)); ?>
+		<?php
+            if(Yii::app()->user->name == 'admin'){
+            $this->widget('zii.widgets.CMenu', array(
+			    'items' => array(
+				    array('label' => 'Главная', 'url' => array('/admin/index')),
+                    array('label' => 'Автобусы', 'url' => array('/buses/admin')),
+                    array('label' => 'Рейсы', 'url' => array('/trips/admin/status/actual')),
+                    array('label' => 'Расписания', 'url' => array('/schedule/admin')),
+                    array('label' => 'Направления', 'url' => array('/directions/admin')),
+			    ),
+		    ));
+            }
+        ?>
 	</div>
 	<!-- mainmenu -->
 	<?php if (isset($this->breadcrumbs)): ?>

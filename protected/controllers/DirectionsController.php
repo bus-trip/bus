@@ -71,11 +71,26 @@ class DirectionsController extends Controller
 		{
 			$model->attributes=$_POST['Directions'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('admin','id'=>$model->id));
 		}
+
+        $data = Yii::app()->db->createCommand()
+            ->selectDistinct('id,startPoint,endPoint')
+            ->from('directions')
+            ->where('parentId=0')
+            ->queryAll();
+
+        $parentDir = array(
+            0 => 'Новое направление',
+        );
+
+        foreach($data as $d){
+            $parentDir[$d['id']] = $d['startPoint'].' - '.$d['endPoint'];
+        }
 
 		$this->render('create',array(
 			'model'=>$model,
+            'parentDir' => $parentDir,
 		));
 	}
 
@@ -93,13 +108,54 @@ class DirectionsController extends Controller
 
 		if(isset($_POST['Directions']))
 		{
-			$model->attributes=$_POST['Directions'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+            $nmodel = new Directions();
+            $nmodel->id = $id;
+			$nmodel->attributes=$_POST['Directions'];
+
+            if(array_diff($model->attributes,$nmodel->attributes)){
+                $model->status = 0;
+                $model->save();
+                unset($nmodel->id);
+			    if($nmodel->save()){
+                    if($model->parentId == 0){
+                        $criteria = new CDbCriteria();
+                        $criteria->condition = 'parentId=:parentId';
+                        $criteria->addCondition('status=:status');
+                        $criteria->params = array(
+                            ':parentId'=>$id,
+                            ':status'=>1,
+                        );
+                        $childDirs = Directions::model()->findAll($criteria);
+                        foreach($childDirs as $c){
+                            $c->parentId = $nmodel->id;
+                            $c->save();
+                        }
+                    }
+                    $this->redirect(array('admin'));
+                }
+            }
 		}
+
+        if($model->parentId != 0){
+            $data = Yii::app()->db->createCommand()
+                ->selectDistinct('id,startPoint,endPoint')
+                ->from('directions')
+                ->where('id=(select parentId from directions where id='.$model->id.')')
+                ->queryAll();
+            $parentDir = array(
+                $data[0]['id'] => $data[0]['startPoint'].' - '.$data[0]['endPoint'],
+            );
+        }
+        else{
+            $parentDir = array(
+                '0' => $model->startPoint.' - '.$model->endPoint,
+            );
+        }
+
 
 		$this->render('update',array(
 			'model'=>$model,
+            'parentDir'=>$parentDir,
 		));
 	}
 
@@ -110,7 +166,9 @@ class DirectionsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+		$model = $this->loadModel($id);
+        $model->status = 0;
+        $model->save();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -138,8 +196,47 @@ class DirectionsController extends Controller
 		if(isset($_GET['Directions']))
 			$model->attributes=$_GET['Directions'];
 
+        $data = Directions::model()->findAll(array(
+            'condition'=>'status=:status',
+            'params'=>array(':status'=>1),
+        ));
+
+        $arrData = array();
+        foreach($data as $d){
+            if($d->parentId == 0) $arrParent[$d->id] = $d->startPoint.' - '.$d->endPoint;
+        }
+        foreach($data as $d){
+            $arrData[]=array(
+                'id'=>$d->id,
+                'parentId'=>($d->parentId != 0 ? $arrParent[$d->parentId] : ''),
+                'startPoint'=>$d->startPoint,
+                'endPoint'=>$d->endPoint,
+                'price'=>$d->price,
+                'status'=>$d->status,
+            );
+        }
+        $modelData = new CArrayDataProvider(
+            $arrData,
+            array(
+                'keyField'=>'id',
+                'sort'=>array(
+                    'attributes'=>array(
+                        'id',
+                        'parentId',
+                        'startPoint',
+                        'endPoint',
+                        'price'
+                    ),
+                ),
+                'pagination'=>array(
+                    'pageSize'=>20,
+                ),
+            )
+        );
+
 		$this->render('admin',array(
 			'model'=>$model,
+            'modelData' => $modelData,
 		));
 	}
 

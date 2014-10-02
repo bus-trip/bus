@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Редактирование автобуса <?php echo $model->model.", госномер: ".$model->number; ?></h1>
+<h2><?php echo $model->model.", госномер: ".$model->number; ?></h2>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

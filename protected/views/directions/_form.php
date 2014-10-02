@@ -15,13 +15,13 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поля, отмеченные <span class="required">*</span> обязательны к заполнению.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'parentId'); ?>
-		<?php echo $form->textField($model,'parentId'); ?>
+        <?php echo $form->dropDownList($model,'parentId',$parentDir); ?>
 		<?php echo $form->error($model,'parentId'); ?>
 	</div>
 
@@ -44,7 +44,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Обновить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -3,16 +3,15 @@
 /* @var $model Directions */
 
 $this->breadcrumbs=array(
-	'Directions'=>array('index'),
-	'Create',
+	'Направления'=>array('admin'),
+	'Новое направление',
 );
 
 $this->menu=array(
-	array('label'=>'List Directions', 'url'=>array('index')),
-	array('label'=>'Manage Directions', 'url'=>array('admin')),
+	array('label'=>'Направления', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create Directions</h1>
+<h2>Новое направление</h2>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model, 'parentDir'=>$parentDir)); ?>

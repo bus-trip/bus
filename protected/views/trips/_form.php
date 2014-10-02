@@ -18,11 +18,13 @@
 <!--	<p class="note">Fields with <span class="required">*</span> are required.</p>-->
 
 	<?php echo $form->errorSummary($model); ?>
+
 	<div class="row">
 	<?php
         if(isset($directions)){
 		    echo $form->labelEx($model,'Направление');
-		    echo $form->dropDownList($model,'idDirection',$directions);
+            if(isset($actual)) echo $form->dropDownList($model,'idDirection',$directions,array('disabled'=>'disabled'));
+            else echo $form->dropDownList($model,'idDirection',$directions);
 		    echo $form->error($model,'idDirection');
         }
 	?>
@@ -32,7 +34,8 @@
 	<?php
         if(isset($buses)){
 		    echo $form->labelEx($model,'Автобус');
-		    echo $form->dropDownList($model,'idBus',$buses);
+            if(isset($actual)) echo $form->dropDownList($model,'idBus',$buses, array('disabled'=>'disabled'));
+		    else echo $form->dropDownList($model,'idBus',$buses);
 		    echo $form->error($model,'idBus');
         }
 	?>
@@ -51,6 +54,8 @@
                 'timeFormat' => 'hh:mm:ss',
                 'changeMonth' => true,
                 'changeYear' => true,
+                'minDate' => 0,
+                'disabled' => isset($actual) ? true : false,
 			),
 			'language'=>'ru',
 		));
@@ -71,6 +76,8 @@
                 'timeFormat' => 'hh:mm:ss',
                 'changeMonth' => true,
                 'changeYear' => true,
+                'minDate' => 0,
+                'disabled' => isset($actual) ? true : false,
             ),
             'language'=>'ru',
         ));
@@ -81,8 +88,17 @@
     <div class="row">
         <?php
             echo $form->labelEx($model,'Описание');
-            echo $form->textField($model,'description');
+            if(isset($actual)) echo $form->textField($model,'description', array('disabled'=>'disabled'));
+            else echo $form->textField($model,'description');
             echo $form->error($model,'description');
+        ?>
+    </div>
+
+    <div class="row">
+        <?php
+            echo $form->labelEx($model,'Статус рейса');
+            echo $form->dropDownList($model,'status',array(1=>'Актуальный',0=>'Неактуальный'));
+            echo $form->error($model,'status');
         ?>
     </div>
 

@@ -33,7 +33,7 @@ class Buses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('model, number, places, description, status', 'required'),
+			array('model, number, places, status', 'required'),
 			array('places, status', 'numerical', 'integerOnly'=>true),
 			array('model', 'length', 'max'=>100),
 			array('number', 'length', 'max'=>20),

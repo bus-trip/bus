@@ -3,20 +3,20 @@
 /* @var $model Schedule */
 
 $this->breadcrumbs=array(
-	'Расписание'=>array('admin'),
-	$model->id,
+	'Расписания'=>array('admin'),
+    $trData['startPoint']." - ".$trData['endPoint'],
 );
 
 $this->menu=array(
-	array('label'=>'Добавить участок в расписание', 'url'=>array('create')),
+	array('label'=>'Добавить участок в расписание', 'url'=>array('schedule/create/'.$model->id)),
     array('label'=>'Управление расписанием маршрутов', 'url'=>array('admin')),
 );
 ?>
 
-<h1>
-    Расписание маршрута <?php echo $schData->rawData[0]['startPoint']." - ".$schData->rawData[0]['endPoint']."."; ?>
+<h2>
+    Расписание маршрута <?php echo $trData['startPoint']." - ".$trData['endPoint']."."; ?>
     <br/>
-</h1>
+</h2>
 Отправление: <?php echo $schData->rawData[0]['departure']; ?>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(

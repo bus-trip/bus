@@ -3,13 +3,11 @@
 /* @var $model Directions */
 
 $this->breadcrumbs=array(
-	'Directions'=>array('index'),
-	'Manage',
+	'Направления'
 );
 
 $this->menu=array(
-	array('label'=>'List Directions', 'url'=>array('index')),
-	array('label'=>'Create Directions', 'url'=>array('create')),
+	array('label'=>'Новое направление', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,32 +24,45 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Directions</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<h2>Направления</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'directions-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	'dataProvider'=>$modelData,//$model->search(),
+//	'filter'=>$model,
 	'columns'=>array(
-		'id',
-		'parentId',
-		'startPoint',
-		'endPoint',
-		'price',
+//		array(
+//            'name'=>'id',
+//            'header'=>'№',
+//        ),
 		array(
+            'name'=>'parentId',
+            'header'=>'Рейс',
+        ),
+		array(
+            'name'=>'startPoint',
+            'header'=>'Начальный пункт',
+        ),
+		array(
+            'name'=>'endPoint',
+            'header'=>'Конечный пункт',
+        ),
+		array(
+            'name'=>'price',
+            'header'=>'Стоимость',
+        ),
+		array(
+            'header'=>'Действия',
 			'class'=>'CButtonColumn',
+            'template'=>'{update}&nbsp;&nbsp;&nbsp;{delete}',
+            'buttons'=>array(
+                'update'=>array(
+                    'url'=>'Yii::app()->controller->createUrl("directions/update", array("id"=>$data["id"]))',
+                ),
+                'delete'=>array(
+                    'url'=>'Yii::app()->controller->createUrl("directions/delete", array("id"=>$data["id"]))',
+                )
+            )
 		),
 	),
 )); ?>

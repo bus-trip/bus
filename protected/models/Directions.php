@@ -9,6 +9,7 @@
  * @property string $startPoint
  * @property string $endPoint
  * @property integer $price
+ * @property integer $status
  *
  * The followings are the available model relations:
  * @property Tickets[] $tickets
@@ -32,8 +33,8 @@ class Directions extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parentId, startPoint, endPoint, price', 'required'),
-			array('parentId, price', 'numerical', 'integerOnly'=>true),
+			array('parentId, startPoint, endPoint, price, status', 'required'),
+			array('parentId, price, status', 'numerical', 'integerOnly'=>true),
 			array('startPoint, endPoint', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -61,10 +62,11 @@ class Directions extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'parentId' => 'Parent',
-			'startPoint' => 'Start Point',
-			'endPoint' => 'End Point',
-			'price' => 'Price',
+			'parentId' => 'Родительское направление',
+			'startPoint' => 'Начальный пункт',
+			'endPoint' => 'Конечный пункт',
+			'price' => 'Стоимость',
+            'status' => 'Статус направления',
 		);
 	}
 
@@ -91,6 +93,7 @@ class Directions extends CActiveRecord
 		$criteria->compare('startPoint',$this->startPoint,true);
 		$criteria->compare('endPoint',$this->endPoint,true);
 		$criteria->compare('price',$this->price);
+        $criteria->compare('status',$this->status);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

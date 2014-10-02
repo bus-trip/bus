@@ -36,7 +36,7 @@ class TripsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','sheet','sheetprint'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -70,7 +70,7 @@ class TripsController extends Controller
         if(isset($_POST['Trips']))
         {
             $model->attributes=$_POST['Trips'];
-            if($model->save())
+            if($model->save()){
                 // Создаём запись в таблице расписаний (для начального и конечного пункта)
                 $schData = array(
                     'idTrip' => $model->id,
@@ -83,6 +83,7 @@ class TripsController extends Controller
                 $schedule->save();
 
                 $this->redirect(array('admin','id'=>$model->id));
+            }
         }
 
         if (isset($_POST['trips-date'])){
@@ -125,8 +126,18 @@ class TripsController extends Controller
 		if(isset($_POST['Trips']))
 		{
 			$model->attributes=$_POST['Trips'];
-			if($model->save())
-				$this->redirect(array('admin','id'=>$model->id));
+			if($model->save()){
+                // Обновляем запись в таблице расписаний (для начального и конечного пункта)
+                $schedule = Schedule::model()->findByAttributes(array('idTrip'=>$model->id));
+                if($schedule){
+                    if(isset($_POST['Trips']['idDirection'])) $schedule->idDirection = $_POST['Trips']['idDirection'];
+                    if(isset($_POST['Trips']['departure'])) $schedule->departure = $_POST['Trips']['departure'];
+                    if(isset($_POST['Trips']['arrival'])) $schedule->arrival = $_POST['Trips']['arrival'];
+                    $schedule->status = $_POST['Trips']['status'];
+                    $schedule->save();
+                }
+				$this->redirect(array('trips/admin/status/actual'));
+            }
 		}
 
         $data = Directions::model()->findAll(array('condition'=>'parentId=:parentId','params'=>array(':parentId'=>0)));
@@ -143,11 +154,15 @@ class TripsController extends Controller
             $buses[$d->id] = $d->number.' (Мест: '. $d->places.')';
         }
 
-        $this->render('update',array(
+        $arrRender = array(
             'model'=>$model,
             'directions'=>$directions,
             'buses'=>$buses,
-        ));
+        );
+
+        if($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) $arrRender['actual'] = 0;
+
+        $this->render('update',$arrRender);
     }
 
 
@@ -158,14 +173,16 @@ class TripsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
         // Удаление записей расписания, связанных с данным рейсом.
         $schData = Yii::app()->db->createCommand("select id from schedule where idTrip=".$id)->queryAll();
         foreach($schData as $d){
             $schModel = Schedule::model()->findByPk($d["id"]);
-            $schModel->delete();
+            $schModel->status = 0;
+            $schModel->save();
         }
+		$model = $this->loadModel($id);
+        $model->status = 0;
+        $model->save();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
@@ -183,7 +200,174 @@ class TripsController extends Controller
 		));
 	}
 
-	/**
+
+    /**
+     * Trips sheet
+     */
+
+    public function actionSheet($id){
+
+        $criteria = new CDbCriteria();
+        $criteria->join = 'left join trips as tr on tr.idBus=t.id';
+        $criteria->condition = 'tr.id='.$id;
+        $data = Buses::model()->find($criteria);
+        $bus = $data->attributes;
+
+        $criteria = new CDbCriteria();
+        $criteria->join = 'left join trips as tr on t.id=tr.idDirection';
+        $criteria->condition = 'tr.id='.$id;
+        $criteria->addCondition('t.parentId=0');
+        $data = Directions::model()->find($criteria);
+        $direction = $data->attributes;
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 't.idTrip='.$id.' and (t.status = 1 or t.status = 2)';
+        $criteria->join = 'left join trips as tr on tr.id = t.idTrip';
+        $data = Tickets::model()->findAll($criteria);
+        $tickets = array();
+        foreach($data as $d){
+            $tickets[] = $d->attributes;
+        }
+
+        $arrPlaces = array();
+        for($i=1;$i<$bus["places"];$i++){
+            $arrPlaces[$i] = array(
+                'place' => $i,
+                'passenger' => '',
+                'startPoint' => '',
+                'endPoint' => '',
+                'phone' => '',
+                'price' => ''
+            );
+        }
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id=:id';
+        for($i=1;$i<=$bus['places'];$i++){
+            foreach($tickets as $t){
+
+                if($t["place"] == $i){
+                    $criteria->params=array(':id'=>$t["idProfile"]);
+                    $profile = Profiles::model()->find($criteria);
+                    $arrPlaces[$i] = array(
+                        'place' => $i,
+                        'passenger' => $profile->attributes["last_name"] .' '. $profile->attributes["name"] .' '. $profile->attributes["midle_name"],
+                        'startPoint' => $direction["startPoint"],
+                        'endPoint' => $direction["endPoint"],
+                        'phone' => $profile->phone,
+                        'price' => $t["price"]
+                    );
+                }
+            }
+        }
+
+        $dataProvider = new CArrayDataProvider(
+            $arrPlaces,
+            array(
+                'keyField' => 'place',
+                'pagination' => array(
+                    'pageSize' => $bus["places"],
+                )
+            )
+        );
+
+        $this->render(
+            'sheet',
+            array(
+                'dataProvider'=>$dataProvider,
+                'dataHeader' => array(
+                    'bus' => $bus,
+                    'direction' => $direction,
+                    'trips' => $this->loadModel($id)->attributes,
+                )
+            )
+        );
+    }
+
+    public function actionSheetPrint($id){
+        $trips = $this->loadModel($id)->attributes;
+
+        $criteria = new CDbCriteria();
+        $criteria->join = 'left join trips as tr on tr.idBus=t.id';
+        $criteria->condition = 'tr.id='.$id;
+        $data = Buses::model()->find($criteria);
+        $bus = $data->attributes;
+
+        $criteria = new CDbCriteria();
+        $criteria->join = 'left join trips as tr on t.id=tr.idDirection';
+        $criteria->condition = 'tr.id='.$id;
+        $criteria->addCondition('t.parentId=0');
+        $data = Directions::model()->find($criteria);
+        $direction = $data->attributes;
+
+        $criteria = new CDbCriteria();
+        $criteria->condition = 't.idTrip='.$id.' and (t.status = 1 or t.status = 2)';
+        $criteria->join = 'left join trips as tr on tr.id = t.idTrip';
+        $data = Tickets::model()->findAll($criteria);
+        $tickets = array();
+        foreach($data as $d){
+            $tickets[] = $d->attributes;
+        }
+
+        $pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'P', 'cm', 'A4', true, 'UTF-8');
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor("Trips operator");
+        $pdf->SetTitle("Trips sheet");
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
+        $pdf->AddPage();
+        $pdf->SetFont("dejavuserif", "", 10);
+
+        $tbl = 'Направление: '. $direction['startPoint'] .' - '. $direction['endPoint'] .'<br/>';
+        $tbl .= 'Отправление: '. $trips['departure'] .'&nbsp;&nbsp;&nbsp;&nbsp;';
+        $tbl .= 'Прибытие: '. $trips['arrival'] .'<br/>';
+        $tbl .= 'Автобус: '. $bus['model'] .', номер '. $bus['number'] .'<br/><br/>';
+        $tbl .= '<table width="600px" style="border:1px solid #000000; padding: 8px;">
+                    <tbody>
+                    <tr bgcolor="#cccccc">
+                        <th width="55px" style="border-bottom: 1px solid #000000;"><strong>Место</strong></th>
+                        <th style="border-bottom: 1px solid #000000;"><strong>ФИО</strong></th>
+                        <th style="border-bottom: 1px solid #000000;"><strong>Посадка</strong></th>
+                        <th style="border-bottom: 1px solid #000000;"><strong>Высадка</strong></th>
+                        <th style="border-bottom: 1px solid #000000;"><strong>Номер телефона</strong></th>
+                        <th width="80px" style="border-bottom: 1px solid #000000;"><strong>Стоимость</strong></th>
+                    </tr>';
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id=:id';
+        for($i=1;$i<=$bus['places'];$i++){
+            $flag = 0;
+            foreach($tickets as $t){
+                if($t["place"] == $i){
+                    $criteria->params=array(':id'=>$t["idProfile"]);
+                    $profile = Profiles::model()->find($criteria);
+                    $tbl .= '<tr>';
+                    $tbl .= '<td width="55px" style="border-bottom: 1px solid #000000;">'. $i .'</td>';
+                    $tbl .= '<td style="border-bottom: 1px solid #000000;">'. $profile->attributes["last_name"] .' '. $profile->attributes["name"] .' '. $profile->attributes["midle_name"] .'</td>';
+                    $tbl .= '<td style="border-bottom: 1px solid #000000;">'. $direction["startPoint"] .'</td>';
+                    $tbl .= '<td style="border-bottom: 1px solid #000000;">'. $direction["endPoint"] .'</td>';
+                    $tbl .= '<td style="border-bottom: 1px solid #000000;">'. $profile->phone .'</td>';
+                    $tbl .= '<td style="border-bottom: 1px solid #000000;">'. $t["price"] .'</td>';
+                    $tbl .= '</tr>';
+                    $flag = 1;
+                }
+            }
+            if(!$flag){
+                $tbl .= '<tr>';
+                $tbl .= '<td width="55px" style="border-bottom: 1px solid #000000;">'. $i .'</td>';
+                $tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+                $tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+                $tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+                $tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+                $tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+                $tbl .= '</tr>';
+            }
+        }
+        $tbl .='</tbody></table>';
+
+        $pdf->writeHTML($tbl, true, true, false, false, '');
+        $pdf->Output("trips-sheet".".pdf", "I");
+    }
+
+    /**
 	 * Manages all models.
 	 */
 	public function actionAdmin()
@@ -209,19 +393,39 @@ class TripsController extends Controller
               t.arrival,
               d.startPoint,
               d.endPoint,
-              b.number
+              b.number,
+              t.status
             from trips as t
             left join buses as b on b.id = t.idBus
             left join directions as d on d.id = t.idDirection
             where d.parentId = 0";
         if(isset($model->departure)) $query .= " and (t.departure between '".$model->departure." 00:00:00' and '".$model->departure." 23:59:59')";
+        if(isset($_GET['status']))
+            $query .= $_GET['status']=='actual' ? ' and (t.status=1 and t.arrival >= "'.date('Y-m-d H:i:s').'")' : ' and (t.status=0 or t.arrival < "'.date('Y-m-d H:i:s').'")';
 
         $tripsData = Yii::app()->db->createCommand($query)->queryAll();
 
-        $dpTripsData = new CArrayDataProvider($tripsData, array('keyField' => 'id'));
+        $arrData = array();
+
+        foreach($tripsData as $d){
+            if($d['arrival'] < date('Y-m-d H:i:s') || $d['status'] == 0){
+                $d['status'] = 'Не актуален';
+            }
+            else $d['status'] = 'Актуален';
+            $arrData[] = $d;
+        }
+
+        $dpTripsData = new CArrayDataProvider(
+            $arrData,
+            array(
+                'keyField' => 'id',
+                'sort' => array(
+                    'attributes' => array('startPoint','endPoint','number','departure','arrival','status')
+                )
+            )
+        );
 
         $this->render('admin',array(
-//			'model'=>$model,
             'tripsData'=>$dpTripsData,
         ));
 	}
