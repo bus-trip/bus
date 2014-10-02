@@ -267,11 +267,19 @@ html[xmlns] .clearfix {
 }
 
 
+#profile-wrapper .item .label{
+	font-weight: bold;
+	display: inline-block;
+}
+#profile-wrapper .item .value{
+	display: inline-block;
+}
+
 /*
  * Edit profiles
  */
 .profiles-data .label, .profiles-data .value{
-	display: inline;
+	display: inline-block;
 }
 
 #passengers .item{
