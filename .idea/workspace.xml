@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Buses.php" afterPath="$PROJECT_DIR$/protected/models/Buses.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/BusesController.php" afterPath="$PROJECT_DIR$/protected/controllers/BusesController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Directions.php" afterPath="$PROJECT_DIR$/protected/models/Directions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/DirectionsController.php" afterPath="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Schedule.php" afterPath="$PROJECT_DIR$/protected/models/Schedule.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ScheduleController.php" afterPath="$PROJECT_DIR$/protected/controllers/ScheduleController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Trips.php" afterPath="$PROJECT_DIR$/protected/models/Trips.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/_form.php" afterPath="$PROJECT_DIR$/protected/views/buses/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/directions/_form.php" afterPath="$PROJECT_DIR$/protected/views/directions/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/_form.php" afterPath="$PROJECT_DIR$/protected/views/schedule/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_form.php" afterPath="$PROJECT_DIR$/protected/views/trips/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/admin.php" afterPath="$PROJECT_DIR$/protected/views/buses/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/directions/admin.php" afterPath="$PROJECT_DIR$/protected/views/directions/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/admin.php" afterPath="$PROJECT_DIR$/protected/views/schedule/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/admin.php" afterPath="$PROJECT_DIR$/protected/views/trips/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/layouts/column2.php" afterPath="$PROJECT_DIR$/protected/views/layouts/column2.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/create.php" afterPath="$PROJECT_DIR$/protected/views/buses/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/directions/create.php" afterPath="$PROJECT_DIR$/protected/views/directions/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/create.php" afterPath="$PROJECT_DIR$/protected/views/schedule/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/create.php" afterPath="$PROJECT_DIR$/protected/views/trips/create.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/admin/index.php" afterPath="$PROJECT_DIR$/protected/views/admin/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/index.php" afterPath="$PROJECT_DIR$/protected/views/schedule/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/layouts/main.php" afterPath="$PROJECT_DIR$/protected/views/layouts/main.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/buses/update.php" afterPath="$PROJECT_DIR$/protected/views/buses/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/directions/update.php" afterPath="$PROJECT_DIR$/protected/views/directions/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/update.php" afterPath="$PROJECT_DIR$/protected/views/schedule/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/update.php" afterPath="$PROJECT_DIR$/protected/views/trips/update.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/view.php" afterPath="$PROJECT_DIR$/protected/views/schedule/view.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;" />
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -89,7 +58,7 @@
       <file leaf-file-name="sheet.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="2.0137742" vertical-offset="0" max-vertical-offset="884">
+            <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="1.2892417" vertical-offset="0" max-vertical-offset="884">
               <folding />
             </state>
           </provider>
@@ -345,9 +314,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32956383" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -723,7 +692,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="2.0137742" vertical-offset="0" max-vertical-offset="884">
+        <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="1.2892417" vertical-offset="0" max-vertical-offset="884">
           <folding />
         </state>
       </provider>
