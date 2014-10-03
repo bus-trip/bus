@@ -5,6 +5,14 @@
  * Date: 01.10.14
  * Time: 17:48
  */
+$this->breadcrumbs=array(
+    'Рейсы'=>array('admin'),
+    'Посадочная ведомость',
+);
+
+$this->menu=array(
+    array('label'=>'Рейсы', 'url'=>array('admin')),
+);
 ?>
 
 <h2>Посадочная ведомость</h2>

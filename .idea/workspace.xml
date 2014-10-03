@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;" />
+    <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/sheet.php" afterPath="$PROJECT_DIR$/protected/views/trips/sheet.php" />
+    </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,7 +28,7 @@
       <file leaf-file-name="TripsController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="323" column="86" selection-start="10935" selection-end="10935" vertical-scroll-proportion="7.4615383" vertical-offset="5685" max-vertical-offset="7922">
+            <state line="339" column="68" selection-start="11954" selection-end="11954" vertical-scroll-proportion="-3.0" vertical-offset="5685" max-vertical-offset="7922">
               <folding>
                 <marker date="1412271496629" expanded="true" signature="10894:10933" placeholder="..." />
                 <marker date="1412271496629" expanded="true" signature="10934:11660" placeholder="..." />
@@ -58,8 +60,10 @@
       <file leaf-file-name="sheet.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="1.2892417" vertical-offset="0" max-vertical-offset="884">
-              <folding />
+            <state line="10" column="2" selection-start="172" selection-end="172" vertical-scroll-proportion="0.096700795" vertical-offset="0" max-vertical-offset="1020">
+              <folding>
+                <element signature="e#6#86#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -126,10 +130,10 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+    <option name="x" value="1358" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -204,6 +208,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="trips" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -313,7 +339,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="1358" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -324,7 +350,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17715959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12604167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -378,11 +404,6 @@
     <entry file="file://$PROJECT_DIR$/protected/views/trips/_search.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="50" selection-start="897" selection-end="897" vertical-scroll-proportion="1.0493827" vertical-offset="0" max-vertical-offset="935" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="0.5830325" vertical-offset="0" max-vertical-offset="629" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
@@ -632,20 +653,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="68" column="0" selection-start="2084" selection-end="2084" vertical-scroll-proportion="2.0388007" vertical-offset="0" max-vertical-offset="1309">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/update.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="25" selection-start="180" selection-end="180" vertical-scroll-proportion="0.29982364" vertical-offset="0" max-vertical-offset="567">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="276" column="13" selection-start="3066" selection-end="3066" vertical-scroll-proportion="0.0" vertical-offset="4524" max-vertical-offset="5168">
@@ -662,7 +669,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="323" column="86" selection-start="10935" selection-end="10935" vertical-scroll-proportion="7.4615383" vertical-offset="5685" max-vertical-offset="7922">
+        <state line="339" column="68" selection-start="11954" selection-end="11954" vertical-scroll-proportion="-3.0" vertical-offset="5685" max-vertical-offset="7922">
           <folding>
             <marker date="1412271496629" expanded="true" signature="10894:10933" placeholder="..." />
             <marker date="1412271496629" expanded="true" signature="10934:11660" placeholder="..." />
@@ -690,10 +697,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="629">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="68" column="0" selection-start="2084" selection-end="2084" vertical-scroll-proportion="-33.5" vertical-offset="285" max-vertical-offset="1309">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="64" selection-end="209" vertical-scroll-proportion="0.07736064" vertical-offset="0" max-vertical-offset="879">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="103" selection-start="1314" selection-end="1314" vertical-scroll-proportion="1.2892417" vertical-offset="0" max-vertical-offset="884">
-          <folding />
+        <state line="10" column="2" selection-start="172" selection-end="172" vertical-scroll-proportion="0.096700795" vertical-offset="0" max-vertical-offset="1020">
+          <folding>
+            <element signature="e#6#86#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
