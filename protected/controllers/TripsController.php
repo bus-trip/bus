@@ -27,7 +27,11 @@ class TripsController extends Controller
 	public function accessRules()
 	{
 		return array(
+<<<<<<< HEAD
 			array('allow', // allow all users to perform 'index' and 'view' actions
+=======
+			array('allow',  // allow all users to perform 'index' and 'view' actions
+>>>>>>> 28176b7fb766e16c0aade86994a2e67bb5b162f2
 				  'actions' => array('index', 'view'),
 				  'users'   => array('*'),
 			),
@@ -39,7 +43,11 @@ class TripsController extends Controller
 				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint'),
 				  'users'   => array('admin'),
 			),
+<<<<<<< HEAD
 			array('deny', // deny all users
+=======
+			array('deny',  // deny all users
+>>>>>>> 28176b7fb766e16c0aade86994a2e67bb5b162f2
 				  'users' => array('*'),
 			),
 		);
@@ -273,6 +281,7 @@ class TripsController extends Controller
 		);
 
 		$this->render(
+<<<<<<< HEAD
 			 'sheet',
 			 array(
 				 'dataProvider' => $dataProvider,
@@ -282,6 +291,17 @@ class TripsController extends Controller
 					 'trips'     => $this->loadModel($id)->attributes,
 				 )
 			 )
+=======
+			'sheet',
+			array(
+				'dataProvider' => $dataProvider,
+				'dataHeader'   => array(
+					'bus'       => $bus,
+					'direction' => $direction,
+					'trips'     => $this->loadModel($id)->attributes,
+				)
+			)
+>>>>>>> 28176b7fb766e16c0aade86994a2e67bb5b162f2
 		);
 	}
 
@@ -389,7 +409,11 @@ class TripsController extends Controller
 	public function actionAdmin()
 	{
 		$model = new Trips('search');
+<<<<<<< HEAD
 		$model->unsetAttributes(); // clear any default values
+=======
+		$model->unsetAttributes();  // clear any default values
+>>>>>>> 28176b7fb766e16c0aade86994a2e67bb5b162f2
 		if (isset($_GET['Trips']))
 			$model->attributes = $_GET['Trips'];
 
