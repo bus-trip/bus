@@ -9,7 +9,7 @@
  * @property integer $idTrip
  * @property integer $place
  * @property integer $price
- * @property string $address_form
+ * @property string $address_from
  * @property string $address_to
  * @property integer $status
  *
@@ -38,10 +38,10 @@ class Tickets extends CActiveRecord
 		return array(
 			array('idProfile, idTrip', 'required'),
 			array('idProfile, idTrip, place, price, status', 'numerical', 'integerOnly'=>true),
-			array('address_form, address_to', 'safe'),
+			array('address_from, address_to', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idProfile, idTrip, place, price, address_form, address_to, status', 'safe', 'on'=>'search'),
+			array('id, idProfile, idTrip, place, price, address_from, address_to, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,7 +70,7 @@ class Tickets extends CActiveRecord
 			'idTrip' => 'Id Trip',
 			'place' => 'Место',
 			'price' => 'Цена билета',
-			'address_form' => 'Адрес от',
+			'address_from' => 'Адрес от',
 			'address_to' => 'Адрес до',
 			'status' => 'Статус',
 		);
@@ -99,7 +99,7 @@ class Tickets extends CActiveRecord
 		$criteria->compare('idTrip',$this->idTrip);
 		$criteria->compare('place',$this->place);
 		$criteria->compare('price',$this->price);
-		$criteria->compare('address_form',$this->address_form,true);
+		$criteria->compare('address_from',$this->address_from,true);
 		$criteria->compare('address_to',$this->address_to,true);
 		$criteria->compare('status',$this->status);
 
