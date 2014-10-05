@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/admin.php" afterPath="$PROJECT_DIR$/protected/views/trips/admin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/sheet.php" afterPath="$PROJECT_DIR$/protected/views/trips/sheet.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,25 +28,25 @@
       <file leaf-file-name="TripsController.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="326" column="18" selection-start="9618" selection-end="9618" vertical-scroll-proportion="0.20903955" vertical-offset="5431" max-vertical-offset="8228">
+            <state line="391" column="0" selection-start="12385" selection-end="12385" vertical-scroll-proportion="0.22410546" vertical-offset="6528" max-vertical-offset="8228">
               <folding>
-                <marker date="1412525158012" expanded="true" signature="9645:9684" placeholder="..." />
-                <marker date="1412525158012" expanded="true" signature="9685:10411" placeholder="..." />
-                <marker date="1412525158012" expanded="true" signature="9713:10411" placeholder="..." />
-                <marker date="1412525158012" expanded="true" signature="9756:10411" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="9806:9839" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="9904:9937" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="10000:10033" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="10100:10133" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="10200:10233" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="10320:10353" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="11588:11621" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="11655:11688" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="11722:11755" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="11789:11822" placeholder="..." />
-                <marker date="1412525158012" expanded="false" signature="11856:11889" placeholder="..." />
-                <marker date="1412525158012" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
-                <marker date="1412525158012" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
+                <marker date="1412542386043" expanded="true" signature="9645:9684" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="9685:10411" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="9713:10411" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="9756:10411" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="9806:9839" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="9904:9937" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="10000:10033" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="10100:10133" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="10200:10233" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="10320:10353" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="11588:11621" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="11655:11688" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="11722:11755" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="11789:11822" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="11856:11889" placeholder="..." />
+                <marker date="1412542386043" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
+                <marker date="1412542386043" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
               </folding>
             </state>
           </provider>
@@ -58,7 +55,7 @@
       <file leaf-file-name="TicketsController.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="45.115383" vertical-offset="1173" max-vertical-offset="3043">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="13.730769" vertical-offset="357" max-vertical-offset="3043">
               <folding />
             </state>
           </provider>
@@ -132,9 +129,9 @@
         <option value="$PROJECT_DIR$/protected/views/schedule/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/sheet.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
       </list>
     </option>
   </component>
@@ -337,7 +334,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -636,32 +633,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="45.115383" vertical-offset="1173" max-vertical-offset="3043">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="13.730769" vertical-offset="357" max-vertical-offset="3043">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="326" column="18" selection-start="9618" selection-end="9618" vertical-scroll-proportion="0.20903955" vertical-offset="5431" max-vertical-offset="8228">
+        <state line="391" column="0" selection-start="12385" selection-end="12385" vertical-scroll-proportion="0.22410546" vertical-offset="6528" max-vertical-offset="8228">
           <folding>
-            <marker date="1412525158012" expanded="true" signature="9645:9684" placeholder="..." />
-            <marker date="1412525158012" expanded="true" signature="9685:10411" placeholder="..." />
-            <marker date="1412525158012" expanded="true" signature="9713:10411" placeholder="..." />
-            <marker date="1412525158012" expanded="true" signature="9756:10411" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="9806:9839" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="9904:9937" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="10000:10033" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="10100:10133" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="10200:10233" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="10320:10353" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="11588:11621" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="11655:11688" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="11722:11755" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="11789:11822" placeholder="..." />
-            <marker date="1412525158012" expanded="false" signature="11856:11889" placeholder="..." />
-            <marker date="1412525158012" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
-            <marker date="1412525158012" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
+            <marker date="1412542386043" expanded="true" signature="9645:9684" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="9685:10411" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="9713:10411" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="9756:10411" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="9806:9839" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="9904:9937" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="10000:10033" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="10100:10133" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="10200:10233" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="10320:10353" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="11588:11621" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="11655:11688" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="11722:11755" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="11789:11822" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="11856:11889" placeholder="..." />
+            <marker date="1412542386043" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
+            <marker date="1412542386043" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
           </folding>
         </state>
       </provider>
