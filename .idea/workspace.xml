@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/ScheduleController.php" afterPath="$PROJECT_DIR$/protected/controllers/ScheduleController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/DirectionsController.php" afterPath="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/schedule/_form.php" afterPath="$PROJECT_DIR$/protected/views/schedule/_form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_form.php" afterPath="$PROJECT_DIR$/protected/views/trips/_form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,90 +28,7 @@
     <favorites_list name="bus" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="TripsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="229" column="9" selection-start="7352" selection-end="7352" vertical-scroll-proportion="-17.384615" vertical-offset="3441" max-vertical-offset="7922">
-              <folding>
-                <marker date="1412271496629" expanded="true" signature="10894:10933" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10934:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11005:11660" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11055:11088" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11153:11186" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11249:11282" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11349:11382" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11449:11482" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="11569:11602" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13080:13113" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13159:13192" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13238:13271" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13317:13350" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13396:13429" placeholder="..." />
-                <marker date="1412271496629" expanded="true" signature="13653:13685" placeholder="/** * Manage..." />
-                <marker date="1412271496629" expanded="true" signature="14032:14070" placeholder="select id fr..schedule..." />
-                <marker date="1412271496629" expanded="true" signature="14224:14577" placeholder="select t.id,..trips..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TicketsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="58.846153" vertical-offset="1530" max-vertical-offset="3043">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ScheduleController.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/ScheduleController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="217" column="23" selection-start="6803" selection-end="6803" vertical-scroll-proportion="0.5460751" vertical-offset="3209" max-vertical-offset="5015">
-              <folding>
-                <marker date="1412336944243" expanded="true" signature="1392:1727" placeholder="select disti..schedule..." />
-                <marker date="1412336944243" expanded="true" signature="1638:1676" placeholder="select idTri..schedule..." />
-                <marker date="1412336944243" expanded="true" signature="1924:2135" placeholder="select disti..schedule..." />
-                <marker date="1412336944243" expanded="true" signature="7464:7660" placeholder="select disti..schedule..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DirectionsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/DirectionsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="221" column="30" selection-start="6314" selection-end="6314" vertical-scroll-proportion="-56.23077" vertical-offset="2295" max-vertical-offset="4692">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BusesController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="171" column="18" selection-start="4380" selection-end="4380" vertical-scroll-proportion="-46.653847" vertical-offset="1694" max-vertical-offset="3655">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="71" selection-start="2354" selection-end="2354" vertical-scroll-proportion="-12.884615" vertical-offset="957" max-vertical-offset="2040">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -131,11 +52,9 @@
         <option value="$PROJECT_DIR$/protected/views/trips/view.php" />
         <option value="$PROJECT_DIR$/protected/models/Buses.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule/create.php" />
-        <option value="$PROJECT_DIR$/protected/views/schedule/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule/index.php" />
         <option value="$PROJECT_DIR$/protected/models/Schedule.php" />
         <option value="$PROJECT_DIR$/protected/models/Trips.php" />
-        <option value="$PROJECT_DIR$/protected/views/trips/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/layouts/column2.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule/view.php" />
@@ -146,7 +65,6 @@
         <option value="$PROJECT_DIR$/protected/models/Directions.php" />
         <option value="$PROJECT_DIR$/protected/views/directions/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/directions/_form.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/update.php" />
         <option value="$PROJECT_DIR$/protected/controllers/BusesController.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/create.php" />
@@ -156,9 +74,13 @@
         <option value="$PROJECT_DIR$/protected/views/trips/update.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/admin/index.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/sheet.php" />
         <option value="$PROJECT_DIR$/protected/controllers/ScheduleController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+        <option value="$PROJECT_DIR$/protected/views/schedule/_form.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/_form.php" />
+        <option value="$PROJECT_DIR$/protected/views/schedule.php" />
       </list>
     </option>
   </component>
@@ -166,13 +88,14 @@
     <include_path>
       <path value="." />
       <path value="C:\php\pear" />
+      <path value="W:\home\localhost\framework" />
     </include_path>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1358" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -250,68 +173,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="config" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="bus" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="options.lastSelected" value="web.server" />
+    <property name="options.lastSelected" value="org.intellij.plugins.intelliLang.InjectionsSettingsUI" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../framework" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -356,8 +230,8 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="false" />
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -366,8 +240,8 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12604167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17715959" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -403,11 +277,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/_search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="50" selection-start="897" selection-end="897" vertical-scroll-proportion="1.0493827" vertical-offset="0" max-vertical-offset="935" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/_view.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="14" column="0" selection-start="388" selection-end="388" vertical-scroll-proportion="-9.153846" vertical-offset="0" max-vertical-offset="646" />
@@ -518,23 +387,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/schedule/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="8" selection-start="781" selection-end="781" vertical-scroll-proportion="0.65384614" vertical-offset="51" max-vertical-offset="1479">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Trips.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="104" column="51" selection-start="3227" selection-end="3227" vertical-scroll-proportion="0.36263737" vertical-offset="1570" max-vertical-offset="2142">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="92" column="52" selection-start="3055" selection-end="3055" vertical-scroll-proportion="1.0897436" vertical-offset="969" max-vertical-offset="1972">
           <folding />
         </state>
       </provider>
@@ -570,13 +425,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/directions/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="82" selection-start="1591" selection-end="1591" vertical-scroll-proportion="0.7495591" vertical-offset="357" max-vertical-offset="969">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/admin.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="28" selection-start="752" selection-end="752" vertical-scroll-proportion="0.22045855" vertical-offset="470" max-vertical-offset="1258">
@@ -587,13 +435,6 @@
     <entry file="file://$PROJECT_DIR$/protected/views/buses/update.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="66" selection-start="360" selection-end="360" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/buses/_form.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="82" selection-start="2007" selection-end="2007" vertical-scroll-proportion="0.86948854" vertical-offset="408" max-vertical-offset="1088">
           <folding />
         </state>
       </provider>
@@ -680,13 +521,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="58.846153" vertical-offset="1530" max-vertical-offset="3043">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/PassengersController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.2901024" vertical-offset="255" max-vertical-offset="3043">
@@ -694,47 +528,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/DirectionsController.php">
+    <entry file="file://$PROJECT_DIR$/protected/controllers/ScheduleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="221" column="30" selection-start="6314" selection-end="6314" vertical-scroll-proportion="-56.23077" vertical-offset="2295" max-vertical-offset="4692">
+        <state line="200" column="32" selection-start="6387" selection-end="6387" vertical-scroll-proportion="-7.3461537" vertical-offset="3209" max-vertical-offset="5015">
+          <folding>
+            <marker date="1412336944243" expanded="true" signature="-1:-1" placeholder="select disti..schedule..." />
+            <marker date="1412336944243" expanded="true" signature="-1:-1" placeholder="select idTri..schedule..." />
+            <marker date="1412336944243" expanded="true" signature="-1:-1" placeholder="select disti..schedule..." />
+            <marker date="1412336944243" expanded="true" signature="-1:-1" placeholder="select disti..schedule..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="58.846153" vertical-offset="1530" max-vertical-offset="3043">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="18" selection-start="4380" selection-end="4380" vertical-scroll-proportion="-46.653847" vertical-offset="1694" max-vertical-offset="3655">
+        <state line="171" column="18" selection-start="4380" selection-end="4380" vertical-scroll-proportion="1.3799772" vertical-offset="1694" max-vertical-offset="3655">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
+    <entry file="file://$PROJECT_DIR$/protected/controllers/DirectionsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="229" column="9" selection-start="7352" selection-end="7352" vertical-scroll-proportion="-17.384615" vertical-offset="3441" max-vertical-offset="7922">
-          <folding>
-            <marker date="1412271496629" expanded="true" signature="10894:10933" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10934:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="10962:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11005:11660" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11055:11088" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11153:11186" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11249:11282" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11349:11382" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11449:11482" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="11569:11602" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13080:13113" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13159:13192" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13238:13271" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13317:13350" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13396:13429" placeholder="..." />
-            <marker date="1412271496629" expanded="true" signature="13653:13685" placeholder="/** * Manage..." />
-            <marker date="1412271496629" expanded="true" signature="14032:14070" placeholder="select id fr..schedule..." />
-            <marker date="1412271496629" expanded="true" signature="14224:14577" placeholder="select t.id,..trips..." />
-          </folding>
+        <state line="242" column="0" selection-start="6788" selection-end="6788" vertical-scroll-proportion="0.41975307" vertical-offset="3876" max-vertical-offset="4692">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -745,15 +568,64 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/ScheduleController.php">
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="217" column="23" selection-start="6803" selection-end="6803" vertical-scroll-proportion="0.5460751" vertical-offset="3209" max-vertical-offset="5015">
+        <state line="304" column="53" selection-start="10039" selection-end="10039" vertical-scroll-proportion="-2.1787004" vertical-offset="6375" max-vertical-offset="8143">
           <folding>
-            <marker date="1412336944243" expanded="true" signature="1392:1727" placeholder="select disti..schedule..." />
-            <marker date="1412336944243" expanded="true" signature="1638:1676" placeholder="select idTri..schedule..." />
-            <marker date="1412336944243" expanded="true" signature="1924:2135" placeholder="select disti..schedule..." />
-            <marker date="1412336944243" expanded="true" signature="7464:7660" placeholder="select disti..schedule..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="select id fr..schedule..." />
+            <marker date="1412352176108" expanded="true" signature="-1:-1" placeholder="select t.id,..trips..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="82" selection-start="2007" selection-end="2007" vertical-scroll-proportion="0.67019403" vertical-offset="521" max-vertical-offset="1088">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/directions/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="82" selection-start="1591" selection-end="1591" vertical-scroll-proportion="0.7495591" vertical-offset="357" max-vertical-offset="969">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/schedule/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="82" selection-start="2692" selection-end="2692" vertical-scroll-proportion="0.67019403" vertical-offset="912" max-vertical-offset="1479">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="105" column="82" selection-start="3441" selection-end="3441" vertical-scroll-proportion="0.67019403" vertical-offset="1405" max-vertical-offset="1972">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/schedule.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="19" selection-start="1508" selection-end="1508" vertical-scroll-proportion="0.8201058" vertical-offset="419" max-vertical-offset="986">
+          <folding />
         </state>
       </provider>
     </entry>

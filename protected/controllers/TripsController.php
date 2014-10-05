@@ -317,7 +317,7 @@ class TripsController extends Controller
         $pdf->AddPage();
         $pdf->SetFont("dejavuserif", "", 10);
 
-        $tbl = 'Направление: '. $direction['startPoint'] .' - '. $direction['endPoint'] .'<br/>';
+        $tbl = '<h2>Рейс '. $direction['startPoint'] .' - '. $direction['endPoint'] .'</h2><br/>';
         $tbl .= 'Отправление: '. $trips['departure'] .'&nbsp;&nbsp;&nbsp;&nbsp;';
         $tbl .= 'Прибытие: '. $trips['arrival'] .'<br/>';
         $tbl .= 'Автобус: '. $bus['model'] .', номер '. $bus['number'] .'<br/><br/>';
@@ -364,8 +364,21 @@ class TripsController extends Controller
         $tbl .='</tbody></table>';
 
         $pdf->writeHTML($tbl, true, true, false, false, '');
-        $pdf->Output("trips-sheet".".pdf", "I");
+        $pdf->Output("trips-".$trips['departure']."-".$bus['number'].".pdf", "I");
     }
+
+    /**
+     * Проверка связности участков рейса
+     */
+    public function actionCheck() {
+        $node = array(
+            'id' => '',
+            'sP' => '',
+            'eP' => '',
+            'next' => array(),
+        );
+    }
+
 
     /**
 	 * Manages all models.
