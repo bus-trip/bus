@@ -5,15 +5,21 @@
  *
  * The followings are the available columns in table 'profiles':
  * @property integer   $id
+ * @property integer   $uid
+ * @property integer   $tid
  * @property string    $last_name
  * @property string    $name
  * @property string    $middle_name
  * @property integer   $passport
  * @property integer   $phone
+ * @property string    $address
  * @property integer   $sex
  * @property string    $birth
+ * @property string    $created
  *
  * The followings are the available model relations:
+ * @property Tickets   $t
+ * @property User      $u
  * @property Tickets[] $tickets
  */
 class Profiles extends CActiveRecord
@@ -35,7 +41,7 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('last_name, name, passport, phone', 'required'),
-			array('passport', 'numerical', 'integerOnly' => TRUE),
+			array('uid, tid, passport, sex, birth', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
 			array('birth', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'dd.mm.yyyy'),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
@@ -44,7 +50,7 @@ class Profiles extends CActiveRecord
 			array('birth', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, last_name, name, middle_name, passport, phone, sex, birth', 'safe', 'on' => 'search'),
+			array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, created', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -56,6 +62,8 @@ class Profiles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			't'       => array(self::BELONGS_TO, 'Tickets', 'tid'),
+			'u'       => array(self::BELONGS_TO, 'User', 'uid'),
 			'tickets' => array(self::HAS_MANY, 'Tickets', 'idProfile'),
 		);
 	}
@@ -67,6 +75,8 @@ class Profiles extends CActiveRecord
 	{
 		return array(
 			'id'          => 'ID',
+			'uid'         => 'Uid',
+			'tid'         => 'Tid',
 			'last_name'   => 'Фамилия',
 			'name'        => 'Имя',
 			'middle_name' => 'Отчество',
@@ -74,6 +84,7 @@ class Profiles extends CActiveRecord
 			'phone'       => 'Телефон',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
+			'created'     => 'Created',
 		);
 	}
 
@@ -96,13 +107,16 @@ class Profiles extends CActiveRecord
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
+		$criteria->compare('uid', $this->uid);
+		$criteria->compare('tid', $this->tid);
 		$criteria->compare('last_name', $this->last_name, TRUE);
 		$criteria->compare('name', $this->name, TRUE);
 		$criteria->compare('middle_name', $this->middle_name, TRUE);
 		$criteria->compare('passport', $this->passport);
-		$criteria->compare('phone', $this->phone);
+		$criteria->compare('phone', $this->phone, TRUE);
 		$criteria->compare('sex', $this->sex);
-		$criteria->compare('birth', $this->birth, TRUE);
+		$criteria->compare('birth', $this->birth);
+		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
