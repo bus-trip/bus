@@ -113,6 +113,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
+			'actual'     => 1,
 		));
 	}
 
@@ -155,7 +156,7 @@ class TripsController extends Controller
 
 		$data = Buses::model()->findAll(
 			array(
-				'condition'=>'status=1'
+				'condition' => 'status=1'
 			)
 		);
 		$buses = array();
