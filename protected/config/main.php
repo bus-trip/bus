@@ -46,6 +46,7 @@ return array(
 				'account/passengers/add'                 => 'account/passengersadd',
 				'account/passengers/delete/<id:\d+>'     => 'account/passengersdelete',
 				'account/passengers/edit/<id:\d+>'       => 'account/passengersedit',
+				'trips/sheet/<tripId:\d+>/<placeId:\d+>' => 'trips/profiles'
 			),
 		),
 		/*

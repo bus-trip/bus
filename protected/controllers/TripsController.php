@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -273,15 +273,15 @@ class TripsController extends Controller
 		);
 
 		$this->render(
-			 'sheet',
-			 array(
-				 'dataProvider' => $dataProvider,
-				 'dataHeader'   => array(
-					 'bus'       => $bus,
-					 'direction' => $direction,
-					 'trips'     => $this->loadModel($id)->attributes,
-				 )
-			 )
+			'sheet',
+			array(
+				'dataProvider' => $dataProvider,
+				'dataHeader'   => array(
+					'bus'       => $bus,
+					'direction' => $direction,
+					'trips'     => $this->loadModel($id)->attributes,
+				)
+			)
 		);
 	}
 
@@ -368,6 +368,32 @@ class TripsController extends Controller
 
 		$pdf->writeHTML($tbl, TRUE, TRUE, FALSE, FALSE, '');
 		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");
+	}
+
+	public function actionProfiles($tripId, $placeId)
+	{
+		// Create filter model and set properties
+		$filtersForm = new FiltersForm;
+		$filtersForm->filters['id'] = NULL;
+		if (isset($_GET['FiltersForm']))
+			$filtersForm->filters = $_GET['FiltersForm'];
+
+		// Get rawData and create dataProvider
+		$rawData = Profiles::model()->findAll();
+		$filteredData = $filtersForm->filter($rawData);
+		$dataProvider = new CArrayDataProvider($filteredData, array(
+			'pagination' => array(
+				'pageSize' => Yii::app()->params['postsPerPage'],
+			),
+		));
+
+		// Render
+		$this->render('profiles', array(
+			'tripId'       => $tripId,
+			'placeId'      => $placeId,
+			'filtersForm'  => $filtersForm,
+			'dataProvider' => $dataProvider,
+		));
 	}
 
 	/**
