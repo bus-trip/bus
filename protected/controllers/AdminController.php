@@ -69,9 +69,9 @@ class AdminController extends Controller
                     t.idDirection,
                     t.idBus,
                     t.departure,
-                    s.arrival
+                    t.arrival
                    from trips as t
-                   left join schedule as s on s.idDirection = t.idDirection
+                   left join directions as d on d.id = t.idDirection
                    where t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
 
         $tripsData = Yii::app()->db->createCommand($query)->queryAll();
@@ -79,7 +79,7 @@ class AdminController extends Controller
 
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
-            'currentDate'=>$currentDate,
+			'currentDate'=>$currentDate,
 		));
 		
 		

@@ -17,6 +17,8 @@ $monthNames = array(
     '11' => 'Ноябрь',
     '12' => 'Декабрь',
 );
+$monthSelect = '';
+$yearSelect = '';
 ?>
 <table id="main">
 	    <caption>

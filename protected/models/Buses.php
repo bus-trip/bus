@@ -37,6 +37,7 @@ class Buses extends CActiveRecord
 			array('places, status', 'numerical', 'integerOnly'=>true),
 			array('model', 'length', 'max'=>100),
 			array('number', 'length', 'max'=>20),
+			array('description', 'length', 'max'=>'1000'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, model, number, places, description, status', 'safe', 'on'=>'search'),
