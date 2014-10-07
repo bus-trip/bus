@@ -22,10 +22,11 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'idPassenger',
-		'idDirection',
 		'idTrip',
-		'idBus',
 		'place',
+		'price',
+		'address_from',
+		'address_to',
+		'status',
 	),
 )); ?>

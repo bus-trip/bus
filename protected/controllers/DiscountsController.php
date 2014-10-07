@@ -1,6 +1,6 @@
 <?php
 
-class BusesController extends Controller
+class DiscountsController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -63,15 +63,15 @@ class BusesController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model = new Buses;
+		$model = new Discounts;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Buses'])) {
-			$model->attributes = $_POST['Buses'];
+		if (isset($_POST['Discounts'])) {
+			$model->attributes = $_POST['Discounts'];
 			if ($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view', 'id' => $model->id));
 		}
 
 		$this->render('create', array(
@@ -92,10 +92,10 @@ class BusesController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if (isset($_POST['Buses'])) {
-			$model->attributes = $_POST['Buses'];
+		if (isset($_POST['Discounts'])) {
+			$model->attributes = $_POST['Discounts'];
 			if ($model->save())
-				$this->redirect(array('admin'));
+				$this->redirect(array('view', 'id' => $model->id));
 		}
 
 		$this->render('update', array(
@@ -111,17 +111,8 @@ class BusesController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$model = $this->loadModel($id);
+		$this->loadModel($id)->delete();
 
-		$tripsCount = Trips::model()->count(
-			array(
-				'condition' => 'idBus=' . $id . ' and (status=1 or (status=0 and "' . date("Y-m-d H:i:s") . '"<=arrival))'
-			)
-		);
-		if ($tripsCount == 0) {
-			$model->status = 0;
-			$model->save();
-		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
@@ -132,7 +123,7 @@ class BusesController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider = new CActiveDataProvider('Buses');
+		$dataProvider = new CActiveDataProvider('Discounts');
 		$this->render('index', array(
 			'dataProvider' => $dataProvider,
 		));
@@ -143,48 +134,32 @@ class BusesController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model = new Buses('search');
+		$model = new Discounts('search');
 		$model->unsetAttributes();  // clear any default values
-		if (isset($_GET['Buses']))
-			$model->attributes = $_GET['Buses'];
-
-		$data = Buses::model()->findAll();
-		$arrData = array();
-		foreach ($data as $d) {
-			$arrData[] = array(
-				'id'          => $d->id,
-				'model'       => $d->model,
-				'number'      => $d->number,
-				'places'      => $d->places,
-				'description' => $d->description,
-				'status'      => ($d->status == 1 ? 'Работает' : 'Не работает'),
-			);
-		}
-
-		$modelData = new CArrayDataProvider(
-			$arrData,
-			array(
-				'keyField'   => 'id',
-				'sort'       => array(
-					'attributes' => array(
-						'id',
-						'model',
-						'number',
-						'places',
-						'description',
-						'status'
-					)
-				),
-				'pagination' => array(
-					'pageSize' => 20,
-				),
-			)
-		);
+		if (isset($_GET['Discounts']))
+			$model->attributes = $_GET['Discounts'];
 
 		$this->render('admin', array(
-			'model'     => $model,
-			'modelData' => $modelData,
+			'model' => $model,
 		));
+	}
+
+	/**
+	 * Устанавливает скидку для определённого билета.
+	 *
+	 * @param $ticketId
+	 * @param $discountId
+	 */
+	public function actionSetDiscount($ticketId, $discountId)
+	{
+		$ticket = Tickets::model()->findAllByPk($ticketId);
+		$model = $this->loadModel($discountId);
+		switch ($discountId) {
+			// Скидка на третью поездку
+			case 'TRIPS_COUNT_3':
+				$ticket->price = $model->amountType == 0 ? $ticket->price - $model->amount/100 : $ticket->price*($model->amount/100);
+				break;
+		}
 	}
 
 	/**
@@ -193,12 +168,12 @@ class BusesController extends Controller
 	 *
 	 * @param integer $id the ID of the model to be loaded
 	 *
-	 * @return Buses the loaded model
+	 * @return Discounts the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model = Buses::model()->findByPk($id);
+		$model = Discounts::model()->findByPk($id);
 		if ($model === NULL)
 			throw new CHttpException(404, 'The requested page does not exist.');
 
@@ -208,11 +183,11 @@ class BusesController extends Controller
 	/**
 	 * Performs the AJAX validation.
 	 *
-	 * @param Buses $model the model to be validated
+	 * @param Discounts $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'buses-form') {
+		if (isset($_POST['ajax']) && $_POST['ajax'] === 'discounts-form') {
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}

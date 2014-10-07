@@ -251,12 +251,11 @@ class TripsController extends Controller
 			);
 		}
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'id=:id';
+		$criteria->condition = 'tid=:tid';
 		for ($i = 1; $i <= $bus['places']; $i++) {
 			foreach ($tickets as $t) {
-
 				if ($t["place"] == $i) {
-					$criteria->params = array(':id' => $t["idProfile"]);
+					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
 					$arrPlaces[$i] = array(
 						'place'      => $i,

@@ -2,10 +2,32 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/models/Discounts.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/controllers/DiscountsController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/_form.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/_search.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/_view.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/admin.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/create.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/index.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/update.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/protected/views/discounts/view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/AdminController.php" afterPath="$PROJECT_DIR$/protected/controllers/AdminController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/BusesController.php" afterPath="$PROJECT_DIR$/protected/controllers/BusesController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/models/Tickets.php" afterPath="$PROJECT_DIR$/protected/models/Tickets.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/tickets/_form.php" afterPath="$PROJECT_DIR$/protected/views/tickets/_form.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/tickets/_search.php" afterPath="$PROJECT_DIR$/protected/views/tickets/_search.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/tickets/_view.php" afterPath="$PROJECT_DIR$/protected/views/tickets/_view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/tickets/admin.php" afterPath="$PROJECT_DIR$/protected/views/tickets/admin.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/admin/index.php" afterPath="$PROJECT_DIR$/protected/views/admin/index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/tickets/view.php" afterPath="$PROJECT_DIR$/protected/views/tickets/view.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,55 +47,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TripsController.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="TripsController.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="391" column="0" selection-start="12385" selection-end="12385" vertical-scroll-proportion="0.22410546" vertical-offset="6528" max-vertical-offset="8228">
+            <state vertical-scroll-proportion="42.5" vertical-offset="3655" max-vertical-offset="8789">
+              <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
               <folding>
-                <marker date="1412542386043" expanded="true" signature="9645:9684" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="9685:10411" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="9713:10411" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="9756:10411" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="9806:9839" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="9904:9937" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="10000:10033" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="10100:10133" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="10200:10233" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="10320:10353" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="11588:11621" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="11655:11688" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="11722:11755" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="11789:11822" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="11856:11889" placeholder="..." />
-                <marker date="1412542386043" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
-                <marker date="1412542386043" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
+                <marker date="1412706800729" expanded="true" signature="5317:5354" placeholder="select id fr..schedule..." />
+                <marker date="1412706800729" expanded="false" signature="9741:9780" placeholder="..." />
+                <marker date="1412706800729" expanded="true" signature="9781:10507" placeholder="..." />
+                <marker date="1412706800729" expanded="true" signature="9809:10507" placeholder="..." />
+                <marker date="1412706800729" expanded="true" signature="9852:10507" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="9902:9935" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10000:10033" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10096:10129" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10196:10229" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10296:10329" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10416:10449" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10866:10899" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="10944:10977" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11133:11166" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11233:11266" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11331:11364" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11422:11455" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11607:11640" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11684:11717" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11751:11784" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11818:11851" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11885:11918" placeholder="..." />
+                <marker date="1412706800729" expanded="false" signature="11952:11985" placeholder="..." />
+                <marker date="1412706800729" expanded="true" signature="13473:13511" placeholder="select id fr..schedule..." />
+                <marker date="1412706800729" expanded="true" signature="13640:13993" placeholder="select t.id,..trips..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TicketsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
+      <file leaf-file-name="BusesController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="13.730769" vertical-offset="357" max-vertical-offset="3043">
+            <state vertical-scroll-proportion="0.4586331" vertical-offset="1734" max-vertical-offset="3842">
+              <caret line="117" column="43" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="sheet.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
+      <file leaf-file-name="admin.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/buses/admin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="49" selection-start="1386" selection-end="1386" vertical-scroll-proportion="-23.692308" vertical-offset="387" max-vertical-offset="1343">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/protected/views/trips/admin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="55" column="84" selection-start="1269" selection-end="1333" vertical-scroll-proportion="-6.5384617" vertical-offset="765" max-vertical-offset="1309">
+            <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1088">
+              <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -92,13 +116,11 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/protected/models/Tickets.php" />
         <option value="$PROJECT_DIR$/protected/migrations/m140822_172422_i.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/_view.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/index.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/_view.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/index.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/AdminController.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/_search.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/view.php" />
         <option value="$PROJECT_DIR$/protected/models/Buses.php" />
@@ -117,13 +139,11 @@
         <option value="$PROJECT_DIR$/protected/views/directions/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/directions/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/update.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/BusesController.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/create.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/_form.php" />
         <option value="$PROJECT_DIR$/protected/views/buses/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/create.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/update.php" />
-        <option value="$PROJECT_DIR$/protected/views/admin/index.php" />
         <option value="$PROJECT_DIR$/protected/controllers/ScheduleController.php" />
         <option value="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
         <option value="$PROJECT_DIR$/protected/views/schedule/_form.php" />
@@ -131,7 +151,17 @@
         <option value="$PROJECT_DIR$/protected/views/schedule.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/admin.php" />
         <option value="$PROJECT_DIR$/protected/views/trips/sheet.php" />
+        <option value="$PROJECT_DIR$/protected/views/admin/index.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/AdminController.php" />
+        <option value="$PROJECT_DIR$/protected/models/Tickets.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/admin.php" />
         <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+        <option value="$PROJECT_DIR$/protected/models/Discounts.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/DiscountsController.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/views/trips/update.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/views/trips/_form.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/controllers/TripsController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/BusesController.php" />
       </list>
     </option>
   </component>
@@ -162,7 +192,7 @@
     <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <flattenPackages />
       <showMembers />
       <showModules />
@@ -174,6 +204,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -242,7 +273,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="trips" />
+              <option name="myItemId" value="buses" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -264,9 +317,26 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -292,7 +362,19 @@
     <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-env-vars>false</pass-parent-env-vars>
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="a8174e98-635c-46fb-86e0-d1ce2c2f4a3c" server_name="bus">
@@ -304,27 +386,14 @@
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
   </component>
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="" />
       <created>1403264372633</created>
+      <option name="number" value="Default" />
       <updated>1403264372633</updated>
     </task>
     <servers />
@@ -333,31 +402,35 @@
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32956383" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18353474" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18504532" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19108762" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
   </component>
@@ -376,290 +449,394 @@
     <breakpoint-manager>
       <option name="time" value="1" />
     </breakpoint-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/views/buses/view.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="5" vertical-scroll-proportion="-0.0433213" vertical-offset="24" max-vertical-offset="578" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/schedule/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="335" selection-end="335" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/trips/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="24" selection-start="385" selection-end="385" vertical-scroll-proportion="0.53968257" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/buses/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="12" selection-start="208" selection-end="208" vertical-scroll-proportion="0.23985891" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="43" selection-start="254" selection-end="254" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="2091" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/AccountController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="31" selection-start="381" selection-end="381" vertical-scroll-proportion="0.42151675" vertical-offset="101" max-vertical-offset="2346" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/config/console.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.30769232" vertical-offset="168" max-vertical-offset="714" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/layouts/column1.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Buses.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="7" selection-start="1189" selection-end="1189" vertical-scroll-proportion="0.1005291" vertical-offset="708" max-vertical-offset="2040" />
+        <state vertical-scroll-proportion="0.1005291" vertical-offset="708" max-vertical-offset="2040">
+          <caret line="45" column="7" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Schedule.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="95" column="51" selection-start="2834" selection-end="2834" vertical-scroll-proportion="0.73015875" vertical-offset="1201" max-vertical-offset="2023" />
+        <state vertical-scroll-proportion="0.73015875" vertical-offset="1201" max-vertical-offset="2023">
+          <caret line="95" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/extensions/CJuiDateTimePicker/CJuiDateTimePicker.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="6" vertical-scroll-proportion="-0.92057765" vertical-offset="510" max-vertical-offset="1139" />
+        <state vertical-scroll-proportion="-0.92057765" vertical-offset="510" max-vertical-offset="1139">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/column2.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="30" selection-start="310" selection-end="310" vertical-scroll-proportion="0.329806" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.329806" vertical-offset="0" max-vertical-offset="567">
+          <caret line="11" column="30" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/config/bus.localhost.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="2" selection-start="264" selection-end="264" vertical-scroll-proportion="0.35978836" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/config/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.08994709" vertical-offset="51" max-vertical-offset="1649" />
+        <state vertical-scroll-proportion="0.35978836" vertical-offset="0" max-vertical-offset="567">
+          <caret line="12" column="2" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/layouts/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="56" column="48" selection-start="2311" selection-end="2311" vertical-scroll-proportion="0.7601411" vertical-offset="521" max-vertical-offset="1853" />
+        <state vertical-scroll-proportion="0.7601411" vertical-offset="521" max-vertical-offset="1853">
+          <caret line="56" column="48" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/update.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="99" selection-start="496" selection-end="496" vertical-scroll-proportion="0.5097002" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.5097002" vertical-offset="0" max-vertical-offset="567">
+          <caret line="17" column="99" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.5696649" vertical-offset="153" max-vertical-offset="1173" />
+        <state vertical-scroll-proportion="0.5696649" vertical-offset="153" max-vertical-offset="1173">
+          <caret line="28" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="99" selection-start="408" selection-end="408" vertical-scroll-proportion="0.5097002" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.5097002" vertical-offset="0" max-vertical-offset="567">
+          <caret line="17" column="99" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="15" selection-start="108" selection-end="108" vertical-scroll-proportion="0.14991182" vertical-offset="0" max-vertical-offset="884" />
+        <state vertical-scroll-proportion="0.14991182" vertical-offset="0" max-vertical-offset="884">
+          <caret line="5" column="15" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Trips.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="104" column="51" selection-start="3227" selection-end="3227" vertical-scroll-proportion="0.36263737" vertical-offset="1570" max-vertical-offset="2142">
+        <state vertical-scroll-proportion="0.36263737" vertical-offset="1570" max-vertical-offset="2142">
+          <caret line="104" column="51" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="21" selection-start="260" selection-end="260" vertical-scroll-proportion="0.41975307" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.41975307" vertical-offset="0" max-vertical-offset="567">
+          <caret line="14" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="19" selection-start="805" selection-end="805" vertical-scroll-proportion="0.7978339" vertical-offset="0" max-vertical-offset="612" />
+        <state vertical-scroll-proportion="0.7978339" vertical-offset="0" max-vertical-offset="612">
+          <caret line="26" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/update.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="298" selection-end="298" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567">
+          <caret line="15" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/models/Directions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="0" selection-start="2931" selection-end="2931" vertical-scroll-proportion="0.44620812" vertical-offset="1430" max-vertical-offset="2023" />
+        <state vertical-scroll-proportion="0.44620812" vertical-offset="1430" max-vertical-offset="2023">
+          <caret line="99" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="28" selection-start="752" selection-end="752" vertical-scroll-proportion="0.22045855" vertical-offset="470" max-vertical-offset="1258" />
+        <state vertical-scroll-proportion="0.22045855" vertical-offset="470" max-vertical-offset="1258">
+          <caret line="35" column="28" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/buses/update.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="66" selection-start="360" selection-end="360" vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567" />
+        <state vertical-scroll-proportion="0.44973546" vertical-offset="0" max-vertical-offset="567">
+          <caret line="15" column="66" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/buses/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="17" selection-start="243" selection-end="243" vertical-scroll-proportion="0.41975307" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/buses/admin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="18" selection-start="1209" selection-end="1209" vertical-scroll-proportion="0.5802469" vertical-offset="521" max-vertical-offset="1088" />
+        <state vertical-scroll-proportion="0.41975307" vertical-offset="0" max-vertical-offset="567">
+          <caret line="14" column="17" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/create.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="25" selection-start="178" selection-end="178" vertical-scroll-proportion="0.29982364" vertical-offset="0" max-vertical-offset="567" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="119" column="55" selection-start="5966" selection-end="5966" vertical-scroll-proportion="3.6389892" vertical-offset="7" max-vertical-offset="2346" />
+        <state vertical-scroll-proportion="0.29982364" vertical-offset="0" max-vertical-offset="567">
+          <caret line="10" column="25" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="276" column="13" selection-start="3066" selection-end="3066" vertical-scroll-proportion="0.0" vertical-offset="4524" max-vertical-offset="5168" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="4524" max-vertical-offset="5168">
+          <caret line="276" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/css/print.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="593">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/view.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="0" selection-start="615" selection-end="615" vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="629" />
+        <state vertical-scroll-proportion="-12.423077" vertical-offset="0" max-vertical-offset="629">
+          <caret line="19" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/update.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="0" selection-start="64" selection-end="209" vertical-scroll-proportion="0.07736064" vertical-offset="0" max-vertical-offset="879" />
+        <state vertical-scroll-proportion="0.07736064" vertical-offset="0" max-vertical-offset="879">
+          <caret line="4" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/SiteController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1394">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/PassengersController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.2901024" vertical-offset="255" max-vertical-offset="3043" />
+        <state vertical-scroll-proportion="-0.2901024" vertical-offset="255" max-vertical-offset="3043">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/ScheduleController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="200" column="32" selection-start="6387" selection-end="6387" vertical-scroll-proportion="-7.3461537" vertical-offset="3209" max-vertical-offset="5015" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="171" column="18" selection-start="4380" selection-end="4380" vertical-scroll-proportion="1.3799772" vertical-offset="1694" max-vertical-offset="3655" />
+        <state vertical-scroll-proportion="-7.3461537" vertical-offset="3209" max-vertical-offset="5015">
+          <caret line="200" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/DirectionsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="242" column="0" selection-start="6788" selection-end="6788" vertical-scroll-proportion="0.41975307" vertical-offset="3876" max-vertical-offset="4692" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="71" selection-start="2354" selection-end="2354" vertical-scroll-proportion="-12.884615" vertical-offset="957" max-vertical-offset="2040" />
+        <state vertical-scroll-proportion="0.41975307" vertical-offset="3876" max-vertical-offset="4692">
+          <caret line="242" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/buses/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="82" selection-start="2007" selection-end="2007" vertical-scroll-proportion="0.67019403" vertical-offset="521" max-vertical-offset="1088" />
+        <state vertical-scroll-proportion="0.67019403" vertical-offset="521" max-vertical-offset="1088">
+          <caret line="53" column="82" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/directions/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="82" selection-start="1591" selection-end="1591" vertical-scroll-proportion="0.7495591" vertical-offset="357" max-vertical-offset="969" />
+        <state vertical-scroll-proportion="0.7495591" vertical-offset="357" max-vertical-offset="969">
+          <caret line="46" column="82" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="76" column="82" selection-start="2692" selection-end="2692" vertical-scroll-proportion="0.67019403" vertical-offset="912" max-vertical-offset="1479" />
+        <state vertical-scroll-proportion="0.67019403" vertical-offset="912" max-vertical-offset="1479">
+          <caret line="76" column="82" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/_form.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="105" column="82" selection-start="3441" selection-end="3441" vertical-scroll-proportion="0.67019403" vertical-offset="1405" max-vertical-offset="1972" />
+        <state vertical-scroll-proportion="0.67019403" vertical-offset="1405" max-vertical-offset="1972">
+          <caret line="105" column="82" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/schedule.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="52" column="19" selection-start="1508" selection-end="1508" vertical-scroll-proportion="0.8201058" vertical-offset="419" max-vertical-offset="986" />
+        <state vertical-scroll-proportion="0.8201058" vertical-offset="419" max-vertical-offset="986">
+          <caret line="52" column="19" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../framework/db/schema/CDbCriteria.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="156" column="20" selection-start="5928" selection-end="5928" vertical-scroll-proportion="0.34839925" vertical-offset="2348" max-vertical-offset="10931">
+        <state vertical-scroll-proportion="0.34839925" vertical-offset="2348" max-vertical-offset="10931">
+          <caret line="156" column="20" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/admin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="84" selection-start="1269" selection-end="1333" vertical-scroll-proportion="-6.5384617" vertical-offset="765" max-vertical-offset="1309">
-          <folding />
+        <state vertical-scroll-proportion="-7.5" vertical-offset="740" max-vertical-offset="1309">
+          <caret line="55" column="84" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="49" selection-start="1386" selection-end="1386" vertical-scroll-proportion="-23.692308" vertical-offset="387" max-vertical-offset="1343">
-          <folding />
+        <state vertical-scroll-proportion="-23.692308" vertical-offset="387" max-vertical-offset="1343">
+          <caret line="59" column="49" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Tickets.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="918" max-vertical-offset="2108">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="536" max-vertical-offset="1122">
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08963093" vertical-offset="51" max-vertical-offset="1649">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Discounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231" vertical-offset="204" max-vertical-offset="1768">
+          <caret line="30" column="42" selection-start-line="30" selection-start-column="42" selection-end-line="30" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/DiscountsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.692307" vertical-offset="2338" max-vertical-offset="3417">
+          <caret line="160" column="22" selection-start-line="160" selection-start-column="22" selection-end-line="160" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-19.615385" vertical-offset="0" max-vertical-offset="2346">
+          <caret line="30" column="31" selection-start-line="30" selection-start-column="31" selection-end-line="30" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Z:/www/sprint-tour.webjails.ru/protected/views/trips/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2231986" vertical-offset="1403" max-vertical-offset="1972">
+          <caret line="90" column="16" selection-start-line="90" selection-start-column="16" selection-end-line="90" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Z:/www/sprint-tour.webjails.ru/protected/views/trips/update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6572935" vertical-offset="0" max-vertical-offset="569">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://Z:/www/sprint-tour.webjails.ru/protected/controllers/TripsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6115108" vertical-offset="2329" max-vertical-offset="8364">
+          <caret line="157" column="38" selection-start-line="157" selection-start-column="38" selection-end-line="157" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="13.730769" vertical-offset="357" max-vertical-offset="3043">
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="833" max-vertical-offset="3043">
+          <caret line="49" column="23" selection-start-line="49" selection-start-column="23" selection-end-line="49" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58093524" vertical-offset="986" max-vertical-offset="2023">
+          <caret line="77" column="44" selection-start-line="77" selection-start-column="44" selection-end-line="77" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="582">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="391" column="0" selection-start="12385" selection-end="12385" vertical-scroll-proportion="0.22410546" vertical-offset="6528" max-vertical-offset="8228">
+        <state vertical-scroll-proportion="42.5" vertical-offset="3655" max-vertical-offset="8789">
+          <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
           <folding>
-            <marker date="1412542386043" expanded="true" signature="9645:9684" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="9685:10411" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="9713:10411" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="9756:10411" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="9806:9839" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="9904:9937" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="10000:10033" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="10100:10133" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="10200:10233" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="10320:10353" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="11588:11621" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="11655:11688" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="11722:11755" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="11789:11822" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="11856:11889" placeholder="..." />
-            <marker date="1412542386043" expanded="true" signature="12643:12681" placeholder="select id fr..schedule..." />
-            <marker date="1412542386043" expanded="true" signature="12810:13163" placeholder="select t.id,..trips..." />
+            <marker date="1412706800729" expanded="true" signature="5317:5354" placeholder="select id fr..schedule..." />
+            <marker date="1412706800729" expanded="false" signature="9741:9780" placeholder="..." />
+            <marker date="1412706800729" expanded="true" signature="9781:10507" placeholder="..." />
+            <marker date="1412706800729" expanded="true" signature="9809:10507" placeholder="..." />
+            <marker date="1412706800729" expanded="true" signature="9852:10507" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="9902:9935" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10000:10033" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10096:10129" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10196:10229" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10296:10329" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10416:10449" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10866:10899" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="10944:10977" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11133:11166" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11233:11266" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11331:11364" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11422:11455" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11607:11640" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11684:11717" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11751:11784" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11818:11851" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11885:11918" placeholder="..." />
+            <marker date="1412706800729" expanded="false" signature="11952:11985" placeholder="..." />
+            <marker date="1412706800729" expanded="true" signature="13473:13511" placeholder="select id fr..schedule..." />
+            <marker date="1412706800729" expanded="true" signature="13640:13993" placeholder="select t.id,..trips..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1088">
+          <caret line="18" column="21" selection-start-line="18" selection-start-column="21" selection-end-line="18" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4586331" vertical-offset="1734" max-vertical-offset="3842">
+          <caret line="117" column="43" selection-start-line="117" selection-start-column="43" selection-end-line="117" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
