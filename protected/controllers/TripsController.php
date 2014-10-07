@@ -99,9 +99,9 @@ class TripsController extends Controller
 		}
 
 		$data = Buses::model()->findAll(
-		    array(
-			'condition'=>'status=1'
-		    )
+			array(
+				'condition' => 'status=1'
+			)
 		);
 		$buses = array();
 		$buses['empty'] = 'Выберите автобус';
@@ -153,7 +153,11 @@ class TripsController extends Controller
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
 
-		$data = Buses::model()->findAll();
+		$data = Buses::model()->findAll(
+			array(
+				'condition'=>'status=1'
+			)
+		);
 		$buses = array();
 		$buses['empty'] = 'Выберите автобус';
 		foreach ($data as $d) {
@@ -164,10 +168,9 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
-			'actual'     => 0,
 		);
 
-		if ($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) $arrRender['actual'] = 0;
+		$arrRender['actual'] = ($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) ? 0 : 1;
 
 		$this->render('update', $arrRender);
 	}
@@ -278,15 +281,15 @@ class TripsController extends Controller
 		);
 
 		$this->render(
-			 'sheet',
-			 array(
-				 'dataProvider' => $dataProvider,
-				 'dataHeader'   => array(
-					 'bus'       => $bus,
-					 'direction' => $direction,
-					 'trips'     => $this->loadModel($id)->attributes,
-				 )
-			 )
+			'sheet',
+			array(
+				'dataProvider' => $dataProvider,
+				'dataHeader'   => array(
+					'bus'       => $bus,
+					'direction' => $direction,
+					'trips'     => $this->loadModel($id)->attributes,
+				)
+			)
 		);
 	}
 
