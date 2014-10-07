@@ -21,6 +21,6 @@ $this->menu = array(
 		'directions' => $directions,
 		'buses'      => $buses,
 		'actual'     => 1,
-	);
+	)
 );
 ?>
