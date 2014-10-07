@@ -98,7 +98,11 @@ class TripsController extends Controller
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
 
-		$data = Buses::model()->findAll();
+		$data = Buses::model()->findAll(
+		    array(
+			'condition'=>'status=1'
+		    )
+		);
 		$buses = array();
 		$buses['empty'] = 'Выберите автобус';
 		foreach ($data as $d) {
@@ -160,6 +164,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
+			'actual'     => 0,
 		);
 
 		if ($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) $arrRender['actual'] = 0;
@@ -232,7 +237,7 @@ class TripsController extends Controller
 		}
 
 		$arrPlaces = array();
-		for ($i = 1; $i < $bus["places"]; $i++) {
+		for ($i = 1; $i <= $bus["places"]; $i++) {
 			$arrPlaces[$i] = array(
 				'place'      => $i,
 				'passenger'  => '',

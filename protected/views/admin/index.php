@@ -88,6 +88,9 @@ $yearSelect = '';
             $firstDOW--;
             $maxDays = date("t",strtotime($currentDate['year']."-".$currentDate['month']."-".$currentDate['day']));
             $count = $firstDOW > 4 ? 42 : 35;
+//                    echo '<pre>';
+//                    print_r($dataProvider->getData());
+//                    echo '</pre>';
             echo "<tr>";
             for($i=0; $i<$count; $i++){
 			    if($i % 7 == 0){
@@ -111,17 +114,16 @@ $yearSelect = '';
                         echo "</form></div>";
                     }
                     $tripCounts = 0;
-                    echo '<pre>';
-//                    print_r($dataProvider->getData());
-                    echo '</pre>';
+                    $curday = $i+1-$firstDOW;
+    		    if($curday < 10) $curday = "0".$curday;
                     foreach($dataProvider->getData() as $d){
-                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 23:59:59')
+                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 23:59:59')
                             $tripCounts++;
                     }
                     if($tripCounts != 0){
                         echo "<form action='/index.php/trips/admin' method='post' target='_blank'>";
                         echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)));
-                        echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin')));
+                        echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin/status/actual')));
                         echo "</form>";
                     }
                     else echo '<br/>Рейсов: 0';

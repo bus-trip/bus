@@ -72,7 +72,7 @@ class AdminController extends Controller
                     t.arrival
                    from trips as t
                    left join directions as d on d.id = t.idDirection
-                   where t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
+                   where t.status=1 and t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
 
         $tripsData = Yii::app()->db->createCommand($query)->queryAll();
         $dataProvider = new CArrayDataProvider($tripsData);
