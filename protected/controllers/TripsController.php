@@ -132,6 +132,7 @@ class TripsController extends Controller
 
 		if (isset($_POST['Trips'])) {
 			$model->attributes = $_POST['Trips'];
+			$model->description = $_POST['Trips']['description'];
 			if ($model->save()) {
 				// Обновляем запись в таблице расписаний (для начального и конечного пункта)
 				$schedule = Schedule::model()->findByAttributes(array('idTrip' => $model->id));
