@@ -124,7 +124,7 @@ $yearSelect = '';
                     if($tripCounts != 0){
                         echo "<form action='/index.php/trips/admin' method='post' target='_blank'>";
                         echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)));
-                        echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin/status/actual')));
+                        echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin')));
                         echo "</form>";
                     }
                     else echo '<br/>Рейсов: 0';
