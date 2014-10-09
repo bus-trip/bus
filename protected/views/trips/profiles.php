@@ -3,9 +3,9 @@
 <?php
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'           => 'trips-sheet-profiles',
-	'dataProvider' => $dataProvider,
-	'filter'       => $filtersForm,
+	'id'           => 'user-auth-data-grid',
+	'dataProvider' => $model->search(),
+	'filter'       => $model,
 	'columns'      => array(
 		array(
 			'name'   => 'id',
@@ -53,7 +53,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					//					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")'
 				)
 			)
-		),
-	),
-));
-
+		)
+	)
+)); ?>

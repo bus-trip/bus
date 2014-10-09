@@ -372,27 +372,13 @@ class TripsController extends Controller
 
 	public function actionProfiles($tripId, $placeId)
 	{
-		// Create filter model and set properties
-		$filtersForm = new FiltersForm;
-		$filtersForm->filters['id'] = NULL;
-		if (isset($_GET['FiltersForm']))
-			$filtersForm->filters = $_GET['FiltersForm'];
+		$model = new Profiles('search');
+		$model->unsetAttributes(); // clear any default values
+		if (isset($_GET['Profiles']))
+			$model->attributes = $_GET['Profiles'];
 
-		// Get rawData and create dataProvider
-		$rawData = Profiles::model()->findAll();
-		$filteredData = $filtersForm->filter($rawData);
-		$dataProvider = new CArrayDataProvider($filteredData, array(
-			'pagination' => array(
-				'pageSize' => Yii::app()->params['postsPerPage'],
-			),
-		));
-
-		// Render
 		$this->render('profiles', array(
-			'tripId'       => $tripId,
-			'placeId'      => $placeId,
-			'filtersForm'  => $filtersForm,
-			'dataProvider' => $dataProvider,
+			'model' => $model,
 		));
 	}
 
