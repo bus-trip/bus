@@ -1,7 +1,9 @@
 <h1>Profiles</h1>
 
 <?php
-
+global $gtripId, $gplaceId;
+$gtripId = $tripId;
+$gplaceId = $placeId;
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'user-auth-data-grid',
 	'dataProvider' => $model->search(),
@@ -50,9 +52,16 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'chose_profile' => array(
 					'label'    => 'Выбрать профиль',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
-					//					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")'
+					'url'      => function ($data) {
+						global $gtripId, $gplaceId;
+
+						return Yii::app()->controller->createUrl('trips/sheet/' . $gtripId . '/' . $gplaceId . '/' . $data['id']);
+					},
 				)
 			)
 		)
 	)
 )); ?>
+
+<a href="<?php print Yii::app()->controller->createUrl('trips/sheet/' . $tripId . '/' . $placeId . '/0'); ?>">
+	Создать новый профиль</a>

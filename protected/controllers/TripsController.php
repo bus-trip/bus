@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -378,8 +378,22 @@ class TripsController extends Controller
 			$model->attributes = $_GET['Profiles'];
 
 		$this->render('profiles', array(
-			'model' => $model,
+			'tripId'  => $tripId,
+			'placeId' => $placeId,
+			'model'   => $model,
 		));
+	}
+
+	public function actionCreateTicket($tripId, $placeId, $profileId)
+	{
+		$Profile = new Profiles();
+		if ($profileId != 0) {
+			$Profile = Profiles::model()->findByPk($profileId);
+		}
+
+		print $tripId;
+		print $placeId;
+		print $profileId;
 	}
 
 	/**
