@@ -13,6 +13,8 @@ $this->menu=array(
 
 <h2>Автобусы</h2>
 
+
+
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'buses-grid',
 	'dataProvider'=>$modelData,

@@ -261,7 +261,7 @@ class TripsController extends Controller
 					$profile = Profiles::model()->find($criteria);
 					$arrPlaces[$i] = array(
 						'place'      => $i,
-						'passenger'  => $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["midle_name"],
+						'passenger'  => $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"],
 						'startPoint' => $direction["startPoint"],
 						'endPoint'   => $direction["endPoint"],
 						'phone'      => $profile->phone,
