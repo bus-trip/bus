@@ -1,54 +1,57 @@
 <?php
-$this->pageTitle=Yii::app()->name;
-$this->breadcrumbs=array(
+$this->pageTitle = Yii::app()->name;
+$this->breadcrumbs = array(
 	'Administration',
 );
 $monthNames = array(
-    '01' => 'Январь',
-    '02' => 'Февраль',
-    '03' => 'Март',
-    '04' => 'Апрель',
-    '05' => 'Май',
-    '06' => 'Июнь',
-    '07' => 'Июль',
-    '08' => 'Август',
-    '09' => 'Сентябрь',
-    '10' => 'Октябрь',
-    '11' => 'Ноябрь',
-    '12' => 'Декабрь',
+	'01' => 'Январь',
+	'02' => 'Февраль',
+	'03' => 'Март',
+	'04' => 'Апрель',
+	'05' => 'Май',
+	'06' => 'Июнь',
+	'07' => 'Июль',
+	'08' => 'Август',
+	'09' => 'Сентябрь',
+	'10' => 'Октябрь',
+	'11' => 'Ноябрь',
+	'12' => 'Декабрь',
 );
+$monthSelect = '';
+$yearSelect = '';
 ?>
 <table id="main">
-	    <caption>
-            <div style="float: left;"><b>Рейсы на <?php echo $currentDate['year'].'  '.$monthNames[$currentDate['month']]; ?></b></div>
-            <div style="float: right;">
-                <form action='/index.php/admin/index' method='post' style="float: left;">
-                    <?php echo CHtml::submitButton('Текущий месяц', array('submit'=>array('admin/index'))); ?>
-                </form>
-                <?php
-                    if(isset($currentDate) && is_array($currentDate)){
-                        echo CHtml::dropDownList(
-                            'monthSelect',
-                            $monthSelect,
-                            $monthNames,
-                            array(
-                                'empty' => 'Выберите месяц',
-                                'options' => array(
-                                    $currentDate['month']=>array(
-                                        'selected'=>true
-                                    )
-                                ),
-                                'ajax' => array(
-                                    'type' => 'POST',
-                                    'url' => '/index.php/admin/index',
-                                    'data' => array(
-                                        'monthSelect' => 'js:this.value',
-                                        'yearSelect' => 'js:document.getElementById("yearSelect").value'
-                                    ),
-                                    'update' => 'body'
-                                )
-                            )
-                        );
+	<caption>
+		<div style="float: left;"><b>Рейсы
+				на <?php echo $currentDate['year'] . '  ' . $monthNames[$currentDate['month']]; ?></b></div>
+		<div style="float: right;">
+			<form action='/index.php/admin/index' method='post' style="float: left;">
+				<?php echo CHtml::submitButton('Текущий месяц', array('submit' => array('admin/index'))); ?>
+			</form>
+			<?php
+			if (isset($currentDate) && is_array($currentDate)) {
+				echo CHtml::dropDownList(
+						  'monthSelect',
+						  $monthSelect,
+						  $monthNames,
+						  array(
+							  'empty'   => 'Выберите месяц',
+							  'options' => array(
+								  $currentDate['month'] => array(
+									  'selected' => TRUE
+								  )
+							  ),
+							  'ajax'    => array(
+								  'type'   => 'POST',
+								  'url'    => '/index.php/admin/index',
+								  'data'   => array(
+									  'monthSelect' => 'js:this.value',
+									  'yearSelect'  => 'js:document.getElementById("yearSelect").value'
+								  ),
+								  'update' => 'body'
+							  )
+						  )
+				);
 //                        echo "</form>";
                         echo CHtml::dropDownList(
                             'yearSelect',
@@ -86,6 +89,9 @@ $monthNames = array(
             $firstDOW--;
             $maxDays = date("t",strtotime($currentDate['year']."-".$currentDate['month']."-".$currentDate['day']));
             $count = $firstDOW > 4 ? 42 : 35;
+//                    echo '<pre>';
+//                    print_r($dataProvider->getData());
+//                    echo '</pre>';
             echo "<tr>";
             for($i=0; $i<$count; $i++){
 			    if($i % 7 == 0){
@@ -109,11 +115,10 @@ $monthNames = array(
                         echo "</form></div>";
                     }
                     $tripCounts = 0;
-                    echo '<pre>';
-//                    print_r($dataProvider->getData());
-                    echo '</pre>';
+                    $curday = $i+1-$firstDOW;
+    		    if($curday < 10) $curday = "0".$curday;
                     foreach($dataProvider->getData() as $d){
-                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 23:59:59')
+                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 23:59:59')
                             $tripCounts++;
                     }
                     if($tripCounts != 0){

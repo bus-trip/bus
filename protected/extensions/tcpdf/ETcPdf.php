@@ -82,7 +82,9 @@ class ETcPdf
          throw new CException(Yii::t('ETcPdf', '"unicode" must be a boolean value'));
 
 		$this->myTCPDF = new TCPDF($orientation, $unit, $format, $unicode, $encoding);
-   	define ("K_PATH_CACHE", Yii::app()->getRuntimePath());
+	   if (!defined("K_PATH_CACHE")) {
+		   define ("K_PATH_CACHE", Yii::app()->getRuntimePath());
+	   }
    }
 
    /**

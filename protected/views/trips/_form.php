@@ -23,7 +23,7 @@
 	<?php
         if(isset($directions)){
 		    echo $form->labelEx($model,'Направление');
-            if(isset($actual)) echo $form->dropDownList($model,'idDirection',$directions,array('disabled'=>'disabled'));
+            if(!$actual) echo $form->dropDownList($model,'idDirection',$directions,array('disabled'=>'disabled'));
             else echo $form->dropDownList($model,'idDirection',$directions);
 		    echo $form->error($model,'idDirection');
         }
@@ -34,7 +34,7 @@
 	<?php
         if(isset($buses)){
 		    echo $form->labelEx($model,'Автобус');
-            if(isset($actual)) echo $form->dropDownList($model,'idBus',$buses, array('disabled'=>'disabled'));
+            if(!$actual) echo $form->dropDownList($model,'idBus',$buses, array('disabled'=>'disabled'));
 		    else echo $form->dropDownList($model,'idBus',$buses);
 		    echo $form->error($model,'idBus');
         }
@@ -55,7 +55,7 @@
                 'changeMonth' => true,
                 'changeYear' => true,
                 'minDate' => 0,
-                'disabled' => isset($actual) ? true : false,
+                'disabled' => !$actual ? true : false,
 			),
 			'language'=>'ru',
 		));
@@ -77,7 +77,7 @@
                 'changeMonth' => true,
                 'changeYear' => true,
                 'minDate' => 0,
-                'disabled' => isset($actual) ? true : false,
+                'disabled' => !$actual ? true : false,
             ),
             'language'=>'ru',
         ));
@@ -88,7 +88,7 @@
     <div class="row">
         <?php
             echo $form->labelEx($model,'Описание');
-            if(isset($actual)) echo $form->textField($model,'description', array('disabled'=>'disabled'));
+            if(!$actual) echo $form->textField($model,'description', array('disabled'=>'disabled'));
             else echo $form->textField($model,'description');
             echo $form->error($model,'description');
         ?>

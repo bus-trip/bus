@@ -98,7 +98,11 @@ class TripsController extends Controller
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
 
-		$data = Buses::model()->findAll();
+		$data = Buses::model()->findAll(
+			array(
+				'condition' => 'status=1'
+			)
+		);
 		$buses = array();
 		$buses['empty'] = 'Выберите автобус';
 		foreach ($data as $d) {
@@ -109,6 +113,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
+			'actual'     => 1,
 		));
 	}
 
@@ -127,6 +132,7 @@ class TripsController extends Controller
 
 		if (isset($_POST['Trips'])) {
 			$model->attributes = $_POST['Trips'];
+			$model->description = isset($_POST['Trips']['description']) ? $_POST['Trips']['description'] : '';
 			if ($model->save()) {
 				// Обновляем запись в таблице расписаний (для начального и конечного пункта)
 				$schedule = Schedule::model()->findByAttributes(array('idTrip' => $model->id));
@@ -149,7 +155,11 @@ class TripsController extends Controller
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
 
-		$data = Buses::model()->findAll();
+		$data = Buses::model()->findAll(
+			array(
+				'condition' => 'status=1'
+			)
+		);
 		$buses = array();
 		$buses['empty'] = 'Выберите автобус';
 		foreach ($data as $d) {
@@ -162,7 +172,7 @@ class TripsController extends Controller
 			'buses'      => $buses,
 		);
 
-		if ($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) $arrRender['actual'] = 0;
+		$arrRender['actual'] = ($model->status == 0 || $model->arrival < date("Y-m-d H:i:s")) ? 0 : 1;
 
 		$this->render('update', $arrRender);
 	}
@@ -232,7 +242,7 @@ class TripsController extends Controller
 		}
 
 		$arrPlaces = array();
-		for ($i = 1; $i < $bus["places"]; $i++) {
+		for ($i = 1; $i <= $bus["places"]; $i++) {
 			$arrPlaces[$i] = array(
 				'place'      => $i,
 				'passenger'  => '',
@@ -243,12 +253,11 @@ class TripsController extends Controller
 			);
 		}
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'id=:id';
+		$criteria->condition = 'tid=:tid';
 		for ($i = 1; $i <= $bus['places']; $i++) {
 			foreach ($tickets as $t) {
-
 				if ($t["place"] == $i) {
-					$criteria->params = array(':id' => $t["idProfile"]);
+					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
 					$arrPlaces[$i] = array(
 						'place'      => $i,

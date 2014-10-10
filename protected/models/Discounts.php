@@ -1,28 +1,21 @@
 <?php
 
 /**
- * This is the model class for table "buses".
+ * This is the model class for table "discounts".
  *
- * The followings are the available columns in table 'buses':
- * @property integer $id
- * @property string $model
- * @property string $number
- * @property integer $places
- * @property string $description
- * @property integer $status
- *
- * The followings are the available model relations:
- * @property Tickets[] $tickets
- * @property Trips[] $trips
+ * The followings are the available columns in table 'discounts':
+ * @property string $id
+ * @property integer $amount
+ * @property integer $amountType
  */
-class Buses extends CActiveRecord
+class Discounts extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'buses';
+		return 'discounts';
 	}
 
 	/**
@@ -33,14 +26,12 @@ class Buses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('model, number, places, status', 'required'),
-			array('places, status', 'numerical', 'integerOnly'=>true),
-			array('model', 'length', 'max'=>100),
-			array('number', 'length', 'max'=>20),
-			array('description', 'length', 'max'=>'1000'),
+			array('id, amount, amountType', 'required'),
+			array('amount, amountType', 'numerical', 'integerOnly'=>true),
+			array('id', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, model, number, places, description, status', 'safe', 'on'=>'search'),
+			array('id, amount, amountType', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,8 +43,6 @@ class Buses extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idBus'),
-			'trips' => array(self::HAS_MANY, 'Trips', 'idBus'),
 		);
 	}
 
@@ -64,11 +53,8 @@ class Buses extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'model' => 'Model',
-			'number' => 'Number',
-			'places' => 'Places',
-			'description' => 'Description',
-			'status' => 'Status',
+			'amount' => 'Amount',
+			'amountType' => 'Amount Type',
 		);
 	}
 
@@ -90,12 +76,9 @@ class Buses extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id',$this->id);
-		$criteria->compare('model',$this->model,true);
-		$criteria->compare('number',$this->number,true);
-		$criteria->compare('places',$this->places);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('status',$this->status);
+		$criteria->compare('id',$this->id,true);
+		$criteria->compare('amount',$this->amount);
+		$criteria->compare('amountType',$this->amountType);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -106,7 +89,7 @@ class Buses extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Buses the static model class
+	 * @return Discounts the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
