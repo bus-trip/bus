@@ -381,12 +381,30 @@ class TripsController extends Controller
 
 	public function actionProfiles($tripId, $placeId)
 	{
-		if (FALSE) {
+		$Ticket = Tickets::model()->findByAttributes(array('idTrip' => $tripId, 'place' => $placeId));
+		if ($Ticket) {
 			// билет создан, страница редактирования
+			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
+			// обработчик формы
+			if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
+				$Ticket->attributes = $_POST['Tickets'];
+				$Profile->attributes = $_POST['Profiles'];
+				if ($Profile->validate() && $Profile->save() && $Ticket->validate() && $Ticket->save()) {
+					Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " обновлен");
 
+					$url = $this->createUrl('/trips/sheet/' . $tripId);
+					$this->redirect($url);
+				}
+			}
+
+			$this->render('ticket', array(
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'profile' => $Profile,
+				'model'   => $Ticket
+			));
 		} else {
 			// создаем билет
-
 			$model = new Profiles('search');
 			$model->unsetAttributes(); // clear any default values
 			if (isset($_GET['Profiles']))
