@@ -70,19 +70,24 @@ class TripsController extends Controller
 
 		if (isset($_POST['Trips'])) {
 			$model->attributes = $_POST['Trips'];
-			if ($model->save()) {
-				// Создаём запись в таблице расписаний (для начального и конечного пункта)
-				$schData = array(
-					'idTrip'      => $model->id,
-					'idDirection' => $_POST['Trips']['idDirection'],
-					'departure'   => $_POST['Trips']['departure'],
-					'arrival'     => $_POST['Trips']['arrival'],
-				);
-				$schedule = new Schedule;
-				$schedule->attributes = $schData;
-				$schedule->save();
+			$model->description = isset($_POST['Trips']['description']) ? $_POST['Trips']['description'] : '';
+			if ($model->arrival > $model->departure) {
+				if ($model->save()) {
+					// Создаём запись в таблице расписаний (для начального и конечного пункта)
+					$schData = array(
+						'idTrip'      => $model->id,
+						'idDirection' => $_POST['Trips']['idDirection'],
+						'departure'   => $_POST['Trips']['departure'],
+						'arrival'     => $_POST['Trips']['arrival'],
+					);
+					$schedule = new Schedule;
+					$schedule->attributes = $schData;
+					$schedule->save();
 
-				$this->redirect(array('admin', 'id' => $model->id));
+					$this->redirect(array('admin', 'id' => $model->id));
+				}
+			} else {
+				$model->addError('arrival','Время прибытия не должно быть равно или меньше времени отправления');
 			}
 		}
 
@@ -133,17 +138,21 @@ class TripsController extends Controller
 		if (isset($_POST['Trips'])) {
 			$model->attributes = $_POST['Trips'];
 			$model->description = isset($_POST['Trips']['description']) ? $_POST['Trips']['description'] : '';
-			if ($model->save()) {
-				// Обновляем запись в таблице расписаний (для начального и конечного пункта)
-				$schedule = Schedule::model()->findByAttributes(array('idTrip' => $model->id));
-				if ($schedule) {
-					if (isset($_POST['Trips']['idDirection'])) $schedule->idDirection = $_POST['Trips']['idDirection'];
-					if (isset($_POST['Trips']['departure'])) $schedule->departure = $_POST['Trips']['departure'];
-					if (isset($_POST['Trips']['arrival'])) $schedule->arrival = $_POST['Trips']['arrival'];
-					$schedule->status = $_POST['Trips']['status'];
-					$schedule->save();
+			if ($model->arrival > $model->departure) {
+				if ($model->save()) {
+					// Обновляем запись в таблице расписаний (для начального и конечного пункта)
+					$schedule = Schedule::model()->findByAttributes(array('idTrip' => $model->id));
+					if ($schedule) {
+						if (isset($_POST['Trips']['idDirection'])) $schedule->idDirection = $_POST['Trips']['idDirection'];
+						if (isset($_POST['Trips']['departure'])) $schedule->departure = $_POST['Trips']['departure'];
+						if (isset($_POST['Trips']['arrival'])) $schedule->arrival = $_POST['Trips']['arrival'];
+						$schedule->status = $_POST['Trips']['status'];
+						$schedule->save();
+					}
+					$this->redirect(array('trips/admin/status/actual'));
 				}
-				$this->redirect(array('trips/admin/status/actual'));
+			} else {
+				$model->addError('arrival','Время прибытия не должно быть равно или меньше времени отправления');
 			}
 		}
 
