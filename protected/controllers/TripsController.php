@@ -372,28 +372,65 @@ class TripsController extends Controller
 
 	public function actionProfiles($tripId, $placeId)
 	{
-		$model = new Profiles('search');
-		$model->unsetAttributes(); // clear any default values
-		if (isset($_GET['Profiles']))
-			$model->attributes = $_GET['Profiles'];
+		if (FALSE) {
+			// билет создан, страница редактирования
 
-		$this->render('profiles', array(
-			'tripId'  => $tripId,
-			'placeId' => $placeId,
-			'model'   => $model,
-		));
+		} else {
+			// создаем билет
+
+			$model = new Profiles('search');
+			$model->unsetAttributes(); // clear any default values
+			if (isset($_GET['Profiles']))
+				$model->attributes = $_GET['Profiles'];
+
+			$this->render('profiles', array(
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'model'   => $model,
+			));
+		}
 	}
 
 	public function actionCreateTicket($tripId, $placeId, $profileId)
 	{
+		$Ticket = new Tickets();
 		$Profile = new Profiles();
-		if ($profileId != 0) {
+
+		// обработчик формы
+		if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
+			$Profile->attributes = $_POST['Profiles'];
+			if ($Profile->validate()) {
+				$Ticket->attributes = $_POST['Tickets'];
+				$Ticket->idTrip = $tripId;
+				$Ticket->place = $placeId;
+
+				$criteria = new CDbCriteria();
+				$criteria->join = 'join trips as tr on t.id=tr.idDirection';
+				$criteria->condition = 'tr.id=' . $tripId;
+				$Direction = Directions::model()->find($criteria);
+
+				if ($Direction) {
+					$Ticket->price = $Direction->price;
+					if ($Ticket->validate() && $Ticket->save()) {
+						$Profile->tid = $Ticket->id;
+						$Profile->save();
+						Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " забронирован");
+
+						$url = $this->createUrl('/trips/sheet/' . $tripId);
+						$this->redirect($url);
+					}
+				}
+			}
+		} elseif ($profileId != 0) {
 			$Profile = Profiles::model()->findByPk($profileId);
 		}
 
-		print $tripId;
-		print $placeId;
-		print $profileId;
+		$this->render('ticket', array(
+			'tripId'  => $tripId,
+			'placeId' => $placeId,
+			'profile' => $Profile,
+			'model'   => $Ticket
+		));
 	}
 
 	/**

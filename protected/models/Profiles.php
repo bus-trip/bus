@@ -4,23 +4,21 @@
  * This is the model class for table "profiles".
  *
  * The followings are the available columns in table 'profiles':
- * @property integer   $id
- * @property integer   $uid
- * @property integer   $tid
- * @property string    $last_name
- * @property string    $name
- * @property string    $middle_name
- * @property integer   $passport
- * @property integer   $phone
- * @property string    $address
- * @property integer   $sex
- * @property string    $birth
- * @property string    $created
+ * @property integer $id
+ * @property integer $uid
+ * @property integer $tid
+ * @property string  $last_name
+ * @property string  $name
+ * @property string  $middle_name
+ * @property integer $passport
+ * @property string  $phone
+ * @property integer $sex
+ * @property integer $birth
+ * @property string  $created
  *
  * The followings are the available model relations:
- * @property Tickets   $t
- * @property User      $u
- * @property Tickets[] $tickets
+ * @property Tickets $t
+ * @property User    $u
  */
 class Profiles extends CActiveRecord
 {
@@ -43,7 +41,6 @@ class Profiles extends CActiveRecord
 			array('last_name, name, passport, phone', 'required'),
 			array('uid, tid, passport, sex, birth', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
-			array('birth', 'type', 'type' => 'date', 'message' => '{attribute}: is not a date!', 'dateFormat' => 'dd.mm.yyyy'),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
 			array('phone', 'length', 'max' => 17),
 			array('sex', 'length', 'max' => 1, 'min' => 1),
@@ -62,9 +59,8 @@ class Profiles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			't'       => array(self::BELONGS_TO, 'Tickets', 'tid'),
-			'u'       => array(self::BELONGS_TO, 'User', 'uid'),
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idProfile'),
+			't' => array(self::BELONGS_TO, 'Tickets', 'tid'),
+			'u' => array(self::BELONGS_TO, 'User', 'uid'),
 		);
 	}
 
@@ -142,13 +138,16 @@ class Profiles extends CActiveRecord
 			$this->sex = NULL;
 		}
 
+		if (preg_match('#\.#', $this->birth)) {
+			$this->birth = strtotime($this->birth);
+		}
+
 		return parent::validate($attributes, $clearErrors);
 	}
 
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
-			$this->birth = strtotime($this->birth);
 			$this->name = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);
 			if ($this->middle_name)

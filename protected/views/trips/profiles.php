@@ -18,6 +18,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'UserID',
 		),
 		array(
+			'name'   => 'tid',
+			'header' => 'TicketID',
+		),
+		array(
 			'name'   => 'last_name',
 			'header' => 'Фамилия',
 		),
