@@ -99,7 +99,7 @@ class BusesController extends Controller
 					'condition' => 'idBus=' . $id . ' and (status=1 or (status=0 and "' . date("Y-m-d H:i:s") . '"<=arrival))'
 				)
 			);
-			if ($tripsCount == 0) {
+			if ($tripsCount == 0 || $model->status == 1) {
 				if ($model->save())
 					$this->redirect(array('admin'));
 			} else {
