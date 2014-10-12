@@ -517,7 +517,7 @@ class TripsController extends Controller
 		if (isset($model->departure)) $query .= " and (t.departure between '" . $model->departure . " 00:00:00' and '" . $model->departure . " 23:59:59')";
 		if (isset($_GET['status']))
 			$query .= $_GET['status'] == 'actual' ? ' and (t.status=1 and t.arrival >= "' . date('Y-m-d H:i:s') . '")' : ' and (t.status=0 or t.arrival < "' . date('Y-m-d H:i:s') . '")';
-		$query .= " order by t.departure";
+		$query .= " order by t.departure desc";
 
 		$tripsData = Yii::app()->db->createCommand($query)->queryAll();
 
