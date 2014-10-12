@@ -353,16 +353,16 @@ class TripsController extends Controller
                         <th width="80px" style="border-bottom: 1px solid #000000;"><strong>Стоимость</strong></th>
                     </tr>';
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'id=:id';
+		$criteria->condition = 'tid=:tid';
 		for ($i = 1; $i <= $bus['places']; $i++) {
 			$flag = 0;
 			foreach ($tickets as $t) {
 				if ($t["place"] == $i) {
-					$criteria->params = array(':id' => $t["idProfile"]);
+					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
 					$tbl .= '<tr>';
 					$tbl .= '<td width="55px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["midle_name"] . '</td>';
+					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"] . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $direction["startPoint"] . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $direction["endPoint"] . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->phone . '</td>';
@@ -517,6 +517,7 @@ class TripsController extends Controller
 		if (isset($model->departure)) $query .= " and (t.departure between '" . $model->departure . " 00:00:00' and '" . $model->departure . " 23:59:59')";
 		if (isset($_GET['status']))
 			$query .= $_GET['status'] == 'actual' ? ' and (t.status=1 and t.arrival >= "' . date('Y-m-d H:i:s') . '")' : ' and (t.status=0 or t.arrival < "' . date('Y-m-d H:i:s') . '")';
+		$query .= " order by t.departure";
 
 		$tripsData = Yii::app()->db->createCommand($query)->queryAll();
 

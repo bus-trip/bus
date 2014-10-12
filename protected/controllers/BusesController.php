@@ -94,8 +94,17 @@ class BusesController extends Controller
 
 		if (isset($_POST['Buses'])) {
 			$model->attributes = $_POST['Buses'];
-			if ($model->save())
-				$this->redirect(array('admin'));
+			$tripsCount = Trips::model()->count(
+				array(
+					'condition' => 'idBus=' . $id . ' and (status=1 or (status=0 and "' . date("Y-m-d H:i:s") . '"<=arrival))'
+				)
+			);
+			if ($tripsCount == 0) {
+				if ($model->save())
+					$this->redirect(array('admin'));
+			} else {
+				$model->addError('status', 'Нельзя удалить автобус, назначенный в рейс');
+			}
 		}
 
 		$this->render('update', array(
@@ -123,8 +132,9 @@ class BusesController extends Controller
 			$model->save();
 		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax']))
+		if (!isset($_GET['ajax'])) {
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
 	}
 
 	/**
