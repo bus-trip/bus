@@ -87,7 +87,7 @@ class TripsController extends Controller
 					$this->redirect(array('admin', 'id' => $model->id));
 				}
 			} else {
-				$model->addError('arrival','Время прибытия не должно быть равно или меньше времени отправления');
+				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления');
 			}
 		}
 
@@ -152,7 +152,7 @@ class TripsController extends Controller
 					$this->redirect(array('trips/admin/status/actual'));
 				}
 			} else {
-				$model->addError('arrival','Время прибытия не должно быть равно или меньше времени отправления');
+				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления');
 			}
 		}
 
@@ -242,7 +242,8 @@ class TripsController extends Controller
 		$direction = $data->attributes;
 
 		$criteria = new CDbCriteria();
-		$criteria->condition = 't.idTrip=' . $id . ' and (t.status = 1 or t.status = 2)';
+//		$criteria->condition = 't.idTrip=' . $id . ' and (t.status = 1 or t.status = 2)';
+		$criteria->condition = 't.idTrip=' . $id;
 		$criteria->join = 'left join trips as tr on tr.id = t.idTrip';
 		$data = Tickets::model()->findAll($criteria);
 		$tickets = array();
@@ -274,7 +275,8 @@ class TripsController extends Controller
 						'startPoint' => $direction["startPoint"],
 						'endPoint'   => $direction["endPoint"],
 						'phone'      => $profile->phone,
-						'price'      => $t["price"]
+						'price'      => $t["price"],
+						'status'     => $t['status']
 					);
 				}
 			}
@@ -430,6 +432,8 @@ class TripsController extends Controller
 	public function actionCreateTicket($tripId, $placeId, $profileId)
 	{
 		$Ticket = new Tickets();
+		$Ticket->status = 1;
+
 		$Profile = new Profiles();
 
 		// обработчик формы

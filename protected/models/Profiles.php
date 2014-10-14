@@ -190,4 +190,15 @@ class Profiles extends CActiveRecord
 
 		return $name;
 	}
+
+	public function searchWithGroupBy($field)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->group = $field;
+
+		return new CActiveDataProvider($this, array(
+			'criteria'   => $criteria,
+			'pagination' => array('pageSize' => 50)
+		));
+	}
 }

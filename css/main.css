@@ -305,3 +305,16 @@ html[xmlns] .clearfix {
 #passengers .item .data .label{
 	font-weight: bold;
 }
+.grid-view table.items .row-status-0 td, .row-status-0{background-color: #FFDBDB}
+.grid-view table.items .row-status-1 td, .row-status-1{background-color: #FFF582}
+.grid-view table.items .row-status-2 td, .row-status-2{background-color: #89EE89}
+
+.legends .legend-ico{width: 10px; height: 10px; display:inline-block;}
+.legends .legend{display:inline-block;}
+.legends .row{
+	margin: 4px 0;
+}
+
+.legends{
+	margin: 10px 0;
+}

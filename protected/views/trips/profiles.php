@@ -6,21 +6,21 @@ $gtripId = $tripId;
 $gplaceId = $placeId;
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'user-auth-data-grid',
-	'dataProvider' => $model->search(),
+	'dataProvider' => $model->searchWithGroupBy('passport'),
 	'filter'       => $model,
 	'columns'      => array(
-		array(
-			'name'   => 'id',
-			'header' => 'ID',
-		),
-		array(
-			'name'   => 'uid',
-			'header' => 'UserID',
-		),
-		array(
-			'name'   => 'tid',
-			'header' => 'TicketID',
-		),
+//		array(
+//			'name'   => 'id',
+//			'header' => 'ID',
+//		),
+//		array(
+//			'name'   => 'uid',
+//			'header' => 'UserID',
+//		),
+//		array(
+//			'name'   => 'tid',
+//			'header' => 'TicketID',
+//		),
 		array(
 			'name'   => 'last_name',
 			'header' => 'Фамилия',
@@ -67,5 +67,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	)
 )); ?>
 
-<a href="<?php print Yii::app()->controller->createUrl('trips/sheet/' . $tripId . '/' . $placeId . '/0'); ?>">
-	Создать новый профиль</a>
+<p><a href="<?php print Yii::app()->controller->createUrl('trips/sheet/' . $tripId . '/' . $placeId . '/0'); ?>">
+	Создать билет с новым профилем</a></p>

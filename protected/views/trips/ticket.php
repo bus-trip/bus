@@ -20,21 +20,25 @@
 		<label>Адрес</label>
 
 		<div class="row">
-			<?php echo $form->labelEx($model,'От'); ?>
-			<?php echo $form->textArea($model,'address_from'); ?>
-			<?php echo $form->error($model,'model'); ?>
+			<?php echo $form->labelEx($model, 'От'); ?>
+			<?php echo $form->textArea($model, 'address_from'); ?>
+			<?php echo $form->error($model, 'model'); ?>
 		</div>
 
 		<div class="row">
-			<?php echo $form->labelEx($model,'До'); ?>
-			<?php echo $form->textArea($model,'address_to'); ?>
-			<?php echo $form->error($model,'model'); ?>
+			<?php echo $form->labelEx($model, 'До'); ?>
+			<?php echo $form->textArea($model, 'address_to'); ?>
+			<?php echo $form->error($model, 'model'); ?>
 		</div>
 
 	</fieldset>
 
-	Статус билета ...
-<select name="status"><option value="1">Забронирован</option></select>
+	<div class="row">
+		<?php echo $form->labelEx($model, 'Статус'); ?>
+		<?php echo $form->dropDownList($model, 'status', $model->getStatuses()); ?>
+		<?php echo $form->error($model, 'model'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Сохранить'); ?>
 	</div>

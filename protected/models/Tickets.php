@@ -1,5 +1,9 @@
 <?php
 
+define('TICKET_CANCELED', 0);
+define('TICKET_RESERVED', 1);
+define('TICKET_CONFIRMED', 2);
+
 /**
  * This is the model class for table "tickets".
  *
@@ -114,5 +118,18 @@ class Tickets extends CActiveRecord
 	public static function model($className = __CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getStatuses()
+	{
+		return self::statuses();
+	}
+
+	public static function statuses(){
+		return array(
+			TICKET_CANCELED  => 'Отменен',
+			TICKET_RESERVED  => 'Забронирован',
+			TICKET_CONFIRMED => 'Подтвержден',
+		);
 	}
 }
