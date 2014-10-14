@@ -13,12 +13,11 @@ $this->menu = array(
 
 <h2>Автобусы</h2>
 
-
-<div id="info"></div>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'buses-grid',
 	'dataProvider' => $modelData,
 	'template'     => '{items}{pager}',
+//	'ajaxUpdate'   => FALSE,
 	'columns'      => array(
 		array(
 			'name'   => 'id',
@@ -48,7 +47,7 @@ $this->menu = array(
 			'header'             => 'Действия',
 			'class'              => 'CButtonColumn',
 			'deleteConfirmation' => 'Вы точно хотите снять автобус с рейсов?',
-//			'afterDelete'        => 'function(link,success,data){if(data == 0) $("#info").html("Нельзя снять с рейсов автобус, назначенный в рейс!");}',
+			//			'afterDelete'        => 'function(link,success,data){if(data == 0) $("#info").html("Нельзя снять с рейсов автобус, назначенный в рейс!");}',
 			'template'           => '{update}&nbsp;&nbsp;&nbsp;{delete}',
 			'buttons'            => array(
 				'update' => array(

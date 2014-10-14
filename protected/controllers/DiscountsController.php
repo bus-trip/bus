@@ -147,19 +147,27 @@ class DiscountsController extends Controller
 	/**
 	 * Устанавливает скидку для определённого билета.
 	 *
-	 * @param $ticketId
+	 * @param $sum
+	 * @param $passport
 	 * @param $discountId
 	 */
-	public function actionSetDiscount($ticketId, $discountId)
+	public function getDiscount($sum, $passport, $discountId)
 	{
-		$ticket = Tickets::model()->findAllByPk($ticketId);
 		$model = $this->loadModel($discountId);
+		$criteria = new CDbCriteria();
 		switch ($discountId) {
 			// Скидка на третью поездку
 			case 'TRIPS_COUNT_3':
-				$ticket->price = $model->amountType == 0 ? $ticket->price - $model->amount/100 : $ticket->price*($model->amount/100);
+				$criteria->select = 't.id';
+				$criteria->join = 'left join tickets as ti on t.tid=ti.id';
+				$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
+				$criteria->condition = 'tr.arrival<"' . date('Y-m-d H:i:s') . '" and ti.status=1 and t.passport="' . $passport . '"';
+				$profiles = Profiles::model()->count($criteria);
+				if (($profiles + 1) % 3 == 0 && $profiles != 0) $sum = $model->amountType == 0 ? $sum - $model->amount : $sum * ($model->amount / 100);
 				break;
 		}
+
+		return $sum;
 	}
 
 	/**

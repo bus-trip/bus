@@ -435,6 +435,7 @@ class TripsController extends Controller
 		$Ticket->status = 1;
 
 		$Profile = new Profiles();
+		list($discount) = Yii::app()->createController('discounts');
 
 		// обработчик формы
 		if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
@@ -443,6 +444,7 @@ class TripsController extends Controller
 				$Ticket->attributes = $_POST['Tickets'];
 				$Ticket->idTrip = $tripId;
 				$Ticket->place = $placeId;
+				$Ticket->status = 1;
 
 				$criteria = new CDbCriteria();
 				$criteria->join = 'join trips as tr on t.id=tr.idDirection';
@@ -450,7 +452,8 @@ class TripsController extends Controller
 				$Direction = Directions::model()->find($criteria);
 
 				if ($Direction) {
-					$Ticket->price = $Direction->price;
+					// Задаём скидку, пока без условий
+					$Ticket->price = $discount->getDiscount($Direction->price, $Profile->passport, 'TRIPS_COUNT_3');
 					if ($Ticket->validate() && $Ticket->save()) {
 						$Profile->tid = $Ticket->id;
 						$Profile->save();

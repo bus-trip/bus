@@ -130,6 +130,11 @@ class BusesController extends Controller
 		if ($tripsCount == 0) {
 			$model->status = 0;
 			$model->save();
+			Yii::app()->user->setFlash('error', "Автобус удалён");
+//			echo "<div class='flash-error'>Автобус удалён</div>";
+		} else {
+			Yii::app()->user->setFlash('error', "Нельзя удалить автобус, назначенный в рейс");
+//			echo "<div class='flash-error'>Нельзя удалить автобус, назначенный в рейс</div>";
 		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax'])) {
