@@ -1,4 +1,4 @@
-<p class="note">Fields with <span class="required">*</span> are required.</p>
+<p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
 
 <?php echo $form->errorSummary($model); ?>
 

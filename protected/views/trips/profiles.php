@@ -1,4 +1,17 @@
-<h1>Profiles</h1>
+<?php
+
+$this->breadcrumbs = array(
+	'Рейсы' => array('admin'),
+	'Посадочная ведомость',
+);
+
+$this->menu = array(
+	array('label' => 'Рейсы', 'url' => array('admin')),
+);
+
+?>
+
+<h1>Выбор пассажира</h1>
 
 <?php
 global $gtripId, $gplaceId;
@@ -68,4 +81,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 )); ?>
 
 <p><a href="<?php print Yii::app()->controller->createUrl('trips/sheet/' . $tripId . '/' . $placeId . '/0'); ?>">
-	Создать билет с новым профилем</a></p>
+	Создать билет с новым профилем пассажира</a></p>
