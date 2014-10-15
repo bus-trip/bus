@@ -272,8 +272,8 @@ class TripsController extends Controller
 					$arrPlaces[$i] = array(
 						'place'      => $i,
 						'passenger'  => $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"],
-						'startPoint' => $direction["startPoint"],
-						'endPoint'   => $direction["endPoint"],
+						'startPoint' => $t["address_from"],
+						'endPoint'   => $t["address_to"],
 						'phone'      => $profile->phone,
 						'price'      => $t["price"],
 						'status'     => $t['status']
