@@ -86,8 +86,10 @@ class TripsController extends Controller
 
 					$this->redirect(array('admin', 'id' => $model->id));
 				}
+			} elseif($model->arrival <= $model->departure) {
+				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления.');
 			} else {
-				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления');
+				$model->addError('departure', 'Время отправления не может быть меньше текущего.');
 			}
 		}
 
