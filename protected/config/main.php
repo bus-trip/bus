@@ -7,7 +7,7 @@
 // CWebApplication properties can be configured here.
 return array(
 	'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-	'name'       => 'Bus',
+	'name'       => 'Sprint tour',
 
 	// preloading 'log' component
 	'preload'    => array('log'),
@@ -37,16 +37,18 @@ return array(
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'   => array(
-			'urlFormat' => 'path',
-			'rules'     => array(
-				'<controller:\w+>/<id:\d+>'                                => '<controller>/view',
-				'<controller:\w+>/<action:\w+>/<id:\d+>'                   => '<controller>/<action>',
-				'<controller:\w+>/<action:\w+>'                            => '<controller>/<action>',
-				'account'                                                  => 'account/profile',
-				'account/passengers/add'                                   => 'account/passengersadd',
-				'account/passengers/delete/<id:\d+>'                       => 'account/passengersdelete',
-				'account/passengers/edit/<id:\d+>'                         => 'account/passengersedit',
-				'trips/sheet/<tripId:\d+>/<placeId:\d+>'                   => 'trips/profiles',
+			'urlFormat'      => 'path',
+			'showScriptName' => FALSE,
+			'rules'          => array(
+				''                                                       => 'admin/index',
+				'<controller:\w+>/<id:\d+>'                              => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>'                 => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>'                          => '<controller>/<action>',
+				'account'                                                => 'account/profile',
+				'account/passengers/add'                                 => 'account/passengersadd',
+				'account/passengers/delete/<id:\d+>'                     => 'account/passengersdelete',
+				'account/passengers/edit/<id:\d+>'                       => 'account/passengersedit',
+				'trips/sheet/<tripId:\d+>/<placeId:\d+>'                 => 'trips/profiles',
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<profileId:\d+>' => 'trips/createticket'
 			),
 		),
