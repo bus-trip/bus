@@ -242,8 +242,8 @@ class TripsController extends Controller
 		$direction = $data->attributes;
 
 		$criteria = new CDbCriteria();
-//		$criteria->condition = 't.idTrip=' . $id . ' and (t.status = 1 or t.status = 2)';
 		$criteria->condition = 't.idTrip=' . $id;
+		$criteria->addNotInCondition('t.status', array(TICKET_CANCELED));
 		$criteria->join = 'left join trips as tr on tr.id = t.idTrip';
 		$data = Tickets::model()->findAll($criteria);
 		$tickets = array();
@@ -393,7 +393,7 @@ class TripsController extends Controller
 	public function actionProfiles($tripId, $placeId)
 	{
 		$Ticket = Tickets::model()->findByAttributes(array('idTrip' => $tripId, 'place' => $placeId));
-		if ($Ticket) {
+		if ($Ticket && $Ticket->status != TICKET_CANCELED) {
 			// билет создан, страница редактирования
 			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
 			// обработчик формы

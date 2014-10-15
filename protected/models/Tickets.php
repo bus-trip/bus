@@ -1,9 +1,4 @@
 <?php
-
-define('TICKET_CANCELED', 0);
-define('TICKET_RESERVED', 1);
-define('TICKET_CONFIRMED', 2);
-
 /**
  * This is the model class for table "tickets".
  *

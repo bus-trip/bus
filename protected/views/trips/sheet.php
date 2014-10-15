@@ -72,7 +72,9 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 <div class="legends">
 	Статусы билетов: <br>
-	<?php foreach (Tickets::statuses() as $key => $value) { ?>
+	<?php foreach (Tickets::statuses() as $key => $value) {
+		if ($key == TICKET_CANCELED) continue;
+		?>
 		<div class="row">
 			<div class="legend-ico row-status-<?php print $key; ?>"></div>
 			<div class="legend"><?php print $value; ?></div>
@@ -84,4 +86,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 <p><?php
 	echo '<a href="' . Yii::app()->createUrl('trips/sheetprint',
 											 array('id' => $_GET['id'])) . '" target="_blank">Версия для печати</a>';
-?></p>
+	?></p>
