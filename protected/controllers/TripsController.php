@@ -71,7 +71,7 @@ class TripsController extends Controller
 		if (isset($_POST['Trips'])) {
 			$model->attributes = $_POST['Trips'];
 			$model->description = isset($_POST['Trips']['description']) ? $_POST['Trips']['description'] : '';
-			if ($model->arrival > $model->departure) {
+			if ($model->arrival > $model->departure && $model->departure > date('Y-m-d H:i:s')) {
 				if ($model->save()) {
 					// Создаём запись в таблице расписаний (для начального и конечного пункта)
 					$schData = array(

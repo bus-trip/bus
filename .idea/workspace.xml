@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/DiscountsController.php" afterPath="$PROJECT_DIR$/protected/controllers/DiscountsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -32,35 +31,45 @@
       <file leaf-file-name="TripsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5503597" vertical-offset="4369" max-vertical-offset="10132">
-              <caret line="275" column="57" selection-start-line="275" selection-start-column="57" selection-end-line="275" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.33633092" vertical-offset="1054" max-vertical-offset="10132">
+              <caret line="73" column="97" selection-start-line="73" selection-start-column="97" selection-end-line="73" selection-end-column="97" />
               <folding>
-                <marker date="1413402209324" expanded="true" signature="5918:5955" placeholder="select id fr..schedule..." />
-                <marker date="1413402209324" expanded="false" signature="10395:10434" placeholder="..." />
-                <marker date="1413402209324" expanded="true" signature="10435:11161" placeholder="..." />
-                <marker date="1413402209324" expanded="true" signature="10463:11161" placeholder="..." />
-                <marker date="1413402209324" expanded="true" signature="10506:11161" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="10556:10589" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="10654:10687" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="10750:10783" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="10850:10883" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="10950:10983" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11070:11103" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11516:11549" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11594:11627" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11784:11817" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11884:11917" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="11982:12015" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12073:12106" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12258:12291" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12335:12368" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12402:12435" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12469:12502" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12536:12569" placeholder="..." />
-                <marker date="1413402209324" expanded="false" signature="12603:12636" placeholder="..." />
-                <marker date="1413402209324" expanded="true" signature="16294:16332" placeholder="select id fr..schedule..." />
-                <marker date="1413402209324" expanded="true" signature="16461:16814" placeholder="select t.id,..trips..." />
+                <marker date="1413404023055" expanded="true" signature="5961:5998" placeholder="select id fr..schedule..." />
+                <marker date="1413404023055" expanded="false" signature="10438:10477" placeholder="..." />
+                <marker date="1413404023055" expanded="true" signature="10478:11204" placeholder="..." />
+                <marker date="1413404023055" expanded="true" signature="10506:11204" placeholder="..." />
+                <marker date="1413404023055" expanded="true" signature="10549:11204" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="10599:10632" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="10697:10730" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="10793:10826" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="10893:10926" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="10993:11026" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="11113:11146" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="11559:11592" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="11637:11670" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="11827:11860" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="11927:11960" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12025:12058" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12116:12149" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12301:12334" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12378:12411" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12445:12478" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12512:12545" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12579:12612" placeholder="..." />
+                <marker date="1413404023055" expanded="false" signature="12646:12679" placeholder="..." />
+                <marker date="1413404023055" expanded="true" signature="16337:16375" placeholder="select id fr..schedule..." />
+                <marker date="1413404023055" expanded="true" signature="16504:16857" placeholder="select t.id,..trips..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BusesController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-50.307693" vertical-offset="1021" max-vertical-offset="4097">
+              <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -217,7 +226,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -310,6 +318,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -326,6 +335,118 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="LayoutCode.rearrangeEntriesPHP" value="false" />
+  </component>
+  <component name="RestoreUpdateTree">
+    <UpdateInfo date="Moments ago" ActionInfo="_Update">
+      <UpdatedFiles>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Updated from server" />
+          <option name="myStatusName" value="Changed on server" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="CHANGED_ON_SERVER" />
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Updated" />
+            <option name="myStatusName" value="Changed" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="UPDATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/controllers/AccountController.php</PATH>
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Created" />
+            <option name="myStatusName" value="Created" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="CREATED" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Deleted" />
+            <option name="myStatusName" value="Deleted" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="true" />
+            <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          </FILE-GROUP>
+          <FILE-GROUP>
+            <option name="myUpdateName" value="Restored" />
+            <option name="myStatusName" value="Will be restored" />
+            <option name="mySupportsDeletion" value="false" />
+            <option name="myCanBeAbsent" value="false" />
+            <option name="myId" value="RESTORED" />
+          </FILE-GROUP>
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Modified" />
+          <option name="myStatusName" value="Modified" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MODIFIED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Skipped" />
+          <option name="myStatusName" value="Skipped" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SKIPPED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with conflicts" />
+          <option name="myStatusName" value="Will be merged with conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_CONFLICTS" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with tree conflicts" />
+          <option name="myStatusName" value="Merged with tree conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged with property conflicts" />
+          <option name="myStatusName" value="Will be merged with property conflicts" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Merged" />
+          <option name="myStatusName" value="Will be merged" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="MERGED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Not in repository" />
+          <option name="myStatusName" value="Not in repository" />
+          <option name="mySupportsDeletion" value="true" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="UNKNOWN" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally added" />
+          <option name="myStatusName" value="Locally added" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_ADDED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Locally removed" />
+          <option name="myStatusName" value="Locally removed" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="LOCALLY_REMOVED" />
+        </FILE-GROUP>
+        <FILE-GROUP>
+          <option name="myUpdateName" value="Switched" />
+          <option name="myStatusName" value="Switched" />
+          <option name="mySupportsDeletion" value="false" />
+          <option name="myCanBeAbsent" value="false" />
+          <option name="myId" value="SWITCHED" />
+        </FILE-GROUP>
+      </UpdatedFiles>
+    </UpdateInfo>
   </component>
   <component name="RunManager">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
@@ -733,13 +854,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60971224" vertical-offset="1990" max-vertical-offset="4097">
-          <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.14586994" vertical-offset="971" max-vertical-offset="3043">
@@ -809,36 +923,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/BusesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-50.307693" vertical-offset="1021" max-vertical-offset="4097">
+          <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5503597" vertical-offset="4369" max-vertical-offset="10132">
-          <caret line="275" column="57" selection-start-line="275" selection-start-column="57" selection-end-line="275" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.33633092" vertical-offset="1054" max-vertical-offset="10132">
+          <caret line="73" column="97" selection-start-line="73" selection-start-column="97" selection-end-line="73" selection-end-column="97" />
           <folding>
-            <marker date="1413402209324" expanded="true" signature="5918:5955" placeholder="select id fr..schedule..." />
-            <marker date="1413402209324" expanded="false" signature="10395:10434" placeholder="..." />
-            <marker date="1413402209324" expanded="true" signature="10435:11161" placeholder="..." />
-            <marker date="1413402209324" expanded="true" signature="10463:11161" placeholder="..." />
-            <marker date="1413402209324" expanded="true" signature="10506:11161" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="10556:10589" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="10654:10687" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="10750:10783" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="10850:10883" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="10950:10983" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11070:11103" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11516:11549" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11594:11627" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11784:11817" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11884:11917" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="11982:12015" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12073:12106" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12258:12291" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12335:12368" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12402:12435" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12469:12502" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12536:12569" placeholder="..." />
-            <marker date="1413402209324" expanded="false" signature="12603:12636" placeholder="..." />
-            <marker date="1413402209324" expanded="true" signature="16294:16332" placeholder="select id fr..schedule..." />
-            <marker date="1413402209324" expanded="true" signature="16461:16814" placeholder="select t.id,..trips..." />
+            <marker date="1413404023055" expanded="true" signature="5961:5998" placeholder="select id fr..schedule..." />
+            <marker date="1413404023055" expanded="false" signature="10438:10477" placeholder="..." />
+            <marker date="1413404023055" expanded="true" signature="10478:11204" placeholder="..." />
+            <marker date="1413404023055" expanded="true" signature="10506:11204" placeholder="..." />
+            <marker date="1413404023055" expanded="true" signature="10549:11204" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="10599:10632" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="10697:10730" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="10793:10826" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="10893:10926" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="10993:11026" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="11113:11146" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="11559:11592" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="11637:11670" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="11827:11860" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="11927:11960" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12025:12058" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12116:12149" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12301:12334" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12378:12411" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12445:12478" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12512:12545" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12579:12612" placeholder="..." />
+            <marker date="1413404023055" expanded="false" signature="12646:12679" placeholder="..." />
+            <marker date="1413404023055" expanded="true" signature="16337:16375" placeholder="select id fr..schedule..." />
+            <marker date="1413404023055" expanded="true" signature="16504:16857" placeholder="select t.id,..trips..." />
           </folding>
         </state>
       </provider>
