@@ -196,6 +196,18 @@ class Profiles extends CActiveRecord
 		$criteria = new CDbCriteria;
 		$criteria->group = $field;
 
+		$criteria->compare('id', $this->id);
+		$criteria->compare('uid', $this->uid);
+		$criteria->compare('tid', $this->tid);
+		$criteria->compare('last_name', $this->last_name, TRUE);
+		$criteria->compare('name', $this->name, TRUE);
+		$criteria->compare('middle_name', $this->middle_name, TRUE);
+		$criteria->compare('passport', $this->passport);
+		$criteria->compare('phone', $this->phone, TRUE);
+		$criteria->compare('sex', $this->sex);
+		$criteria->compare('birth', $this->birth);
+		$criteria->compare('created', $this->created, TRUE);
+
 		return new CActiveDataProvider($this, array(
 			'criteria'   => $criteria,
 			'pagination' => array('pageSize' => 50)
