@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bus.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,34 +31,34 @@
       <file leaf-file-name="TripsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8866907" vertical-offset="1054" max-vertical-offset="10166">
-              <caret line="91" column="43" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.82194245" vertical-offset="5833" max-vertical-offset="10166">
+              <caret line="370" column="82" selection-start-line="370" selection-start-column="82" selection-end-line="370" selection-end-column="82" />
               <folding>
-                <marker date="1413404364188" expanded="true" signature="6101:6138" placeholder="select id fr..schedule..." />
-                <marker date="1413404364188" expanded="false" signature="10578:10617" placeholder="..." />
-                <marker date="1413404364188" expanded="true" signature="10618:11344" placeholder="..." />
-                <marker date="1413404364188" expanded="true" signature="10646:11344" placeholder="..." />
-                <marker date="1413404364188" expanded="true" signature="10689:11344" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="10739:10772" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="10837:10870" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="10933:10966" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11033:11066" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11133:11166" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11253:11286" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11699:11732" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11777:11810" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="11967:12000" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12067:12100" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12165:12198" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12256:12289" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12441:12474" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12518:12551" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12585:12618" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12652:12685" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12719:12752" placeholder="..." />
-                <marker date="1413404364188" expanded="false" signature="12786:12819" placeholder="..." />
-                <marker date="1413404364188" expanded="true" signature="16477:16515" placeholder="select id fr..schedule..." />
-                <marker date="1413404364188" expanded="true" signature="16644:16997" placeholder="select t.id,..trips..." />
+                <marker date="1413408635089" expanded="true" signature="6101:6138" placeholder="select id fr..schedule..." />
+                <marker date="1413408635089" expanded="false" signature="10578:10617" placeholder="..." />
+                <marker date="1413408635089" expanded="true" signature="10618:11344" placeholder="..." />
+                <marker date="1413408635089" expanded="true" signature="10646:11344" placeholder="..." />
+                <marker date="1413408635089" expanded="true" signature="10689:11344" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="10739:10772" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="10837:10870" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="10933:10966" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11033:11066" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11133:11166" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11253:11286" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11699:11732" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11777:11810" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="11967:12000" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12061:12094" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12153:12186" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12244:12277" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12429:12462" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12506:12539" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12573:12606" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12640:12673" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12707:12740" placeholder="..." />
+                <marker date="1413408635089" expanded="false" signature="12774:12807" placeholder="..." />
+                <marker date="1413408635089" expanded="true" signature="16465:16503" placeholder="select id fr..schedule..." />
+                <marker date="1413408635089" expanded="true" signature="16632:16985" placeholder="select t.id,..trips..." />
               </folding>
             </state>
           </provider>
@@ -350,7 +351,12 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="UPDATED" />
-            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/controllers/AccountController.php</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/.htaccess</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/css/main.css</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/index.php</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/config/main.php</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/views/layouts/main.php</PATH>
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/views/user/login.php</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Created" />
@@ -358,6 +364,7 @@
             <option name="mySupportsDeletion" value="false" />
             <option name="myCanBeAbsent" value="false" />
             <option name="myId" value="CREATED" />
+            <PATH vcs="Git" revision="">$PROJECT_DIR$/protected/widgets/Breadcrumbs.php</PATH>
           </FILE-GROUP>
           <FILE-GROUP>
             <option name="myUpdateName" value="Deleted" />
@@ -932,34 +939,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8866907" vertical-offset="1054" max-vertical-offset="10166">
-          <caret line="91" column="43" selection-start-line="91" selection-start-column="43" selection-end-line="91" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.82194245" vertical-offset="5833" max-vertical-offset="10166">
+          <caret line="370" column="82" selection-start-line="370" selection-start-column="82" selection-end-line="370" selection-end-column="82" />
           <folding>
-            <marker date="1413404364188" expanded="true" signature="6101:6138" placeholder="select id fr..schedule..." />
-            <marker date="1413404364188" expanded="false" signature="10578:10617" placeholder="..." />
-            <marker date="1413404364188" expanded="true" signature="10618:11344" placeholder="..." />
-            <marker date="1413404364188" expanded="true" signature="10646:11344" placeholder="..." />
-            <marker date="1413404364188" expanded="true" signature="10689:11344" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="10739:10772" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="10837:10870" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="10933:10966" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11033:11066" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11133:11166" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11253:11286" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11699:11732" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11777:11810" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="11967:12000" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12067:12100" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12165:12198" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12256:12289" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12441:12474" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12518:12551" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12585:12618" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12652:12685" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12719:12752" placeholder="..." />
-            <marker date="1413404364188" expanded="false" signature="12786:12819" placeholder="..." />
-            <marker date="1413404364188" expanded="true" signature="16477:16515" placeholder="select id fr..schedule..." />
-            <marker date="1413404364188" expanded="true" signature="16644:16997" placeholder="select t.id,..trips..." />
+            <marker date="1413408635089" expanded="true" signature="6101:6138" placeholder="select id fr..schedule..." />
+            <marker date="1413408635089" expanded="false" signature="10578:10617" placeholder="..." />
+            <marker date="1413408635089" expanded="true" signature="10618:11344" placeholder="..." />
+            <marker date="1413408635089" expanded="true" signature="10646:11344" placeholder="..." />
+            <marker date="1413408635089" expanded="true" signature="10689:11344" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="10739:10772" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="10837:10870" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="10933:10966" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11033:11066" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11133:11166" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11253:11286" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11699:11732" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11777:11810" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="11967:12000" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12061:12094" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12153:12186" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12244:12277" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12429:12462" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12506:12539" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12573:12606" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12640:12673" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12707:12740" placeholder="..." />
+            <marker date="1413408635089" expanded="false" signature="12774:12807" placeholder="..." />
+            <marker date="1413408635089" expanded="true" signature="16465:16503" placeholder="select id fr..schedule..." />
+            <marker date="1413408635089" expanded="true" signature="16632:16985" placeholder="select t.id,..trips..." />
           </folding>
         </state>
       </provider>

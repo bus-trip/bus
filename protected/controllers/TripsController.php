@@ -367,8 +367,8 @@ class TripsController extends Controller
 					$tbl .= '<tr>';
 					$tbl .= '<td width="55px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"] . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $direction["startPoint"] . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $direction["endPoint"] . '</td>';
+					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["address_from"] . '</td>';
+					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["address_to"] . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->phone . '</td>';
 					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["price"] . '</td>';
 					$tbl .= '</tr>';
