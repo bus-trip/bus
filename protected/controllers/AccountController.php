@@ -96,6 +96,15 @@ class AccountController extends Controller
 	{
 		if ($model = Profiles::model()->findByPk($id)) {
 			if ($model->uid == $this->user->id) {
+				if (!empty($_POST['Profiles'])) {
+					$model->attributes = $_POST['Profiles'];
+					if ($model->validate() && $model->save()) {
+						Yii::app()->user->setFlash('success', "Профиль &laquo;" . $model->shortName() . "&raquo; обновлен");
+						$url = $this->createUrl('/account/passengers');
+						$this->redirect($url);
+					}
+				}
+
 				$this->content = $this->renderPartial('one_passenger', array('model' => $model), TRUE);
 
 				return $this->render('index', array('content' => $this->content, 'name' => $this->user->login));
