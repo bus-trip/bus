@@ -392,8 +392,14 @@ class TripsController extends Controller
 
 	public function actionProfiles($tripId, $placeId)
 	{
-		$Ticket = Tickets::model()->findByAttributes(array('idTrip' => $tripId, 'place' => $placeId));
-		if ($Ticket && $Ticket->status != TICKET_CANCELED) {
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'idTrip=' . $tripId;
+		$criteria->condition = 'place=' . $placeId;
+		$criteria->addNotInCondition('status', array(TICKET_CANCELED));
+		$Ticket = Tickets::model()->findAll($criteria);
+
+		if (!empty($Ticket)) {
+			$Ticket = $Ticket[count($Ticket)-1]; // последний созданный профайл
 			// билет создан, страница редактирования
 			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
 			// обработчик формы

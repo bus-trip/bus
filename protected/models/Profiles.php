@@ -148,6 +148,9 @@ class Profiles extends CActiveRecord
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
+			if ($this->birth == '')
+				$this->birth = NULL;
+
 			$this->name = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);
 			if ($this->middle_name)
@@ -160,13 +163,16 @@ class Profiles extends CActiveRecord
 	public function afterSave()
 	{
 		// Turn it back into a unix timestamp in case you want to continue working with the record
-		$this->birth = date('d.m.Y', $this->birth);
+		if ($this->birth)
+			$this->birth = date('d.m.Y', $this->birth);
 		parent::afterSave();
 	}
 
 	public function afterFind()
 	{
-		$this->birth = date('d.m.Y', $this->birth);
+		if ($this->birth)
+			$this->birth = date('d.m.Y', $this->birth);
+
 		if ($this->sex !== NULL) {
 			switch ($this->sex) {
 				case 0:
