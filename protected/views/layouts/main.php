@@ -31,7 +31,7 @@
 
 		<ul class="right">
 			<?php if (Yii::app()->user->isGuest) { ?>
-				<li><a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a></li>
+<!--				<li><a href="--><?php //echo $this->createUrl('/user/register') ?><!--" rel="nofollow">Регистрация</a></li>-->
 				<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
 			<?php } else { ?>
 				<li><a href="<?php echo $this->createUrl('/account'); ?>" rel="nofollow">Личный

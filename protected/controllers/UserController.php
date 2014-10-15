@@ -110,8 +110,14 @@ class UserController extends Controller
 				  'users'   => array('@'),
 			),
 			array('deny',
-				  'actions' => array('logout'),
-				  'users'   => array('?'),
+					'actions' => array('logout'),
+					'users'   => array('?'),
+			),
+
+			// denied register
+			array('deny',
+				  'actions' => array('register'),
+				  'users'   => array('*'),
 			),
 		);
 	}
