@@ -55,7 +55,7 @@
                     array('label' => 'Автобусы', 'url' => array('/buses/admin')),
                     array('label' => 'Рейсы', 'url' => array('/trips/admin/status/actual')),
 //                    array('label' => 'Расписания', 'url' => array('/schedule/admin')),
-//                    array('label' => 'Направления', 'url' => array('/directions/admin')),
+                    array('label' => 'Направления', 'url' => array('/directions/admin')),
 			    ),
 		    ));
             }
