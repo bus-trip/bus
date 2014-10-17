@@ -130,16 +130,54 @@ class BusesController extends Controller
 		if ($tripsCount == 0) {
 			$model->status = 0;
 			$model->save();
-			Yii::app()->user->setFlash('error', "Автобус удалён");
-//			echo "<div class='flash-error'>Автобус удалён</div>";
+			Yii::app()->user->setFlash('success', "Статус автобуса изменён на 'Не рабочий'.");
 		} else {
-			Yii::app()->user->setFlash('error', "Нельзя удалить автобус, назначенный в рейс");
-//			echo "<div class='flash-error'>Нельзя удалить автобус, назначенный в рейс</div>";
+			Yii::app()->user->setFlash('error', "Статус автобуса нельзя изменить. Автобус назначен в рейс!");
 		}
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-		if (!isset($_GET['ajax'])) {
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//		if (!isset($_GET['ajax'])) {
+//			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+//		}
+
+		$data = Buses::model()->findAll();
+		$arrData = array();
+		foreach ($data as $d) {
+			$arrData[] = array(
+				'id'          => $d->id,
+				'model'       => $d->model,
+				'number'      => $d->number,
+				'places'      => $d->places,
+				'description' => $d->description,
+				'status'      => ($d->status == 1 ? 'Работает' : 'Не работает'),
+			);
 		}
+
+		$modelData = new CArrayDataProvider(
+			$arrData,
+			array(
+				'keyField'   => 'id',
+				'sort'       => array(
+					'attributes' => array(
+						'id',
+						'model',
+						'number',
+						'places',
+						'description',
+						'status'
+					)
+				),
+				'pagination' => array(
+					'pageSize' => 20,
+				),
+			)
+		);
+
+		$this->redirect(array('admin'));
+
+//		$this->render('admin', array(
+//			'model'     => $model,
+//			'modelData' => $modelData,
+//		));
 	}
 
 	/**

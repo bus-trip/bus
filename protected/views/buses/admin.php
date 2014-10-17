@@ -17,7 +17,7 @@ $this->menu = array(
 	'id'           => 'buses-grid',
 	'dataProvider' => $modelData,
 	'template'     => '{items}{pager}',
-//	'ajaxUpdate'   => FALSE,
+	'ajaxUpdate'   => FALSE,
 	'columns'      => array(
 		array(
 			'name'   => 'id',
