@@ -271,6 +271,7 @@ class TripsController extends Controller
 				if ($t["place"] == $i) {
 					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
+					if (!$profile) $profile = new Profiles();
 					$arrPlaces[$i] = array(
 						'place'      => $i,
 						'passenger'  => $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"],
@@ -420,7 +421,7 @@ class TripsController extends Controller
 			$this->render('ticket', array(
 				'tripId'  => $tripId,
 				'placeId' => $placeId,
-				'profile' => $Profile,
+				'profile' => $Profile ? $Profile : new Profiles(),
 				'model'   => $Ticket
 			));
 		} else {
