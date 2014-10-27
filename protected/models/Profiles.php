@@ -171,8 +171,7 @@ class Profiles extends CActiveRecord
 
 		// сохраняем значение черного листа всем профилям с одной фамилией и с одним номером паспорта
 		$criteria = new CDbCriteria;
-		$criteria->condition = 'passport=:passport';
-		$criteria->condition = 'last_name=:last_name';
+		$criteria->condition = 'passport=:passport AND last_name=:last_name';
 		$criteria->params = array(':passport' => $this->passport, ':last_name' => $this->last_name);
 		$Profiles = Profiles::model()->findAll($criteria);
 		if (!empty($Profiles)) {

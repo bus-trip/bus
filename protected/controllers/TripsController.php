@@ -406,6 +406,10 @@ class TripsController extends Controller
 			$Ticket = $Ticket[count($Ticket) - 1]; // последний созданный профайл
 			// билет создан, страница редактирования
 			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
+			if(!$Profile){
+				$Profile = new Profiles();
+				$Profile->tid = $Ticket->id;
+			}
 			// обработчик формы
 			if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
 				$Ticket->attributes = $_POST['Tickets'];
