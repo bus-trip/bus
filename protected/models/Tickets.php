@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the model class for table "tickets".
  *
@@ -9,6 +10,7 @@
  * @property integer    $price
  * @property string     $address_from
  * @property string     $address_to
+ * @property string     $remark
  * @property integer    $status
  *
  * The followings are the available model relations:
@@ -35,10 +37,10 @@ class Tickets extends CActiveRecord
 		return array(
 			array('idTrip', 'required'),
 			array('idTrip, place, price, status', 'numerical', 'integerOnly' => TRUE),
-			array('address_from, address_to', 'safe'),
+			array('address_from, address_to, remark', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, idTrip, place, price, address_from, address_to, status', 'safe', 'on' => 'search'),
+			array('id, idTrip, place, price, address_from, address_to, remark, status', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -67,6 +69,7 @@ class Tickets extends CActiveRecord
 			'price'        => 'Цена билета',
 			'address_from' => 'Адрес от',
 			'address_to'   => 'Адрес до',
+			'remark'       => 'Примечание',
 			'status'       => 'Статус',
 		);
 	}
@@ -95,6 +98,7 @@ class Tickets extends CActiveRecord
 		$criteria->compare('price', $this->price);
 		$criteria->compare('address_from', $this->address_from, TRUE);
 		$criteria->compare('address_to', $this->address_to, TRUE);
+		$criteria->compare('remark', $this->remark, TRUE);
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
@@ -120,7 +124,8 @@ class Tickets extends CActiveRecord
 		return self::statuses();
 	}
 
-	public static function statuses(){
+	public static function statuses()
+	{
 		return array(
 			TICKET_CANCELED  => 'Отменен',
 			TICKET_RESERVED  => 'Забронирован',
