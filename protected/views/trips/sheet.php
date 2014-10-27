@@ -56,6 +56,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Стоимость',
 		),
 		array(
+			'name'        => 'black_list',
+			'header'      => 'BL',
+			'htmlOptions' => array('class' => 'center')
+		),
+		array(
 			'class'    => 'CButtonColumn',
 			'template' => '{ticket}',
 			'buttons'  => array(

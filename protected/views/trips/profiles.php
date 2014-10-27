@@ -19,7 +19,8 @@ $gtripId = $tripId;
 $gplaceId = $placeId;
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'user-auth-data-grid',
-	'dataProvider' => $model->searchWithGroupBy('passport'),
+	'dataProvider' => $model->searchWithGroupBy(array('passport', 'black_list')),
+	'template'              => '{items}{pager}',
 	'filter'       => $model,
 	'columns'      => array(
 //		array(
@@ -61,6 +62,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'birth',
 			'header' => 'Дата рождения',
+		),
+		array(
+			'name'   => 'black_list',
+			'header' => 'BL',
 		),
 		array(
 			'class'    => 'CButtonColumn',

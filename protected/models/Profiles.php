@@ -14,6 +14,7 @@
  * @property string  $phone
  * @property integer $sex
  * @property integer $birth
+ * @property integer $black_list
  * @property string  $created
  *
  * The followings are the available model relations:
@@ -39,15 +40,15 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('last_name, name, passport, phone', 'required'),
-			array('uid, tid, passport, sex, birth', 'numerical', 'integerOnly' => TRUE),
+			array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
 			array('phone', 'length', 'max' => 17),
-			array('sex', 'length', 'max' => 1, 'min' => 1),
+			array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
 			array('birth', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, created', 'safe', 'on' => 'search'),
+			array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, black_list, created', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -80,6 +81,7 @@ class Profiles extends CActiveRecord
 			'phone'       => 'Телефон',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
+			'black_list'  => 'Черный список',
 			'created'     => 'Created',
 		);
 	}
@@ -112,6 +114,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('phone', $this->phone, TRUE);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
+		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
@@ -165,6 +168,22 @@ class Profiles extends CActiveRecord
 		// Turn it back into a unix timestamp in case you want to continue working with the record
 		if ($this->birth)
 			$this->birth = date('d.m.Y', $this->birth);
+
+		// сохраняем значение черного листа всем профилям с одной фамилией и с одним номером паспорта
+		$criteria = new CDbCriteria;
+		$criteria->condition = 'passport=:passport';
+		$criteria->condition = 'last_name=:last_name';
+		$criteria->params = array(':passport' => $this->passport, ':last_name' => $this->last_name);
+		$Profiles = Profiles::model()->findAll($criteria);
+		if (!empty($Profiles)) {
+			foreach ($Profiles as $profile) {
+				if ($profile->black_list != $this->black_list) {
+					$profile->black_list = $this->black_list;
+					$profile->save();
+				}
+			}
+		}
+
 		parent::afterSave();
 	}
 
@@ -197,10 +216,10 @@ class Profiles extends CActiveRecord
 		return $name;
 	}
 
-	public function searchWithGroupBy($field)
+	public function searchWithGroupBy($fields)
 	{
 		$criteria = new CDbCriteria;
-		$criteria->group = $field;
+		$criteria->group = implode(', ', $fields);
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('uid', $this->uid);

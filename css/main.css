@@ -318,3 +318,11 @@ html[xmlns] .clearfix {
 .legends{
 	margin: 10px 0;
 }
+
+.inline{
+	display: inline !important;
+}
+
+.center{
+	text-align: center;
+}

@@ -2,6 +2,14 @@
 
 <?php echo $form->errorSummary($model); ?>
 
+<fieldset>
+	<div class="row">
+		<?php echo $form->checkBox($model, 'black_list'); ?>
+		<?php echo $form->labelEx($model, 'black_list', array('class' => 'inline')); ?>
+		<?php echo $form->error($model, 'black_list'); ?>
+	</div>
+</fieldset>
+
 <div class="row">
 	<?php echo $form->labelEx($model, 'last_name'); ?>
 	<?php echo $form->textField($model, 'last_name'); ?>

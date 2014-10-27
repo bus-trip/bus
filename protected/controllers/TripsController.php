@@ -86,7 +86,7 @@ class TripsController extends Controller
 
 					$this->redirect(array('admin', 'id' => $model->id));
 				}
-			} elseif($model->arrival <= $model->departure) {
+			} elseif ($model->arrival <= $model->departure) {
 				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления.');
 			} else {
 				$model->addError('departure', 'Время отправления не может быть меньше текущего.');
@@ -278,7 +278,8 @@ class TripsController extends Controller
 						'endPoint'   => $t["address_to"],
 						'phone'      => $profile->phone,
 						'price'      => $t["price"],
-						'status'     => $t['status']
+						'status'     => $t['status'],
+						'black_list' => $profile->black_list ? '!' : '',
 					);
 				}
 			}
@@ -395,13 +396,13 @@ class TripsController extends Controller
 	public function actionProfiles($tripId, $placeId)
 	{
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'idTrip=' . $tripId;
-		$criteria->condition = 'place=' . $placeId;
-		$criteria->addNotInCondition('status', array(TICKET_CANCELED));
+		$criteria->condition = 'idTrip=:idTrip AND place=:place';
+		$criteria->params = array(':idTrip' => $tripId, ':place' => $placeId);
+		$criteria->addNotInCondition('t.status', array(TICKET_CANCELED));
 		$Ticket = Tickets::model()->findAll($criteria);
 
 		if (!empty($Ticket)) {
-			$Ticket = $Ticket[count($Ticket)-1]; // последний созданный профайл
+			$Ticket = $Ticket[count($Ticket) - 1]; // последний созданный профайл
 			// билет создан, страница редактирования
 			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
 			// обработчик формы
