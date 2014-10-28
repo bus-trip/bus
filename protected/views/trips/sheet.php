@@ -38,6 +38,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'passenger',
 			'header' => 'ФИО',
+			'type'   => 'raw',
+			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passenger"],array("tickets/profile/" . $data["profile_id"])):""'
 		),
 		array(
 			'name'   => 'startPoint',

@@ -273,8 +273,9 @@ class TripsController extends Controller
 					$profile = Profiles::model()->find($criteria);
 					if (!$profile) $profile = new Profiles();
 					$arrPlaces[$i] = array(
+						'profile_id' => $profile->id,
 						'place'      => $i,
-						'passenger'  => $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"],
+						'passenger'  => implode(' ', array($profile->last_name, $profile->name, $profile->middle_name)),
 						'startPoint' => $t["address_from"],
 						'endPoint'   => $t["address_to"],
 						'phone'      => $profile->phone,
@@ -406,7 +407,7 @@ class TripsController extends Controller
 			$Ticket = $Ticket[count($Ticket) - 1]; // последний созданный профайл
 			// билет создан, страница редактирования
 			$Profile = Profiles::model()->findByAttributes(array('tid' => $Ticket->id));
-			if(!$Profile){
+			if (!$Profile) {
 				$Profile = new Profiles();
 				$Profile->tid = $Ticket->id;
 			}
