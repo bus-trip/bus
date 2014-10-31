@@ -103,8 +103,6 @@ $yearSelect = '';
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
 
-			echo '<br/>'.$i.' '.$maxDays.' '.$firstDOW;
-
 			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i+1-$firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
 			if ($tripsParam[$i+1-$firstDOW]['date'] == $tripsDate) {
 				echo "<div class='trips-dir'>";

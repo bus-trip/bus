@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/AdminController.php" afterPath="$PROJECT_DIR$/protected/controllers/AdminController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/TripsController.php" afterPath="$PROJECT_DIR$/protected/controllers/TripsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/_form.php" afterPath="$PROJECT_DIR$/protected/views/trips/_form.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/trips/create.php" afterPath="$PROJECT_DIR$/protected/views/trips/create.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/views/admin/index.php" afterPath="$PROJECT_DIR$/protected/views/admin/index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/main.css" afterPath="$PROJECT_DIR$/css/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="bus.iws" />
@@ -105,25 +101,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AdminController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-38.384617" vertical-offset="1943" max-vertical-offset="3706">
-              <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
+            <state vertical-scroll-proportion="1.9478418" vertical-offset="1416" max-vertical-offset="3502">
+              <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.32733813" vertical-offset="1314" max-vertical-offset="2363">
-              <caret line="88" column="25" selection-start-line="88" selection-start-column="25" selection-end-line="88" selection-end-column="25" />
+            <state vertical-scroll-proportion="-12.230769" vertical-offset="1467" max-vertical-offset="2329">
+              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#caption#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#caption#0;n#table#0;n#!!top" expanded="true" />
-                <marker date="1414744172975" expanded="true" signature="2759:2801" placeholder="..." />
+                <marker date="1414745035308" expanded="true" signature="2759:2801" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -188,8 +184,8 @@
         <option value="$PROJECT_DIR$/protected/views/trips/create.php" />
         <option value="$PROJECT_DIR$/css/main.css" />
         <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
-        <option value="$PROJECT_DIR$/protected/controllers/AdminController.php" />
         <option value="$PROJECT_DIR$/protected/views/admin/index.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/AdminController.php" />
       </list>
     </option>
   </component>
@@ -852,23 +848,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-38.384617" vertical-offset="1943" max-vertical-offset="3706">
-          <caret line="173" column="0" selection-start-line="173" selection-start-column="0" selection-end-line="173" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32733813" vertical-offset="1314" max-vertical-offset="2363">
-          <caret line="88" column="25" selection-start-line="88" selection-start-column="25" selection-end-line="88" selection-end-column="25" />
+        <state vertical-scroll-proportion="-12.230769" vertical-offset="1467" max-vertical-offset="2329">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#div#0;n#caption#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#caption#0;n#table#0;n#!!top" expanded="true" />
-            <marker date="1414744172975" expanded="true" signature="2759:2801" placeholder="..." />
+            <marker date="1414745035308" expanded="true" signature="2759:2801" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.9478418" vertical-offset="1416" max-vertical-offset="3502">
+          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
