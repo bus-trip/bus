@@ -97,19 +97,22 @@ class AdminController extends Controller
 			$criteria->order = 'idDirection ASC';
 			$data = Trips::model()->findAll($criteria);
 			if(count($data) != 0) {
-				$trCount = Tickets::model()->count(
-					array(
-						'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=1 or status=2)'
-					)
-				);
-				$busParam = Buses::model()->findByPk($data[0]->attributes['idBus']);
-				if ($busParam->attributes['places'] == $trCount) $trFull = 'full';
-				else $trFull = 'notfull';
-
 //				print_r($busParam);
 			}
 			if (count($data) == 2) {
 				for ($j = 0; $j < 2; $j++) {
+					$trCountCheck = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[$j]->attributes['id'] . ' and status=2'
+						)
+					);
+					$trCountAll = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[$j]->attributes['id'] . ' and (status=2 or status=1)'
+						)
+					);
+					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					else $trFull = 'notfull';
 					$trip[$j] = array(
 						'id'          => $data[$j]->attributes['id'],
 						'idDirection' => $data[$j]->attributes['idDirection'],
@@ -118,6 +121,18 @@ class AdminController extends Controller
 				}
 			} elseif (count($data) == 1) {
 				if ($directions[0]['id'] == $data[0]->attributes['idDirection']) {
+					$trCountCheck = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and status=2'
+						)
+					);
+					$trCountAll = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=2 or status=1)'
+						)
+					);
+					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => $data[0]->attributes['id'],
 						'idDirection' => $data[0]->attributes['idDirection'],
@@ -129,6 +144,18 @@ class AdminController extends Controller
 						'full'        => 'notfull',
 					);
 				} elseif ($directions[1]['id'] == $data[0]->attributes['idDirection']) {
+					$trCountCheck = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and status=2'
+						)
+					);
+					$trCountAll = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=2 or status=1)'
+						)
+					);
+					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => 0,
 						'idDirection' => $directions[0]['id'],
