@@ -2,7 +2,6 @@
 
 class AdminController extends Controller
 {
-
 	/**
 	 * @return array action filters
 	 */
@@ -32,8 +31,7 @@ class AdminController extends Controller
 			),
 		);
 	}
-	
-	
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -52,7 +50,6 @@ class AdminController extends Controller
 		);
 	}
 
-
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -61,35 +58,136 @@ class AdminController extends Controller
 	{
 		$currentDate['year'] = isset($_POST['yearSelect']) && !empty($_POST['yearSelect']) ? $_POST['yearSelect'] : date('Y');
 		$currentDate['month'] = isset($_POST['monthSelect']) && !empty($_POST['monthSelect']) ? $_POST['monthSelect'] : date('m');
-		$currentDate['day'] = isset($_POST['day']) && !empty($_POST['day']) ? $_POST['day'] : date('d');
-
+//		$currentDate['day'] = isset($_POST['day']) && !empty($_POST['day']) ? $_POST['day'] : date('d');
 //        $query = "select * from trips as t left join schedule as s on s.idDirection = t.idDirection where s.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
-        $query = "select
-                    t.id,
-                    t.idDirection,
-                    t.idBus,
-                    t.departure,
-                    t.arrival
-                   from trips as t
-                   left join directions as d on d.id = t.idDirection
-                   where t.status=1 and t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
+//        $query = "select
+//                    t.id,
+//                    t.idDirection,
+//                    t.idBus,
+//                    t.departure,
+//                    t.arrival
+//                   from trips as t
+//                   left join directions as d on d.id = t.idDirection
+//                   where t.status=1 and t.departure>='".date($currentDate['year'].'-'.$currentDate['month'].'-01')." 00:00:00'";
+//
+//		$tripsData = Yii::app()->db->createCommand($query)->queryAll();
+//		$dataProvider = new CArrayDataProvider($tripsData);
 
-		$tripsData = Yii::app()->db->createCommand($query)->queryAll();
-		$dataProvider = new CArrayDataProvider($tripsData);
+		$tripsParam = array();
+		$maxdate = date("t", strtotime($currentDate['year'] . "-" . $currentDate['month'] . "-01"));
 
-		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
-			'currentDate'=>$currentDate,
+		$criteria = new CDbCriteria();
+		$criteria->select = 'id,startPoint,endPoint';
+		$criteria->condition = 'status=1';
+		$data = Directions::model()->findAll($criteria);
+		$directions = array();
+		foreach ($data as $d) {
+			$directions[] = array(
+				'direction' => $d['startPoint'] . ' - ' . $d['endPoint'],
+				'id'        => $d['id'],
+			);
+		}
+
+		echo '<pre>';
+		for ($i = 1; $i <= $maxdate; $i++) {
+			$criteria = new CDbCriteria();
+			$criteria->select = 'id, idDirection, departure, idBus';
+			$criteria->condition = 'status=1 and departure >= "' . $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i) . ' 00:00:00" and';
+			$criteria->condition .= ' departure <="' . $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i) . ' 23:59:59"';
+			$criteria->order = 'idDirection ASC';
+			$data = Trips::model()->findAll($criteria);
+			if (count($data) == 2) {
+				for ($j = 0; $j < 2; $j++) {
+					$trCount = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[$j]->attributes['id'] . ' and (status=1 or status=2)'
+						)
+					);
+					$busParam = Buses::model()->findAllByPk($data[$j]->attributes['idBus']);
+					if ($busParam->attributes['places'] == $trCount) $trFull = 'full';
+					else $trFull = 'notfull';
+					$trip[$j] = array(
+						'id'          => $data[$j]->attributes['id'],
+						'idDirection' => $data[$j]->attributes['idDirection'],
+						'full'        => $trFull
+					);
+				}
+			} elseif (count($data) == 1) {
+				if ($directions[0]['id'] == $data[0]->attributes['idDirection']) {
+					$trCount = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=1 or status=2)'
+						)
+					);
+					$busParam = Buses::model()->findAllByPk($data[0]->attributes['idBus']);
+					if ($busParam->attributes['places'] == $trCount) $trFull = 'full';
+					else $trFull = 'notfull';
+					$trip[0] = array(
+						'id'          => $data[0]->attributes['id'],
+						'idDirection' => $data[0]->attributes['idDirection'],
+						'full'        => $trFull
+					);
+					$trip[1] = array(
+						'id'          => 0,
+						'idDirection' => $directions[1]['id'],
+						'full'        => 'notfull',
+					);
+				} elseif ($directions[1]['id'] == $data[0]->attributes['idDirection']) {
+					$trCount = Tickets::model()->count(
+						array(
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=1 or status=2)'
+						)
+					);
+					$busParam = Buses::model()->findAllByPk($data[0]->attributes['idBus']);
+					if ($busParam->attributes['places'] == $trCount) $trFull = 'full';
+					else $trFull = 'notfull';
+					$trip[0] = array(
+						'id'          => 0,
+						'idDirection' => $directions[0]['id'],
+						'full'        => 'notfull',
+					);
+					$trip[1] = array(
+						'id'          => $data[0]->attributes['id'],
+						'idDirection' => $data[0]->attributes['idDirection'],
+						'full'        => $trFull
+					);
+				}
+			} else {
+				$trip[0] = array(
+					'id'          => 0,
+					'idDirection' => $directions[0]['id'],
+					'full'        => 'notfull',
+				);
+				$trip[1] = array(
+					'id'          => 0,
+					'idDirection' => $directions[1]['id'],
+					'full'        => 'notfull',
+				);
+			}
+			$tripsParam[$i] = array(
+				'date'  => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
+				'trip1' => $trip[0],
+				'trip2' => $trip[1],
+			);
+		}
+//		print_r($tripsParam);
+
+		echo '</pre>';
+
+		$this->render('index', array(
+			'tripsParam'  => $tripsParam,
+			//			'dataProvider' => $dataProvider,
+			//			'countTrips'   => $countTrips,
+			'currentDate' => $currentDate,
+			'directions'  => $directions,
 		));
-		
-		
-		
 	}
 
 	/**
 	 * This is the action to handle external exceptions.
 	 */
-	public function actionError()
+	public
+	function actionError()
 	{
 		if ($error = Yii::app()->errorHandler->error) {
 			if (Yii::app()->request->isAjaxRequest)
@@ -104,7 +202,8 @@ class AdminController extends Controller
 	 *
 	 * @param Trips $model the model to be validated
 	 */
-	protected function performAjaxValidation($model)
+	protected
+	function performAjaxValidation($model)
 	{
 		if (isset($_POST['ajax']) && $_POST['ajax'] === 'trips-form') {
 			echo CActiveForm::validate($model);

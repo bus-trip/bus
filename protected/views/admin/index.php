@@ -25,113 +25,109 @@ $yearSelect = '';
 		<div style="float: left;"><b>Рейсы
 				на <?php echo $currentDate['year'] . '  ' . $monthNames[$currentDate['month']]; ?></b></div>
 		<div style="float: right;">
-			<form action='/index.php/admin/index' method='post' style="float: left;">
-				<?php echo CHtml::submitButton('Текущий месяц', array('submit' => array('admin/index'))); ?>
-			</form>
+			<a href="/"><input type="button" value="Текущий месяц"/></a>
 			<?php
 			if (isset($currentDate) && is_array($currentDate)) {
 				echo CHtml::dropDownList(
-						  'monthSelect',
-						  $monthSelect,
-						  $monthNames,
-						  array(
-							  'empty'   => 'Выберите месяц',
-							  'options' => array(
-								  $currentDate['month'] => array(
-									  'selected' => TRUE
-								  )
-							  ),
-							  'ajax'    => array(
-								  'type'   => 'POST',
-								  'url'    => '/index.php/admin/index',
-								  'data'   => array(
-									  'monthSelect' => 'js:this.value',
-									  'yearSelect'  => 'js:document.getElementById("yearSelect").value'
-								  ),
-								  'update' => 'body'
-							  )
-						  )
+					'monthSelect',
+					$monthSelect,
+					$monthNames,
+					array(
+						'empty'   => 'Выберите месяц',
+						'options' => array(
+							$currentDate['month'] => array(
+								'selected' => TRUE
+							)
+						),
+						'ajax'    => array(
+							'type'   => 'POST',
+							'url'    => '/',
+							'data'   => array(
+								'monthSelect' => 'js:this.value',
+								'yearSelect'  => 'js:document.getElementById("yearSelect").value'
+							),
+							'update' => 'body'
+						)
+					)
 				);
 //                        echo "</form>";
-                        echo CHtml::dropDownList(
-                            'yearSelect',
-                            $yearSelect,
-                            array(
-                                date("Y")-1 => date("Y")-1,
-                                date("Y") => date("Y"),
-                                date("Y")+1 => date("Y")+1,
-                            ),
-                            array(
-                                'empty' => 'Выберите год',
-                                'options' => array(
-                                    $currentDate['year'] => array(
-                                        'selected'=>true
-                                    )
-                                ),
-                                'ajax' => array(
-                                    'type' => 'POST',
-                                    'url' => '/index.php/admin/index',
-                                    'data' => array(
-                                        'monthSelect' => 'js:document.getElementById("monthSelect").value',
-                                        'yearSelect' => 'js:this.value'
-                                    ),
-                                    'update' => 'body'
-                                )
-                            )
-                        );
-                    }
-                ?>
-            </div>
-        </caption>
-	    <?php
-            $firstDOW = date("w", strtotime(date("01.".$currentDate['month'].".".$currentDate['year'])));
-            if($firstDOW == 0) $firstDOW = 7;
-            $firstDOW--;
-            $maxDays = date("t",strtotime($currentDate['year']."-".$currentDate['month']."-".$currentDate['day']));
-            $count = $firstDOW > 4 ? 42 : 35;
-//                    echo '<pre>';
-//                    print_r($dataProvider->getData());
-//                    echo '</pre>';
-            echo "<tr>";
-            for($i=0; $i<$count; $i++){
-			    if($i % 7 == 0){
-                    echo "</tr>";
-                    echo "<tr>";
-                }
-				echo "<td style='border: 1px solid black; width: 113px; height: 80px; vertical-align: top;";
-                if($i < $firstDOW || $i > $maxDays+$firstDOW-1) echo "background-color: lightgray;";
-                if($i == date("d")+$firstDOW-1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "background-color: lightgreen;";
-                echo "'>";
-                if($i >= $firstDOW && $i <= $maxDays+$firstDOW-1){
-                    echo "<div style='width: 70px; float: left;'>";
-                    if($i < 10) echo "0";
-                    echo date($i+1-$firstDOW.".".$currentDate['month'].".".$currentDate['year']);
-                    echo "</div>";
-                    if($i <= $maxDays+$firstDOW-1 && strtotime(date("d.m.Y")) <= strtotime($i+1-$firstDOW.".".$currentDate['month'].".".$currentDate['year'])){
-                        echo "<div style='width: 30px; float: right; margin: -5px -12px 0 0;'>";
-                        echo "<form action='/index.php/trips/create' method='post' target='_blank'>";
-                        echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)). ' 00:00:00');
-                        echo CHtml::submitButton('+', array('submit'=>array('trips/create')));
-                        echo "</form></div>";
-                    }
-                    $tripCounts = 0;
-                    $curday = $i+1-$firstDOW;
-    		    if($curday < 10) $curday = "0".$curday;
-                    foreach($dataProvider->getData() as $d){
-                        if($d['departure'] >= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 00:00:00' && $d['departure'] <= date($currentDate['year']."-".$currentDate['month']."-".$curday). ' 23:59:59')
-                            $tripCounts++;
-                    }
-                    if($tripCounts != 0){
-                        echo "<form action='/index.php/trips/admin' method='post' target='_blank'>";
-                        echo CHtml::hiddenField('trips-date',date($currentDate['year']."-".$currentDate['month']."-".($i+1-$firstDOW)));
-                        echo CHtml::submitButton('Рейсов: '.$tripCounts, array('submit'=>array('trips/admin')));
-                        echo "</form>";
-                    }
-                    else echo '<br/>Рейсов: 0';
-                }
-                echo "</td>";
-            }
-            echo "</tr>";
-	    ?>
-	</table>
+				echo CHtml::dropDownList(
+					'yearSelect',
+					$yearSelect,
+					array(
+						date("Y") - 1 => date("Y") - 1,
+						date("Y")     => date("Y"),
+						date("Y") + 1 => date("Y") + 1,
+					),
+					array(
+						'empty'   => 'Выберите год',
+						'options' => array(
+							$currentDate['year'] => array(
+								'selected' => TRUE
+							)
+						),
+						'ajax'    => array(
+							'type'   => 'POST',
+							'url'    => '/',
+							'data'   => array(
+								'monthSelect' => 'js:document.getElementById("monthSelect").value',
+								'yearSelect'  => 'js:this.value'
+							),
+							'update' => 'body'
+						)
+					)
+				);
+			}
+			?>
+		</div>
+	</caption>
+	<?php
+	$firstDOW = date("w", strtotime(date("01." . $currentDate['month'] . "." . $currentDate['year'])));
+	if ($firstDOW == 0) $firstDOW = 7;
+	$firstDOW--;
+	$maxDays = date("t", strtotime($currentDate['year'] . "-" . $currentDate['month'] . "-01"));
+	$count = $firstDOW >= 5 ? 42 : 35;
+	echo "<tr>";
+	for ($i = 0; $i < $count; $i++) {
+		if ($i % 7 == 0) {
+			echo "</tr>";
+			echo "<tr>";
+		}
+		echo "<td style='border: 1px solid black; width: 113px; height: 80px; vertical-align: top;";
+		if ($i < $firstDOW || $i > $maxDays + $firstDOW - 1) echo "background-color: lightgray;";
+		if ($i == date("d") + $firstDOW - 1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "background-color: lightgreen;";
+		echo "'>";
+		if ($i >= $firstDOW && $i <= $maxDays + $firstDOW - 1 ) {
+			echo "<div style='width: 70px; float: left; font-size: 16px;'>";
+			if ($i+1-$firstDOW < 10) echo "0";
+			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
+			echo "</div>";
+
+			echo '<br/>'.$i.' '.$maxDays.' '.$firstDOW;
+
+			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i+1-$firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
+			if ($tripsParam[$i+1-$firstDOW]['date'] == $tripsDate) {
+				echo "<div class='trips-dir'>";
+				echo "<form action='trips/sheet/" . $tripsParam[$i+1-$firstDOW]['trip1']['id'] . "' method='POST'>";
+				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 05:30:00' name='trips-arrive' />";
+				echo "<input type='hidden' value='" . $tripsDate . " 12:00:00' name='trips-date'>";
+				echo "<input type='hidden' value='" . $tripsParam[$i+1-$firstDOW]['trip1']['idDirection'] . "' name='trips-dir-id' />";
+				echo "<input type='submit' value='" . $directions[0]['direction'] . "' class='trips trips-" . $tripsParam[$i+1-$firstDOW]['trip1']['full'] . "' />";
+				echo "</form>";
+				echo "</div>";
+				echo "<div class='trips-dir'>";
+				echo "<form action='trips/sheet/" . $tripsParam[$i+1-$firstDOW]['trip2']['id'] . "' method='POST'>";
+				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 14:00:00' name='trips-arrive' />";
+				echo "<input type='hidden' value='" . $tripsDate . " 22:00:00' name='trips-date'>";
+				echo "<input type='hidden' value='" . $tripsParam[$i+1-$firstDOW]['trip2']['idDirection'] . "' name='trips-dir-id' />";
+				echo "<input type='submit' value='" . $directions[1]['direction'] . "' class='trips trips-" . $tripsParam[$i+1-$firstDOW]['trip2']['full'] . "' />";
+				echo "</form>";
+				echo "</div>";
+			}
+		}
+		echo "</td>";
+	}
+	echo "</tr>";
+	?>
+</table>
 

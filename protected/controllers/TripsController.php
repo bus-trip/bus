@@ -96,11 +96,20 @@ class TripsController extends Controller
 		if (isset($_POST['trips-date'])) {
 			$model->departure = $_POST['trips-date'];
 		}
+//		elseif (isset($_REQUEST['trips-date'])) {
+//			$model->departure = $_REQUEST['trips-date'];
+//		}
+//		if (isset($_REQUEST['trips-arrive'])) {
+//			$model->arrival = $_REQUEST['trips-arrive'];
+//		}
 
-		$data = Directions::model()
-						  ->findAll(array('condition' => 'parentId=:parentId', 'params' => array(':parentId' => 0)));
+		$model->departure = Yii::app()->user->getState('trips-date');
+		$model->arrival = Yii::app()->user->getState('trips-arrive');
+		$model->idDirection = Yii::app()->user->getState('trips-dir-id');
+
+		$data = Directions::model()->findAllByPk($model->idDirection);
 		$directions = array();
-		$directions['empty'] = 'Выберите направление';
+//		$directions['empty'] = 'Выберите направление';
 		foreach ($data as $d) {
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
@@ -229,6 +238,12 @@ class TripsController extends Controller
 
 	public function actionSheet($id)
 	{
+		if ($id == 0) {
+			Yii::app()->user->setState('trips-date', $_POST['trips-date']);
+			Yii::app()->user->setState('trips-arrive', $_POST['trips-arrive']);
+			Yii::app()->user->setState('trips-dir-id', $_POST['trips-dir-id']);
+			$this->redirect(array('create',));
+		}
 
 		$criteria = new CDbCriteria();
 		$criteria->join = 'left join trips as tr on tr.idBus=t.id';

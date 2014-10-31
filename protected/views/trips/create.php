@@ -12,7 +12,7 @@ $this->menu = array(
 );
 ?>
 
-	<h1>Create Trips</h1>
+	<h2>Создать рейс</h2>
 
 <?php $this->renderPartial(
 	'_form',
