@@ -36,10 +36,29 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Место',
 		),
 		array(
-			'name'   => 'passenger',
-			'header' => 'ФИО',
+			'name'   => 'passport',
+			'header' => 'Паспорт',
 			'type'   => 'raw',
-			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passenger"],array("tickets/profile/" . $data["profile_id"])):""'
+			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
+		),
+		array(
+			'name'   => 'last_name',
+			'header' => 'Фамилия',
+		),
+		array(
+			'name'   => 'name',
+			'header' => 'Имя',
+		), array(
+			'name'   => 'middle_name',
+			'header' => 'Отчество',
+		),
+		array(
+			'name'   => 'phone',
+			'header' => 'Номер телефона',
+		),
+		array(
+			'name' => 'birthday',
+			'header' => 'Дата рождения',
 		),
 		array(
 			'name'   => 'startPoint',
@@ -48,10 +67,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'endPoint',
 			'header' => 'Высадка',
-		),
-		array(
-			'name'   => 'phone',
-			'header' => 'Номер телефона',
 		),
 		array(
 			'name'   => 'price',

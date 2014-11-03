@@ -271,12 +271,17 @@ class TripsController extends Controller
 		$arrPlaces = array();
 		for ($i = 1; $i <= $bus["places"]; $i++) {
 			$arrPlaces[$i] = array(
-				'place'      => $i,
-				'passenger'  => '',
-				'startPoint' => '',
-				'endPoint'   => '',
-				'phone'      => '',
-				'price'      => ''
+				'place'       => $i,
+				'passport'    => '',
+				'last_name'   => '',
+				'name'        => '',
+				'middle_name' => '',
+				'birthday'    => '',
+				'phone'       => '',
+				'startPoint'  => '',
+				'endPoint'    => '',
+				'price'       => '',
+				'description' => '',
 			);
 		}
 		$criteria = new CDbCriteria();
@@ -288,15 +293,19 @@ class TripsController extends Controller
 					$profile = Profiles::model()->find($criteria);
 					if (!$profile) $profile = new Profiles();
 					$arrPlaces[$i] = array(
-						'profile_id' => $profile->id,
-						'place'      => $i,
-						'passenger'  => implode(' ', array($profile->last_name, $profile->name, $profile->middle_name)),
-						'startPoint' => $t["address_from"],
-						'endPoint'   => $t["address_to"],
-						'phone'      => $profile->phone,
-						'price'      => $t["price"],
-						'status'     => $t['status'],
-						'black_list' => $profile->black_list ? '!' : '',
+						'profile_id'  => $profile->id,
+						'place'       => $i,
+						'passport'    => $profile->passport,
+						'last_name'   => $profile->last_name,
+						'name'        => $profile->name,
+						'middle_name' => $profile->middle_name,
+						'birthday'    => $profile->birth,
+						'phone'       => $profile->phone,
+						'startPoint'  => $t["address_from"],
+						'endPoint'    => $t["address_to"],
+						'price'       => $t["price"],
+						'status'      => $t['status'],
+						'black_list'  => $profile->black_list ? '!' : '',
 					);
 				}
 			}
