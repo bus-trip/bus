@@ -10,9 +10,9 @@ $this->breadcrumbs = array(
 	'Посадочная ведомость',
 );
 
-//$this->menu = array(
-//	array('label' => 'Рейсы', 'url' => array('admin')),
-//);
+$this->menu = array(
+	array('label' => 'Рейсы', 'url' => array('admin')),
+);
 ?>
 
 <h2>Посадочная ведомость</h2>
