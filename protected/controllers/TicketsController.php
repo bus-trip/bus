@@ -179,6 +179,7 @@ class TicketsController extends Controller
 				'departure'    => $ticketObj->idTrip0->departure,
 				'direction'    => $ticketObj->idTrip0->idDirection0->startPoint . '-' .
 					$ticketObj->idTrip0->idDirection0->endPoint,
+				'status'       => $ticketObj->status,
 			);
 		}
 
