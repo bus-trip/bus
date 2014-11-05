@@ -73,12 +73,12 @@
       <file leaf-file-name="sheet.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48920864" vertical-offset="1428" max-vertical-offset="2193">
-              <caret line="100" column="57" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
+            <state vertical-scroll-proportion="0.3057554" vertical-offset="1428" max-vertical-offset="2193">
+              <caret line="94" column="49" selection-start-line="94" selection-start-column="49" selection-end-line="94" selection-end-column="49" />
               <folding>
-                <marker date="1415219472659" expanded="true" signature="3229:3522" placeholder="..." />
-                <marker date="1415219472659" expanded="true" signature="3375:3502" placeholder="..." />
-                <marker date="1415219472659" expanded="true" signature="3527:3539" placeholder="..." />
+                <marker date="1415219998596" expanded="true" signature="3231:3524" placeholder="..." />
+                <marker date="1415219998596" expanded="true" signature="3377:3504" placeholder="..." />
+                <marker date="1415219998596" expanded="true" signature="3529:3541" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -571,7 +571,13 @@
       <option name="project" value="LOCAL" />
       <updated>1415219170651</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Links for edit tickets from sheet">
+      <created>1415219478788</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1415219478788</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1034,12 +1040,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48920864" vertical-offset="1428" max-vertical-offset="2193">
-          <caret line="100" column="57" selection-start-line="100" selection-start-column="57" selection-end-line="100" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.3057554" vertical-offset="1428" max-vertical-offset="2193">
+          <caret line="94" column="49" selection-start-line="94" selection-start-column="49" selection-end-line="94" selection-end-column="49" />
           <folding>
-            <marker date="1415219472659" expanded="true" signature="3229:3522" placeholder="..." />
-            <marker date="1415219472659" expanded="true" signature="3375:3502" placeholder="..." />
-            <marker date="1415219472659" expanded="true" signature="3527:3539" placeholder="..." />
+            <marker date="1415219998596" expanded="true" signature="3231:3524" placeholder="..." />
+            <marker date="1415219998596" expanded="true" signature="3377:3504" placeholder="..." />
+            <marker date="1415219998596" expanded="true" signature="3529:3541" placeholder="..." />
           </folding>
         </state>
       </provider>

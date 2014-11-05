@@ -92,7 +92,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'label'    => 'Подтвердить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/confirm.png',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/confirm/$data[ticket_id]")',
-					'visible'  => '!empty($data[passport]) && $data["status"] != 2',
+					'visible'  => '!empty($data["passport"]) && $data["status"] != 2',
 					'click'    => 'function(){return confirm("Вы хотите подтвердить бронь?");}'
 				),
 				'delete'  => array(
