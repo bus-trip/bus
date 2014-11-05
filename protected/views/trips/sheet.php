@@ -105,6 +105,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	),
 ));
 ?>
+
+
 <div class="legends">
 	Статусы билетов: <br>
 	<?php foreach (Tickets::statuses() as $key => $value) {
