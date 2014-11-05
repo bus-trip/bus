@@ -16,6 +16,7 @@ class TicketsController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
+//			'postOnly + confirm',
 		);
 	}
 
@@ -36,7 +37,7 @@ class TicketsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'profile'),
+				  'actions' => array('admin', 'delete', 'profile', 'confirm'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -111,11 +112,35 @@ class TicketsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
+
+		if($id ==0)
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+
+		$model = $this->loadModel($id);
+
+		$model->status = 0;
+
+		if($model->save())
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	/**
+	 * Confirmation a ticket.
+	 * If confirmation is successful, the browser will be redirected to the 'admin' page.
+	 *
+	 * @param integer $id the ID of the model to be confirm
+	 */
+	public function actionConfirm($id)
+	{
+		$model = $this->loadModel($id);
+		$model->status = 2;
+
+		if($model->save())
+			$this->redirect(array('trips/sheet/'.$model->idTrip));
 	}
 
 	/**

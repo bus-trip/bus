@@ -304,8 +304,9 @@ class TripsController extends Controller
 						'startPoint'  => $t["address_from"],
 						'endPoint'    => $t["address_to"],
 						'price'       => $t["price"],
-						'status'      => $t['status'],
+						'status'      => $t["status"],
 						'black_list'  => $profile->black_list ? '!' : '',
+						'ticket_id'   => $profile->tid,
 					);
 				}
 			}

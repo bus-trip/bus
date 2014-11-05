@@ -95,4 +95,19 @@ class Discounts extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+	public function getStatuses()
+	{
+		return self::statuses();
+	}
+
+	public static function statuses()
+	{
+		return array(
+			TICKET_CANCELED  => 'Отменен',
+			TICKET_RESERVED  => 'Забронирован',
+			TICKET_CONFIRMED => 'Подтвержден',
+		);
+	}
+
 }

@@ -57,7 +57,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Номер телефона',
 		),
 		array(
-			'name' => 'birthday',
+			'name'   => 'birthday',
 			'header' => 'Дата рождения',
 		),
 		array(
@@ -78,14 +78,27 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'htmlOptions' => array('class' => 'center')
 		),
 		array(
-			'class'    => 'CButtonColumn',
-			'template' => '{ticket}',
-			'buttons'  => array(
-				'ticket' => array(
+			'class'              => 'CButtonColumn',
+			'template'           => '{ticket}{confirm}{delete}',
+			'deleteConfirmation' => 'Вы хотите отменить бронирование/покупку этого билета?',
+			'buttons'            => array(
+				'ticket'  => array(
 					'label'    => 'Оформление билета',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
 					//					'url'   => 'Yii::app()->controller->createUrl("trips/sheet", array("id"=>'.$dataHeader['trips']['id'].', "place"=>$data["place"]))'
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")'
+				),
+				'confirm' => array(
+					'label'    => 'Подтвердить бронь',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/confirm.png',
+					'url'      => 'Yii::app()->controller->createUrl("tickets/confirm/$data[ticket_id]")',
+					'visible'  => '!empty($data[passport]) && $data["status"] != 2',
+					'click'    => 'function(){return confirm("Вы хотите подтвердить бронь?");}'
+				),
+				'delete'  => array(
+					'label'   => 'Отменить бронь',
+					'url'     => 'Yii::app()->controller->createUrl("tickets/delete/$data[ticket_id]")',
+					'visible' => '!empty($data[passport])'
 				)
 			)
 		),
