@@ -98,7 +98,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'delete'  => array(
 					'label'   => 'Отменить бронь',
 					'url'     => 'Yii::app()->controller->createUrl("tickets/delete/$data[ticket_id]")',
-					'visible' => '!empty($data[passport])'
+					'visible' => '!empty($data["passport"])'
 				)
 			)
 		),
