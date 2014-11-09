@@ -16,7 +16,6 @@ class TicketsController extends Controller
 		return array(
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-//			'postOnly + confirm',
 		);
 	}
 
@@ -37,7 +36,7 @@ class TicketsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'profile', 'confirm'),
+				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -113,14 +112,14 @@ class TicketsController extends Controller
 	public function actionDelete($id)
 	{
 
-		if($id ==0)
+		if ($id == 0)
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 
 		$model = $this->loadModel($id);
 
 		$model->status = 0;
 
-		if($model->save())
+		if ($model->save())
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -139,8 +138,25 @@ class TicketsController extends Controller
 		$model = $this->loadModel($id);
 		$model->status = 2;
 
-		if($model->save())
-			$this->redirect(array('trips/sheet/'.$model->idTrip));
+		if ($model->save())
+			$this->redirect(array('trips/sheet/' . $model->idTrip));
+	}
+
+	public function actionBlacklist($id, $profileid, $action)
+	{
+		$Profile = Profiles::model()->findByPk($profileid);
+		if (!$Profile)
+			throw new CHttpException(404, 'The requested page does not exist.');
+		switch($action){
+			case 'add':
+				$Profile->black_list = 1;
+				break;
+			case 'del':
+				$Profile->black_list = 0;
+				break;
+		}
+		if ($Profile->validate()) $Profile->save();
+		$this->redirect(array('trips/sheet/' . $id));
 	}
 
 	/**

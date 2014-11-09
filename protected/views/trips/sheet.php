@@ -72,33 +72,47 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'price',
 			'header' => 'Стоимость',
 		),
+		//		array(
+		//			'name'        => 'black_list',
+		//			'header'      => 'BL',
+		//			'htmlOptions' => array('class' => 'center')
+		//		),
 		array(
-			'name'        => 'black_list',
-			'header'      => 'BL',
-			'htmlOptions' => array('class' => 'center')
-		),
-		array(
-			'class'              => 'CButtonColumn',
-			'template'           => '{ticket}{confirm}{delete}',
-			'deleteConfirmation' => 'Вы хотите отменить бронирование/покупку этого билета?',
-			'buttons'            => array(
-				'ticket'  => array(
+			'class'    => 'CButtonColumn',
+			'template' => '{ticket}{confirm}{delete}{blacklist}{unblacklist}',
+			'buttons'  => array(
+				'ticket'      => array(
 					'label'    => 'Оформление билета',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
 					//					'url'   => 'Yii::app()->controller->createUrl("trips/sheet", array("id"=>'.$dataHeader['trips']['id'].', "place"=>$data["place"]))'
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")'
 				),
-				'confirm' => array(
+				'confirm'     => array(
 					'label'    => 'Подтвердить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/confirm.png',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/confirm/$data[ticket_id]")',
 					'visible'  => '!empty($data["passport"]) && $data["status"] != 2',
 					'click'    => 'function(){return confirm("Вы хотите подтвердить бронь?");}'
 				),
-				'delete'  => array(
+				'delete'      => array(
 					'label'   => 'Отменить бронь',
 					'url'     => 'Yii::app()->controller->createUrl("tickets/delete/$data[ticket_id]")',
-					'visible' => '!empty($data["passport"])'
+					'visible' => '!empty($data["passport"])',
+					'click'   => 'function(){ return confirm("Вы хотите отменить бронирование/покупку этого билета?"); }'
+				),
+				'blacklist'   => array(
+					'label'    => 'Внести в чёрный список',
+					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/'.$dataHeader['trips']['id'].'/profileid/$data[profile_id]/action/add")',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/blacklist.png',
+					'visible'  => 'empty($data["black_list"]) && !empty($data["passport"])',
+					'click'    => 'function(){ return confirm("Хотите внести пассажира в чёрный список?"); }'
+				),
+				'unblacklist' => array(
+					'label'    => 'Извлечь из чёрного списка',
+					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/'.$dataHeader['trips']['id'].'/profileid/$data[profile_id]/action/del")',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/unblacklist.png',
+					'visible'  => '!empty($data["black_list"])',
+					'click'    => 'function(){ return confirm("Хотите извлечь пассажира из чёрного списка?"); }'
 				)
 			)
 		),
