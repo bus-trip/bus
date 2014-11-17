@@ -492,10 +492,12 @@ class TripsController extends Controller
 
 				if ($Direction) {
 					// Задаём скидку, пока без условий
-					$Ticket->price = $discount->getDiscount($Direction->price, $Profile->passport, 'TRIPS_COUNT_3');
+//					$Ticket->price = $discount->getDiscount($Profile->id);
 					if ($Ticket->validate() && $Ticket->save()) {
 						$Profile->tid = $Ticket->id;
 						$Profile->save();
+						$Ticket->price = $discount->getDiscount($Profile->id);
+						$Ticket->save();
 						Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " забронирован");
 
 						$url = $this->createUrl('/trips/sheet/' . $tripId);

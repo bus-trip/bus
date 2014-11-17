@@ -26,12 +26,12 @@ class Discounts extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, amount, amountType', 'required'),
-			array('amount, amountType', 'numerical', 'integerOnly'=>true),
+			array('id, amount, amountType, status', 'required'),
+			array('amount, amountType, status', 'numerical', 'integerOnly'=>true),
 			array('id', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, amount, amountType', 'safe', 'on'=>'search'),
+			array('id, amount, amountType, status', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -95,19 +95,4 @@ class Discounts extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-
-	public function getStatuses()
-	{
-		return self::statuses();
-	}
-
-	public static function statuses()
-	{
-		return array(
-			TICKET_CANCELED  => 'Отменен',
-			TICKET_RESERVED  => 'Забронирован',
-			TICKET_CONFIRMED => 'Подтвержден',
-		);
-	}
-
 }

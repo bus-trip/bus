@@ -36,7 +36,7 @@ class DiscountsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete'),
+				  'actions' => array('admin', 'delete', 'showdiscount'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -147,27 +147,106 @@ class DiscountsController extends Controller
 	/**
 	 * Устанавливает скидку для определённого билета.
 	 *
-	 * @param $sum
-	 * @param $passport
-	 * @param $discountId
+	 * @param $profileId
 	 */
-	public function getDiscount($sum, $passport, $discountId)
+	public function getDiscount($profileId)
 	{
-		$model = $this->loadModel($discountId);
+		$Profile = Profiles::model()->findByPk($profileId);
+		$Ticket = Tickets::model()->findByPk($Profile->tid);
+		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
+
 		$criteria = new CDbCriteria();
-		switch ($discountId) {
-			// Скидка на третью поездку
-			case 'TRIPS_COUNT_3':
-				$criteria->select = 't.id';
-				$criteria->join = 'left join tickets as ti on t.tid=ti.id';
-				$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
-				$criteria->condition = 'tr.arrival<"' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $passport . '"';
-				$profiles = Profiles::model()->count($criteria);
-				if (($profiles + 1) % 3 == 0 && $profiles != 0) $sum = $model->amountType == 0 ? $sum - $model->amount : $sum * ($model->amount / 100);
-				break;
+		$criteria->join = 'join trips as tr on t.id=tr.idDirection';
+		$criteria->condition = 'tr.id=' . $Ticket->idTrip;
+		$Direction = Directions::model()->find($criteria);
+		$Ticket->price = $Direction->price;
+
+		if ($Discount) {
+			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
 		}
 
-		return $sum;
+		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
+		if ($Discount) {
+			$criteria = new CDbCriteria();
+			$criteria->select = 't.id';
+			$criteria->join = 'left join tickets as ti on t.tid=ti.id';
+			$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
+			$criteria->condition = 'tr.arrival<"' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $Profile->passport . '"';
+			$profiles = Profiles::model()->count($criteria);
+			$tmp = preg_split("/\+/", $Discount->id);
+			if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) {
+				$Ticket->price = $Discount->amountType == 0 ? $Ticket->price - $Discount->amount : $Ticket->price * (1 - $Discount->amount / 100);
+			}
+		}
+
+		return $Ticket->price;
+	}
+
+	public function actionShowdiscount($profileId)
+	{
+		$Profile = Profiles::model()->findByPk($profileId);
+		$Ticket = Tickets::model()->findByPk($Profile->tid);
+		$discountType = array('PLACE', 'DATEDIR', 'AGE', 'TRIPSCOUNT');
+
+		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
+		if ($Discount) {
+			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
+		}
+
+		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
+		if ($Discount) {
+			$criteria = new CDbCriteria();
+			$criteria->select = 't.id';
+			$criteria->join = 'left join tickets as ti on t.tid=ti.id';
+			$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
+			$criteria->condition = 'tr.arrival<"' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $Profile->passport . '"';
+			$profiles = Profiles::model()->count($criteria);
+			$tmp = preg_split("/\+/", $Discount->id);
+			if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) {
+				$Ticket->price = $Discount->amountType == 0 ? $Ticket->price - $Discount->amount : $Ticket->price * (1 - $Discount->amount / 100);
+			}
+		}
+
+//		print $Ticket->idTrip0->idDirection0->startPoint;
+
+//		$discounts = Discounts::model()->findAll(array());
+		/*
+				foreach ($discountType as $dt) {
+
+					$criteria->condition = 'id like "' . $dt . '%" and status=1';
+					$discounts = Discounts::model()->findAll($criteria);
+					if (count($discounts) != 0) {
+						foreach ($discounts as $d) {
+							$tmp = preg_split("/\+/", $d->id);
+							switch ($tmp[0]) {
+								case 'PLACE':
+									if ($tmp[1] == $Ticket->place) {
+										$Ticket->price = $d->amountType == 1 ? $Ticket->price * (1 - $d->amount / 100) : $Ticket->price - $d->amount;
+									}
+									break;
+								case 'DATEDIR':
+									break;
+								case 'AGE':
+									break;
+								case 'TRIPSCOUNT':
+									$criteria->select = 't.id';
+									$criteria->join = 'left join tickets as ti on t.tid=ti.id';
+									$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
+									$criteria->condition = 'tr.arrival<"' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $Profile->passport . '"';
+									$profiles = Profiles::model()->count($criteria);
+									if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) $Ticket->price = $d->amountType == 0 ? $Ticket->price - $d->amount : $Ticket->price * (1 - $d->amount / 100);
+
+									break;
+							}
+						}
+					}
+				}
+		*/
+		$this->render('showdiscount', array(
+			'profile'   => $Profile->attributes,
+			'ticket'    => $Ticket->attributes,
+			'discounts' => $discounts,
+		));
 	}
 
 	/**
