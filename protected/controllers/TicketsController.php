@@ -15,7 +15,7 @@ class TicketsController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -111,7 +111,6 @@ class TicketsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-
 		if ($id == 0)
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 
@@ -147,7 +146,7 @@ class TicketsController extends Controller
 		$Profile = Profiles::model()->findByPk($profileid);
 		if (!$Profile)
 			throw new CHttpException(404, 'The requested page does not exist.');
-		switch($action){
+		switch ($action) {
 			case 'add':
 				$Profile->black_list = 1;
 				break;

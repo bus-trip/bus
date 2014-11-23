@@ -15,7 +15,7 @@ class TripsController extends Controller
 	{
 		return array(
 			'accessControl', // perform access control for CRUD operations
-			'postOnly + delete', // we only allow deletion via POST request
+			//			'postOnly + delete', // we only allow deletion via POST request
 		);
 	}
 
@@ -28,7 +28,7 @@ class TripsController extends Controller
 	{
 		return array(
 			array('allow', // allow all users to perform 'index' and 'view' actions
-				  'actions' => array('index', 'view'),
+				  'actions' => array('index', 'view', 'deleteticket'),
 				  'users'   => array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -333,6 +333,17 @@ class TripsController extends Controller
 				)
 			)
 		);
+	}
+
+	public function actionDeleteticket($id)
+	{
+		$Ticket = Tickets::model()->findByPk($id);
+		$Profile = Profiles::model()->findByAttributes(array('tid' => $id));
+		$Profile->delete();
+
+		$Ticket->status = 0;
+		$Ticket->save();
+		$this->redirect(array('trips/sheet/' . $Ticket->idTrip));
 	}
 
 	public function actionSheetPrint($id)

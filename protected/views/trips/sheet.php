@@ -96,20 +96,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				),
 				'delete'      => array(
 					'label'   => 'Отменить бронь',
-					'url'     => 'Yii::app()->controller->createUrl("tickets/delete/$data[ticket_id]")',
+					'url'     => 'Yii::app()->controller->createUrl("trips/deleteticket/$data[ticket_id]")',
 					'visible' => '!empty($data["passport"])',
 					'click'   => 'function(){ return confirm("Вы хотите отменить бронирование/покупку этого билета?"); }'
 				),
 				'blacklist'   => array(
 					'label'    => 'Внести в чёрный список',
-					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/'.$dataHeader['trips']['id'].'/profileid/$data[profile_id]/action/add")',
+					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/' . $dataHeader['trips']['id'] . '/profileid/$data[profile_id]/action/add")',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/blacklist.png',
 					'visible'  => 'empty($data["black_list"]) && !empty($data["passport"])',
 					'click'    => 'function(){ return confirm("Хотите внести пассажира в чёрный список?"); }'
 				),
 				'unblacklist' => array(
 					'label'    => 'Извлечь из чёрного списка',
-					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/'.$dataHeader['trips']['id'].'/profileid/$data[profile_id]/action/del")',
+					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/' . $dataHeader['trips']['id'] . '/profileid/$data[profile_id]/action/del")',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/unblacklist.png',
 					'visible'  => '!empty($data["black_list"])',
 					'click'    => 'function(){ return confirm("Хотите извлечь пассажира из чёрного списка?"); }'
