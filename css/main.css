@@ -331,3 +331,21 @@ html[xmlns] .clearfix {
 	background-color: orange;
 }
 
+#trips-sheet .button-column{
+	text-align: left;
+	white-space: nowrap;
+}
+
+.save-line, .cancel-line{
+	background: #008800;
+	color: #fff;
+	cursor: pointer;
+	padding: 2px;
+	margin: 0 2px;
+	display: inline-block;
+}
+
+.cancel-line{
+	background: red;
+
+}

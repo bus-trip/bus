@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -238,6 +238,7 @@ class TripsController extends Controller
 
 	public function actionSheet($id)
 	{
+		$this->layout = '//layouts/column1';
 		if ($id == 0) {
 			Yii::app()->user->setState('trips-date', $_POST['trips-date']);
 			Yii::app()->user->setState('trips-arrive', $_POST['trips-arrive']);
@@ -539,6 +540,52 @@ class TripsController extends Controller
 			'eP'   => '',
 			'next' => array(),
 		);
+	}
+
+	function actionInline()
+	{
+		if (empty($_POST['tripId']) || empty($_POST['placeId'])) {
+			throw new CHttpException(404, 'The requested page does not exist.');
+		}
+
+		$tripId = $_POST['tripId'];
+		$placeId = $_POST['placeId'];
+
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'idTrip=:idTrip AND place=:place';
+		$criteria->params = array(':idTrip' => $tripId, ':place' => $placeId);
+		$criteria->addNotInCondition('t.status', array(TICKET_CANCELED));
+		$Tickets = Tickets::model()->with('profiles')->findAll($criteria);
+		$Ticket = !empty($Tickets) ? $Tickets[count($Tickets) - 1] : new Tickets();
+
+		$inputs = array(
+			'<input type="text" name="Profiles[passport]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->passport : '') . '" />',
+			'<input type="text" name="Profiles[last_name]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : '') . '" />',
+			'<input type="text" name="Profiles[name]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->name : '') . '" />',
+			'<input type="text" name="Profiles[middle_name]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : '') . '" />',
+			'<input type="text" name="Profiles[phone]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : '') . '" />',
+			'<input type="text" name="Profiles[birth]" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
+			'<textarea name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
+			'<textarea name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
+			'<input type="text" name="Tickets[price]" value="' . ($Ticket->price != 0 ? $Ticket->price : '') . '" />',
+		);
+
+		$inline = array(
+			(string) (!empty($Ticket->profiles) ? CHtml::link($Ticket->profiles[count($Ticket->profiles) - 1]->passport, array("tickets/profile/" . $Ticket->profiles[count($Ticket->profiles) - 1]->id)) : ''),
+			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : ''),
+			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->name : ''),
+			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : ''),
+			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : ''),
+			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : ''),
+			(string) $Ticket->address_from,
+			(string) $Ticket->address_to,
+			(string) $Ticket->price != 0 ? $Ticket->price : ''
+		);
+
+		$this->layout = FALSE;
+		header('Content-type: application/json');
+		echo CJavaScript::jsonEncode(array('inputs' => $inputs, 'inline' => $inline));
+		Yii::app()->end();
 	}
 
 	/**
