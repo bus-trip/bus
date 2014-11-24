@@ -46,6 +46,12 @@
 		<?php echo $form->error($model, 'status'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model, 'Цена'); ?>
+		<?php echo $form->textField($model, 'price'); ?>
+		<?php echo $form->error($model, 'price'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Сохранить'); ?>
 	</div>
