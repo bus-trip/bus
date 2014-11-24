@@ -36,7 +36,7 @@ class TicketsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist'),
+				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist', 'passengers'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -236,6 +236,20 @@ class TicketsController extends Controller
 			'model'        => $Profile,
 			'dataProvider' => $dataProvider
 		));
+	}
+
+	function actionPassengers()
+	{
+		$this->layout = '//layouts/column1';
+		$this->pageTitle = 'Все пассажиры';
+		$this->breadcrumbs = array($this->pageTitle);
+
+		$model = new Profiles('search');
+		$model->unsetAttributes(); // clear any default values
+		if (isset($_GET['Profiles']))
+			$model->attributes = $_GET['Profiles'];
+
+		$this->render('all_profiles', array('model' => $model));
 	}
 
 	/**
