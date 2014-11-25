@@ -192,12 +192,12 @@ class TicketsController extends Controller
 
 		$criteria = new CDbCriteria();
 //		$criteria->addCondition('name=:name');
-//		$criteria->addCondition('last_name=:last_name');
+		$criteria->addCondition('last_name=:last_name');
 //		$criteria->addCondition('middle_name=:middle_name');
 		$criteria->addCondition('passport=:passport');
 		$criteria->addCondition('t.tid IS NOT NULL');
 		$criteria->params = array(
-//			':last_name'   => $Profile->last_name,
+			':last_name'   => $Profile->last_name,
 //								  ':name'        => $Profile->name,
 //								  ':middle_name' => $Profile->middle_name,
 								  ':passport'    => $Profile->passport
