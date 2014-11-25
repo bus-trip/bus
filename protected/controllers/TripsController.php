@@ -585,11 +585,10 @@ class TripsController extends Controller
                 }
 
                 if ($Ticket->validate() && $Ticket->save()) {
-					$Ticket->price = $discount->getDiscount($Profile->id);
-					$Ticket->save();
                     $Profile->tid = $Ticket->id;
                     $Profile->save();
-
+					$Ticket->price = $discount->getDiscount($Profile->id);
+					$Ticket->save();
                 } else {
                     $errors = $Ticket->getErrors();
                 }
