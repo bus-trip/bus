@@ -74,7 +74,6 @@ class AdminController extends Controller
 			);
 		}
 
-		echo '<pre>';
 		for ($i = 1; $i <= $maxdate; $i++) {
 			$criteria = new CDbCriteria();
 			$criteria->select = 'id, idDirection, departure, idBus';
@@ -173,7 +172,6 @@ class AdminController extends Controller
 		}
 //		print_r($tripsParam);
 
-		echo '</pre>';
 
 		$this->render('index', array(
 			'tripsParam'  => $tripsParam,
