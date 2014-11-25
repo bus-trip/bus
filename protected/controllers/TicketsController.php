@@ -191,14 +191,15 @@ class TicketsController extends Controller
 			throw new CHttpException(404, 'The requested page does not exist.');
 
 		$criteria = new CDbCriteria();
-		$criteria->addCondition('name=:name');
-		$criteria->addCondition('last_name=:last_name');
-		$criteria->addCondition('middle_name=:middle_name');
+//		$criteria->addCondition('name=:name');
+//		$criteria->addCondition('last_name=:last_name');
+//		$criteria->addCondition('middle_name=:middle_name');
 		$criteria->addCondition('passport=:passport');
 		$criteria->addCondition('t.tid IS NOT NULL');
-		$criteria->params = array(':last_name'   => $Profile->last_name,
-								  ':name'        => $Profile->name,
-								  ':middle_name' => $Profile->middle_name,
+		$criteria->params = array(
+//			':last_name'   => $Profile->last_name,
+//								  ':name'        => $Profile->name,
+//								  ':middle_name' => $Profile->middle_name,
 								  ':passport'    => $Profile->passport
 		);
 		$SameProfiles = Profiles::model()->findAll($criteria);
