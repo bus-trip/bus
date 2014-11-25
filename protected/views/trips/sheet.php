@@ -74,7 +74,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'    => 'CButtonColumn',
-			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}',
+			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}&nbsp;&nbsp;&nbsp;{ticket}',
 			'buttons'  => array(
 				'create_ticket' => array(
 					'label'    => 'Создать билет',
@@ -117,7 +117,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/unblacklist.png',
 					'visible'  => '!empty($data["black_list"])',
 					'click'    => 'function(){ return confirm("Хотите извлечь пассажира из чёрного списка?"); }'
-				)
+				),
+                'ticket' => array(
+                    'label'    => 'Войти в билет',
+                    'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
+                    'visible'  => '!empty($data["passport"])',
+                    'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
+                ),
 			)
 		),
 	),

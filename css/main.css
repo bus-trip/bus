@@ -1,132 +1,140 @@
+html {
+    width: 100%;
+    height: 100%;
+}
+
 body {
-	margin: 0;
-	padding: 0;
-	color: #555;
-	font: normal 10pt Arial, Helvetica, sans-serif;
-	background: #EFEFEF;
+    margin: 0;
+    padding: 0;
+    color: #555;
+    font: normal 10pt Arial, Helvetica, sans-serif;
+    background: #EFEFEF;
+    width: 100%;
+    height: 100%;
 }
 
 #page {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
-	border: 1px solid #C9E0ED;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    background: white;
+    border: 1px solid #C9E0ED;
 }
 
 #header {
-	margin: 0;
-	padding: 0;
-	border-top: 3px solid #C9E0ED;
+    margin: 0;
+    padding: 0;
+    border-top: 3px solid #C9E0ED;
 }
 
 #content {
-	padding: 20px;
+    padding: 20px;
+    overflow: auto;
 }
 
 #sidebar {
-	padding: 20px 20px 20px 0;
+    padding: 20px 20px 20px 0;
 }
 
 #footer {
-	padding: 10px;
-	margin: 10px 20px;
-	font-size: 0.8em;
-	text-align: center;
-	border-top: 1px solid #C9E0ED;
+    padding: 10px;
+    margin: 10px 20px;
+    font-size: 0.8em;
+    text-align: center;
+    border-top: 1px solid #C9E0ED;
 }
 
 #logo {
-	padding: 10px 20px;
-	font-size: 200%;
+    padding: 10px 20px;
+    font-size: 200%;
 }
 
 #mainmenu {
-	background: white url(bg.gif) repeat-x left top;
+    background: white url(bg.gif) repeat-x left top;
 }
 
 #mainmenu ul {
-	padding: 6px 20px 5px 20px;
-	margin: 0px;
+    padding: 6px 20px 5px 20px;
+    margin: 0px;
 }
 
 #mainmenu ul li {
-	display: inline;
+    display: inline;
 }
 
 #mainmenu ul li a {
-	color: #ffffff;
-	background-color: transparent;
-	font-size: 12px;
-	font-weight: bold;
-	text-decoration: none;
-	padding: 5px 8px;
+    color: #ffffff;
+    background-color: transparent;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 5px 8px;
 }
 
 #mainmenu ul li a:hover, #mainmenu ul li.active a {
-	color: #6399cd;
-	background-color: #EFF4FA;
-	text-decoration: none;
+    color: #6399cd;
+    background-color: #EFF4FA;
+    text-decoration: none;
 }
 
 div.flash-error, div.flash-notice, div.flash-success {
-	padding: .8em;
-	margin-bottom: 1em;
-	border: 2px solid #ddd;
+    padding: .8em;
+    margin-bottom: 1em;
+    border: 2px solid #ddd;
 }
 
 div.flash-error {
-	background: #FBE3E4;
-	color: #8a1f11;
-	border-color: #FBC2C4;
+    background: #FBE3E4;
+    color: #8a1f11;
+    border-color: #FBC2C4;
 }
 
 div.flash-notice {
-	background: #FFF6BF;
-	color: #514721;
-	border-color: #FFD324;
+    background: #FFF6BF;
+    color: #514721;
+    border-color: #FFD324;
 }
 
 div.flash-success {
-	background: #E6EFC2;
-	color: #264409;
-	border-color: #C6D880;
+    background: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
 }
 
 div.flash-error a {
-	color: #8a1f11;
+    color: #8a1f11;
 }
 
 div.flash-notice a {
-	color: #514721;
+    color: #514721;
 }
 
 div.flash-success a {
-	color: #264409;
+    color: #264409;
 }
 
 div.form .rememberMe label {
-	display: inline;
+    display: inline;
 }
 
 div.view {
-	padding: 10px;
-	margin: 10px 0;
-	border: 1px solid #C9E0ED;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #C9E0ED;
 }
 
 div.breadcrumbs {
-	font-size: 0.9em;
-	padding: 15px 20px 5px;
+    font-size: 0.9em;
+    padding: 15px 20px 5px;
 }
 
 div.breadcrumbs span {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 div.search-form {
-	padding: 10px;
-	margin: 10px 0;
-	background: #eee;
+    padding: 10px;
+    margin: 10px 0;
+    background: #eee;
 }
 
 .portlet {
@@ -134,182 +142,182 @@ div.search-form {
 }
 
 .portlet-decoration {
-	padding: 3px 8px;
-	background: #B7D6E7;
-	border-left: 5px solid #6FACCF;
+    padding: 3px 8px;
+    background: #B7D6E7;
+    border-left: 5px solid #6FACCF;
 }
 
 .portlet-title {
-	font-size: 12px;
-	font-weight: bold;
-	padding: 0;
-	margin: 0;
-	color: #298dcd;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+    color: #298dcd;
 }
 
 .portlet-content {
-	font-size: 0.9em;
-	margin: 0 0 15px 0;
-	padding: 5px 8px;
-	background: #EFFDFF;
+    font-size: 0.9em;
+    margin: 0 0 15px 0;
+    padding: 5px 8px;
+    background: #EFFDFF;
 }
 
 .portlet-content ul {
-	list-style-image: none;
-	list-style-position: outside;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .portlet-content li {
-	padding: 2px 0 4px 0px;
+    padding: 2px 0 4px 0px;
 }
 
 .operations {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .operations li {
-	padding-bottom: 2px;
+    padding-bottom: 2px;
 }
 
 .operations li a {
-	font: bold 12px Arial;
-	color: #0066A4;
-	display: block;
-	padding: 2px 0 2px 8px;
-	line-height: 15px;
-	text-decoration: none;
+    font: bold 12px Arial;
+    color: #0066A4;
+    display: block;
+    padding: 2px 0 2px 8px;
+    line-height: 15px;
+    text-decoration: none;
 }
 
 .operations li a:visited {
-	color: #0066A4;
+    color: #0066A4;
 }
 
 .operations li a:hover {
-	background: #80CFFF;
+    background: #80CFFF;
 }
 
 .wrapper {
-	padding: 20px;
+    padding: 20px;
 }
 
 #tabs {
-	margin-left: -10px;
-	padding-left: 0;
+    margin-left: -10px;
+    padding-left: 0;
 }
 
 #tabs li {
-	display: inline;
-	padding: 0 10px;
+    display: inline;
+    padding: 0 10px;
 }
 
 .clearfix:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
 }
 
 .clearfix {
-	display: inline-block;
+    display: inline-block;
 }
 
 html[xmlns] .clearfix {
-	display: block;
+    display: block;
 }
 
 * html .clearfix {
-	height: 1%;
+    height: 1%;
 }
 
 #profile-wrapper .item .label {
-	font-weight: bold;
-	display: inline-block;
+    font-weight: bold;
+    display: inline-block;
 }
 
 #profile-wrapper .item .value {
-	display: inline-block;
+    display: inline-block;
 }
 
 /*
  * Edit profiles
  */
 .profiles-data .label, .profiles-data .value {
-	display: inline-block;
+    display: inline-block;
 }
 
 #passengers .item {
-	border: 1px dotted;
-	margin: 10px 0;
-	padding: 10px;
+    border: 1px dotted;
+    margin: 10px 0;
+    padding: 10px;
 }
 
 #passengers .item .name {
-	float: left;
+    float: left;
 }
 
 #passengers .item .name span {
-	border-bottom: 1px dashed;
-	cursor: pointer;
+    border-bottom: 1px dashed;
+    cursor: pointer;
 }
 
 #passengers .item .rule {
-	float: right;
+    float: right;
 }
 
 #passengers .item .data {
-	clear: both;
-	display: none;
-	padding: 10px 0;
+    clear: both;
+    display: none;
+    padding: 10px 0;
 }
 
 #passengers .item .data .label {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 .grid-view table.items .row-status-0 td, .row-status-0 {
-	background-color: #FFDBDB
+    background-color: #FFDBDB
 }
 
 .grid-view table.items .row-status-1 td, .row-status-1 {
-	background-color: #FFF582
+    background-color: #FFF582
 }
 
 .grid-view table.items .row-status-2 td, .row-status-2 {
-	background-color: #89EE89
+    background-color: #89EE89
 }
 
 .legends .legend-ico {
-	width: 10px;
-	height: 10px;
-	display: inline-block;
-	border: 1px solid #ccc
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border: 1px solid #ccc
 }
 
 .legends .legend {
-	display: inline-block;
+    display: inline-block;
 }
 
 .legends .row {
-	margin: 4px 0;
+    margin: 4px 0;
 }
 
 .legends {
-	margin: 10px 0;
+    margin: 10px 0;
 }
 
 .inline {
-	display: inline !important;
+    display: inline !important;
 }
 
 .center {
-	text-align: center;
+    text-align: center;
 }
 
 /*div.trips-dir input[type="submit"] {*/
@@ -317,35 +325,60 @@ html[xmlns] .clearfix {
 /*}*/
 
 .trips {
-	height: 27px;
-	padding: 0 2px;
-	margin: 1px 0;
-	border-radius: 7px;
+    height: 27px;
+    padding: 0 2px;
+    margin: 1px 0;
+    border-radius: 7px;
 }
 
 .trips-full {
-	background-color: green;
+    background-color: green;
 }
 
 .trips-notfull {
-	background-color: orange;
+    background-color: orange;
 }
 
-#trips-sheet .button-column{
-	text-align: left;
-	white-space: nowrap;
+#trips-sheet .button-column {
+    text-align: left;
+    white-space: nowrap;
 }
 
-.save-line, .cancel-line{
-	background: #008800;
-	color: #fff;
-	cursor: pointer;
-	padding: 2px;
-	margin: 0 2px;
-	display: inline-block;
+.save-line, .cancel-line {
+    background: #008800;
+    color: #fff;
+    cursor: pointer;
+    padding: 2px;
+    margin: 0 2px;
+    display: inline-block;
 }
 
-.cancel-line{
-	background: red;
+.cancel-line {
+    background: red;
 
+}
+
+input.error, textarea.error {
+    background: #FEE;
+    border-color: #C00;
+}
+
+#overlay-loading {
+    background-color: rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: -20px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#loader {
+    background: url(../images/ajax-loader.gif);
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    left: 50%;
+    position: fixed;
 }
