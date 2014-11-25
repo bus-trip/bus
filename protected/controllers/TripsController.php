@@ -596,7 +596,7 @@ class TripsController extends Controller
                 $errors = $Profile->getErrors();
             }
         }
-
+		$default_price='';
 		if(!$Ticket->price){
 			$criteria1 = new CDbCriteria();
 			$criteria1->join = 'left join trips as tr on t.id=tr.idDirection';
@@ -604,6 +604,9 @@ class TripsController extends Controller
 			$criteria1->addCondition('t.parentId=0');
 			$Direction = Directions::model()->find($criteria1);
 			$Ticket->price = $Direction->price;
+			$default_price = '';
+		} else {
+			$default_price = $Ticket->price;
 		}
 
         $inputs = array(
@@ -627,7 +630,7 @@ class TripsController extends Controller
             (string)(!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : ''),
             (string)$Ticket->address_from,
             (string)$Ticket->address_to,
-            (string)$Ticket->price != 0 ? $Ticket->price : ''
+            (string)$default_price
         );
 
         $this->layout = FALSE;
