@@ -548,6 +548,8 @@ class TripsController extends Controller
             throw new CHttpException(404, 'The requested page does not exist.');
         }
 
+		list($discount) = Yii::app()->createController('discounts');
+
         $tripId = $_POST['tripId'];
         $placeId = $_POST['placeId'];
 
@@ -583,6 +585,8 @@ class TripsController extends Controller
                 }
 
                 if ($Ticket->validate() && $Ticket->save()) {
+					$Ticket->price = $discount->getDiscount($Profile->id);
+					$Ticket->save();
                     $Profile->tid = $Ticket->id;
                     $Profile->save();
 
