@@ -155,11 +155,13 @@ class DiscountsController extends Controller
 		$Ticket = Tickets::model()->findByPk($Profile->tid);
 		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
 
-//		$criteria = new CDbCriteria();
-//		$criteria->join = 'join trips as tr on t.id=tr.idDirection';
-//		$criteria->condition = 'tr.id=' . $Ticket->idTrip;
-//		$Direction = Directions::model()->find($criteria);
-//		$Ticket->price = $Direction->price;
+		if(!$Ticket->price) {
+			$criteria = new CDbCriteria();
+			$criteria->join = 'join trips as tr on t.id=tr.idDirection';
+			$criteria->condition = 'tr.id=' . $Ticket->idTrip;
+			$Direction = Directions::model()->find($criteria);
+			$Ticket->price = $Direction->price;
+		}
 
 		if ($Discount) {
 			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
