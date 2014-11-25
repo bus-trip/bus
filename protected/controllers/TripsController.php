@@ -339,8 +339,8 @@ class TripsController extends Controller
     public function actionDeleteticket($id)
     {
         $Ticket = Tickets::model()->findByPk($id);
-        $Profile = Profiles::model()->findByAttributes(array('tid' => $id));
-        $Profile->delete();
+//        $Profile = Profiles::model()->findByAttributes(array('tid' => $id));
+//        $Profile->delete();
 
         $Ticket->status = 0;
         $Ticket->save();
