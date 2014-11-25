@@ -557,7 +557,7 @@ class TripsController extends Controller
         $criteria->condition = 'idTrip=:idTrip AND place=:place';
         $criteria->params = array(':idTrip' => $tripId, ':place' => $placeId);
         $criteria->addNotInCondition('t.status', array(TICKET_CANCELED));
-        $Tickets = Tickets::model()->with('profiles')->findAll($criteria);
+        $Tickets = Tickets::model()->with('profiles')->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->findAll($criteria);
         $Ticket = !empty($Tickets) ? $Tickets[count($Tickets) - 1] : new Tickets();
         $errors = array();
         if (!empty($_POST['data'])) { // обновляем/создаем профиль и билет
@@ -597,6 +597,15 @@ class TripsController extends Controller
             }
         }
 
+		if(!$Ticket->price){
+			$criteria1 = new CDbCriteria();
+			$criteria1->join = 'left join trips as tr on t.id=tr.idDirection';
+			$criteria1->condition = 'tr.id=' . $tripId;
+			$criteria1->addCondition('t.parentId=0');
+			$Direction = Directions::model()->find($criteria1);
+			$Ticket->price = $Direction->price;
+		}
+
         $inputs = array(
             '<input type="text" name="Profiles[passport]" maxlength="10" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->passport : '') . '" />',
             '<input type="text" name="Profiles[last_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : '') . '" />',
@@ -606,7 +615,7 @@ class TripsController extends Controller
             '<input type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
             '<textarea name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
             '<textarea name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
-            '<input type="text" name="Tickets[price]" value="' . ($Ticket->price != 0 ? $Ticket->price : '') . '" />',
+            '<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
         );
 
         $inline = array(
