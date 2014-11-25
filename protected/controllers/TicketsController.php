@@ -208,8 +208,8 @@ class TicketsController extends Controller
 			$criteria_tickets->condition = 't.id=:id';
 			$criteria_tickets->params = array(':id' => $itemProfile->tid);
 			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
-			$ticketObjs = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
-			foreach($ticketObjs as $ticketObj) {
+			$ticketObj = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
+			if($ticketObj) {
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
 					'address_from' => $ticketObj->address_from,
