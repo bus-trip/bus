@@ -208,19 +208,21 @@ class TicketsController extends Controller
 			$criteria_tickets->condition = 't.id=:id';
 			$criteria_tickets->params = array(':id' => $itemProfile->tid);
 			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
-			$ticketObj = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
-			$tickets[] = array(
-				'id'           => $ticketObj->id,
-				'address_from' => $ticketObj->address_from,
-				'address_to'   => $ticketObj->address_to,
-				'place'        => $ticketObj->place,
-				'price'        => $ticketObj->price,
-				'remark'       => $ticketObj->remark,
-				'departure'    => $ticketObj->idTrip0->departure,
-				'direction'    => $ticketObj->idTrip0->idDirection0->startPoint . '-' .
-					$ticketObj->idTrip0->idDirection0->endPoint,
-				'status'       => $ticketObj->status,
-			);
+			$ticketObjs = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
+			foreach($ticketObjs as $ticketObj) {
+				$tickets[] = array(
+					'id'           => $ticketObj->id,
+					'address_from' => $ticketObj->address_from,
+					'address_to'   => $ticketObj->address_to,
+					'place'        => $ticketObj->place,
+					'price'        => $ticketObj->price,
+					'remark'       => $ticketObj->remark,
+					'departure'    => $ticketObj->idTrip0->departure,
+					'direction'    => $ticketObj->idTrip0->idDirection0->startPoint . '-' .
+						$ticketObj->idTrip0->idDirection0->endPoint,
+					'status'       => $ticketObj->status,
+				);
+			}
 		}
 
 		$dataProvider = new CArrayDataProvider($tickets, array('pagination' => array('pageSize' => 50)));
