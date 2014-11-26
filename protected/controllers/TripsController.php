@@ -387,7 +387,7 @@ class TripsController extends Controller
         $pdf->setPrintHeader(FALSE);
         $pdf->setPrintFooter(FALSE);
         $pdf->AddPage();
-        $pdf->SetFont("dejavuserif", "", 10);
+        $pdf->SetFont("dejavuserif", "", 8);
 
         $tbl = '<h2>Рейс ' . $direction['startPoint'] . ' - ' . $direction['endPoint'] . '</h2><br/>';
         $tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
