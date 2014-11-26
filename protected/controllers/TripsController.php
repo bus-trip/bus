@@ -396,7 +396,7 @@ class TripsController extends Controller
         $tbl .= '<table width="600px" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">
-                        <th style="border-bottom: 1px solid #000000;"><strong>№</strong></th>
+                        <th width="15px" style="border-bottom: 1px solid #000000;"><strong>№</strong></th>
                         <th style="border-bottom: 1px solid #000000;"><strong>ФИО</strong></th>
                         <th style="border-bottom: 1px solid #000000;"><strong>Посадка</strong></th>
                         <th style="border-bottom: 1px solid #000000;"><strong>Высадка</strong></th>
