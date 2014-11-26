@@ -36,7 +36,7 @@ class TripsController extends Controller
                 'users' => array('@'),
             ),
             array('allow', // allow admin user to perform 'admin' and 'delete' actions
-                'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline'),
+                'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles'),
                 'users' => array('admin'),
             ),
             array('deny', // deny all users
@@ -239,6 +239,13 @@ class TripsController extends Controller
     public function actionSheet($id)
     {
         $this->layout = '//layouts/column1';
+
+        Yii::app()->getClientScript()->registerCoreScript('jquery.ui');
+        Yii::app()->clientScript->registerCssFile(
+            Yii::app()->clientScript->getCoreScriptUrl() .
+            '/jui/css/base/jquery-ui.css'
+        );
+
         if ($id == 0) {
             Yii::app()->user->setState('trips-date', $_POST['trips-date']);
             Yii::app()->user->setState('trips-arrive', $_POST['trips-arrive']);
@@ -548,7 +555,7 @@ class TripsController extends Controller
             throw new CHttpException(404, 'The requested page does not exist.');
         }
 
-		list($discount) = Yii::app()->createController('discounts');
+        list($discount) = Yii::app()->createController('discounts');
 
         $tripId = $_POST['tripId'];
         $placeId = $_POST['placeId'];
@@ -587,8 +594,8 @@ class TripsController extends Controller
                 if ($Ticket->validate() && $Ticket->save()) {
                     $Profile->tid = $Ticket->id;
                     $Profile->save();
-					$Ticket->price = $discount->getDiscount($Profile->id);
-					$Ticket->save();
+                    $Ticket->price = $discount->getDiscount($Profile->id);
+                    $Ticket->save();
                 } else {
                     $errors = $Ticket->getErrors();
                 }
@@ -596,25 +603,25 @@ class TripsController extends Controller
                 $errors = $Profile->getErrors();
             }
         }
-		$default_price='';
-		if(!$Ticket->price){
-			$criteria1 = new CDbCriteria();
-			$criteria1->join = 'left join trips as tr on t.id=tr.idDirection';
-			$criteria1->condition = 'tr.id=' . $tripId;
-			$criteria1->addCondition('t.parentId=0');
-			$Direction = Directions::model()->find($criteria1);
-			$Ticket->price = $Direction->price;
-			$default_price = '';
-		} else {
-			$default_price = $Ticket->price;
-		}
+        $default_price = '';
+        if (!$Ticket->price) {
+            $criteria1 = new CDbCriteria();
+            $criteria1->join = 'left join trips as tr on t.id=tr.idDirection';
+            $criteria1->condition = 'tr.id=' . $tripId;
+            $criteria1->addCondition('t.parentId=0');
+            $Direction = Directions::model()->find($criteria1);
+            $Ticket->price = $Direction->price;
+            $default_price = '';
+        } else {
+            $default_price = $Ticket->price;
+        }
 
         $inputs = array(
-            '<input type="text" name="Profiles[passport]" maxlength="10" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->passport : '') . '" />',
-            '<input type="text" name="Profiles[last_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : '') . '" />',
-            '<input type="text" name="Profiles[name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->name : '') . '" />',
-            '<input type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : '') . '" />',
-            '<input type="text" name="Profiles[phone]" size="12" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : '') . '" />',
+            '<input class="autocomplete" type="text" name="Profiles[passport]" maxlength="10" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->passport : '') . '" />',
+            '<input class="autocomplete" type="text" name="Profiles[last_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : '') . '" />',
+            '<input class="autocomplete" type="text" name="Profiles[name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->name : '') . '" />',
+            '<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : '') . '" />',
+            '<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : '') . '" />',
             '<input type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
             '<textarea name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
             '<textarea name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
@@ -639,11 +646,42 @@ class TripsController extends Controller
         Yii::app()->end();
     }
 
+
+    public function actionSProfiles($term)
+    {
+        $res = array();
+        if (isset($_GET['term']) && isset($_GET['field'])) {
+            $field = preg_replace('#Profiles\[([^\]]*)\]#', '$1', $_GET['field']);
+            $criteria = new CDbCriteria();
+            $criteria->addCondition($field . ' LIKE :field');
+            $criteria->params = array(
+                ':field' => '%' . trim($_GET['term']) . '%',
+            );
+            $criteria->group = 'passport, last_name';
+
+            $SameProfiles = Profiles::model()->findAll($criteria);
+            foreach ($SameProfiles as $Profile) {
+                $res[] = array(
+                    'value' => $Profile->$field,
+                    'info' => '(' . $Profile->shortName() . '; ' . $Profile->passport . ')',
+                    'data' => array(
+                        'Profiles[passport]' => $Profile->passport,
+                        'Profiles[last_name]' => $Profile->last_name,
+                        'Profiles[name]' => $Profile->name,
+                        'Profiles[middle_name]' => $Profile->middle_name,
+                        'Profiles[phone]' => $Profile->phone,
+                    ),
+                );
+            }
+        }
+        echo CJSON::encode($res);
+        Yii::app()->end();
+    }
+
     /**
      * Manages all models.
      */
-    public
-    function actionAdmin()
+    public function actionAdmin()
     {
         $model = new Trips('search');
         $model->unsetAttributes(); // clear any default values

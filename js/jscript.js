@@ -86,6 +86,41 @@ $(function () {
 
             self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
 
+            var cache = {};
+            $('input.autocomplete').each(function () {
+                var input = $(this),
+                    line_wrapp = $(this).parents('tr'),
+                    field = input.attr('name');
+                $(this).autocomplete({
+                    //minLength: 2,
+                    source: function (request, response) {
+                        request.field = field;
+                        var term = request.term;
+                        if (term in cache) {
+                            response(cache[term]);
+                            return;
+                        }
+
+                        $.getJSON("/trips/sprofiles", request, function (data, status, xhr) {
+                            cache[term] = data;
+                            response(data);
+                        });
+                    },
+                    select: function (event, ui) {
+                        line_wrapp.find('input.autocomplete').each(function () {
+                            var input_name = $(this).attr('name');
+                            $(this).val(ui.item.data[input_name]);
+                        })
+                    }
+                }).data("ui-autocomplete")._renderItem = function (ul, item) {
+                    return $("<li class='ui-menu-item'></li>")
+                        .data("item.autocomplete", item)
+                        .append('<a><b>' + item.value + '</b> ... ' + item.info + '</a>')
+                        .appendTo(ul);
+                };
+            });
+
+
             $('#overlay-loading').remove();
         });
     });
@@ -176,5 +211,6 @@ $(function () {
     });
 
 
-});
+})
+;
 
