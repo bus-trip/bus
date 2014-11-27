@@ -10,7 +10,7 @@
  * @property string  $last_name
  * @property string  $name
  * @property string  $middle_name
- * @property integer $passport
+ * @property string  $passport
  * @property string  $phone
  * @property integer $sex
  * @property integer $birth
