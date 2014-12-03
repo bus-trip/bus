@@ -20,6 +20,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'passport',
 			'header' => 'Серия и номер паспорта',
+			'type'   => 'raw',
+			'value'  => 'isset($data["id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["id"])):""',
 		),
 		array(
 			'name'   => 'phone',
