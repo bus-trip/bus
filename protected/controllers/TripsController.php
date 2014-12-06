@@ -279,17 +279,21 @@ class TripsController extends Controller
         $arrPlaces = array();
         for ($i = 1; $i <= $bus["places"]; $i++) {
             $arrPlaces[$i] = array(
-                'place' => $i,
-                'passport' => '',
-                'last_name' => '',
-                'name' => '',
-                'middle_name' => '',
-                'birthday' => '',
-                'phone' => '',
-                'startPoint' => '',
-                'endPoint' => '',
-                'price' => '',
-                'description' => '',
+				'profile_id' => '',
+				'place' => $i,
+				'passport' => '',
+				'last_name' => '',
+				'name' => '',
+				'middle_name' => '',
+				'birthday' => '',
+				'phone' => '',
+				'startPoint' => '',
+				'endPoint' => '',
+				'price' => '',
+				'remark' => '',
+				'status' => '',
+				'black_list' => '',
+				'ticket_id' => '',
             );
         }
         $criteria = new CDbCriteria();
@@ -312,6 +316,7 @@ class TripsController extends Controller
                         'startPoint' => $t["address_from"],
                         'endPoint' => $t["address_to"],
                         'price' => $t["price"],
+						'remark' => $t["remark"],
                         'status' => $t["status"],
                         'black_list' => $profile->black_list ? '!' : '',
                         'ticket_id' => $profile->tid,
@@ -586,6 +591,7 @@ class TripsController extends Controller
                 $Ticket->place = $placeId;
                 $Ticket->address_from = $_POST['data']['Tickets[address_from'];
                 $Ticket->address_to = $_POST['data']['Tickets[address_to'];
+				$Ticket->remark = $_POST['data']['Tickets[remark'];
                 $Ticket->price = $_POST['data']['Tickets[price'];
                 if (empty($Ticket->status)) {
                     $Ticket->status = TICKET_RESERVED;
@@ -594,7 +600,8 @@ class TripsController extends Controller
                 if ($Ticket->validate() && $Ticket->save()) {
                     $Profile->tid = $Ticket->id;
                     $Profile->save();
-                    $Ticket->price = $discount->getDiscount($Profile->id);
+					if($Ticket->idTrip0->idDirection0->price == $Ticket->price)
+						$Ticket->price = $discount->getDiscount($Profile->id);
                     $Ticket->save();
                 } else {
                     $errors = $Ticket->getErrors();
@@ -625,6 +632,7 @@ class TripsController extends Controller
             '<input type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
             '<textarea name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
             '<textarea name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
+			'<textarea name="Tickets[remark]">'. $Ticket->remark . '</textarea>',
             '<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
         );
 
@@ -637,6 +645,7 @@ class TripsController extends Controller
             (string)(!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : ''),
             (string)$Ticket->address_from,
             (string)$Ticket->address_to,
+			(string)$Ticket->remark,
             (string)$default_price
         );
 

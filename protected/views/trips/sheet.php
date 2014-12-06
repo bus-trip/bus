@@ -69,6 +69,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Высадка',
 		),
 		array(
+			'name'   => 'remark',
+			'header' => 'Примечание',
+		),
+		array(
 			'name'   => 'price',
 			'header' => 'Стоимость',
 		),
@@ -118,12 +122,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'visible'  => '!empty($data["black_list"])',
 					'click'    => 'function(){ return confirm("Хотите извлечь пассажира из чёрного списка?"); }'
 				),
-                'ticket' => array(
-                    'label'    => 'Войти в билет',
-                    'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
-                    'visible'  => '!empty($data["passport"])',
-                    'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
-                ),
+				'ticket'        => array(
+					'label'    => 'Войти в билет',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
+					'visible'  => '!empty($data["passport"])',
+					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
+				),
 			)
 		),
 	),
