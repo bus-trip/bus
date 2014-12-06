@@ -173,7 +173,7 @@ class DiscountsController extends Controller
 			$criteria->select = 't.id';
 			$criteria->join = 'left join tickets as ti on t.tid=ti.id';
 			$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
-			$criteria->condition = 'ti.id != ' . $Profile->tid . ' and tr.arrival<"' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $Profile->passport . '" and t.last_name ="' . $Profile->last_name . '"';
+			$criteria->condition = 'ti.id != ' . $Profile->tid . ' and tr.arrival<="' . date('Y-m-d H:i:s') . '" and tr.status=1 and ti.status=2 and t.passport="' . $Profile->passport . '" and t.last_name ="' . $Profile->last_name . '"';
 			$profiles = Profiles::model()->count($criteria);
 			$tmp = preg_split("/\+/", $Discount->id);
 			if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) {
