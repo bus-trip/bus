@@ -40,7 +40,7 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 //			array('last_name, name, passport, phone', 'required'),
-			array('last_name, name, middle_name, passport, phone, sex, birth', 'required'),
+			array('last_name, name, middle_name, passport, phone, birth', 'required'),
 			array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
