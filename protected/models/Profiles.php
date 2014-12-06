@@ -39,7 +39,8 @@ class Profiles extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('last_name, name, passport, phone', 'required'),
+//			array('last_name, name, passport, phone', 'required'),
+			array('last_name, name, middle_name, passport, phone, sex, birth', 'required'),
 			array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name', 'length', 'max' => 255),
 			array('passport', 'length', 'max' => 10, 'min' => 10),
