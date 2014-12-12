@@ -231,6 +231,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('phone', $this->phone, TRUE);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
+		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
