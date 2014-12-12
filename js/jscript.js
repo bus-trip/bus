@@ -103,6 +103,7 @@ $(function () {
 
                         $.getJSON("/trips/sprofiles", request, function (data, status, xhr) {
                             cache[term] = data;
+	                        console.log(data);
                             response(data);
                         });
                     },

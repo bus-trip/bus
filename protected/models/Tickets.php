@@ -134,7 +134,9 @@ class Tickets extends CActiveRecord
 	}
 
 	public function shortAddress(){
-		return (mb_strlen($this->address_from) > 10 ? (substr($this->address_from, 0, 10) . '...') : $this->address_from) . ' - ' .
-		(mb_strlen($this->address_to) > 10 ? (substr($this->address_to, 0, 10) . '...') : $this->address_to);
+		if ($this->address_from || $this->address_to)
+			return (mb_strlen($this->address_from, "UTF-8") > 10 ? (mb_substr($this->address_from, 0, 10, "UTF-8") . '...') : $this->address_from) . ' - ' .
+			(mb_strlen($this->address_to, "UTF-8") > 10 ? (mb_substr($this->address_to, 0, 10, "UTF-8") . '...') : $this->address_to);
+		else return '';
 	}
 }

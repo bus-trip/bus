@@ -673,7 +673,7 @@ class TripsController extends Controller
 				if ($Ticket->profiles) {
 					$key = count($Ticket->profiles) - 1;
 					$Profile = $Ticket->profiles[$key];
-					if (!empty($Profile->passport) && !empty($Profile->last_name)) {
+					if ($Profile->passport && $Profile->last_name) {
 						$skey2 = md5($Profile->passport . '::' . $Profile->last_name);
 						$skey = md5($Profile->passport . '::' . $Profile->last_name . '::' . $Ticket->address_from . '::' . $Ticket->address_to);
 						if ($Ticket->address_from || $Ticket->address_to) $arr1[$skey2][] = $skey;
