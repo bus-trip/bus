@@ -107,10 +107,14 @@ $(function () {
                         });
                     },
                     select: function (event, ui) {
-                        line_wrapp.find('input.autocomplete').each(function () {
+                        line_wrapp.find('.autocomplete').each(function () {
                             var input_name = $(this).attr('name');
-                            $(this).val(ui.item.data[input_name]);
-                        })
+	                        if($(this)[0].tagName == 'INPUT'){
+		                        $(this).val(ui.item.data[input_name]);
+	                        } else if($(this)[0].tagName == 'TEXTAREA'){
+		                        $(this).text(ui.item.data[input_name]);
+	                        }
+                        });
                     }
                 }).data("ui-autocomplete")._renderItem = function (ul, item) {
                     return $("<li class='ui-menu-item'></li>")

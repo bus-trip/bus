@@ -132,4 +132,9 @@ class Tickets extends CActiveRecord
 			TICKET_CONFIRMED => 'Подтвержден',
 		);
 	}
+
+	public function shortAddress(){
+		return (mb_strlen($this->address_from) > 10 ? (substr($this->address_from, 0, 10) . '...') : $this->address_from) . ' - ' .
+		(mb_strlen($this->address_to) > 10 ? (substr($this->address_to, 0, 10) . '...') : $this->address_to);
+	}
 }
