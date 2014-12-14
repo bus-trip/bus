@@ -15,6 +15,7 @@
  * @property integer $sex
  * @property integer $birth
  * @property integer $black_list
+ * @property string  $black_desc
  * @property string  $created
  *
  * The followings are the available model relations:
@@ -40,16 +41,16 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 //			array('last_name, name, passport, phone', 'required'),
-			array('last_name, name, middle_name, passport, phone, birth', 'required'),
-			array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
-			array('last_name, name, middle_name', 'length', 'max' => 255),
-			array('passport', 'length', 'max' => 10, 'min' => 10),
-			array('phone', 'length', 'max' => 17),
-			array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
-			array('birth', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, black_list, created', 'safe', 'on' => 'search'),
+array('last_name, name, middle_name, passport, phone, birth', 'required'),
+array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
+array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
+array('passport', 'length', 'max' => 10, 'min' => 10),
+array('phone', 'length', 'max' => 17),
+array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
+array('birth', 'safe'),
+// The following rule is used by search().
+// @todo Please remove those attributes that should not be searched.
+array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, black_list, black_desc, created', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -83,6 +84,7 @@ class Profiles extends CActiveRecord
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
 			'black_list'  => 'Черный список',
+			'black_desc'  => 'Причина',
 			'created'     => 'Created',
 		);
 	}
@@ -116,6 +118,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
+		$criteria->compare('black_desc', $this->black_desc);
 		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
@@ -179,6 +182,7 @@ class Profiles extends CActiveRecord
 			foreach ($Profiles as $profile) {
 				if ($profile->black_list != $this->black_list) {
 					$profile->black_list = $this->black_list;
+					$profile->black_desc = $this->black_desc;
 					$profile->save();
 				}
 			}
@@ -232,6 +236,7 @@ class Profiles extends CActiveRecord
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
+		$criteria->compare('black_desc', $this->black_desc);
 		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(

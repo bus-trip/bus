@@ -148,14 +148,23 @@ class TicketsController extends Controller
 			throw new CHttpException(404, 'The requested page does not exist.');
 		switch ($action) {
 			case 'add':
-				$Profile->black_list = 1;
+				if (!empty($_POST)){
+					$Profile->black_list = 1;
+					$Profile->black_desc = $_POST['Profiles']['black_desc'];
+					if ($Profile->validate()) $Profile->save();
+					$this->redirect(array('trips/sheet/' . $id));
+				}
+				else {
+					$data = array('idTrip' => $id, 'Profile' => $Profile, 'action' => $action);
+					$this->render('blconfirm', array('blParam' => $data));
+				}
 				break;
 			case 'del':
 				$Profile->black_list = 0;
+				if ($Profile->validate()) $Profile->save();
+				$this->redirect(array('trips/sheet/' . $id));
 				break;
 		}
-		if ($Profile->validate()) $Profile->save();
-		$this->redirect(array('trips/sheet/' . $id));
 	}
 
 	/**
@@ -197,10 +206,10 @@ class TicketsController extends Controller
 		$criteria->addCondition('passport=:passport');
 		$criteria->addCondition('t.tid IS NOT NULL');
 		$criteria->params = array(
-			':last_name'   => $Profile->last_name,
-//								  ':name'        => $Profile->name,
-//								  ':middle_name' => $Profile->middle_name,
-								  ':passport'    => $Profile->passport
+			':last_name' => $Profile->last_name,
+			//								  ':name'        => $Profile->name,
+			//								  ':middle_name' => $Profile->middle_name,
+			':passport'  => $Profile->passport
 		);
 		$SameProfiles = Profiles::model()->findAll($criteria);
 		$tickets = array();
@@ -210,7 +219,7 @@ class TicketsController extends Controller
 			$criteria_tickets->params = array(':id' => $itemProfile->tid);
 			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
 			$ticketObj = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
-			if($ticketObj) {
+			if ($ticketObj) {
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
 					'address_from' => $ticketObj->address_from,

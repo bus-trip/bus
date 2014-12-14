@@ -39,6 +39,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'black_list',
 			'header' => 'BL',
 			'filter' => CHtml::dropDownList('Profiles[black_list]', $model->black_list, array('' => '-Выберите-', 0 => 'Не в ЧС', 1 => 'В ЧС')),
+		),
+		array(
+			'name'   => 'black_desc',
+			'header' => 'Причина',
 		)
 	)
 )); ?>
