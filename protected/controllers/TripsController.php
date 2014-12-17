@@ -565,7 +565,7 @@ class TripsController extends Controller
 		if (!empty($_POST)) {
 			$Trip = Trips::model()->findByPk($_POST['idTrip']);
 			$Trip->idBus = $_POST['buslist'];
-			if($Trip->validate()) $Trip->save();
+			if ($Trip->validate()) $Trip->save();
 			$url = $this->createUrl('/trips/sheet/' . $_POST['idTrip']);
 			$this->redirect($url);
 		} else {
