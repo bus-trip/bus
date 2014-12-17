@@ -29,6 +29,7 @@ echo CHtml::link('Редактировать', "#", array("id" => "bus-link"));
 	<form action="/trips/selectbus" method="post">
 		<input type="hidden" name="idTrip" value="<?php echo $dataHeader['trips']['id'] ?>">
 		<?php
+		$buses = '';
 		echo CHtml::dropDownList('buslist', $buses, $dataHeader['buses'], array('options' => array($dataHeader['bus']['id'] => array('selected' => 'selected'))));
 		?>
 		<input type="submit" value="Назначить автобус в рейс">
