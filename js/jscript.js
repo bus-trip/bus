@@ -219,3 +219,9 @@ $(function () {
 })
 ;
 
+
+$(function (){
+	$("#bus-link").click(function(){
+		$("#select-bus").toggle(300);
+	});
+});

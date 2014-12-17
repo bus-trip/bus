@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -259,6 +259,11 @@ class TripsController extends Controller
 		$data = Buses::model()->find($criteria);
 		$bus = $data->attributes;
 
+		$data = Buses::model()->findAll(array('condition' => 'status=1'));
+		foreach ($data as $d) {
+			$buses[$d['id']] = $d['model'] . ' ' . $d['number'];
+		}
+
 		$criteria = new CDbCriteria();
 		$criteria->join = 'left join trips as tr on t.id=tr.idDirection';
 		$criteria->condition = 'tr.id=' . $id;
@@ -343,6 +348,7 @@ class TripsController extends Controller
 					'bus'       => $bus,
 					'direction' => $direction,
 					'trips'     => $this->loadModel($id)->attributes,
+					'buses'     => $buses,
 				)
 			)
 		);
@@ -552,6 +558,20 @@ class TripsController extends Controller
 			'eP'   => '',
 			'next' => array(),
 		);
+	}
+
+	public function actionSelectbus()
+	{
+		if (!empty($_POST)) {
+			$Trip = Trips::model()->findByPk($_POST['idTrip']);
+			$Trip->idBus = $_POST['buslist'];
+			if($Trip->validate()) $Trip->save();
+			$url = $this->createUrl('/trips/sheet/' . $_POST['idTrip']);
+			$this->redirect($url);
+		} else {
+			$url = $this->createUrl('/index.php');
+			$this->redirect($url);
+		}
 	}
 
 	function actionInline()

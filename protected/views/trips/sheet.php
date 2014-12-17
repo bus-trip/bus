@@ -19,7 +19,23 @@ $this->menu = array(
 Направление: <?php echo $dataHeader['direction']['startPoint'] . ' - ' . $dataHeader['direction']['endPoint']; ?><br/>
 Отправление: <?php echo $dataHeader['trips']['departure']; ?>&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo $dataHeader['trips']['arrival']; ?>
 <br/>
-Автобус: <?php echo $dataHeader['bus']['model'] . ', номер ' . $dataHeader['bus']['number']; ?><br/>
+Автобус: <?php echo $dataHeader['bus']['model'] . ', номер ' . $dataHeader['bus']['number']; ?>
+&nbsp;&nbsp;
+<?php
+echo CHtml::link('Редактировать', "#", array("id" => "bus-link"));
+?>
+<div id="select-bus">
+	<h3>Выбор автобуса для рейса:</h3>
+	<form action="/trips/selectbus" method="post">
+		<input type="hidden" name="idTrip" value="<?php echo $dataHeader['trips']['id'] ?>">
+		<?php
+		echo CHtml::dropDownList('buslist', $buses, $dataHeader['buses'], array('options' => array($dataHeader['bus']['id'] => array('selected' => 'selected'))));
+		?>
+		<input type="submit" value="Назначить автобус в рейс">
+	</form>
+</div>
+
+<br/>
 
 <?php
 
