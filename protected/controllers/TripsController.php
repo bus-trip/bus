@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint','profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -445,6 +445,92 @@ class TripsController extends Controller
 			}
 		}
 		$tbl .= '</tbody></table>';
+
+		$pdf->writeHTML($tbl, TRUE, TRUE, FALSE, FALSE, '');
+		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");
+	}
+
+	public function actionSheetFullPrint($id)
+	{
+		$trips = $this->loadModel($id)->attributes;
+
+		$criteria = new CDbCriteria();
+		$criteria->join = 'left join trips as tr on tr.idBus=t.id';
+		$criteria->condition = 'tr.id=' . $id;
+		$data = Buses::model()->find($criteria);
+		$bus = $data->attributes;
+
+//		$criteria = new CDbCriteria();
+//		$criteria->join = 'left join trips as tr on t.id=tr.idDirection';
+//		$criteria->condition = 'tr.id=' . $id;
+//		$criteria->addCondition('t.parentId=0');
+//		$data = Directions::model()->find($criteria);
+//		$direction = $data->attributes;
+
+		$criteria = new CDbCriteria();
+		$criteria->condition = 't.idTrip=' . $id . ' and (t.status = 1 or t.status = 2)';
+		$criteria->join = 'left join trips as tr on tr.id = t.idTrip';
+		$data = Tickets::model()->findAll($criteria);
+		$tickets = array();
+		foreach ($data as $d) {
+			$tickets[] = $d->attributes;
+		}
+
+		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'P', 'cm', 'A4', TRUE, 'UTF-8');
+		$pdf->SetCreator(PDF_CREATOR);
+		$pdf->SetAuthor("Trips operator");
+		$pdf->SetTitle("Trips sheet");
+		$pdf->setPrintHeader(FALSE);
+		$pdf->setPrintFooter(FALSE);
+		$pdf->AddPage();
+		$pdf->SetFont("dejavuserif", "", 7);
+
+
+		$tbl = '<div style="text-align: right;">Приложение №1 к договору<br/>фрахтования транспортного средства<br/>для перевозки пассажиров по заказу</div>';
+		$tmp = preg_split("/[-,\ ]/",$trips['departure']);
+		$tbl .= '<div style="text-align: center;">';
+		$tbl .= '<h2>Список пассажиров &laquo;Транспортного средства&raquo;<br/> (определённый круг лиц) на '.$tmp[2].'.'.$tmp[1].'.'.$tmp[0].' года</h2>';
+		$tbl .= '</div>';
+		$tbl .= '<table style="width: 1400px; border:1px solid #000000; padding: 8px;">
+                    <tbody>
+                    <tr style="font-size: 7pt; text-align: center;">
+                        <th width="30px" style="border: 1px solid #000000;"><strong>№<br/>п/п</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>ФИО пассажира</strong></th>
+                        <th width="80px" style="border: 1px solid #000000;"><strong>Серия и номер паспорта</strong></th>
+                        <th width="80px" style="border: 1px solid #000000;"><strong>Дата рождения</strong></th>
+                        <th width="80px" style="border: 1px solid #000000;"><strong>Отметка о присутствии в т/с</strong></th>
+                    </tr>';
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'tid=:tid';
+		for ($i = 1; $i <= $bus['places']; $i++) {
+			$flag = 0;
+			foreach ($tickets as $t) {
+				if ($t["place"] == $i) {
+					$criteria->params = array(':tid' => $t["id"]);
+					$profile = Profiles::model()->find($criteria);
+					$tbl .= '<tr style="font-size: 8pt;">';
+					$tbl .= '<td width="30px" style="border: 1px solid #000000;"></td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->last_name . ' ' . $profile->name . ' ' . $profile->middle_name . '</td>';
+					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->passport . '</td>';
+					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->birth . '</td>';
+					$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
+					$tbl .= '</tr>';
+					$flag = 1;
+				}
+			}
+			if (!$flag) {
+				$tbl .= '<tr>';
+				$tbl .= '<td width="30px" style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
+				$tbl .= '</tr>';
+			}
+		}
+		$tbl .= '</tbody></table>';
+		$tbl .= '<div style="text-align: right; background-color: #ffffff;"><h2>&laquo;Фрахтователь&raquo;:</h2>';
+		$tbl .= '<br/>__________________________________________</div>';
 
 		$pdf->writeHTML($tbl, TRUE, TRUE, FALSE, FALSE, '');
 		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");

@@ -163,7 +163,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 </div>
 
-<p><?php
-	echo '<a href="' . Yii::app()->createUrl('trips/sheetprint',
-											 array('id' => $_GET['id'])) . '" target="_blank">Версия для печати</a>';
-	?></p>
+<p>
+	<?php
+		echo '<a href="' . Yii::app()->createUrl('trips/sheetprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати</a>';
+		echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+		echo '<a href="' . Yii::app()->createUrl('trips/sheetfullprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати (Список пассажиров)</a>';
+	?>
+</p>
