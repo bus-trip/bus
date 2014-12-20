@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint','profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -485,11 +485,10 @@ class TripsController extends Controller
 		$pdf->AddPage();
 		$pdf->SetFont("dejavuserif", "", 7);
 
-
 		$tbl = '<div style="text-align: right;">Приложение №1 к договору<br/>фрахтования транспортного средства<br/>для перевозки пассажиров по заказу</div>';
-		$tmp = preg_split("/[-,\ ]/",$trips['departure']);
+		$tmp = preg_split("/[-,\ ]/", $trips['departure']);
 		$tbl .= '<div style="text-align: center;">';
-		$tbl .= '<h2>Список пассажиров &laquo;Транспортного средства&raquo;<br/> (определённый круг лиц) на '.$tmp[2].'.'.$tmp[1].'.'.$tmp[0].' года</h2>';
+		$tbl .= '<h2>Список пассажиров &laquo;Транспортного средства&raquo;<br/> (определённый круг лиц) на ' . $tmp[2] . '.' . $tmp[1] . '.' . $tmp[0] . ' года</h2>';
 		$tbl .= '</div>';
 		$tbl .= '<table style="width: 1400px; border:1px solid #000000; padding: 8px;">
                     <tbody>
@@ -692,6 +691,7 @@ class TripsController extends Controller
 			$Profile->middle_name = $_POST['data']['Profiles[middle_name'];
 			$Profile->phone = $_POST['data']['Profiles[phone'];
 			$Profile->birth = $_POST['data']['Profiles[birth'];
+			$Profile->black_list = $_POST['data']['Profiles[black_list'];
 			if ($Profile->validate()) {
 
 				$Ticket->idTrip = $tripId;
@@ -710,6 +710,7 @@ class TripsController extends Controller
 					if ($Ticket->idTrip0->idDirection0->price == $Ticket->price)
 						$Ticket->price = $discount->getDiscount($Profile->id);
 					$Ticket->save();
+					Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " забронирован");
 				} else {
 					$errors = $Ticket->getErrors();
 				}
@@ -717,7 +718,7 @@ class TripsController extends Controller
 				$errors = $Profile->getErrors();
 			}
 		}
-		$default_price = '';
+
 		if (!$Ticket->price) {
 			$criteria1 = new CDbCriteria();
 			$criteria1->join = 'left join trips as tr on t.id=tr.idDirection';
@@ -743,6 +744,8 @@ class TripsController extends Controller
 			'<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
 		);
 
+		$in_bl = (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->black_list : 0);
+
 		$inline = array(
 			(string) (!empty($Ticket->profiles) ? CHtml::link($Ticket->profiles[count($Ticket->profiles) - 1]->passport, array("tickets/profile/" . $Ticket->profiles[count($Ticket->profiles) - 1]->id)) : ''),
 			(string) (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->last_name : ''),
@@ -758,7 +761,7 @@ class TripsController extends Controller
 
 		$this->layout = FALSE;
 		header('Content-type: application/json');
-		echo CJavaScript::jsonEncode(array('inputs' => $inputs, 'inline' => $inline, 'errors' => $errors));
+		echo CJavaScript::jsonEncode(array('inputs' => $inputs, 'in_bl' => $in_bl, 'inline' => $inline, 'errors' => $errors));
 		Yii::app()->end();
 	}
 
@@ -780,14 +783,15 @@ class TripsController extends Controller
 					$key = count($Ticket->profiles) - 1;
 					$Profile = $Ticket->profiles[$key];
 					if ($Profile->passport && $Profile->last_name) {
-						$skey2 = md5($Profile->passport . '::' . $Profile->last_name);
-						$skey = md5($Profile->passport . '::' . $Profile->last_name . '::' . $Ticket->address_from . '::' . $Ticket->address_to);
+						$skey2 = md5($Profile->passport . '::' . $Profile->last_name . '::' . $Profile->black_list);
+						$skey = md5($Profile->passport . '::' . $Profile->last_name . '::' . $Profile->black_list . '::' . $Ticket->address_from . '::' . $Ticket->address_to);
 						if ($Ticket->address_from || $Ticket->address_to) $arr1[$skey2][] = $skey;
 						else                                              $arr2[$skey2][] = $skey;
 
+						$str_in_bl = $Profile->black_list == 1 ? '; В ЧС' : '';
 						$res[$skey] = array(
 							'value' => $Profile->$field,
-							'info'  => '(' . $Profile->shortName() . '; ' . $Profile->passport . ') ' . $Ticket->shortAddress(),
+							'info'  => '(' . $Profile->shortName() . '; ' . $Profile->passport . ') ' . $Ticket->shortAddress() . $str_in_bl,
 							'data'  => array(
 								'Profiles[passport]'    => $Profile->passport,
 								'Profiles[last_name]'   => $Profile->last_name,
@@ -795,6 +799,7 @@ class TripsController extends Controller
 								'Profiles[middle_name]' => $Profile->middle_name,
 								'Profiles[phone]'       => $Profile->phone,
 								'Profiles[birth]'       => $Profile->birth,
+								'Profiles[black_list]'  => $Profile->black_list,
 								'Tickets[address_from]' => $Ticket->address_from,
 								'Tickets[address_to]'   => $Ticket->address_to,
 							),
@@ -807,11 +812,10 @@ class TripsController extends Controller
 		$result = array();
 		foreach ($arr1 as $p => $b) {
 			foreach ($b as $k) {
-				if(isset($res[$k])){
+				if (isset($res[$k])) {
 					$result[] = $res[$k];
 					unset($res[$k]);
 				}
-
 
 				if (isset($arr2[$p])) unset($arr2[$p]);
 			}
