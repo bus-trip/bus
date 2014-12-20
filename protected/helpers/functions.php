@@ -16,3 +16,14 @@ if (!function_exists('mb_ucfirst') && function_exists('mb_substr')) {
 		return $string;
 	}
 }
+
+function _sort_by_departure($a, $b)
+{
+	$a_weight = (is_array($a) && isset($a['departure'])) ? strtotime($a['departure']) : 0;
+	$b_weight = (is_array($b) && isset($b['departure'])) ? strtotime($b['departure']) : 0;
+	if ($a_weight == $b_weight) {
+		return 0;
+	}
+
+	return ($a_weight < $b_weight) ? -1 : 1;
+}

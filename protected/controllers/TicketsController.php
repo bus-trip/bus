@@ -235,6 +235,7 @@ class TicketsController extends Controller
 			}
 		}
 
+		usort($tickets, '_sort_by_departure');
 		$dataProvider = new CArrayDataProvider($tickets, array('pagination' => array('pageSize' => 50)));
 
 		$this->pageTitle = 'Просмотр билетов пассажира';
