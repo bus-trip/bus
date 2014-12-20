@@ -807,7 +807,11 @@ class TripsController extends Controller
 		$result = array();
 		foreach ($arr1 as $p => $b) {
 			foreach ($b as $k) {
-				$result[] = $res[$k];
+				if(isset($res[$k])){
+					$result[] = $res[$k];
+					unset($res[$k]);
+				}
+
 
 				if (isset($arr2[$p])) unset($arr2[$p]);
 			}
