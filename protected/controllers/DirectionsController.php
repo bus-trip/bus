@@ -108,32 +108,38 @@ class DirectionsController extends Controller
 
 		if(isset($_POST['Directions']))
 		{
-            $nmodel = new Directions();
-            $nmodel->id = $id;
-			$nmodel->attributes=$_POST['Directions'];
 
-            if(array_diff($model->attributes,$nmodel->attributes)){
-                $model->status = 0;
-                $model->save();
-                unset($nmodel->id);
-			    if($nmodel->save()){
-                    if($model->parentId == 0){
-                        $criteria = new CDbCriteria();
-                        $criteria->condition = 'parentId=:parentId';
-                        $criteria->addCondition('status=:status');
-                        $criteria->params = array(
-                            ':parentId'=>$id,
-                            ':status'=>1,
-                        );
-                        $childDirs = Directions::model()->findAll($criteria);
-                        foreach($childDirs as $c){
-                            $c->parentId = $nmodel->id;
-                            $c->save();
-                        }
-                    }
-                    $this->redirect(array('admin'));
-                }
-            }
+			$model->attributes = $_POST['Directions'];
+			if($model->validate() && $model->save()){
+				$this->redirect(array('admin'));
+			}
+
+//            $nmodel = new Directions();
+//            $nmodel->id = $id;
+//			$nmodel->attributes=$_POST['Directions'];
+//
+//            if(array_diff($model->attributes,$nmodel->attributes)){
+//                $model->status = 0;
+//                $model->save();
+//                unset($nmodel->id);
+//			    if($nmodel->save()){
+//                    if($model->parentId == 0){
+//                        $criteria = new CDbCriteria();
+//                        $criteria->condition = 'parentId=:parentId';
+//                        $criteria->addCondition('status=:status');
+//                        $criteria->params = array(
+//                            ':parentId'=>$id,
+//                            ':status'=>1,
+//                        );
+//                        $childDirs = Directions::model()->findAll($criteria);
+//                        foreach($childDirs as $c){
+//                            $c->parentId = $nmodel->id;
+//                            $c->save();
+//                        }
+//                    }
+//                    $this->redirect(array('admin'));
+//                }
+//            }
 		}
 
         if($model->parentId != 0){
