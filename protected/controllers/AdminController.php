@@ -81,7 +81,7 @@ class AdminController extends Controller
 			$criteria->condition .= ' departure <="' . $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i) . ' 23:59:59"';
 			$criteria->order = 'idDirection ASC';
 			$data = Trips::model()->findAll($criteria);
-			if(count($data) != 0) {
+			if (count($data) != 0) {
 //				print_r($busParam);
 			}
 			if (count($data) == 2) {
@@ -101,7 +101,8 @@ class AdminController extends Controller
 					$trip[$j] = array(
 						'id'          => $data[$j]->attributes['id'],
 						'idDirection' => $data[$j]->attributes['idDirection'],
-						'full'        => $trFull
+						'full'        => $trFull,
+						'count'       => $trCountAll,
 					);
 				}
 			} elseif (count($data) == 1) {
@@ -121,12 +122,14 @@ class AdminController extends Controller
 					$trip[0] = array(
 						'id'          => $data[0]->attributes['id'],
 						'idDirection' => $data[0]->attributes['idDirection'],
-						'full'        => $trFull
+						'full'        => $trFull,
+						'count'       => $trCountAll,
 					);
 					$trip[1] = array(
 						'id'          => 0,
 						'idDirection' => $directions[1]['id'],
 						'full'        => 'notfull',
+						'count'       => 0,
 					);
 				} elseif ($directions[1]['id'] == $data[0]->attributes['idDirection']) {
 					$trCountCheck = Tickets::model()->count(
@@ -145,11 +148,13 @@ class AdminController extends Controller
 						'id'          => 0,
 						'idDirection' => $directions[0]['id'],
 						'full'        => 'notfull',
+						'count'       => 0,
 					);
 					$trip[1] = array(
 						'id'          => $data[0]->attributes['id'],
 						'idDirection' => $data[0]->attributes['idDirection'],
-						'full'        => $trFull
+						'full'        => $trFull,
+						'count'       => $trCountAll,
 					);
 				}
 			} else {
@@ -157,11 +162,13 @@ class AdminController extends Controller
 					'id'          => 0,
 					'idDirection' => $directions[0]['id'],
 					'full'        => 'notfull',
+					'count'       => 0,
 				);
 				$trip[1] = array(
 					'id'          => 0,
 					'idDirection' => $directions[1]['id'],
 					'full'        => 'notfull',
+					'count'       => 0,
 				);
 			}
 			$tripsParam[$i] = array(
@@ -171,7 +178,6 @@ class AdminController extends Controller
 			);
 		}
 //		print_r($tripsParam);
-
 
 		$this->render('index', array(
 			'tripsParam'  => $tripsParam,
