@@ -83,7 +83,8 @@ $(function () {
 			last_col.find('a').hide();
 			var op = (self.hasClass('create-ticket')) ? 'add' : 'up';
 			last_col.append('<div class="save-line" data-tripid="' + tripId + '" data-placeid="' + placeId + '" data-op="' + op + '">Сохранить</div><div class="cancel-line" data-tripid="' + tripId + '" data-placeid="' + placeId + '">Отменить</div>');
-			last_col.append('<input class="autocomplete" type="hidden" value="' + data.in_bl + '" name="Profiles\[black_list\]" />');
+			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl + '" name="Profiles\[black_list\]" />');
+			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl_desc + '" name="Profiles\[black_desc\]" />');
 
 			self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
 
@@ -113,6 +114,8 @@ $(function () {
 							var input_name = $(this).attr('name');
 							if ($(this)[0].tagName == 'INPUT') {
 								$(this).val(ui.item.data[input_name]);
+								console.log(ui.item.data[input_name]);
+								console.log(input_name);
 							} else if ($(this)[0].tagName == 'TEXTAREA') {
 								$(this).text(ui.item.data[input_name]);
 							}

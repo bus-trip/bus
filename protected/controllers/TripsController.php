@@ -692,6 +692,7 @@ class TripsController extends Controller
 			$Profile->phone = $_POST['data']['Profiles[phone'];
 			$Profile->birth = $_POST['data']['Profiles[birth'];
 			$Profile->black_list = $_POST['data']['Profiles[black_list'];
+			$Profile->black_desc = $_POST['data']['Profiles[black_desc'];
 			if ($Profile->validate()) {
 
 				$Ticket->idTrip = $tripId;
@@ -744,7 +745,10 @@ class TripsController extends Controller
 			'<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
 		);
 
-		$in_bl = (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->black_list : 0);
+		$bl = array(
+			'in_bl'      => (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->black_list : 0),
+			'in_bl_desc' => (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->black_desc : NULL)
+		);
 
 		$inline = array(
 			(string) (!empty($Ticket->profiles) ? CHtml::link($Ticket->profiles[count($Ticket->profiles) - 1]->passport, array("tickets/profile/" . $Ticket->profiles[count($Ticket->profiles) - 1]->id)) : ''),
@@ -761,7 +765,7 @@ class TripsController extends Controller
 
 		$this->layout = FALSE;
 		header('Content-type: application/json');
-		echo CJavaScript::jsonEncode(array('inputs' => $inputs, 'in_bl' => $in_bl, 'inline' => $inline, 'errors' => $errors));
+		echo CJavaScript::jsonEncode(array('inputs' => $inputs, 'black_list' => $bl, 'inline' => $inline, 'errors' => $errors));
 		Yii::app()->end();
 	}
 
@@ -800,6 +804,7 @@ class TripsController extends Controller
 								'Profiles[phone]'       => $Profile->phone,
 								'Profiles[birth]'       => $Profile->birth,
 								'Profiles[black_list]'  => $Profile->black_list,
+								'Profiles[black_desc]'  => $Profile->black_desc,
 								'Tickets[address_from]' => $Ticket->address_from,
 								'Tickets[address_to]'   => $Ticket->address_to,
 							),
