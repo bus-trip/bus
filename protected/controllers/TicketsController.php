@@ -161,6 +161,7 @@ class TicketsController extends Controller
 				break;
 			case 'del':
 				$Profile->black_list = 0;
+				$Profile->black_desc = null;
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
