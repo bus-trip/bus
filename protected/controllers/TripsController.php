@@ -774,7 +774,7 @@ class TripsController extends Controller
 			$criteria_tickets = new CDbCriteria();
 			$criteria_tickets->params = array(':field' => '%' . trim($_GET['term']) . '%');
 			$criteria_tickets->addCondition($field . ' LIKE :field');
-			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
+//			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
 
 			$ticketObjs = Tickets::model()->with('profiles')->findAll($criteria_tickets);
 			$arr1 = $arr2 = array();
