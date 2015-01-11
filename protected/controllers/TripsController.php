@@ -80,9 +80,9 @@ class TripsController extends Controller
 						'departure'   => $_POST['Trips']['departure'],
 						'arrival'     => $_POST['Trips']['arrival'],
 					);
-					$schedule = new Schedule;
-					$schedule->attributes = $schData;
-					$schedule->save();
+//					$schedule = new Schedule;
+//					$schedule->attributes = $schData;
+//					$schedule->save();
 
 					$this->redirect(array('admin', 'id' => $model->id));
 				}
@@ -107,7 +107,7 @@ class TripsController extends Controller
 		$model->arrival = Yii::app()->user->getState('trips-arrive');
 		$model->idDirection = Yii::app()->user->getState('trips-dir-id');
 
-		$data = Directions::model()->findAllByPk($model->idDirection);
+		$data = Directions::model()->findAll(); //findAllByPk($model->idDirection);
 		$directions = array();
 //		$directions['empty'] = 'Выберите направление';
 		foreach ($data as $d) {
