@@ -43,7 +43,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'black_desc',
 			'header' => 'Причина',
-			'value' => '!empty($data["black_desc"]) && $data["black_desc"] != NULL ? $data["black_desc"] : ""',
+			'value' => '!empty($data["black_desc"]) && $data["black_desc"] != "null" ? $data["black_desc"] : ""',
 		)
 	)
 )); ?>
