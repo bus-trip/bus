@@ -508,7 +508,7 @@ class TripsController extends Controller
 					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
 					$tbl .= '<tr style="font-size: 8pt;">';
-					$tbl .= '<td width="30px" style="border: 1px solid #000000;"></td>';
+					$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->last_name . ' ' . $profile->name . ' ' . $profile->middle_name . '</td>';
 					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->passport . '</td>';
 					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->birth . '</td>';
@@ -519,7 +519,7 @@ class TripsController extends Controller
 			}
 			if (!$flag) {
 				$tbl .= '<tr>';
-				$tbl .= '<td width="30px" style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
