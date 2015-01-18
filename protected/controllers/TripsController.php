@@ -107,7 +107,7 @@ class TripsController extends Controller
 		$model->arrival = Yii::app()->user->getState('trips-arrive');
 		$model->idDirection = Yii::app()->user->getState('trips-dir-id');
 
-		$data = Directions::model()->findAllByAttributes(array('status'=>1)); //findAllByPk($model->idDirection);
+		$data = Directions::model()->findAllByAttributes(array('status' => 1)); //findAllByPk($model->idDirection);
 		$directions = array();
 //		$directions['empty'] = 'Выберите направление';
 		foreach ($data as $d) {
