@@ -435,12 +435,12 @@ class TripsController extends Controller
 			}
 			if (!$flag) {
 				$tbl .= '<tr>';
-				$tbl .= '<td width="30px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
-				$tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
-				$tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
-				$tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
-				$tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
-				$tbl .= '<td style="border-bottom: 1px solid #000000;"></td>';
+				$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '</tr>';
 			}
 		}
