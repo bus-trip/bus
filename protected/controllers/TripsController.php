@@ -407,12 +407,12 @@ class TripsController extends Controller
 		$tbl .= '<table width="600px" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">
-                        <th width="30px" style="border-bottom: 1px solid #000000;"><strong>№</strong></th>
-                        <th style="border-bottom: 1px solid #000000;"><strong>ФИО</strong></th>
-                        <th style="border-bottom: 1px solid #000000;"><strong>Посадка</strong></th>
-                        <th style="border-bottom: 1px solid #000000;"><strong>Высадка</strong></th>
-                        <th style="border-bottom: 1px solid #000000;"><strong>Номер телефона</strong></th>
-                        <th width="80px" style="border-bottom: 1px solid #000000;"><strong>Стоимость</strong></th>
+                        <th width="30px" style="border: 1px solid #000000;"><strong>№</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>ФИО</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>Посадка</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>Высадка</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>Номер телефона</strong></th>
+                        <th width="80px" style="border: 1px solid #000000;"><strong>Стоимость</strong></th>
                     </tr>';
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'tid=:tid';
@@ -424,11 +424,11 @@ class TripsController extends Controller
 					$profile = Profiles::model()->find($criteria);
 					$tbl .= '<tr>';
 					$tbl .= '<td width="30px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"] . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["address_from"] . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["address_to"] . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $profile->phone . '</td>';
-					$tbl .= '<td style="border-bottom: 1px solid #000000;">' . $t["price"] . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"] . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_from"] . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_to"] . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->phone . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $t["price"] . '</td>';
 					$tbl .= '</tr>';
 					$flag = 1;
 				}
