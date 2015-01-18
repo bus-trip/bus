@@ -97,6 +97,7 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					elseif($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[$j] = array(
 						'id'          => $data[$j]->attributes['id'],
@@ -118,6 +119,7 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					elseif($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => $data[0]->attributes['id'],
@@ -128,7 +130,7 @@ class AdminController extends Controller
 					$trip[1] = array(
 						'id'          => 0,
 						'idDirection' => $directions[1]['id'],
-						'full'        => 'notfull',
+						'full'        => 'empty',
 						'count'       => 0,
 					);
 				} elseif ($directions[1]['id'] == $data[0]->attributes['idDirection']) {
@@ -143,11 +145,12 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
+					elseif($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => 0,
 						'idDirection' => $directions[0]['id'],
-						'full'        => 'notfull',
+						'full'        => 'empty',
 						'count'       => 0,
 					);
 					$trip[1] = array(
@@ -161,13 +164,13 @@ class AdminController extends Controller
 				$trip[0] = array(
 					'id'          => 0,
 					'idDirection' => $directions[0]['id'],
-					'full'        => 'notfull',
+					'full'        => 'empty',
 					'count'       => 0,
 				);
 				$trip[1] = array(
 					'id'          => 0,
 					'idDirection' => $directions[1]['id'],
-					'full'        => 'notfull',
+					'full'        => 'empty',
 					'count'       => 0,
 				);
 			}

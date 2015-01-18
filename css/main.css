@@ -339,6 +339,10 @@ html[xmlns] .clearfix {
 	background-color: orange;
 }
 
+.trips-empty {
+	background-color: darkgray;
+}
+
 #trips-sheet .button-column {
 	text-align: left;
 	white-space: nowrap;
