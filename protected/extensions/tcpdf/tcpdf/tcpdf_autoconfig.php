@@ -231,12 +231,12 @@ if (!defined('K_TCPDF_CALLS_IN_HTML')) {
 if (!defined('K_TCPDF_THROW_EXCEPTION_ERROR')) {
 	define('K_TCPDF_THROW_EXCEPTION_ERROR', false);
 }
-
+/*
 if (!defined('K_TIMEZONE')) {
 	define('K_TIMEZONE', @date_default_timezone_get());
 }
 date_default_timezone_set(K_TIMEZONE);
-
+*/
 //============================================================+
 // END OF FILE
 //============================================================+
