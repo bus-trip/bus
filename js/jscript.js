@@ -87,6 +87,7 @@ $(function () {
 			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl_desc + '" name="Profiles\[black_desc\]" />');
 
 			self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
+			self.parents('tr').find('input[name="Profiles\[birth\]"]').mask("99.99.9999");
 
 			var cache = {};
 			$('input.autocomplete').each(function () {

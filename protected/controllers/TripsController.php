@@ -774,10 +774,21 @@ class TripsController extends Controller
 		$res = array();
 		if (isset($_GET['term']) && isset($_GET['field'])) {
 			$field = preg_replace('#Profiles\[([^\]]*)\]#', '$1', $_GET['field']);
-
 			$criteria_tickets = new CDbCriteria();
-			$criteria_tickets->params = array(':field' => '%' . trim($_GET['term']) . '%');
-			$criteria_tickets->addCondition($field . ' LIKE :field');
+			if ($field == 'birth') {
+				$date_arr = explode('.', $_GET['term']);
+				$term = strtotime($date_arr[2] . '-' . $date_arr[1] . '-' . $date_arr[0]);
+				if (!$term) {
+					echo CJSON::encode($res);
+					Yii::app()->end();
+				}
+
+				$criteria_tickets->addBetweenCondition($field, $term, $term + 24 * 60 * 60);
+			} else {
+				$criteria_tickets->params = array(':field' => '%' . trim($_GET['term']) . '%');
+				$criteria_tickets->addCondition($field . ' LIKE :field');
+			}
+
 //			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
 
 			$ticketObjs = Tickets::model()->with('profiles')->findAll($criteria_tickets);
