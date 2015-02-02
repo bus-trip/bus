@@ -218,7 +218,7 @@ class TicketsController extends Controller
 			$criteria_tickets = new CDbCriteria();
 			$criteria_tickets->condition = 't.id=:id';
 			$criteria_tickets->params = array(':id' => $itemProfile->tid);
-			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
+//			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
 			$ticketObj = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
 			if ($ticketObj) {
 				$tickets[] = array(
