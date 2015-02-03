@@ -3,7 +3,7 @@
 $labels = $data->attributeLabels();
 
 foreach ($data as $id => $item) {
-	if (in_array($id, array('id', 'tid', 'uid', 'created')) || !$item) continue;
+	if (in_array($id, array('id', 'tid', 'uid', 'created')) || !$item || $item == 'null') continue;
 	if ($id == 'black_list') {
 		$item = $item == 1 ? 'да' : 'нет';
 	}

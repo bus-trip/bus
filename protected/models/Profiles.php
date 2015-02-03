@@ -241,7 +241,11 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 
 		return new CActiveDataProvider($this, array(
 			'criteria'   => $criteria,
+			'sort'       => array('defaultOrder' => 'last_name'),
 			'pagination' => array('pageSize' => 50)
 		));
 	}
 }
+
+
+

@@ -87,6 +87,7 @@ $(function () {
 			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl_desc + '" name="Profiles\[black_desc\]" />');
 
 			self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
+			self.parents('tr').find('input[name="Profiles\[birth\]"]').mask("99.99.9999");
 
 			var cache = {};
 			$('input.autocomplete').each(function () {
@@ -105,7 +106,7 @@ $(function () {
 
 						$.getJSON("/trips/sprofiles", request, function (data, status, xhr) {
 							cache[term] = data;
-							console.log(data);
+							//console.log(data);
 							response(data);
 						});
 					},
@@ -114,8 +115,8 @@ $(function () {
 							var input_name = $(this).attr('name');
 							if ($(this)[0].tagName == 'INPUT') {
 								$(this).val(ui.item.data[input_name]);
-								console.log(ui.item.data[input_name]);
-								console.log(input_name);
+								//console.log(ui.item.data[input_name]);
+								//console.log(input_name);
 							} else if ($(this)[0].tagName == 'TEXTAREA') {
 								$(this).text(ui.item.data[input_name]);
 							}
@@ -129,6 +130,31 @@ $(function () {
 				};
 			});
 
+			$('textarea.dadata').each(function () {
+				var input = $(this),
+					line_wrapp = $(this).parents('tr'),
+					field = input.attr('name');
+				$(this).autocomplete({
+					minLength: 2,
+					source: function (request, response) {
+						request.field = field;
+						var term = request.term;
+						if (term in cache) {
+							response(cache[term]);
+							return;
+						}
+
+						$.getJSON("/trips/dadata", request, function (data, status, xhr) {
+							cache[term] = data.suggestions;
+							//console.log(data.suggestions);
+							response(data.suggestions);
+						});
+					},
+					select: function (event, ui) {
+						input.removeClass('ui-autocomplete-loading');
+					}
+				})
+			});
 
 			$('#overlay-loading').remove();
 		});
