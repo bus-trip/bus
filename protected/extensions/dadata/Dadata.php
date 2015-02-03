@@ -15,6 +15,7 @@ class Dadata
 				),
 				'content' => json_encode($data),
 			),
+			'ssl'  => array('allow_self_signed' => TRUE, 'verify_peer' => FALSE),
 		);
 
 		$context = stream_context_create($options);
