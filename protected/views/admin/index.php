@@ -103,7 +103,7 @@ $yearSelect = '';
 			if ($i + 1 - $firstDOW < 10) echo "0";
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
-			if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips']['departure'])) {
+			if (isset($tripsParam[$i + 1 - $firstDOW]['exttrips']) && preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips']['departure'])) {
 				echo "<div style='float: right;'>";
 				echo CHtml::dropDownList(
 					'extTrips',
