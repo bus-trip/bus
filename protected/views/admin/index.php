@@ -107,7 +107,7 @@ $yearSelect = '';
 				if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips'][0]['departure'])) {
 					echo "<div style='float: right;'>";
 					$extTrips = '';
-					$extOpts = array('empty' => '');
+					$extOpts = array('empty' => 'Доп.рейсы');
 					foreach ($tripsParam[$i + 1 - $firstDOW]['exttrips'] as $opts) {
 						if (preg_match("/" . $tripsDate . "/", $opts['departure']))
 							$extOpts[$opts['id']] = $opts['Direction'];
@@ -117,7 +117,7 @@ $yearSelect = '';
 						$extTrips,
 						$extOpts,
 						array(
-							'style'    => 'width: 30px',
+							'style'    => 'font-size: 12px; width: 70px',
 							'on',
 							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
 						)
