@@ -97,7 +97,15 @@
 	<div class="row">
 		<?php
 		echo $form->labelEx($model, 'Статус рейса');
-		echo $form->dropDownList($model, 'status', array(1 => 'Актуальный', 0 => 'Неактуальный'));
+		echo $form->dropDownList(
+			$model,
+			'status',
+			array(
+				DIRTRIP_MAIN => 'Актуальный',
+				DIRTRIP_CANCELED => 'Неактуальный',
+				DIRTRIP_EXTEND => 'Дополнительный',
+			)
+		);
 		echo $form->error($model, 'status');
 		?>
 	</div>

@@ -129,7 +129,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
-			'actual'     => 1,
+			'actual'     => DIRTRIP_MAIN,
 		));
 	}
 
