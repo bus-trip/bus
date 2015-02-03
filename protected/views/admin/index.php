@@ -103,21 +103,23 @@ $yearSelect = '';
 			if ($i + 1 - $firstDOW < 10) echo "0";
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
-			if(!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
-				if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips']['departure'])) {
+			if (!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
+				if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips'][0]['departure'])) {
 					echo "<div style='float: right;'>";
-					$extTrips ='';
+					$extTrips = '';
+					$extOpts = array('empty' => '');
+					foreach ($tripsParam[$i + 1 - $firstDOW]['exttrips'] as $opts) {
+						if (preg_match("/" . $tripsDate . "/", $opts['departure']))
+							$extOpts[$opts['id']] = $opts['Direction'];
+					}
 					echo CHtml::dropDownList(
 						'extTrips',
 						$extTrips,
-						array(
-							'empty'                                           => '',
-							$tripsParam[$i + 1 - $firstDOW]['exttrips']['id'] => $tripsParam[$i + 1 - $firstDOW]['exttrips']['Direction'],
-						),
+						$extOpts,
 						array(
 							'style'    => 'width: 30px',
 							'on',
-							'onchange' => 'window.location="/trips/sheet/' . $tripsParam[$i + 1 - $firstDOW]['exttrips']['id'] . '"',
+							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
 						)
 					);
 					echo "</div>";

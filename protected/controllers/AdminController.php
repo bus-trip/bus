@@ -181,17 +181,20 @@ class AdminController extends Controller
 			$criteria->order = 'idDirection ASC';
 
 			$data = Trips::model()->findAll($criteria);
-			$extTrips = array();
+			$extTrips = '';
 			foreach ($data as $d) {
 				$DirExt = Directions::model()->find(
 					array(
 						'condition' => 'id=' . $d->idDirection
 					)
 				);
-				$extTrips['id'] = $d->id;
-				$extTrips['Direction'] = $DirExt->startPoint . " - " . $DirExt->endPoint;
-				$extTrips['departure'] = $d->departure;
+				$extTrips[] = array('id' => $d->id, 'Direction' => $DirExt->startPoint . " - " . $DirExt->endPoint, 'departure' => $d->departure);
 			}
+
+//				echo '<pre>';
+//				print_r($extTrips);
+//				echo '</pre>';
+
 
 			$tripsParam[$i] = array(
 				'date'     => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
