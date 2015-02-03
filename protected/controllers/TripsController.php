@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -739,8 +739,8 @@ class TripsController extends Controller
 			'<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
-			'<textarea class="autocomplete" name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
-			'<textarea class="autocomplete" name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
+			'<textarea class="autocomplete dadata" name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
+			'<textarea class="autocomplete dadata" name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
 			'<textarea name="Tickets[remark]">' . $Ticket->remark . '</textarea>',
 			'<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
 		);
@@ -842,6 +842,12 @@ class TripsController extends Controller
 		}
 
 		echo CJSON::encode($result);
+		Yii::app()->end();
+	}
+
+	public function actionDadata($term)
+	{
+		echo Yii::app()->dadata->address("https://dadata.ru/api/v2/suggest/address", array("query" => trim($term)));
 		Yii::app()->end();
 	}
 
