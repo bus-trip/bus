@@ -97,7 +97,7 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
-					elseif($trCountAll == 0) $trFull = 'empty';
+					elseif ($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[$j] = array(
 						'id'          => $data[$j]->attributes['id'],
@@ -119,7 +119,7 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
-					elseif($trCountAll == 0) $trFull = 'empty';
+					elseif ($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => $data[0]->attributes['id'],
@@ -145,7 +145,7 @@ class AdminController extends Controller
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
-					elseif($trCountAll == 0) $trFull = 'empty';
+					elseif ($trCountAll == 0) $trFull = 'empty';
 					else $trFull = 'notfull';
 					$trip[0] = array(
 						'id'          => 0,
@@ -174,10 +174,30 @@ class AdminController extends Controller
 					'count'       => 0,
 				);
 			}
+
+			$criteria = new CDbCriteria();
+			$criteria->select = 'id, idDirection, departure, idBus';
+			$criteria->condition = 'status=' . DIRTRIP_EXTEND;
+			$criteria->order = 'idDirection ASC';
+
+			$data = Trips::model()->findAll($criteria);
+			$extTrips = array();
+			foreach ($data as $d) {
+				$DirExt = Directions::model()->find(
+					array(
+						'condition' => 'id=' . $d->idDirection
+					)
+				);
+				$extTrips['id'] = $d->id;
+				$extTrips['Direction'] = $DirExt->startPoint . " - " . $DirExt->endPoint;
+				$extTrips['departure'] = $d->departure;
+			}
+
 			$tripsParam[$i] = array(
-				'date'  => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
-				'trip1' => $trip[0],
-				'trip2' => $trip[1],
+				'date'     => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
+				'trip1'    => $trip[0],
+				'trip2'    => $trip[1],
+				'exttrips' => $extTrips,
 			);
 		}
 //		print_r($tripsParam);
