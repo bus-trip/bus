@@ -104,7 +104,6 @@ $yearSelect = '';
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
 			if (!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
-				if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips'][0]['departure'])) {
 					echo "<div style='float: right;'>";
 					$extTrips = '';
 					$extOpts = array('empty' => 'Доп.рейсы');
@@ -123,7 +122,6 @@ $yearSelect = '';
 						)
 					);
 					echo "</div>";
-				}
 			}
 
 			if ($tripsParam[$i + 1 - $firstDOW]['date'] == $tripsDate) {

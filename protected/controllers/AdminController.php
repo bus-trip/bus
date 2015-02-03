@@ -177,7 +177,7 @@ class AdminController extends Controller
 
 			$criteria = new CDbCriteria();
 			$criteria->select = 'id, idDirection, departure, idBus';
-			$criteria->condition = 'status=' . DIRTRIP_EXTEND;
+			$criteria->condition = 'status=' . DIRTRIP_EXTEND. ' and departure like "'.($currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i)).'%"';
 			$criteria->order = 'idDirection ASC';
 
 			$data = Trips::model()->findAll($criteria);
@@ -190,12 +190,6 @@ class AdminController extends Controller
 				);
 				$extTrips[] = array('id' => $d->id, 'Direction' => $DirExt->startPoint . " - " . $DirExt->endPoint, 'departure' => $d->departure);
 			}
-
-//				echo '<pre>';
-//				print_r($extTrips);
-//				echo '</pre>';
-
-
 			$tripsParam[$i] = array(
 				'date'     => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
 				'trip1'    => $trip[0],
