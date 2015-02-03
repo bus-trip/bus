@@ -106,6 +106,7 @@ $yearSelect = '';
 			if(!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
 				if (preg_match("/" . $tripsDate . "/", $tripsParam[$i + 1 - $firstDOW]['exttrips']['departure'])) {
 					echo "<div style='float: right;'>";
+					$extTrips ='';
 					echo CHtml::dropDownList(
 						'extTrips',
 						$extTrips,
