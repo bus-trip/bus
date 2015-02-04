@@ -97,28 +97,48 @@ $yearSelect = '';
 		if ($i < $firstDOW || $i > $maxDays + $firstDOW - 1) echo "background-color: lightgray;";
 		if ($i == date("d") + $firstDOW - 1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "background-color: lightgreen;";
 		echo "'>";
-		if ($i >= $firstDOW && $i <= $maxDays + $firstDOW - 1 ) {
+		if ($i >= $firstDOW && $i <= $maxDays + $firstDOW - 1) {
+			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i + 1 - $firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
 			echo "<div style='width: 70px; float: left; font-size: 16px;'>";
-			if ($i+1-$firstDOW < 10) echo "0";
+			if ($i + 1 - $firstDOW < 10) echo "0";
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
+			if (!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
+					echo "<div style='float: right;'>";
+					$extTrips = '';
+					$extOpts = array('empty' => 'Доп.рейсы');
+					foreach ($tripsParam[$i + 1 - $firstDOW]['exttrips'] as $opts) {
+						if (preg_match("/" . $tripsDate . "/", $opts['departure']))
+							$extOpts[$opts['id']] = $opts['Direction'];
+					}
+					echo CHtml::dropDownList(
+						'extTrips',
+						$extTrips,
+						$extOpts,
+						array(
+							'style'    => 'font-size: 12px; width: 70px',
+							'on',
+							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
+						)
+					);
+					echo "</div>";
+			}
 
-			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i+1-$firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
-			if ($tripsParam[$i+1-$firstDOW]['date'] == $tripsDate) {
+			if ($tripsParam[$i + 1 - $firstDOW]['date'] == $tripsDate) {
 				echo "<div class='trips-dir'>";
-				echo "<form action='trips/sheet/" . $tripsParam[$i+1-$firstDOW]['trip1']['id'] . "' method='POST'>";
+				echo "<form action='trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip1']['id'] . "' method='POST'>";
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 05:30:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 12:00:00' name='trips-date'>";
-				echo "<input type='hidden' value='" . $tripsParam[$i+1-$firstDOW]['trip1']['idDirection'] . "' name='trips-dir-id' />";
-				echo "<input type='submit' value='" . $directions[0]['direction'] ." (".$tripsParam[$i+1-$firstDOW]['trip1']['count'].")' class='trips trips-" . $tripsParam[$i+1-$firstDOW]['trip1']['full'] . "' />";
+				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip1']['idDirection'] . "' name='trips-dir-id' />";
+				echo "<input type='submit' value='" . $directions[0]['direction'] . " (" . $tripsParam[$i + 1 - $firstDOW]['trip1']['count'] . ")' class='trips trips-" . $tripsParam[$i + 1 - $firstDOW]['trip1']['full'] . "' />";
 				echo "</form>";
 				echo "</div>";
 				echo "<div class='trips-dir'>";
-				echo "<form action='trips/sheet/" . $tripsParam[$i+1-$firstDOW]['trip2']['id'] . "' method='POST'>";
+				echo "<form action='trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip2']['id'] . "' method='POST'>";
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 14:00:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 22:00:00' name='trips-date'>";
-				echo "<input type='hidden' value='" . $tripsParam[$i+1-$firstDOW]['trip2']['idDirection'] . "' name='trips-dir-id' />";
-				echo "<input type='submit' value='" . $directions[1]['direction'] . " (".$tripsParam[$i+1-$firstDOW]['trip2']['count'].")' class='trips trips-" . $tripsParam[$i+1-$firstDOW]['trip2']['full'] . "' />";
+				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip2']['idDirection'] . "' name='trips-dir-id' />";
+				echo "<input type='submit' value='" . $directions[1]['direction'] . " (" . $tripsParam[$i + 1 - $firstDOW]['trip2']['count'] . ")' class='trips trips-" . $tripsParam[$i + 1 - $firstDOW]['trip2']['full'] . "' />";
 				echo "</form>";
 				echo "</div>";
 			}

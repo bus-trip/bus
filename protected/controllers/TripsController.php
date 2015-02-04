@@ -36,7 +36,7 @@ class TripsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus'),
+				  'actions' => array('admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'),
 				  'users'   => array('admin'),
 			),
 			array('deny', // deny all users
@@ -129,7 +129,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
-			'actual'     => 1,
+			'actual'     => DIRTRIP_MAIN,
 		));
 	}
 
@@ -739,8 +739,8 @@ class TripsController extends Controller
 			'<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->middle_name : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->phone : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $Ticket->profiles[count($Ticket->profiles) - 1]->birth : '') . '" />',
-			'<textarea class="autocomplete" name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
-			'<textarea class="autocomplete" name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
+			'<textarea class="autocomplete dadata" name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
+			'<textarea class="autocomplete dadata" name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
 			'<textarea name="Tickets[remark]">' . $Ticket->remark . '</textarea>',
 			'<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
 		);
@@ -774,10 +774,21 @@ class TripsController extends Controller
 		$res = array();
 		if (isset($_GET['term']) && isset($_GET['field'])) {
 			$field = preg_replace('#Profiles\[([^\]]*)\]#', '$1', $_GET['field']);
-
 			$criteria_tickets = new CDbCriteria();
-			$criteria_tickets->params = array(':field' => '%' . trim($_GET['term']) . '%');
-			$criteria_tickets->addCondition($field . ' LIKE :field');
+			if ($field == 'birth') {
+				$date_arr = explode('.', $_GET['term']);
+				$term = strtotime($date_arr[2] . '-' . $date_arr[1] . '-' . $date_arr[0]);
+				if (!$term) {
+					echo CJSON::encode($res);
+					Yii::app()->end();
+				}
+
+				$criteria_tickets->addBetweenCondition($field, $term, $term + 24 * 60 * 60);
+			} else {
+				$criteria_tickets->params = array(':field' => '%' . trim($_GET['term']) . '%');
+				$criteria_tickets->addCondition($field . ' LIKE :field');
+			}
+
 //			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
 
 			$ticketObjs = Tickets::model()->with('profiles')->findAll($criteria_tickets);
@@ -831,6 +842,12 @@ class TripsController extends Controller
 		}
 
 		echo CJSON::encode($result);
+		Yii::app()->end();
+	}
+
+	public function actionDadata($term)
+	{
+		echo Yii::app()->dadata->address("https://dadata.ru/api/v2/suggest/address", array("query" => trim($term)));
 		Yii::app()->end();
 	}
 

@@ -85,6 +85,10 @@ return array(
 				*/
 			),
 		),
+		'dadata' => array(
+			'class' => 'ext.dadata.Dadata',
+			'token' => 'd3adf370dbb3515f283445a47d9f3d17a2e99162',
+        )
 	),
 
 	// application-level parameters that can be accessed
