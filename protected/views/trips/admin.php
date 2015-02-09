@@ -8,8 +8,7 @@ $this->breadcrumbs = array(
 
 $this->menu = array(
 	array('label' => 'Создать рейс', 'url' => array('create')),
-	array('label' => 'Актуальные рейсы', 'url' => array('trips/admin/status/actual')),
-	array('label' => 'Неактуальные рейсы', 'url' => array('trips/admin/status/noactual')),
+	array('label' => 'Дополнительные рейсы', 'url' => array('trips/admin/status/actual')),
 	array('label' => 'Все рейсы', 'url' => array('admin')),
 );
 ?>

@@ -20,7 +20,7 @@ $this->menu = array(
 		'model'      => $model,
 		'directions' => $directions,
 		'buses'      => $buses,
-		'actual'     => DIRTRIP_MAIN,
+		'actual'     => $actual,
 	)
 );
 ?>

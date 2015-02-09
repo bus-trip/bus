@@ -84,7 +84,7 @@ class TripsController extends Controller
 //					$schedule->attributes = $schData;
 //					$schedule->save();
 
-					$this->redirect(array('admin', 'id' => $model->id));
+					$this->redirect(array('trips/admin/status/actual'));
 				}
 			} elseif ($model->arrival <= $model->departure) {
 				$model->addError('arrival', 'Время прибытия не должно быть равно или меньше времени отправления.');
@@ -129,7 +129,7 @@ class TripsController extends Controller
 			'model'      => $model,
 			'directions' => $directions,
 			'buses'      => $buses,
-			'actual'     => DIRTRIP_MAIN,
+			'actual'     => DIRTRIP_EXTEND,
 		));
 	}
 
@@ -885,7 +885,7 @@ class TripsController extends Controller
             where d.parentId = 0";
 		if (isset($model->departure)) $query .= " and (t.departure between '" . $model->departure . " 00:00:00' and '" . $model->departure . " 23:59:59')";
 		if (isset($_GET['status']))
-			$query .= $_GET['status'] == 'actual' ? ' and (t.status=1 and t.arrival >= "' . date('Y-m-d H:i:s') . '")' : ' and (t.status=0 or t.arrival < "' . date('Y-m-d H:i:s') . '")';
+			$query .= $_GET['status'] == 'actual' ? ' and (t.status=' . DIRTRIP_EXTEND . ' and t.arrival >= "' . date('Y-m-d H:i:s') . '")' : ' and (t.status=0 or t.arrival < "' . date('Y-m-d H:i:s') . '")';
 		$query .= " order by t.departure desc";
 
 		$tripsData = Yii::app()->db->createCommand($query)->queryAll();

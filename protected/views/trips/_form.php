@@ -101,9 +101,25 @@
 			$model,
 			'status',
 			array(
-				DIRTRIP_MAIN => 'Актуальный',
+				DIRTRIP_MAIN     => 'Актуальный',
+				DIRTRIP_EXTEND   => 'Дополнительный',
 				DIRTRIP_CANCELED => 'Неактуальный',
-				DIRTRIP_EXTEND => 'Дополнительный',
+			),
+			array(
+				'options' => array(
+					DIRTRIP_EXTEND => array(
+						'selected' => FALSE
+					),
+					DIRTRIP_MAIN   => array(
+						'selected' => FALSE
+					),
+					DIRTRIP_CANCELED   => array(
+						'selected' => FALSE
+					),
+					$actual => array(
+						'selected' => TRUE
+					),
+				)
 			)
 		);
 		echo $form->error($model, 'status');
