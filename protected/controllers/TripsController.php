@@ -391,7 +391,7 @@ class TripsController extends Controller
 			$tickets[] = $d->attributes;
 		}
 
-		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'P', 'cm', 'A4', TRUE, 'UTF-8');
+		$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'L', 'cm', 'A4', TRUE, 'UTF-8');
 		$pdf->SetCreator(PDF_CREATOR);
 		$pdf->SetAuthor("Trips operator");
 		$pdf->SetTitle("Trips sheet");
@@ -404,7 +404,7 @@ class TripsController extends Controller
 		$tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
 		$tbl .= 'Прибытие: ' . $trips['arrival'] . '<br/>';
 		$tbl .= 'Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
-		$tbl .= '<table width="600px" style="border:1px solid #000000; padding: 8px;">
+		$tbl .= '<table width="950px" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">
                         <th width="30px" style="border: 1px solid #000000;"><strong>№</strong></th>
@@ -412,6 +412,7 @@ class TripsController extends Controller
                         <th style="border: 1px solid #000000;"><strong>Посадка</strong></th>
                         <th style="border: 1px solid #000000;"><strong>Высадка</strong></th>
                         <th style="border: 1px solid #000000;"><strong>Номер телефона</strong></th>
+                        <th style="border: 1px solid #000000;"><strong>Примечание</strong></th>
                         <th width="80px" style="border: 1px solid #000000;"><strong>Стоимость</strong></th>
                     </tr>';
 		$criteria = new CDbCriteria();
@@ -428,6 +429,7 @@ class TripsController extends Controller
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_from"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_to"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->phone . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $t['remark'] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["price"] . '</td>';
 					$tbl .= '</tr>';
 					$flag = 1;
@@ -436,6 +438,7 @@ class TripsController extends Controller
 			if (!$flag) {
 				$tbl .= '<tr>';
 				$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
