@@ -404,7 +404,7 @@ class TripsController extends Controller
 		$tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
 		$tbl .= 'Прибытие: ' . $trips['arrival'] . '<br/>';
 		$tbl .= 'Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
-		$tbl .= '<table width="950px" style="border:1px solid #000000; padding: 8px;">
+		$tbl .= '<table width="950px" cellpadding="2" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">
                         <th width="30px" style="border: 1px solid #000000;"><strong>№</strong></th>
