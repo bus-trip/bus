@@ -118,7 +118,8 @@ $yearSelect = '';
 						array(
 							'style'    => 'font-size: 12px; width: 70px',
 							'on',
-							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
+//							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
+							'onchange' => 'if(this.value != "empty"){window.location="/trips/sheet/"+this.value;}',
 						)
 					);
 					echo "</div>";
