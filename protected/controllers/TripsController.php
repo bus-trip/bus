@@ -402,18 +402,19 @@ class TripsController extends Controller
 
 		$tbl = '<h2>Рейс ' . $direction['startPoint'] . ' - ' . $direction['endPoint'] . '</h2><br/>';
 		$tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
-		$tbl .= 'Прибытие: ' . $trips['arrival'] . '<br/>';
-		$tbl .= 'Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
+		$tbl .= 'Прибытие: ' . $trips['arrival'] . '&nbsp;&nbsp;&nbsp;&nbsp;Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
 		$tbl .= '<table width="950px" cellpadding="2" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">
-                        <th width="30px" style="border: 1px solid #000000;"><strong>№</strong></th>
+                        <th width="20px" style="border: 1px solid #000000;"><strong>№</strong></th>
                         <th style="border: 1px solid #000000;"><strong>ФИО</strong></th>
                         <th style="border: 1px solid #000000;"><strong>Посадка</strong></th>
-                        <th style="border: 1px solid #000000;"><strong>Высадка</strong></th>
-                        <th style="border: 1px solid #000000;"><strong>Номер телефона</strong></th>
+                        <th width="150px" style="border: 1px solid #000000;"><strong>Высадка</strong></th>
+                        <th width="100px" style="border: 1px solid #000000;"><strong>Номер телефона</strong></th>
+                        <th width="60px" style="border: 1px solid #000000;"><strong>ДР</strong></th>
+                        <th width="70px" style="border: 1px solid #000000;"><strong>Паспорт</strong></th>
                         <th style="border: 1px solid #000000;"><strong>Примечание</strong></th>
-                        <th width="80px" style="border: 1px solid #000000;"><strong>Стоимость</strong></th>
+                        <th width="40px" style="border: 1px solid #000000;"><strong>Цена</strong></th>
                     </tr>';
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'tid=:tid';
@@ -424,11 +425,13 @@ class TripsController extends Controller
 					$criteria->params = array(':tid' => $t["id"]);
 					$profile = Profiles::model()->find($criteria);
 					$tbl .= '<tr>';
-					$tbl .= '<td width="30px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
+					$tbl .= '<td width="20px" style="border-bottom: 1px solid #000000;">' . $i . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->attributes["last_name"] . ' ' . $profile->attributes["name"] . ' ' . $profile->attributes["middle_name"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_from"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_to"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->phone . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->birth . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->passport . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t['remark'] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["price"] . '</td>';
 					$tbl .= '</tr>';
@@ -437,7 +440,9 @@ class TripsController extends Controller
 			}
 			if (!$flag) {
 				$tbl .= '<tr>';
-				$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
+				$tbl .= '<td width="20px" style="border: 1px solid #000000;">' . $i . '</td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
+				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
 				$tbl .= '<td style="border: 1px solid #000000;"></td>';
