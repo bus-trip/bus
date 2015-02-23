@@ -212,9 +212,14 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 
 	public function shortName()
 	{
-		$name = $this->last_name . ' ' . mb_substr($this->name, 0, 1, 'UTF-8') . '.';
+//		$name = $this->last_name . ' ' . mb_substr($this->name, 0, 1, 'UTF-8') . '.';
+//		if ($this->middle_name) {
+//			$name .= ' ' . mb_substr($this->middle_name, 0, 1, 'UTF-8') . '.';
+//		}
+
+		$name = $this->last_name . ' ' . $this->name;
 		if ($this->middle_name) {
-			$name .= ' ' . mb_substr($this->middle_name, 0, 1, 'UTF-8') . '.';
+			$name .= ' ' . $this->middle_name;
 		}
 
 		return $name;
