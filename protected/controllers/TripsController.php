@@ -349,6 +349,10 @@ class TripsController extends Controller
 					'direction' => $direction,
 					'trips'     => $this->loadModel($id)->attributes,
 					'buses'     => $buses,
+				),
+				'selectDate'   => array(
+					'monthSelect' => $_POST['monthSelect'],
+					'yearSelect'  => $_POST['yearSelect'],
 				)
 			)
 		);

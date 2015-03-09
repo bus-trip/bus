@@ -148,20 +148,19 @@ class TicketsController extends Controller
 			throw new CHttpException(404, 'The requested page does not exist.');
 		switch ($action) {
 			case 'add':
-				if (!empty($_POST)){
+				if (!empty($_POST)) {
 					$Profile->black_list = 1;
 					$Profile->black_desc = $_POST['Profiles']['black_desc'];
 					if ($Profile->validate()) $Profile->save();
 					$this->redirect(array('trips/sheet/' . $id));
-				}
-				else {
+				} else {
 					$data = array('idTrip' => $id, 'Profile' => $Profile, 'action' => $action);
 					$this->render('blconfirm', array('blParam' => $data));
 				}
 				break;
 			case 'del':
 				$Profile->black_list = 0;
-				$Profile->black_desc = null;
+				$Profile->black_desc = NULL;
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
@@ -248,7 +247,8 @@ class TicketsController extends Controller
 
 		$this->render('profile', array(
 			'model'        => $Profile,
-			'dataProvider' => $dataProvider
+			'dataProvider' => $dataProvider,
+			'tripId'       => $_POST,
 		));
 	}
 

@@ -14,7 +14,12 @@ $this->menu = array(
 	array('label' => 'Рейсы', 'url' => array('admin')),
 );
 ?>
-
+<form action="/" method="post">
+	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>" />
+	<input type="hidden" name="monthSelect" value="<?php echo $selectDate['monthSelect']; ?>" />
+	<input type="submit" name="submit" value="Вернуться к расписанию" style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+</form>
+<p/>
 <h2>Посадочная ведомость</h2>
 Направление: <?php echo $dataHeader['direction']['startPoint'] . ' - ' . $dataHeader['direction']['endPoint']; ?><br/>
 Отправление: <?php echo $dataHeader['trips']['departure']; ?>&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo $dataHeader['trips']['arrival']; ?>
@@ -56,7 +61,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'passport',
 			'header' => 'Паспорт',
 			'type'   => 'raw',
-			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
+//			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
+			'value'  => 'isset($data["profile_id"]) ? "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
+														<input type=\"hidden\" name=\"trip_id\" value=\"'.$dataHeader["trips"]["id"].'\">
+														<input type=\"hidden\" name=\"yearSelect\" value=\"'.$selectDate["yearSelect"].'\" />
+														<input type=\"hidden\" name=\"monthSelect\" value=\"'.$selectDate["monthSelect"].'\" />
+														<input type=\"submit\" value=\"".$data["passport"]."\" style=\"background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
+														</form>" : ""',
 		),
 		array(
 			'name'   => 'last_name',
