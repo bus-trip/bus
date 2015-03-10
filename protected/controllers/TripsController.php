@@ -351,8 +351,8 @@ class TripsController extends Controller
 					'buses'     => $buses,
 				),
 				'selectDate'   => array(
-					'monthSelect' => $_POST['monthSelect'],
-					'yearSelect'  => $_POST['yearSelect'],
+					'monthSelect' => isset($_POST['monthSelect']) ? $_POST['monthSelect'] : '',
+					'yearSelect'  => isset($_POST['yearSelect']) ? $_POST['yearSelect'] : '',
 				)
 			)
 		);
