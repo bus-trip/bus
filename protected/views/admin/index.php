@@ -104,25 +104,43 @@ $yearSelect = '';
 			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
 			echo "</div>";
 			if (!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
-					echo "<div style='float: right;'>";
-					$extTrips = '';
-					$extOpts = array('empty' => 'Доп.рейсы');
-					foreach ($tripsParam[$i + 1 - $firstDOW]['exttrips'] as $opts) {
-						if (preg_match("/" . $tripsDate . "/", $opts['departure']))
-							$extOpts[$opts['id']] = $opts['Direction'];
-					}
-					echo CHtml::dropDownList(
-						'extTrips',
-						$extTrips,
-						$extOpts,
-						array(
-							'style'    => 'font-size: 12px; width: 70px',
-							'on',
-//							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
-							'onchange' => 'if(this.value != "empty"){window.location="/trips/sheet/"+this.value;}',
-						)
-					);
-					echo "</div>";
+				echo "<div style='float: right;'>";
+				$extTrips = '';
+				$extOpts = array('empty' => 'Доп.рейсы');
+				foreach ($tripsParam[$i + 1 - $firstDOW]['exttrips'] as $opts) {
+					if (preg_match("/" . $tripsDate . "/", $opts['departure']))
+						$extOpts[$opts['id']] = $opts['Direction'];
+				}
+				echo CHtml::dropDownList(
+					'extTrips',
+					$extTrips,
+					$extOpts,
+					array(
+						'style'    => 'font-size: 12px; width: 70px',
+						'on',
+						//							'onchange' => 'if(document.getElementById("extTrips").value != "empty"){window.location="/trips/sheet/"+document.getElementById("extTrips").value;}',
+						//							'onchange' => 'if(this.value != "empty"){window.location="/trips/sheet/"+this.value;}',
+						'onchange' => 'if(this.value != "empty"){
+							var form = document.createElement("FORM");
+							form.method="POST";
+							form.style.display = "none";
+							document.body.appendChild(form);
+							form.action = "/trips/sheet/" + this.value;
+							input = document.createElement("INPUT");
+							input.type = "hidden";
+							input.name="yearSelect";
+							input.value="'.$currentDate['year'].'";
+							form.appendChild(input);
+							input = document.createElement("INPUT");
+							input.type = "hidden";
+							input.name="monthSelect";
+							input.value="'.$currentDate['month'].'";
+							form.appendChild(input);
+							form.submit();
+						}',
+					)
+				);
+				echo "</div>";
 			}
 
 			if ($tripsParam[$i + 1 - $firstDOW]['date'] == $tripsDate) {
