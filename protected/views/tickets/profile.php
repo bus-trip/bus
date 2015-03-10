@@ -1,9 +1,16 @@
-<form action="/trips/sheet/<?php echo $tripId["trip_id"]; ?>" method="post">
-	<input type="hidden" name="yearSelect" value="<?php echo $tripId['yearSelect']; ?>" />
-	<input type="hidden" name="monthSelect" value="<?php echo $tripId['monthSelect']; ?>" />
-	<input type="submit" value="Вернуться к ведомости" style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
-</form>
-<p/>
+<?php
+if(isset($tripId["trip_id"])) {
+	?>
+	<form action="/trips/sheet/<?php echo $tripId["trip_id"]; ?>" method="post">
+		<input type="hidden" name="yearSelect" value="<?php echo $tripId['yearSelect']; ?>"/>
+		<input type="hidden" name="monthSelect" value="<?php echo $tripId['monthSelect']; ?>"/>
+		<input type="submit" value="Вернуться к ведомости"
+			   style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+	</form>
+	<p/>
+<?php
+}
+?>
 <h1><?php print $this->pageTitle; ?></h1>
 <div class="row">
 	<h2>Информация о профиле пассажира</h2>
