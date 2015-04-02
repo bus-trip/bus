@@ -401,8 +401,9 @@ class TripsController extends Controller
 		$pdf->SetTitle("Trips sheet");
 		$pdf->setPrintHeader(FALSE);
 		$pdf->setPrintFooter(FALSE);
-		$pdf->AddPage();
 		$pdf->SetFont("dejavuserif", "", 8);
+		$pdf->SetTextColor(0,0,0);
+		$pdf->AddPage();
 
 		$tbl = '<h2>Рейс ' . $direction['startPoint'] . ' - ' . $direction['endPoint'] . '</h2><br/>';
 		$tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
@@ -459,6 +460,7 @@ class TripsController extends Controller
 		$tbl .= '</tbody></table>';
 
 		$pdf->writeHTML($tbl, TRUE, TRUE, FALSE, FALSE, '');
+		$pdf->lastPage();
 		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");
 	}
 

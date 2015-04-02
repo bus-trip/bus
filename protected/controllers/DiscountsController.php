@@ -148,13 +148,12 @@ class DiscountsController extends Controller
 	 * Устанавливает скидку для определённого билета.
 	 *
 	 * @param $profileId
+	 * @return integer
 	 */
 	public function getDiscount($profileId)
 	{
 		$Profile = Profiles::model()->findByPk($profileId);
 		$Ticket = Tickets::model()->findByPk($Profile->tid);
-		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
-
 		if (!$Ticket->price) {
 			$criteria = new CDbCriteria();
 			$criteria->join = 'join trips as tr on t.id=tr.idDirection';
@@ -163,10 +162,22 @@ class DiscountsController extends Controller
 			$Ticket->price = $Direction->price;
 		}
 
+//		Детская скидка. Не учитывал скидку по местам и поездкам.
+		$Discount = Discounts::model()->findByPk("AGE");
+		$bdate1 = new DateTime(date("Y-m-d",$Profile->birth));
+		$bdate2 = new DateTime(date("Y-m-d"));
+		$bdiff = $bdate1->diff($bdate2);
+		if($Discount && ($bdiff->y < 7)) {
+			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
+			return $Ticket->price;
+		}
+
+//		Скидка по месту
+		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
 		if ($Discount) {
 			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
 		}
-
+//		Затем скидка по поездкам
 		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
 		if ($Discount) {
 			$criteria = new CDbCriteria();
