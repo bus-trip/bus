@@ -164,7 +164,7 @@ class DiscountsController extends Controller
 
 //		Детская скидка. Не учитывал скидку по местам и поездкам.
 		$Discount = Discounts::model()->findByPk("AGE");
-		$bdate1 = new DateTime(date("Y-m-d",$Profile->birth));
+		$bdate1 = new DateTime(date("Y-m-d",strtotime($Profile->birth)));
 		$bdate2 = new DateTime(date("Y-m-d"));
 		$bdiff = $bdate1->diff($bdate2);
 		if($Discount && ($bdiff->y < 7)) {
