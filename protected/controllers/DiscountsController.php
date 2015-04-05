@@ -167,7 +167,7 @@ class DiscountsController extends Controller
 		$bdate1 = new DateTime(date("Y-m-d",strtotime($Profile->birth)));
 		$bdate2 = new DateTime(date("Y-m-d"));
 		$bdiff = $bdate1->diff($bdate2);
-		if($Discount && ($bdiff->y < 7)) {
+		if($Discount && ($bdiff->y < 12)) {
 			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
 			return $Ticket->price;
 		}
