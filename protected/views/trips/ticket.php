@@ -12,7 +12,7 @@
 	<fieldset>
 		<label>Профиль пассажира</label>
 
-		<?php $this->renderPartial('application.views.account.profile_form', array('form' => $form, 'model' => $profile)); ?>
+		<?php $this->renderPartial('profile_form', array('form' => $form, 'model' => $profile)); ?>
 	</fieldset>
 
 

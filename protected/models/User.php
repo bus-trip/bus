@@ -35,6 +35,7 @@ class User extends CActiveRecord
 		return array(
 			array('login, pass, pass2', 'required'),
 			array('mail', 'email'),
+			array('mail','unique', 'message'=>'Введенный почтовый адрес уже используется. Если Вы уверены, что это Ваш email, попробуйте восстановить пароль.'),
 			array('pass, pass2', 'length', 'max' => 32),
 			array('pass2', 'compare', 'compareAttribute' => 'pass', 'message' => "Пароль не совпадает"),
 			array('login, mail', 'length', 'max' => 255),

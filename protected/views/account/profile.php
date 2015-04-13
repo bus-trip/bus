@@ -1,10 +1,6 @@
 <?php
 /* @var $this AccountController */
 
-$this->breadcrumbs = array(
-	'Аккаунт',
-);
-
 foreach ($account['values'] as $id => $item) {
 	if ($item != '') {
 		?>

@@ -11,17 +11,9 @@ class UserController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model = new LoginForm;
-
-		// if it is ajax validation request
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		// collect user input data
-		if (isset($_POST['LoginForm'])) {
-			$model->attributes = $_POST['LoginForm'];
+		$model = new LoginForm();
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
+			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
 				$url = $this->createUrl('/account');
@@ -46,22 +38,13 @@ class UserController extends Controller
 	 */
 	public function actionRegister()
 	{
-
-		$model = new User;
-
-		// uncomment the following code to enable ajax-based validation
-		if (isset($_POST['ajax']) && $_POST['ajax'] === 'users-register-form') {
-			echo CActiveForm::validate($model);
-			Yii::app()->end();
-		}
-
-		if (isset($_POST['User'])) {
-			$model->attributes = $_POST['User'];
+		$model = new User();
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
+			$model->setAttributes($attributes);
 			if ($model->validate() && $model->save()) {
-				$this->username = $model->login;
-				$this->password = $_POST['User']['pass'];
-				$this->rememberMe = $_POST['User']['rememberMe'];
-
+				$this->username   = $model->login;
+				$this->password   = $attributes['pass'];
+				$this->rememberMe = $model->rememberMe;
 				if ($this->login()) {
 					$url = $this->createUrl('/account');
 					$this->redirect($url);
@@ -82,9 +65,9 @@ class UserController extends Controller
 			$duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
 			Yii::app()->user->login($identity, $duration);
 
-			return TRUE;
+			return true;
 		} else
-			return FALSE;
+			return false;
 	}
 
 	/**
@@ -110,14 +93,8 @@ class UserController extends Controller
 				  'users'   => array('@'),
 			),
 			array('deny',
-					'actions' => array('logout'),
-					'users'   => array('?'),
-			),
-
-			// denied register
-			array('deny',
-				  'actions' => array('register'),
-				  'users'   => array('*'),
+				  'actions' => array('logout'),
+				  'users'   => array('?'),
 			),
 		);
 	}

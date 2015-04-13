@@ -1,22 +1,15 @@
 <?php
-/* @var $this AccountController */
-
-$this->breadcrumbs = array(
-	'Аккаунт' => array('/account'),
-	'Редактирование',
-);
+/**
+ * @var $this AccountController
+ * @var $model User
+ */
 ?>
 
 <div class="form">
-
-	<?php $form = $this->beginWidget('CActiveForm', array(
+	<?php $form = $this->beginWidget('CActiveForm', [
 		'id'                   => 'user-edit-form',
-		// Please note: When you enable ajax validation, make sure the corresponding
-		// controller action is handling ajax validation correctly.
-		// See class documentation of CActiveForm for details on this,
-		// you need to use the performAjaxValidation()-method described there.
-		'enableAjaxValidation' => FALSE,
-	)); ?>
+		'enableAjaxValidation' => false,
+	]); ?>
 
 	<p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
 
@@ -46,7 +39,7 @@ $this->breadcrumbs = array(
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
+		<?php echo CHtml::submitButton('Сохранить'); ?>
 	</div>
 
 	<?php $this->endWidget(); ?>

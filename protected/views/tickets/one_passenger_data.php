@@ -3,8 +3,8 @@
 $labels = $data->attributeLabels();
 
 foreach ($data as $id => $item) {
-	if ($id == 'sex') {
-		switch ($item) {
+	if($id == 'sex'){
+		switch($item){
 			case 0:
 				$item = 'Мужской';
 				break;
@@ -13,7 +13,7 @@ foreach ($data as $id => $item) {
 				break;
 		}
 	}
-	if (in_array($id, ['id', 'tid', 'uid', 'created']) || !$item || $item == 'null') continue;
+	if (in_array($id, array('id', 'tid', 'uid', 'created')) || !$item || $item == 'null') continue;
 	if ($id == 'black_list') {
 		$item = $item == 1 ? 'да' : 'нет';
 	}

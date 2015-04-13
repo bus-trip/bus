@@ -8,7 +8,7 @@
 return array(
 	'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 	'name'       => 'Sprint tour',
-
+	'language'   => 'ru',
 	// preloading 'log' component
 	'preload'    => array('log'),
 
@@ -32,13 +32,13 @@ return array(
 	'components' => array(
 		'user'         => array(
 			// enable cookie-based authentication
-			'allowAutoLogin' => TRUE,
-			'loginUrl'       => NULL,
+			'allowAutoLogin' => true,
+			'loginUrl'       => null,
 		),
 		// uncomment the following to enable URLs in path-format
 		'urlManager'   => array(
 			'urlFormat'      => 'path',
-			'showScriptName' => FALSE,
+			'showScriptName' => false,
 			'rules'          => array(
 				''                                                       => 'admin/index',
 				'<controller:\w+>/<id:\d+>'                              => '<controller>/view',
@@ -85,10 +85,10 @@ return array(
 				*/
 			),
 		),
-		'dadata' => array(
+		'dadata'       => array(
 			'class' => 'ext.dadata.Dadata',
 			'token' => 'd3adf370dbb3515f283445a47d9f3d17a2e99162',
-        )
+		)
 	),
 
 	// application-level parameters that can be accessed

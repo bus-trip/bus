@@ -1,10 +1,5 @@
 <?php
 /* @var $this AccountController */
-
-$this->breadcrumbs = array(
-	'Аккаунт' => array('/account'),
-	'Мои профили',
-);
 ?>
 
 <p><b><a href="<?php print $this->createUrl('/account/passengers/add'); ?>">Добавить профиль</a></b></p>
@@ -19,9 +14,8 @@ $this->breadcrumbs = array(
 				<a href="<?php print $this->createUrl('/account/passengers/delete/' . $profile->id); ?>"
 				   calss="remove">Удалить</a></div>
 			<div class="data">
-				<?php print $this->renderPartial('one_passenger_data', array('data' => $profile), TRUE); ?>
+				<?php print $this->renderPartial('one_passenger_data', ['data' => $profile]); ?>
 			</div>
 		</div>
 	<?php } ?>
-
 </div>

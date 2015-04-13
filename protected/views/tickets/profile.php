@@ -16,7 +16,7 @@ if(isset($tripId["trip_id"])) {
 	<h2>Информация о профиле пассажира</h2>
 
 	<div class="data">
-		<?php print $this->renderPartial('application.views.account.one_passenger_data', array('data' => $model), TRUE); ?>
+		<?php print $this->renderPartial('one_passenger_data', array('data' => $model)); ?>
 	</div>
 </div>
 <br><br>

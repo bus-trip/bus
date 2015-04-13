@@ -196,17 +196,6 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		if ($this->birth)
 			$this->birth = date('d.m.Y', $this->birth);
 
-		if ($this->sex !== NULL) {
-			switch ($this->sex) {
-				case 0:
-					$this->sex = 'Мужской';
-					break;
-				case 1:
-					$this->sex = 'Женский';
-					break;
-			}
-		}
-
 		return parent::afterFind();
 	}
 

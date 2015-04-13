@@ -1,28 +1,21 @@
 <?php
-
-$this->breadcrumbs = array(
-	'Аккаунт'     => array('/account'),
-	'Мои профили' => array('/account/passengers'),
-	'Добавление профиля'
-);
+/**
+ * @var $this AccountController
+ * @var $model Profiles
+ */
 ?>
-
 <div class="item-profile form">
 
-	<?php $form = $this->beginWidget('CActiveForm', array(
+	<?php $form = $this->beginWidget('CActiveForm', [
 		'id'                   => 'profiles-one_passager-form',
-		// Please note: When you enable ajax validation, make sure the corresponding
-		// controller action is handling ajax validation correctly.
-		// See class documentation of CActiveForm for details on this,
-		// you need to use the performAjaxValidation()-method described there.
-		'enableAjaxValidation' => FALSE,
-	)); ?>
+		'enableAjaxValidation' => false,
+	]); ?>
 
-	<?php $this->renderPartial('profile_form', array('form' => $form, 'model' => $model)); ?>
+	<?php $this->renderPartial('profile_form', ['form' => $form, 'model' => $model]); ?>
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Submit'); ?>
+		<?php echo CHtml::submitButton('Сохранить'); ?>
 	</div>
 
 	<?php $this->endWidget(); ?>

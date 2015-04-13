@@ -1,11 +1,14 @@
-<?php
-/**
- * @var $model Profiles
- */
-?>
 <p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
 
 <?php echo $form->errorSummary($model); ?>
+
+<fieldset>
+	<div class="row">
+		<?php echo $form->checkBox($model, 'black_list'); ?>
+		<?php echo $form->labelEx($model, 'black_list', array('class' => 'inline')); ?>
+		<?php echo $form->error($model, 'black_list'); ?>
+	</div>
+</fieldset>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'last_name'); ?>
@@ -33,32 +36,32 @@
 		<label for="user_passport2" class="required">Номер <span class="required">*</span></label>
 		<input class="number" type="text" name="user_passport2" id="" maxlength="6" size="6"/>
 
-		<?php echo $form->hiddenField($model, 'passport', ['class' => 'code_number']); ?>
+		<?php echo $form->hiddenField($model, 'passport', array('class' => 'code_number')); ?>
 	</div>
 	<?php echo $form->error($model, 'passport'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'phone'); ?>
-	<?php echo $form->textField($model, 'phone', ['class' => 'phone']); ?>
+	<?php echo $form->textField($model, 'phone', array('class' => 'phone')); ?>
 	<?php echo $form->error($model, 'phone'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'sex'); ?>
-	<?php echo $form->dropDownList($model, 'sex', ['none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский']); ?>
+	<?php echo $form->dropDownList($model, 'sex', array('none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский')); ?>
 	<?php echo $form->error($model, 'sex'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'birth'); ?>
-	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
+	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 		'model'     => $model,
 		'attribute' => 'birth',
 		'language'  => 'ru',
-		'options'   => [
+		'options'   => array(
 			'altFormat' => 'd.m.Y',
-		]
-	]) ?>
+		)
+	)) ?>
 	<?php echo $form->error($model, 'birth'); ?>
 </div>
