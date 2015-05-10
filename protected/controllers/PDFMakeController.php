@@ -64,7 +64,7 @@ class PDFMakeController extends Controller
 							<td style="height: 25px; text-align: right;">Электронный билет, версия для печати</td>
 						</tr>
 					</table>
-					<div style="width: 100%; height: 180px; font-size: 24px; font-weight: bold;">Спринт - тур</div>
+					<div style="width: 100%; height: 180px; font-size: 24px; font-weight: bold; color: red;">Спринт - тур</div>
 					<br/>
 					<table style="font-size: 12px;">
 						<tr>
@@ -84,8 +84,8 @@ class PDFMakeController extends Controller
 							<td style="border: 1px solid #000000; font-weight: bold;">Прибытие</td>
 						</tr>
 						<tr>
-							<td style="border: 1px solid #000000">' . $Direction->startPoint . '<br>' . $Ticket->address_from . '<br>' . $Trip->departure . '</td>
-							<td style="border: 1px solid #000000">' . $Direction->endPoint . '<br>' . $Ticket->address_to . '<br>' . $Trip->arrival . '</td>
+							<td style="border: 1px solid #000000">' . $Direction->startPoint . '<br>' . $Trip->departure . '</td>
+							<td style="border: 1px solid #000000">' . $Direction->endPoint . '<br>' . $Trip->arrival . '</td>
 						</tr>
 					</table>
 					<br/><br/><br/><br/>
@@ -115,7 +115,7 @@ class PDFMakeController extends Controller
 						</tr>
 					</table>
 					<br/>
-					<div style="width: 100%; float: left; height: 40px; font-size:10px;"><b>Статус билета:</b> Оплачен</div>
+					<div style="width: 100%; float: left; height: 40px; font-size:16px;"><b>Статус билета:</b> <span style="color: ' . ($Ticket->status == 0 ? "red" : "green") . '">' . ($Ticket->status == 0 ? "Забронировано" : "Оплачено") . '</span></div>
 					<div style="width: 100%; float: left; height: 150px; font-size:10px;">
 						Примечание:
 						<ul>
@@ -131,7 +131,7 @@ class PDFMakeController extends Controller
 					<div style="width: 100%; float: left; height: 10px;">
 						<hr style="height: 3px; background-color: #000000;">
 					</div>
-					<div style="width: 100%; height: 60px; font-size: 24px; font-weight: bold; background-color: #ffffff;">Спринт - тур</div>
+					<div style="width: 100%; height: 60px; font-size: 24px; font-weight: bold; color: red; background-color: #ffffff;">Спринт - тур</div>
 				';
 			$pdf->writeHTML($pdfTicket, TRUE, TRUE, FALSE, FALSE, '');
 			$pdf->Output("ticket-" . $Ticket->id . ".pdf", "I");
