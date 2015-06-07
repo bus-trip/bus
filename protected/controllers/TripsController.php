@@ -107,7 +107,8 @@ class TripsController extends Controller
 		$model->arrival = Yii::app()->user->getState('trips-arrive');
 		$model->idDirection = Yii::app()->user->getState('trips-dir-id');
 
-		$data = Directions::model()->findAllByAttributes(array('status' => 1)); //findAllByPk($model->idDirection);
+		$data = Directions::model()
+						  ->findAllByAttributes(array('status' => 1, 'parentId' => 0)); //findAllByPk($model->idDirection);
 		$directions = array();
 //		$directions['empty'] = 'Выберите направление';
 		foreach ($data as $d) {
@@ -402,7 +403,7 @@ class TripsController extends Controller
 		$pdf->setPrintHeader(FALSE);
 		$pdf->setPrintFooter(FALSE);
 		$pdf->SetFont("dejavuserif", "", 8);
-		$pdf->SetTextColor(0,0,0);
+		$pdf->SetTextColor(0, 0, 0);
 		$pdf->AddPage();
 
 		$tbl = '<h2>Рейс ' . $direction['startPoint'] . ' - ' . $direction['endPoint'] . '</h2><br/>';

@@ -36,7 +36,7 @@ class TicketsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist', 'passengers'),
+				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist', 'passengers', 'searchticket'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -164,6 +164,72 @@ class TicketsController extends Controller
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
+		}
+	}
+
+	/**
+	 * Search ticket on trip
+	 */
+	public function actionSearchTicket()
+	{
+		print_r($_POST);
+		echo '<br/>';
+		$model = new Trips();
+		if (isset($_POST['Directions'])) {
+			$points = array();
+			$query = Directions::model()->findByAttributes(array('startPoint' => $_POST['Directions']['startPoint']));
+			foreach ($query->attributes as $q => $key) {
+				$criteria = new CDbCriteria();
+				if ($q == "id") {
+					$criteria->condition = "id>=" . $key;
+					$criteria->order = "id ASC";
+				}
+				if ($q == "parentId") {
+					$points[$key] = array();
+					$queryParent = Directions::model()
+											 ->findAllByAttributes(array('parentId' => $key), $criteria);
+					foreach ($queryParent as $d) array_push($points[$key], $d->attributes);
+				}
+			}
+
+			$tripsAttr = array();
+			$ticketsAttr = array();
+			foreach ($points as $p => $key) {
+				$criteria = new CDbCriteria();
+				$criteria->condition = "idDirection=" . $p . " and departure>=NOW()";
+				$trips = Trips::model()->findAllByAttributes(array('idDirection' => $p), $criteria);
+				foreach ($trips as $t) {
+					$tripsAttr[] = $t->attributes;
+					$tickets = Tickets::model()->findAllByAttributes(array('idTrip' => $t->attributes['id']));
+					$ticketsAttr[] = $tickets;
+				}
+			}
+
+			$this->render(
+				'searchticket',
+				array(
+					'model'       => $model,
+					'startPoints' => $points,
+					'trips'       => $tripsAttr,
+					'tickets'     => $ticketsAttr,
+					//					'endPoints'   => $endPoints,
+				)
+			);
+		} else {
+			$query = Directions::model()->findAll();
+			$points = array();
+			foreach ($query as $q) {
+				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
+				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+			}
+			print_r($points);
+			$this->render(
+				'searchticket',
+				array(
+					'model'  => $model,
+					'points' => $points,
+				)
+			);
 		}
 	}
 
