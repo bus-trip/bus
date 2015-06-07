@@ -7,6 +7,7 @@
 namespace UserInterface\controllers;
 
 use CException;
+use Profiles;
 use UserInterface\components\Controller;
 use CHtml;
 use UserInterface\models\Checkout;
@@ -82,19 +83,55 @@ class DefaultController extends Controller
 	 */
 	public function wizardProcessStep($event)
 	{
-		$checkout = new Checkout($event->getStep());
-		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkout))) {
-			$checkout->setAttributes($attributes);
-			if ($checkout->validate()) {
+		$profileModels = [];
+		$checkoutModel = new Checkout($event->getStep());
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
+			$checkoutModel->setAttributes($attributes);
+
+			if ($event->getStep() == self::STEP_PROFILE) {
+				$profilesData  = Yii::app()->getRequest()->getPost(CHtml::modelName(new Profiles()));
+				$profilesSaved = [];
+				if ($profilesData) {
+					foreach ($profilesData as $id => $item) {
+						$profileModel = new Profiles();
+						$profileModel->setAttributes($item);
+						if ($profileModel->validate()) {
+							$profilesSaved[$id] = $item;
+						}
+						$profileModels[] = $profileModel;
+					}
+				}
+
+				if (count($profilesSaved) == count($profilesData)) {
+					$checkoutModel->profiles = $profilesSaved;
+				}
+			}
+
+			if ($checkoutModel->validate()) {
 				$event->handled = true;
+
+				$saving = $checkoutModel->attributes;
+				$event->sender->save($saving);
+			}
+		} elseif ($event->getStep() == self::STEP_PROFILE) {
+			$savedData = $this->read(self::STEP_PROFILE);
+			if (!empty($savedData['profiles'])) {
+				foreach ($savedData['profiles'] as $i => $item) {
+					$profileModel = new Profiles();
+					$profileModel->setAttributes($item);
+					$profileModels[$i] = $profileModel;
+				}
+			} else {
+				$profileModels[] = new Profiles();
 			}
 		}
 
 		if (!$event->handled) {
-			$this->render('wizard', ['event' => $event,
-									 'model' => $checkout,
-									 'back'  => $this->backButton(),
-									 'saved' => $this->read()]);
+			$this->render('wizard', ['event'         => $event,
+									 'checkoutModel' => $checkoutModel,
+									 'profileModels' => $profileModels,
+									 'back'          => $this->backButton(),
+									 'saved'         => $this->read()]);
 		}
 	}
 
