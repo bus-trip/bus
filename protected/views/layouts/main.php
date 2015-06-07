@@ -27,7 +27,7 @@
 	<div id="header">
 		<div id="logo" class="left"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 
-		<ul class="right">
+		<ul class="account-menu right">
 			<?php if (Yii::app()->user->isGuest) { ?>
 				<li><a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a></li>
 				<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
