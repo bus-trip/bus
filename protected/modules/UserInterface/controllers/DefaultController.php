@@ -83,7 +83,7 @@ class DefaultController extends Controller
 	 */
 	public function wizardProcessStep($event)
 	{
-		$profileModels = [];
+		$profileModels = $userProfiles = [];
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -114,7 +114,10 @@ class DefaultController extends Controller
 				$event->sender->save($saving);
 			}
 		} elseif ($event->getStep() == self::STEP_PROFILE) {
-			$savedData = $this->read(self::STEP_PROFILE);
+			$savedData    = $this->read(self::STEP_PROFILE);
+			$userProfiles = Profiles::model()
+									->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+														  ['order' => 'created DESC']);
 			if (!empty($savedData['profiles'])) {
 				foreach ($savedData['profiles'] as $i => $item) {
 					$profileModel = new Profiles();
@@ -130,6 +133,7 @@ class DefaultController extends Controller
 			$this->render('wizard', ['event'         => $event,
 									 'checkoutModel' => $checkoutModel,
 									 'profileModels' => $profileModels,
+									 'userProfiles'  => $userProfiles,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}

@@ -133,6 +133,7 @@ class AccountController extends Controller
 		$this->breadcrumbs[]              = 'Редактирование профиля';
 
 		$model = $this->loadProfile($id);
+		$model->birth = date('d.m.Y', $model->birth);
 		if ($model && $model->uid == $this->user->id &&
 			$attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))
 		) {

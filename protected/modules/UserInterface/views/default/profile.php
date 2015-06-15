@@ -26,9 +26,22 @@ $form = $this->beginWidget('CActiveForm'); ?>
 <div id="checkout-profiles-wrapper">
 	<p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
 
-	<div id="profiles">
+	<div id="profiles" class="clearfix">
 		<?php foreach ($profileModels as $i => $profileModel) { ?>
 			<div class="profile-item">
+				<?php if (!empty($userProfiles)) { ?>
+					<div class="select-profile-wrap">
+						<select id="select-profile" name="profile_<?php echo $i ?>">
+							<option value="new">- Новый -</option>
+							<?php foreach ($userProfiles as $userProfile) {
+								/** @var Profiles $userProfile */
+								?>
+								<option value="<?php
+								echo $userProfile->id ?>"><?php echo $userProfile->shortName() ?></option>
+							<?php } ?>
+						</select>
+					</div>
+				<?php } ?>
 				<?php $this->renderPartial('UserInterface.views.profiles.item', compact('profileModel', 'i')) ?>
 				<?php if ($i > 0) print '<div class="del">Удалить</div>'; ?>
 			</div>

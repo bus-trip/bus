@@ -435,3 +435,84 @@ body .ui-menu .ui-menu-item a {
 .account-menu li{
 	white-space: nowrap;
 }
+
+#checkout-profiles-wrapper #profiles{
+    margin: 0 0 20px;
+    clear: both;
+}
+#checkout-profiles-wrapper #profiles .profile-item{
+    width: 25%;
+    float: left;
+    box-sizing: border-box;
+    border-left: 1px solid #ccc;
+    height: 400px;
+    padding-left: 10px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+
+#checkout-profiles-wrapper #profiles .profile-item:last-child{
+	border-right: 1px solid #ccc;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap{
+	margin: 0 12px 20px 0px;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap select{
+	width: 100%;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .del{
+	margin: 10px 0 0;
+    border-bottom: 1px dashed;
+    
+	color: #FF0000;
+    display: inline-block;
+    cursor: pointer;
+	font-weight: bold;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row{
+    margin: 0 0 10px;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row .errorMessage{
+    color: #F94444;
+    font-size: 11px;
+    margin: 4px 0 12px;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row label{
+    width: 32%;
+	
+    display: inline-block;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row .passport-input label{
+    width: 20%;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row .passport-input label[for="user_passport2"]{
+    margin-left: 23px;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row input{
+    display: inline-block;
+    width: 60%;
+}
+
+#checkout-profiles-wrapper #profiles .profile-item .row .passport-input input{
+    width: 20%;
+}
+
+#checkout-profiles-wrapper #add-profile{
+    margin: 20px 0;
+    border-bottom: 1px dashed;
+    color: #1F6B00;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: bold;
+}

@@ -42,12 +42,12 @@ class Profiles extends CActiveRecord
 		return array(
 //			array('last_name, name, passport, phone', 'required'),
 array('last_name, name, middle_name, passport, phone, birth', 'required'),
-array('uid, tid, passport, sex, birth, black_list', 'numerical', 'integerOnly' => TRUE),
+array('uid, tid, passport, sex, black_list', 'numerical', 'integerOnly' => true),
 array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
 array('passport', 'length', 'max' => 10, 'min' => 10),
 array('phone', 'length', 'max' => 17),
 array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
-array('birth', 'safe'),
+array('birth', 'date', 'format' => 'dd.MM.yyyy'),
 // The following rule is used by search().
 // @todo Please remove those attributes that should not be searched.
 array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, black_list, black_desc, created', 'safe', 'on' => 'search'),
@@ -110,16 +110,16 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('uid', $this->uid);
 		$criteria->compare('tid', $this->tid);
-		$criteria->compare('last_name', $this->last_name, TRUE);
-		$criteria->compare('name', $this->name, TRUE);
-		$criteria->compare('middle_name', $this->middle_name, TRUE);
+		$criteria->compare('last_name', $this->last_name, true);
+		$criteria->compare('name', $this->name, true);
+		$criteria->compare('middle_name', $this->middle_name, true);
 		$criteria->compare('passport', $this->passport);
-		$criteria->compare('phone', $this->phone, TRUE);
+		$criteria->compare('phone', $this->phone, true);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('black_desc', $this->black_desc);
-		$criteria->compare('created', $this->created, TRUE);
+		$criteria->compare('created', $this->created, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -139,14 +139,10 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		return parent::model($className);
 	}
 
-	public function validate($attributes = NULL, $clearErrors = TRUE)
+	public function validate($attributes = null, $clearErrors = true)
 	{
 		if ($this->sex == 'none') {
-			$this->sex = NULL;
-		}
-
-		if (preg_match('#\.#', $this->birth)) {
-			$this->birth = strtotime($this->birth);
+			$this->sex = null;
 		}
 
 		return parent::validate($attributes, $clearErrors);
@@ -155,29 +151,26 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
-			if ($this->birth == '')
-				$this->birth = NULL;
+			if ($this->birth != '') {
+				$this->birth = strtotime($this->birth);
+			}
 
-			$this->name = mb_ucfirst($this->name);
+			$this->name      = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);
 			if ($this->middle_name)
 				$this->middle_name = mb_ucfirst($this->middle_name);
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	public function afterSave()
 	{
-		// Turn it back into a unix timestamp in case you want to continue working with the record
-		if ($this->birth)
-			$this->birth = date('d.m.Y', $this->birth);
-
 		// сохраняем значение черного листа всем профилям с одной фамилией и с одним номером паспорта
-		$criteria = new CDbCriteria;
+		$criteria            = new CDbCriteria;
 		$criteria->condition = 'passport=:passport AND last_name=:last_name';
-		$criteria->params = array(':passport' => $this->passport, ':last_name' => $this->last_name);
-		$Profiles = Profiles::model()->findAll($criteria);
+		$criteria->params    = array(':passport' => $this->passport, ':last_name' => $this->last_name);
+		$Profiles            = Profiles::model()->findAll($criteria);
 		if (!empty($Profiles)) {
 			foreach ($Profiles as $profile) {
 				if ($profile->black_list != $this->black_list) {
@@ -191,21 +184,8 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		parent::afterSave();
 	}
 
-	public function afterFind()
-	{
-		if ($this->birth)
-			$this->birth = date('d.m.Y', $this->birth);
-
-		return parent::afterFind();
-	}
-
 	public function shortName()
 	{
-//		$name = $this->last_name . ' ' . mb_substr($this->name, 0, 1, 'UTF-8') . '.';
-//		if ($this->middle_name) {
-//			$name .= ' ' . mb_substr($this->middle_name, 0, 1, 'UTF-8') . '.';
-//		}
-
 		$name = $this->last_name . ' ' . $this->name;
 		if ($this->middle_name) {
 			$name .= ' ' . $this->middle_name;
@@ -216,22 +196,22 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 
 	public function searchWithGroupBy($fields)
 	{
-		$criteria = new CDbCriteria;
+		$criteria        = new CDbCriteria;
 		$criteria->group = implode(', ', $fields);
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('uid', $this->uid);
 		$criteria->compare('tid', $this->tid);
-		$criteria->compare('last_name', $this->last_name, TRUE);
-		$criteria->compare('name', $this->name, TRUE);
-		$criteria->compare('middle_name', $this->middle_name, TRUE);
+		$criteria->compare('last_name', $this->last_name, true);
+		$criteria->compare('name', $this->name, true);
+		$criteria->compare('middle_name', $this->middle_name, true);
 		$criteria->compare('passport', $this->passport);
-		$criteria->compare('phone', $this->phone, TRUE);
+		$criteria->compare('phone', $this->phone, true);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('black_desc', $this->black_desc);
-		$criteria->compare('created', $this->created, TRUE);
+		$criteria->compare('created', $this->created, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'   => $criteria,
