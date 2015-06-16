@@ -15,8 +15,12 @@ class ProfilesController extends Controller
 {
 	public function actionForm()
 	{
+		$userProfiles = Profiles::model()
+								->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+													  ['order' => 'created DESC']);
 		echo CJSON::encode(['form' => $this->renderPartial('item', [
 			'profileModel' => new Profiles(),
+			'userProfiles' => $userProfiles,
 			'i'            => Yii::app()
 								 ->getRequest()
 								 ->getQuery('i')], true)]);

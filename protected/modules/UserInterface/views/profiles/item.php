@@ -7,6 +7,19 @@
  * @var int $i
  */
 ?>
+<?php if (!empty($userProfiles)) { ?>
+	<div class="select-profile-wrap">
+		<select class="select-profile" name="profile_<?php echo $i ?>">
+			<option value="new">- Новый -</option>
+			<?php foreach ($userProfiles as $userProfile) {
+				/** @var Profiles $userProfile */
+				?>
+				<option value="<?php
+				echo $userProfile->id ?>"><?php echo $userProfile->shortName() ?></option>
+			<?php } ?>
+		</select>
+	</div>
+<?php } ?>
 
 <div class="row">
 	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']last_name'); ?>

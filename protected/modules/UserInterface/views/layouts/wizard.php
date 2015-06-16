@@ -5,9 +5,9 @@
  */
 
 $this->beginContent('//layouts/main'); ?>
-	<div id="left">
-		<div class="side-menu checkout-process">
-			<ul>
+	<div id="top">
+		<div class="checkout-process">
+			<ul class="clearfix">
 				<?php $this->renderPartial('UserInterface.views.default.left', ['menu' => $this->getMenu()]) ?>
 			</ul>
 		</div>

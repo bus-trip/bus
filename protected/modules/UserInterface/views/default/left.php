@@ -6,11 +6,8 @@
 
 foreach ($menu->items as $item) { ?>
 	<li class="<?= $item['active'] ? 'active' : '' ?>">
-		<table>
-			<tr class="cols4">
-				<?php if (!empty($item['url'])) {
-					print '<td class="small link" data-href="' . CHtml::normalizeUrl($item['url']) . '">';
-					print '<div class="link">' . CHtml::link($item['label'], $item['url'], isset($item['linkOptions']) ? $item['linkOptions'] : []) . '</div>';
+		<?php if (!empty($item['url'])) {
+			print '<div class="link">' . CHtml::link($item['label'], $item['url'], isset($item['linkOptions']) ? $item['linkOptions'] : []) . '</div>';
 //					switch ($item['step']) {
 //						case 'tariff':
 //							if (isset($item['data']['tariff'])) {
@@ -46,15 +43,10 @@ foreach ($menu->items as $item) { ?>
 //							}
 //							break;
 //					}
-				} else {
-					print '<td class="small novalid">';
-					print $item['label'];
-				}
+		} else {
+			print $item['label'];
+		}
 
-				print '</td>';
-				?>
-
-			</tr>
-		</table>
+		?>
 	</li>
 <?php } ?>

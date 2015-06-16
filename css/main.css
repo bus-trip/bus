@@ -516,3 +516,37 @@ body .ui-menu .ui-menu-item a {
     cursor: pointer;
     font-weight: bold;
 }
+
+.checkout-process{
+    margin: 20px 0;
+    background-color: #eee;
+    height: 40px;
+}
+.checkout-process ul{}
+.checkout-process ul li{
+    display: inline-block;
+    padding: 0 40px;
+    line-height: 40px;
+    list-style: none;
+    margin: 0;
+}
+
+.checkout-process ul li div.link{
+	width: 100%;
+	margin: 0 -40px;
+}
+
+.checkout-process ul li.active a{
+    background-color: #D2EDCD;
+}
+.checkout-process ul li a{
+    display: block;
+    width: 100%;
+    padding: 0 40px;
+    background-color: #E4E4E4;
+}
+
+.checkout-process ul li a:hover{
+	background-color: #91B88A;
+	color: #fff;
+}
