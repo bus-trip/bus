@@ -7,7 +7,7 @@
  */
 ?>
 <div id="wizard-wrapper" class="clearfix">
-	<?php $this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved')); ?>
+	<?php $this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved', 'trip')); ?>
 
 	<div class="back">
 		<a href="<?= $back ?>" class="btn-back" title="Назад">Назад</a>

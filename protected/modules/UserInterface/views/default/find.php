@@ -7,8 +7,6 @@
  * @var $checkoutModel \UserInterface\models\Checkout
  */
 ?>
-find
-
 <?php
 /** @var $form CActiveForm */
 $form = $this->beginWidget('CActiveForm'); ?>

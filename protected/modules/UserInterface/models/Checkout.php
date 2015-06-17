@@ -17,6 +17,7 @@ class Checkout extends CFormModel
 	public $tripId      = 409;
 	public $profiles;
 	public $profileStep = 1;
+	public $reviewStep  = 1;
 
 	public function rules()
 	{
@@ -24,6 +25,8 @@ class Checkout extends CFormModel
 			['tripId', 'required', 'on' => DefaultController::STEP_FIND],
 			['profileStep, profiles', 'required', 'on' => DefaultController::STEP_PROFILE],
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
+			['reviewStep', 'required', 'on' => DefaultController::STEP_REVIEW],
+			['reviewStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_REVIEW],
 		];
 	}
 }

@@ -550,3 +550,14 @@ body .ui-menu .ui-menu-item a {
 	background-color: #91B88A;
 	color: #fff;
 }
+
+#wizard-wrapper .buttons{
+    margin-left: 64px;
+
+    margin-top: 20px;
+}
+
+#wizard-wrapper .back{
+    float: left;
+    margin-top: -18px;
+}

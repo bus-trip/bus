@@ -8,6 +8,8 @@ namespace UserInterface\controllers;
 
 use CException;
 use Profiles;
+use Tickets;
+use Trips;
 use UserInterface\components\Controller;
 use CHtml;
 use UserInterface\models\Checkout;
@@ -51,7 +53,7 @@ class DefaultController extends Controller
 				'steps'       => [self::STEP_FIND,
 								  self::STEP_PROFILE,
 								  self::STEP_REVIEW,
-								  self::STEP_PAYMENT,
+								  //								  self::STEP_PAYMENT,
 				],
 				'autoAdvance' => false,
 				'finishedUrl' => '/UserInterface/default/complete',
@@ -84,6 +86,7 @@ class DefaultController extends Controller
 	public function wizardProcessStep($event)
 	{
 		$profileModels = $userProfiles = [];
+		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -105,6 +108,9 @@ class DefaultController extends Controller
 				if (count($profilesSaved) == count($profilesData)) {
 					$checkoutModel->profiles = $profilesSaved;
 				}
+			} elseif ($event->getStep() == self::STEP_REVIEW) {
+				$savedData = $this->read(self::STEP_FIND);
+				$trip      = Trips::model()->with('idBus0', 'idDirection0')->findByPk($savedData['tripId']);
 			}
 
 			if ($checkoutModel->validate()) {
@@ -127,6 +133,9 @@ class DefaultController extends Controller
 			} else {
 				$profileModels[] = new Profiles();
 			}
+		} elseif ($event->getStep() == self::STEP_REVIEW) {
+			$savedData = $this->read(self::STEP_FIND);
+			$trip      = Trips::model()->with('idBus0', 'idDirection0')->findByPk($savedData['tripId']);
 		}
 
 		if (!$event->handled) {
@@ -134,6 +143,7 @@ class DefaultController extends Controller
 									 'checkoutModel' => $checkoutModel,
 									 'profileModels' => $profileModels,
 									 'userProfiles'  => $userProfiles,
+									 'trip'          => $trip,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}
@@ -144,7 +154,36 @@ class DefaultController extends Controller
 	 */
 	public function wizardFinished($event)
 	{
+		$tripId = $event->data[self::STEP_FIND]['tripId'];
+		foreach ($event->data[self::STEP_PROFILE]['profiles'] as $placeId => $profileData) {
+			$this->createOrder($tripId, ($placeId + 1), $profileData);
+		}
 		$event->sender->reset();
+	}
+
+	/**
+	 * @param $tripId
+	 * @param $profileData
+	 *
+	 * @return bool
+	 */
+	public function createOrder($tripId, $placeId, $profileData)
+	{
+		$Profile = new Profiles();
+		list($discount) = Yii::app()->createController('discounts');
+		$Profile->setAttributes($profileData);
+		if ($Profile->validate()) {
+			$Ticket         = new Tickets();
+			$Ticket->status = 1;
+			$Ticket->idTrip = $tripId;
+			$Ticket->place  = $placeId;
+			if ($Ticket->validate() && $Ticket->save()) {
+				$Profile->tid = $Ticket->id;
+				$Profile->save();
+				$Ticket->price = $discount->getDiscount($Profile->id);
+				return $Ticket->save();
+			}
+		}
 	}
 
 	/**
@@ -173,7 +212,7 @@ class DefaultController extends Controller
 				'/' . $this->queryParam .
 				'/' . $previousStep;
 		} else {
-			$url = '/Start/default/index';
+			$url = '/index';
 		}
 
 		$output = $this->createUrl($url);
@@ -186,6 +225,7 @@ class DefaultController extends Controller
 	 */
 	public function actionComplete()
 	{
+		$this->layout = '//layouts/column1';
 		$this->render('complete');
 	}
 }
