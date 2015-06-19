@@ -20,6 +20,8 @@ define('DIRTRIP_CANCELED', 0);
 define('DIRTRIP_MAIN', 1);
 define('DIRTRIP_EXTEND', 2);
 
+
+
 $configMain = require_once(__DIR__ . '/protected/config/main.php');
 
 $cs = __DIR__ . '/protected/config/' . $_SERVER['HTTP_HOST'] . '.php';
