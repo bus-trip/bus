@@ -62,23 +62,22 @@ class TicketsSearchController extends Controller
 		$indexData['points'] = $points;
 
 		if (isset($_POST['startPoint']) && isset($_POST['endPoint']) && isset($_POST['departure'])) {
-			$directions = array();
-			$query = Directions::model()->findAllByAttributes(
-				array('startPoint' => $_POST['startPoint']),
-				'status = ' . DIRTRIP_MAIN . ' and parentId=0'
-			);
-			foreach ($query as $q) $directions[] = $q->attributes;
+			$directions = $this->getDirections($_POST['startPoint'], $_POST['endPoint']);
 
 			$tripsAttr = array();
 			foreach ($directions as $d) {
 				$criteria = new CDbCriteria();
-				$criteria->condition = "idDirection=" . $d['id'] . " and departure between '" . date('Y-m-d',strtotime($_POST['departure'])) . " 00:00:00' and '" . date('Y-m-d',strtotime($_POST['departure'])) . " 23:59:59'";
+				$criteria->condition = "idDirection=" . $d['id'] . " and departure between '" . date('Y-m-d', strtotime($_POST['departure'])) . " 00:00:00' and '" . date('Y-m-d', strtotime($_POST['departure'])) . " 23:59:59'";
 				$trips = Trips::model()->findAllByAttributes(array('idDirection' => $d['id']), $criteria);
 				foreach ($trips as $t) {
 					$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . TICKET_CONFIRMED . "," . TICKET_RESERVED . ")";
 					$tickets = Tickets::model()->count($criteria);
 					$bus = Buses::model()->findByPk($t->attributes['idBus']);
-					if($bus->places > $tickets) {
+					/*
+					 * проверку по участкам на наличие мест добавить здесь
+					 */
+
+					if ($bus->places > $tickets) {
 						$tripsAttr[] = array(
 							'id'          => $t->attributes['id'],
 							'direction'   => $d['startPoint'] . ' - ' . $d['endPoint'],
@@ -103,6 +102,37 @@ class TicketsSearchController extends Controller
 			'index',
 			$indexData
 		);
+	}
+
+	private function getDirections($startPoint, $endPoint = '')
+	{
+		$directions = array();
+		$dirsAll = Directions::model()->findAllByAttributes(
+			array('startPoint' => $startPoint),
+			'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND
+		);
+
+		foreach ($dirsAll as $ds) {
+			if($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()->findByPk($ds->attributes['parentId'])->attributes;
+			else $dirsByStart[] = Directions::model()->findByPk($ds->attributes['id'])->attributes;
+		}
+
+		foreach ($dirsByStart as $ds) {
+			if (isset($endPoint)) {
+				$criteria = new CDbCriteria();
+				$criteria->condition = 'parentId=' . $ds['id'] . ' and endPoint = "' . $endPoint . '"';
+				$dirFull = Directions::model()->findAll($criteria);
+				foreach ($dirFull as $df) {
+					$directions[] = $ds;
+				}
+			} else $directions[] = $ds;
+		}
+
+		return $directions;
+	}
+
+	private function getFreePlaces($startPoint, $endPoint, $trips)
+	{
 	}
 
 	/**
