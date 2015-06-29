@@ -113,19 +113,20 @@ class TicketsSearchController extends Controller
 		);
 
 		foreach ($dirsAll as $ds) {
-			if($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()->findByPk($ds->attributes['parentId'])->attributes;
+			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
+																			 ->findByPk($ds->attributes['parentId'])->attributes;
 			else $dirsByStart[] = Directions::model()->findByPk($ds->attributes['id'])->attributes;
 		}
 
-		foreach ($dirsByStart as $ds) {
-			if (isset($endPoint)) {
-				$criteria = new CDbCriteria();
-				$criteria->condition = 'parentId=' . $ds['id'] . ' and endPoint = "' . $endPoint . '"';
-				$dirFull = Directions::model()->findAll($criteria);
-				foreach ($dirFull as $df) {
-					$directions[] = $ds;
-				}
-			} else $directions[] = $ds;
+		if ($dirsByStart) {
+			foreach ($dirsByStart as $ds) {
+				if (isset($endPoint)) {
+					$criteria = new CDbCriteria();
+					$criteria->condition = 'parentId=' . $ds['id'] . ' and endPoint = "' . $endPoint . '"';
+					$dirFull = Directions::model()->findAll($criteria);
+					if ($dirFull) $directions[] = $ds;
+				} else $directions[] = $ds;
+			}
 		}
 
 		return $directions;
