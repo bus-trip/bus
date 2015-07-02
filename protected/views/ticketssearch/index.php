@@ -74,7 +74,7 @@ if (isset($trips)) {
 				'header' => '',
 				'name'   => 'id',
 				'type'   => 'raw',
-				'value'  => 'CHtml::radioButton("tripId_".$data["id"],false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))',
+				'value'  => 'CHtml::radioButton("trips",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))',
 			),
 			array(
 				'name'   => 'direction',
