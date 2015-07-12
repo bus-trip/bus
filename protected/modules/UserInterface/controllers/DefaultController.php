@@ -212,7 +212,7 @@ class DefaultController extends Controller
 				'/' . $this->queryParam .
 				'/' . $previousStep;
 		} else {
-			$url = '/index';
+			$url = '/UserInterface/default/index';
 		}
 
 		$output = $this->createUrl($url);
