@@ -63,7 +63,6 @@ class TicketsSearchController extends Controller
 
 		if (isset($_POST['startPoint']) && isset($_POST['endPoint']) && isset($_POST['departure'])) {
 			$directions = $this->getDirections($_POST['startPoint'], $_POST['endPoint']);
-
 			$tripsAttr = array();
 			foreach ($directions as $d) {
 				$criteria = new CDbCriteria();
@@ -107,29 +106,42 @@ class TicketsSearchController extends Controller
 	private function getDirections($startPoint, $endPoint = '')
 	{
 		$directions = array();
-		$dirsAll = Directions::model()->findAllByAttributes(
-			array('startPoint' => $startPoint),
-			'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND
-		);
-
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND;
+		$criteria->group = 'parentId';
+		$dirsAll = Directions::model()->findAllByAttributes(array('startPoint' => $startPoint), $criteria);
 		foreach ($dirsAll as $ds) {
 			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
 																			 ->findByPk($ds->attributes['parentId'])->attributes;
 			else $dirsByStart[] = Directions::model()->findByPk($ds->attributes['id'])->attributes;
 		}
-
 		if ($dirsByStart) {
 			foreach ($dirsByStart as $ds) {
 				if (isset($endPoint)) {
-					$criteria = new CDbCriteria();
-					$criteria->condition = 'parentId=' . $ds['id'] . ' and endPoint = "' . $endPoint . '"';
-					$dirFull = Directions::model()->findAll($criteria);
-					if ($dirFull) $directions[] = $ds;
+					$points = $this->getStationsByDirectionId($ds['id']);
+					if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
 				} else $directions[] = $ds;
 			}
 		}
+		return array_unique($directions);
+	}
 
-		return $directions;
+	private function getStationsByDirectionId($id)
+	{
+		$dir = Directions::model()->findByPk($id);
+		$sPoint = $dir->startPoint;
+		$points = array();
+		$points[] = $dir->startPoint;
+		while (($point = Directions::model()
+								   ->findByAttributes(array('startPoint' => $sPoint, 'parentId' => $dir->id)))) {
+			$points[] = $point->startPoint;
+			$points[] = $point->endPoint;
+			$sPoint = $point->endPoint;
+		}
+		$points[] = $dir->endPoint;
+		$points = array_unique($points);
+
+		return $points;
 	}
 
 	private function getFreePlaces($startPoint, $endPoint, $trips)
