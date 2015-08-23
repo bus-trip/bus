@@ -68,6 +68,10 @@ class PDFMakeController extends Controller
 
 	}
 
+	public function actionTripTickets($tripId){
+
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
