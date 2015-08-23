@@ -69,7 +69,7 @@ class PDFMakeController extends Controller
 	}
 
 	public function actionTripTickets($tripId){
-
+		$this->render('triptickets');
 	}
 
 	// Uncomment the following methods and override them if needed

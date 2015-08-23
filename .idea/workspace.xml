@@ -1,0 +1,1510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="Links for edit tickets from sheet">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protected/controllers/PDFMakeController.php" afterPath="$PROJECT_DIR$/protected/controllers/PDFMakeController.php" />
+    </list>
+    <list id="692e1e80-32e2-4b7e-a5db-27d2a9d6bbd1" name="Failed commit: Default" comment="Links for edit tickets from sheet" />
+    <ignored path="bus.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="bus" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="TicketsSearchController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsSearchController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="8.5" vertical-offset="3825" max-vertical-offset="6375">
+              <caret line="212" column="37" selection-start-line="212" selection-start-column="37" selection-end-line="212" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PDFMakeController.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/protected/controllers/PDFMakeController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1802">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="triptickets.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/pDFMake/triptickets.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="238">
+              <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+              <folding>
+                <element signature="e#6#88#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ticket.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/pDFMake/ticket.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-65.38461" vertical-offset="0" max-vertical-offset="1802">
+              <caret line="100" column="2" selection-start-line="100" selection-start-column="2" selection-end-line="100" selection-end-column="2" />
+              <folding>
+                <marker date="1431344472888" expanded="true" signature="471:666" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="482:652" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="502:515" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="566:598" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="685:760" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="811:827" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="828:1035" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="839:1021" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="859:872" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="944:957" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1054:1109" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1159:1214" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1254:1309" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1355:1450" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1494:1569" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1649:1705" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="1706:2141" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="1717:1890" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1737:1782" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1819:1864" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="1901:2127" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="1921:1946" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2030:2055" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2186:2241" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2313:2389" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="2390:3624" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="2401:2858" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2421:2480" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2509:2554" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2593:2638" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2679:2737" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2768:2826" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="2869:3293" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="2889:2914" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3020:3045" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3078:3103" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3155:3180" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3228:3253" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="3304:3610" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3324:3353" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3379:3408" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3434:3463" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3489:3514" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3545:3570" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3654:3709" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3746:3753" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="3895:3951" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="3952:4615" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="3981:4603" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="4634:4710" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="4753:4792" placeholder="..." />
+                <marker date="1431344472888" expanded="true" signature="4793:4864" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="4812:4851" placeholder="..." />
+                <marker date="1431344472888" expanded="false" signature="4883:4984" placeholder="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sheet.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3196">
+              <caret line="69" column="60" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/protected/views/ticketssearch/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-6.5384617" vertical-offset="1122" max-vertical-offset="1785">
+              <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+              <folding>
+                <element signature="e#6#88#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/protected/views/directions/admin.php" />
+        <option value="$PROJECT_DIR$/protected/views/directions/_form.php" />
+        <option value="$PROJECT_DIR$/protected/views/buses/update.php" />
+        <option value="$PROJECT_DIR$/protected/views/buses/create.php" />
+        <option value="$PROJECT_DIR$/protected/views/buses/_form.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/ScheduleController.php" />
+        <option value="$PROJECT_DIR$/protected/views/schedule/_form.php" />
+        <option value="$PROJECT_DIR$/protected/views/schedule.php" />
+        <option value="$PROJECT_DIR$/protected/models/Tickets.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/admin.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/views/trips/update.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/views/trips/_form.php" />
+        <option value="Z:/www/sprint-tour.webjails.ru/protected/controllers/TripsController.php" />
+        <option value="$PROJECT_DIR$/protected/extensions/tcpdf/ETcPdf.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/update.php" />
+        <option value="$PROJECT_DIR$/protected/models/Buses.php" />
+        <option value="$PROJECT_DIR$/protected/views/buses/admin.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/BusesController.php" />
+        <option value="$PROJECT_DIR$/protected/views/layouts/main.php" />
+        <option value="$PROJECT_DIR$/protected/views/layouts/column2.php" />
+        <option value="$PROJECT_DIR$/css/screen.css" />
+        <option value="$PROJECT_DIR$/protected/config/main.php" />
+        <option value="$PROJECT_DIR$/protected/models/Discounts.php" />
+        <option value="$PROJECT_DIR$/protected/views/discounts/showdiscount.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/blconfirm.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/selectbus.php" />
+        <option value="$PROJECT_DIR$/js/jscript.js" />
+        <option value="$PROJECT_DIR$/protected/models/Profiles.php" />
+        <option value="$PROJECT_DIR$/css/main.css" />
+        <option value="$PROJECT_DIR$/protected/controllers/AdminController.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/create.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/_form.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/admin.php" />
+        <option value="$PROJECT_DIR$/protected/views/trips/sheet.php" />
+        <option value="$PROJECT_DIR$/protected/views/admin/index.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/all_profiles.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/profile.php" />
+        <option value="$PROJECT_DIR$/protected/views/pDFMake/index.php" />
+        <option value="$PROJECT_DIR$/protected/views/pDFMake/ticket.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/DirectionsController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TripsController.php" />
+        <option value="$PROJECT_DIR$/protected/views/tickets/searchticket.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TicketsController.php" />
+        <option value="$PROJECT_DIR$/protected/views/ticketssearch/searchticket.php" />
+        <option value="$PROJECT_DIR$/protected/views/ticketssearch/tripselect.php" />
+        <option value="$PROJECT_DIR$/protected/views/ticketssearch/index.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/TicketsSearchController.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/DiscountsController.php" />
+        <option value="$PROJECT_DIR$/protected/views/pDFMake/triptickets.php" />
+        <option value="$PROJECT_DIR$/protected/controllers/PDFMakeController.php" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true">
+    <include_path>
+      <path value="." />
+      <path value="C:\php\pear" />
+      <path value="W:\home\localhost\framework" />
+    </include_path>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="754" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="false" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pDFMake" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="protected" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.lastSelected" value="settings.github" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="FullScreen" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/protected" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="LayoutCode.rearrangeEntriesPHP" value="false" />
+    <property name="recentsLimit" value="5" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Software\OpenServer\OpenServer\domains\bus\protected\views\ticketssearch" />
+      <recent name="D:\Software\OpenServer\OpenServer\domains\bus\protected\views\admin" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Software\OpenServer\OpenServer\domains\bus\protected\views\ticketsearch" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.sheet.php">
+    <configuration default="false" name="sheet.php" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/bus/protected/views/trips/sheet.php">
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server" server_id="a8174e98-635c-46fb-86e0-d1ce2c2f4a3c" server_name="bus">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <pass-parent-env-vars>false</pass-parent-env-vars>
+      <envs />
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.sheet.php" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.sheet.php" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="StructureViewFactory">
+    <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
+  </component>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration>C:\Users\Андрей\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1ef37e82-1782-4a67-a2be-ab3d59e12d20" name="Default" comment="" />
+      <created>1403264372633</created>
+      <option name="number" value="Default" />
+      <updated>1403264372633</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Links for edit tickets from sheet">
+      <created>1415033322478</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1415033322478</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Links for edit tickets from sheet">
+      <created>1415053588914</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1415053588914</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Links for edit tickets from sheet">
+      <created>1415053654341</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1415053654341</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Links for edit tickets from sheet">
+      <created>1415054587242</created>
+      <option name="number" value="00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1415054587242</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Links for edit tickets from sheet">
+      <created>1415054593149</created>
+      <option name="number" value="00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1415054593149</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Links for edit tickets from sheet">
+      <created>1415055452739</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1415055452739</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Links for edit tickets from sheet">
+      <created>1415219170651</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1415219170651</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Links for edit tickets from sheet">
+      <created>1415219478788</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1415219478788</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Links for edit tickets from sheet">
+      <created>1415220001693</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1415220001693</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Links for edit tickets from sheet">
+      <created>1415220256474</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1415220256474</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Links for edit tickets from sheet">
+      <created>1415220315875</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1415220315875</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Links for edit tickets from sheet">
+      <created>1415220666773</created>
+      <option name="number" value="00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1415220666773</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Links for edit tickets from sheet">
+      <created>1415556175937</created>
+      <option name="number" value="00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1415556175937</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Links for edit tickets from sheet">
+      <created>1415556277587</created>
+      <option name="number" value="00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1415556277587</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Links for edit tickets from sheet">
+      <created>1416235101847</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1416235101848</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Links for edit tickets from sheet">
+      <created>1416753601765</created>
+      <option name="number" value="00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1416753601765</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Links for edit tickets from sheet">
+      <created>1416944565974</created>
+      <option name="number" value="00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1416944565974</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Links for edit tickets from sheet">
+      <created>1416945476958</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1416945476958</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Links for edit tickets from sheet">
+      <created>1416945846504</created>
+      <option name="number" value="00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1416945846504</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Links for edit tickets from sheet">
+      <created>1416947208420</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1416947208420</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Links for edit tickets from sheet">
+      <created>1416947289460</created>
+      <option name="number" value="00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1416947289460</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Links for edit tickets from sheet">
+      <created>1416947402110</created>
+      <option name="number" value="00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1416947402110</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Links for edit tickets from sheet">
+      <created>1416947696591</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1416947696591</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Links for edit tickets from sheet">
+      <created>1416947843101</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1416947843101</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Links for edit tickets from sheet">
+      <created>1416949087948</created>
+      <option name="number" value="00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1416949087948</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Links for edit tickets from sheet">
+      <created>1416949352796</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1416949352796</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Links for edit tickets from sheet">
+      <created>1417030087325</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030087325</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Links for edit tickets from sheet">
+      <created>1417030158872</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030158872</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Links for edit tickets from sheet">
+      <created>1417030209842</created>
+      <option name="number" value="00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030209842</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Links for edit tickets from sheet">
+      <created>1417030277696</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030277696</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Links for edit tickets from sheet">
+      <created>1417030431540</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030431540</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Links for edit tickets from sheet">
+      <created>1417030494685</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1417030494685</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Links for edit tickets from sheet">
+      <created>1417043015782</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1417043015782</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Links for edit tickets from sheet">
+      <created>1417637042323</created>
+      <option name="number" value="00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1417637042323</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Links for edit tickets from sheet">
+      <created>1417901773381</created>
+      <option name="number" value="00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1417901773381</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Links for edit tickets from sheet">
+      <created>1417902304046</created>
+      <option name="number" value="00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1417902304046</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Links for edit tickets from sheet">
+      <created>1417902397484</created>
+      <option name="number" value="00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1417902397484</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Links for edit tickets from sheet">
+      <created>1417902778155</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1417902778155</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Links for edit tickets from sheet">
+      <created>1418542985155</created>
+      <option name="number" value="00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1418542985155</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Links for edit tickets from sheet">
+      <created>1418849297076</created>
+      <option name="number" value="00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1418849297076</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Links for edit tickets from sheet">
+      <created>1418849497900</created>
+      <option name="number" value="00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1418849497900</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Links for edit tickets from sheet">
+      <created>1418849708553</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1418849708553</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Links for edit tickets from sheet">
+      <created>1418937940543</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1418937940543</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Links for edit tickets from sheet">
+      <created>1418961550714</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1418961550714</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Links for edit tickets from sheet">
+      <created>1419157819389</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1419157819389</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Links for edit tickets from sheet">
+      <created>1419194382174</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1419194382174</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Links for edit tickets from sheet">
+      <created>1421011526688</created>
+      <option name="number" value="00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1421011526688</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Links for edit tickets from sheet">
+      <created>1421012027460</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1421012027460</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Links for edit tickets from sheet">
+      <created>1421046396056</created>
+      <option name="number" value="00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1421046396056</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Links for edit tickets from sheet">
+      <created>1421046537534</created>
+      <option name="number" value="00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1421046537535</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Links for edit tickets from sheet">
+      <created>1421583249261</created>
+      <option name="number" value="00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1421583249261</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Links for edit tickets from sheet">
+      <created>1421583279507</created>
+      <option name="number" value="00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1421583279507</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Links for edit tickets from sheet">
+      <created>1421585768160</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1421585768160</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Links for edit tickets from sheet">
+      <created>1421586016067</created>
+      <option name="number" value="00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1421586016067</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Links for edit tickets from sheet">
+      <created>1421599906668</created>
+      <option name="number" value="00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1421599906668</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Links for edit tickets from sheet">
+      <created>1422305453703</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1422305453703</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Links for edit tickets from sheet">
+      <created>1423000248364</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1423000248364</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Links for edit tickets from sheet">
+      <created>1423000472974</created>
+      <option name="number" value="00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1423000472974</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Links for edit tickets from sheet">
+      <created>1423000639243</created>
+      <option name="number" value="00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1423000639243</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Links for edit tickets from sheet">
+      <created>1423000739895</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1423000739895</updated>
+    </task>
+    <task id="LOCAL-00061" summary="Links for edit tickets from sheet">
+      <created>1423001602450</created>
+      <option name="number" value="00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1423001602450</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Links for edit tickets from sheet">
+      <created>1423001801231</created>
+      <option name="number" value="00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1423001801231</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Links for edit tickets from sheet">
+      <created>1423004366221</created>
+      <option name="number" value="00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1423004366221</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Links for edit tickets from sheet">
+      <created>1423004619076</created>
+      <option name="number" value="00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1423004619076</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Links for edit tickets from sheet">
+      <created>1423004998252</created>
+      <option name="number" value="00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1423004998252</updated>
+    </task>
+    <task id="LOCAL-00066" summary="Links for edit tickets from sheet">
+      <created>1423473457105</created>
+      <option name="number" value="00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1423473457105</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Links for edit tickets from sheet">
+      <created>1423473760115</created>
+      <option name="number" value="00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1423473760115</updated>
+    </task>
+    <task id="LOCAL-00068" summary="Links for edit tickets from sheet">
+      <created>1423490458200</created>
+      <option name="number" value="00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1423490458200</updated>
+    </task>
+    <task id="LOCAL-00069" summary="Links for edit tickets from sheet">
+      <created>1424122519486</created>
+      <option name="number" value="00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1424122519486</updated>
+    </task>
+    <task id="LOCAL-00070" summary="Links for edit tickets from sheet">
+      <created>1424469794845</created>
+      <option name="number" value="00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1424469794845</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Links for edit tickets from sheet">
+      <created>1424641358039</created>
+      <option name="number" value="00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1424641358039</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Links for edit tickets from sheet">
+      <created>1425928492048</created>
+      <option name="number" value="00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1425928492048</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Links for edit tickets from sheet">
+      <created>1425985848998</created>
+      <option name="number" value="00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1425985848998</updated>
+    </task>
+    <task id="LOCAL-00074" summary="Links for edit tickets from sheet">
+      <created>1425986328580</created>
+      <option name="number" value="00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1425986328580</updated>
+    </task>
+    <task id="LOCAL-00075" summary="Links for edit tickets from sheet">
+      <created>1425989511197</created>
+      <option name="number" value="00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1425989511197</updated>
+    </task>
+    <task id="LOCAL-00076" summary="Links for edit tickets from sheet">
+      <created>1425989674198</created>
+      <option name="number" value="00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1425989674198</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Links for edit tickets from sheet">
+      <created>1428009862773</created>
+      <option name="number" value="00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1428009862773</updated>
+    </task>
+    <task id="LOCAL-00078" summary="Links for edit tickets from sheet">
+      <created>1428102380387</created>
+      <option name="number" value="00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1428102380387</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Links for edit tickets from sheet">
+      <created>1428264034727</created>
+      <option name="number" value="00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1428264034727</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Links for edit tickets from sheet">
+      <created>1430431406839</created>
+      <option name="number" value="00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1430431406839</updated>
+    </task>
+    <task id="LOCAL-00081" summary="Links for edit tickets from sheet">
+      <created>1431292050168</created>
+      <option name="number" value="00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1431292050168</updated>
+    </task>
+    <task id="LOCAL-00082" summary="Links for edit tickets from sheet">
+      <created>1431344358792</created>
+      <option name="number" value="00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1431344358792</updated>
+    </task>
+    <task id="LOCAL-00083" summary="Links for edit tickets from sheet">
+      <created>1431344478149</created>
+      <option name="number" value="00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1431344478149</updated>
+    </task>
+    <task id="LOCAL-00084" summary="Links for edit tickets from sheet">
+      <created>1432324498951</created>
+      <option name="number" value="00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1432324498951</updated>
+    </task>
+    <task id="LOCAL-00085" summary="Links for edit tickets from sheet">
+      <created>1432328757670</created>
+      <option name="number" value="00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1432328757670</updated>
+    </task>
+    <task id="LOCAL-00086" summary="Links for edit tickets from sheet">
+      <created>1433673883075</created>
+      <option name="number" value="00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1433673883075</updated>
+    </task>
+    <task id="LOCAL-00087" summary="Links for edit tickets from sheet">
+      <created>1434745016081</created>
+      <option name="number" value="00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1434745016081</updated>
+    </task>
+    <task id="LOCAL-00088" summary="Links for edit tickets from sheet">
+      <created>1435621279271</created>
+      <option name="number" value="00088" />
+      <option name="project" value="LOCAL" />
+      <updated>1435621279272</updated>
+    </task>
+    <task id="LOCAL-00089" summary="Links for edit tickets from sheet">
+      <created>1435621487661</created>
+      <option name="number" value="00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1435621487661</updated>
+    </task>
+    <task id="LOCAL-00090" summary="Links for edit tickets from sheet">
+      <created>1435869629047</created>
+      <option name="number" value="00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1435869629047</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Links for edit tickets from sheet">
+      <created>1436820543823</created>
+      <option name="number" value="00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1436820543823</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Links for edit tickets from sheet">
+      <created>1438804641852</created>
+      <option name="number" value="00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1438804641852</updated>
+    </task>
+    <task id="LOCAL-00093" summary="Links for edit tickets from sheet">
+      <created>1440356284467</created>
+      <option name="number" value="00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1440356284467</updated>
+    </task>
+    <task id="LOCAL-00094" summary="Links for edit tickets from sheet">
+      <created>1440356648732</created>
+      <option name="number" value="00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1440356648732</updated>
+    </task>
+    <option name="localTasksCounter" value="95" />
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14599092" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23600605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32718122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Framework" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.329429" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39932886" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32885906" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14599092" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23600605" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+    <MESSAGE value="merge&#10;# Please enter the commit message for your changes. Lines starting&#10;# with '#' will be ignored, and an empty message aborts the commit.&#10;# On branch master&#10;# Your branch is ahead of 'origin/master' by 2 commits.&#10;#   (use &quot;git push&quot; to publish your local commits)&#10;#&#10;# Changes to be committed:&#10;#&#9;new file:   .gitignore&#10;#&#9;modified:   .idea/workspace.xml&#10;#&#10;" />
+    <MESSAGE value="Links for edit tickets from sheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="Links for edit tickets from sheet" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/protected/views/discounts/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="442">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Discounts.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.71704745" vertical-offset="153" max-vertical-offset="1768">
+          <caret line="33" column="49" selection-start-line="33" selection-start-column="49" selection-end-line="33" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/discounts/showdiscount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="255" max-vertical-offset="391">
+          <caret line="15" column="17" selection-start-line="15" selection-start-column="17" selection-end-line="15" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/create.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="493" max-vertical-offset="1173">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="442">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/blconfirm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67266184" vertical-offset="0" max-vertical-offset="663">
+          <caret line="22" column="118" selection-start-line="22" selection-start-column="118" selection-end-line="22" selection-end-column="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/jscript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8831615" vertical-offset="3294" max-vertical-offset="3944">
+          <caret line="224" column="32" selection-start-line="224" selection-start-column="32" selection-end-line="224" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/helpers/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="582">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/components/Controller.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.9597855" vertical-offset="358" max-vertical-offset="731">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Tickets.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2967626" vertical-offset="1960" max-vertical-offset="2516">
+          <caret line="125" column="0" selection-start-line="125" selection-start-column="0" selection-end-line="125" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/account/one_passenger_data.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14938489" vertical-offset="0" max-vertical-offset="569">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5714286" vertical-offset="5474" max-vertical-offset="7463">
+          <caret line="342" column="31" selection-start-line="342" selection-start-column="31" selection-end-line="342" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/print.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="578">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.0515463" vertical-offset="2869" max-vertical-offset="4165">
+          <caret line="239" column="33" selection-start-line="239" selection-start-column="33" selection-end-line="239" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Trips.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.80667835" vertical-offset="306" max-vertical-offset="2142">
+          <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1292">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/AccountController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2499">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1887" max-vertical-offset="3060">
+          <caret line="130" column="52" selection-start-line="130" selection-start-column="52" selection-end-line="130" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/AdminController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2657" max-vertical-offset="4131">
+          <caret line="44" column="38" selection-start-line="44" selection-start-column="38" selection-end-line="44" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/ticket.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8601645" vertical-offset="33" max-vertical-offset="1088">
+          <caret line="45" column="28" selection-start-line="45" selection-start-column="28" selection-end-line="45" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/all_profiles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5503597" vertical-offset="0" max-vertical-offset="918">
+          <caret line="18" column="10" selection-start-line="18" selection-start-column="10" selection-end-line="18" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/profile.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1496">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/PassengersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2345" max-vertical-offset="3043">
+          <caret line="144" column="0" selection-start-line="144" selection-start-column="0" selection-end-line="144" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/bus.webjails.ru.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="569">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Profiles.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1037" max-vertical-offset="4454">
+          <caret line="105" column="4" selection-start-line="105" selection-start-column="4" selection-end-line="105" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4586331" vertical-offset="0" max-vertical-offset="646">
+          <caret line="15" column="2" selection-start-line="15" selection-start-column="2" selection-end-line="15" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/tickets/_search.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5518454" vertical-offset="298" max-vertical-offset="1020">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/view.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.039568346" vertical-offset="22" max-vertical-offset="578">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/create.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/create.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="527">
+          <caret line="22" column="21" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/models/Directions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.9172662" vertical-offset="510" max-vertical-offset="2023">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/bus.localhost.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="306">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/bus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="306">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/sprint-tour-08.ru.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/config/main.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.40421793" vertical-offset="1114" max-vertical-offset="1785">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/buses/admin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8866907" vertical-offset="544" max-vertical-offset="1156">
+          <caret line="61" column="3" selection-start-line="61" selection-start-column="3" selection-end-line="61" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/_form.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59753954" vertical-offset="612" max-vertical-offset="2380">
+          <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82073814" vertical-offset="94" max-vertical-offset="663">
+          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/DirectionsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.83655536" vertical-offset="0" max-vertical-offset="4794">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/DiscountsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44964027" vertical-offset="3286" max-vertical-offset="5117">
+          <caret line="208" column="45" selection-start-line="208" selection-start-column="45" selection-end-line="208" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/ie.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="697">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TripsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-12.505396" vertical-offset="12750" max-vertical-offset="16524">
+          <caret line="341" column="0" selection-start-line="341" selection-start-column="0" selection-end-line="341" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.40647483" vertical-offset="2793" max-vertical-offset="5185">
+          <caret line="151" column="24" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/trips/sheet.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="204" max-vertical-offset="3196">
+          <caret line="69" column="60" selection-start-line="69" selection-start-column="60" selection-end-line="69" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/TicketsSearchController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="8.5" vertical-offset="3825" max-vertical-offset="6375">
+          <caret line="212" column="37" selection-start-line="212" selection-start-column="37" selection-end-line="212" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/ticketssearch/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5384617" vertical-offset="1122" max-vertical-offset="1785">
+          <caret line="76" column="0" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+          <folding>
+            <element signature="e#6#88#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/pDFMake/ticket.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-65.38461" vertical-offset="0" max-vertical-offset="1802">
+          <caret line="100" column="2" selection-start-line="100" selection-start-column="2" selection-end-line="100" selection-end-column="2" />
+          <folding>
+            <marker date="1431344472888" expanded="true" signature="471:666" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="482:652" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="502:515" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="566:598" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="685:760" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="811:827" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="828:1035" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="839:1021" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="859:872" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="944:957" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1054:1109" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1159:1214" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1254:1309" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1355:1450" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1494:1569" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1649:1705" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="1706:2141" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="1717:1890" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1737:1782" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1819:1864" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="1901:2127" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="1921:1946" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2030:2055" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2186:2241" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2313:2389" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="2390:3624" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="2401:2858" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2421:2480" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2509:2554" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2593:2638" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2679:2737" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2768:2826" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="2869:3293" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="2889:2914" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3020:3045" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3078:3103" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3155:3180" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3228:3253" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="3304:3610" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3324:3353" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3379:3408" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3434:3463" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3489:3514" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3545:3570" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3654:3709" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3746:3753" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="3895:3951" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="3952:4615" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="3981:4603" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="4634:4710" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="4753:4792" placeholder="..." />
+            <marker date="1431344472888" expanded="true" signature="4793:4864" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="4812:4851" placeholder="..." />
+            <marker date="1431344472888" expanded="false" signature="4883:4984" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/views/pDFMake/triptickets.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="238">
+          <caret line="8" column="12" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="12" />
+          <folding>
+            <element signature="e#6#88#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/protected/controllers/PDFMakeController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1802">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+
