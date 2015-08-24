@@ -15,9 +15,10 @@ $this->menu = array(
 );
 ?>
 <form action="/" method="post">
-	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>" />
-	<input type="hidden" name="monthSelect" value="<?php echo $selectDate['monthSelect']; ?>" />
-	<input type="submit" name="submit" value="Вернуться к расписанию" style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>"/>
+	<input type="hidden" name="monthSelect" value="<?php echo $selectDate['monthSelect']; ?>"/>
+	<input type="submit" name="submit" value="Вернуться к расписанию"
+		   style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
 </form>
 <p/>
 <h2>Посадочная ведомость</h2>
@@ -31,6 +32,7 @@ echo CHtml::link('Редактировать', "#", array("id" => "bus-link"));
 ?>
 <div id="select-bus">
 	<h3>Выбор автобуса для рейса:</h3>
+
 	<form action="/trips/selectbus" method="post">
 		<input type="hidden" name="idTrip" value="<?php echo $dataHeader['trips']['id'] ?>">
 		<?php
@@ -61,11 +63,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'passport',
 			'header' => 'Паспорт',
 			'type'   => 'raw',
-//			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
+			//			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
 			'value'  => 'isset($data["profile_id"]) ? "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
-														<input type=\"hidden\" name=\"trip_id\" value=\"'.$dataHeader["trips"]["id"].'\">
-														<input type=\"hidden\" name=\"yearSelect\" value=\"'.$selectDate["yearSelect"].'\" />
-														<input type=\"hidden\" name=\"monthSelect\" value=\"'.$selectDate["monthSelect"].'\" />
+														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
+														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />
+														<input type=\"hidden\" name=\"monthSelect\" value=\"' . $selectDate["monthSelect"] . '\" />
 														<input type=\"submit\" value=\"".$data["passport"]."\" style=\"background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
 														</form>" : ""',
 		),
@@ -106,7 +108,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'    => 'CButtonColumn',
-			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}&nbsp;&nbsp;&nbsp;{ticket}',
+			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}&nbsp;&nbsp;&nbsp;{ticket}&nbsp;&nbsp;&nbsp;{boarding}',
 			'buttons'  => array(
 				'create_ticket' => array(
 					'label'    => 'Создать билет',
@@ -156,6 +158,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'visible'  => '!empty($data["passport"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
 				),
+				'boarding'      => array(
+					'label'    => 'Печать билета',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
+					'visible'  => '!empty($data["passport"])',
+					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profile_id]")',
+					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus) newWin.focus; newWin.print(); return false; }',
+				),
 			)
 		),
 	),
@@ -176,8 +185,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 <p>
 	<?php
-		echo '<a href="' . Yii::app()->createUrl('trips/sheetprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати</a>';
-		echo '&nbsp;&nbsp;&nbsp;&nbsp;';
-		echo '<a href="' . Yii::app()->createUrl('trips/sheetfullprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати (Список пассажиров)</a>';
+	echo '<a href="' . Yii::app()
+						  ->createUrl('trips/sheetprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати</a>';
+	echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+	echo '<a href="' . Yii::app()
+						  ->createUrl('trips/sheetfullprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати (Список пассажиров)</a>';
 	?>
 </p>

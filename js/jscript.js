@@ -249,7 +249,7 @@ $(function () {
 })
 ;
 
-
+// Показывает скрытую форму выбора автобуса.
 $(function () {
 	$("#bus-link").click(function () {
 		$("#select-bus").toggle(300);

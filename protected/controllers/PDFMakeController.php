@@ -65,14 +65,34 @@ class PDFMakeController extends Controller
 				'error' => 'Профиль не найден',
 			)
 		);
-
 	}
 
-	public function actionTripTickets($tripId){
+	public function actionTripTickets($tripId)
+	{
 		$this->render(
 			'triptickets',
 			array(
 				'tripId' => $tripId,
+			)
+		);
+	}
+
+	public function actionBoardingTicket($profileId)
+	{
+		$Profile = Profiles::model()->findByPk($profileId);
+		$this->renderPartial(
+			'boardingticket',
+			array(
+				'ticketId' => $Profile->tid,
+				'name' => $Profile->last_name . " " . $Profile->name . " " . $Profile->middle_name,
+				'birthDate' => $Profile->birth,
+				'passport' => $Profile->passport,
+				'direction' => $Profile->t->idTrip0->idDirection0->startPoint ." - ".$Profile->t->idTrip0->idDirection0->endPoint,
+				'departure' => $Profile->t->idTrip0->departure,
+				'arrival' => $Profile->t->idTrip0->arrival,
+				'bus' => $Profile->t->idTrip0->idBus0->model . " " . $Profile->t->idTrip0->idBus0->number,
+				'place' => $Profile->t->place,
+				'price' => $Profile->t->price,
 			)
 		);
 	}
