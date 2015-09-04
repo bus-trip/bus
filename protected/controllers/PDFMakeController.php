@@ -77,22 +77,52 @@ class PDFMakeController extends Controller
 		);
 	}
 
-	public function actionBoardingTicket($profileId)
+	public function actionBoardingTicketsList($id)
 	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'idTrip=' . $id . ' and (status=' . TICKET_CONFIRMED . ' or status=' . TICKET_RESERVED . ')';
+		$tickets = Tickets::model()->findAll($criteria);
+		$page = 2;
+		foreach ($tickets as $t) {
+			$profile = Profiles::model()->findByAttributes(array('tid' => $t->id));
+			$page--;
+			if ($profile) {
+				if($page == 0) {
+					$this->actionBoardingTicket($profile->id, TRUE);
+					$page = 2;
+				}
+				else $this->actionBoardingTicket($profile->id);
+			}
+		}
+	}
+
+	public function actionBoardingTicket($profileId, $pagebreak = FALSE)
+	{
+		$Organization = Organization::model()->findByPk(1);
 		$Profile = Profiles::model()->findByPk($profileId);
 		$this->renderPartial(
 			'boardingticket',
 			array(
-				'ticketId' => $Profile->tid,
-				'name' => $Profile->last_name . " " . $Profile->name . " " . $Profile->middle_name,
-				'birthDate' => $Profile->birth,
-				'passport' => $Profile->passport,
-				'direction' => $Profile->t->idTrip0->idDirection0->startPoint ." - ".$Profile->t->idTrip0->idDirection0->endPoint,
-				'departure' => $Profile->t->idTrip0->departure,
-				'arrival' => $Profile->t->idTrip0->arrival,
-				'bus' => $Profile->t->idTrip0->idBus0->model . " " . $Profile->t->idTrip0->idBus0->number,
-				'place' => $Profile->t->place,
-				'price' => $Profile->t->price,
+				'organization'  => array(
+					'name'     => $Organization->name,
+					'contacts' => $Organization->contacts,
+					'site'     => $Organization->site,
+					'email'    => $Organization->email,
+					'info'     => $Organization->info,
+				),
+				'ticketId'      => $Profile->tid,
+				'name'          => $Profile->last_name . " " . $Profile->name . " " . $Profile->middle_name,
+				'birthDate'     => $Profile->birth,
+				'passport'      => $Profile->passport,
+				'direction'     => $Profile->t->idTrip0->idDirection0->startPoint . " - " . $Profile->t->idTrip0->idDirection0->endPoint,
+				'departure'     => date("d.m.Y", strtotime($Profile->t->idTrip0->departure)),
+				'departureTime' => date("H:i", strtotime($Profile->t->idTrip0->departure)),
+				'arrival'       => date("d.m.Y", strtotime($Profile->t->idTrip0->arrival)),
+				'arrivalTime'   => date("H:i", strtotime($Profile->t->idTrip0->arrival)),
+				'bus'           => $Profile->t->idTrip0->idBus0->model . " " . $Profile->t->idTrip0->idBus0->number,
+				'place'         => $Profile->t->place,
+				'price'         => $Profile->t->price,
+				'pageBreak'     => $pagebreak,
 			)
 		);
 	}

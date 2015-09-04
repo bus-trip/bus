@@ -5,57 +5,140 @@
  * Date: 24.08.2015
  * Time: 17:12
  */
+
 ?>
-<div style="border: 1px solid #000000; width: 320px; float: left;">
-	<caption>Билет № <?php echo $ticketId; ?></caption>
-	<table border="1px" cellspacing="0" cellpadding="0" style="padding: 5px;">
-		<tr>
-			<td>Ф.И.О.</td>
-			<td><?php echo $name; ?></td>
-		</tr>
-		<tr>
-			<td>Дата рождения</td>
-			<td><?php echo $birthDate; ?></td>
-		</tr>
-		<tr>
-			<td>Наименование документа</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>Серия, номер</td>
-			<td><?php echo $passport; ?></td>
-		</tr>
-		<tr>
-			<td>Направление</td>
-			<td><?php echo $direction; ?></td>
-		</tr>
-		<tr>
-			<td>Отправление</td>
-			<td><?php echo $startPoint; ?></td>
-		</tr>
-		<tr>
-			<td>Прибытие</td>
-			<td><?php echo $endPoint; ?></td>
-		</tr>
-		<tr>
-			<td>Время отправления</td>
-			<td><?php echo $departure; ?></td>
-		</tr>
-		<tr>
-			<td>Время прибытия</td>
-			<td><?php echo $arrival; ?></td>
-		</tr>
-		<tr>
-			<td>Тип, № автобуса</td>
-			<td><?php echo $bus; ?></td>
-		</tr>
-		<tr>
-			<td>Место</td>
-			<td><?php echo $place; ?></td>
-		</tr>
-		<tr>
-			<td>Стоимость билета</td>
-			<td><?php echo $price; ?></td>
-		</tr>
-	</table>
+<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ticket.css"/>
+
+<div class="bt_div">
+	<div>
+		<div class="orgLogo">
+			Спринт - Тур
+		</div>
+		<div class="orgInfo">
+			<?php echo $organization['info']; ?>
+		</div>
+	</div>
+	<hr/>
+	<div class="orgContacts">
+		<?php echo $organization['contacts']; ?>
+	</div>
+	<hr/>
+	<div class="ticketId">
+		<div>
+			Билет №<?php echo $ticketId; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Ф.И.О.
+		</div>
+		<div class="empty">
+			<?php echo $name; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Дата и место рождения
+		</div>
+		<div class="empty">
+			<?php echo $birthDate; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Наименование документа
+		</div>
+		<div class="empty">
+
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Серия и номер
+		</div>
+		<div class="empty">
+			<?php echo $passport; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Маршрут
+		</div>
+		<div class="empty">
+			<?php echo $direction; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Дата отправления
+		</div>
+		<div class="empty">
+			<?php echo $departure; ?>
+		</div>
+	</div>
+	<div class="departureTime">
+		<div>
+			Время отправления
+		</div>
+		<div class="depTime">
+			<?php echo $departureTime; ?>
+		</div>
+		<div>
+			Место
+		</div>
+		<div class="tPlace">
+			<?php echo $place; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Дата прибытия
+		</div>
+		<div class="empty">
+			<?php echo $arrival; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Время прибытия
+		</div>
+		<div class="empty">
+			<?php echo $arrivalTime; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Тип, № автобуса
+		</div>
+		<div class="empty">
+			<?php echo $bus; ?>
+		</div>
+	</div>
+	<div class="ticketInfo">
+		<div>
+			Стоимость билета
+		</div>
+		<div class="empty">
+			<?php echo $price; ?>
+		</div>
+	</div>
+	<div class="saleDate">
+		<div>
+			Дата продажи
+		</div>
+		<div class="sDate">
+			<?php echo date("d.m.Y"); ?>
+		</div>
+		<div>
+			кассир
+		</div>
+		<div class="authograph">
+
+		</div>
+	</div>
 </div>
+<?php
+	if($pageBreak){
+		echo '<div style="page-break-inside: avoid; page-break-after:always;">&nbsp;</div>';
+	}
+?>

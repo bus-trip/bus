@@ -163,7 +163,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
 					'visible'  => '!empty($data["passport"])',
 					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profile_id]")',
-					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus) newWin.focus; newWin.print(); return false; }',
+					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
 				),
 			)
 		),
@@ -190,5 +190,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	echo '&nbsp;&nbsp;&nbsp;&nbsp;';
 	echo '<a href="' . Yii::app()
 						  ->createUrl('trips/sheetfullprint', array('id' => $_GET['id'])) . '" target="_blank">Версия для печати (Список пассажиров)</a>';
+	echo '&nbsp;&nbsp;&nbsp;&nbsp;';
+	echo '<a href="' . Yii::app()
+						  ->createUrl('pdfmake/boardingticketslist', array('id' => $_GET['id'])) . '" target="_blank">Билеты для печати </a>';
 	?>
 </p>
