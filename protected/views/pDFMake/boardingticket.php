@@ -139,6 +139,6 @@
 </div>
 <?php
 	if($pageBreak){
-		echo '<div style="page-break-inside: avoid; page-break-after:always;">&nbsp;</div>';
+		echo '<div style="height: 1px; page-break-inside: avoid; page-break-after:always; margin: 0;"></div>';
 	}
 ?>

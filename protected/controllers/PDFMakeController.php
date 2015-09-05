@@ -119,14 +119,14 @@ class PDFMakeController extends Controller
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'idTrip=' . $id . ' and (status=' . TICKET_CONFIRMED . ' or status=' . TICKET_RESERVED . ')';
 		$tickets = Tickets::model()->findAll($criteria);
-		$page = 2;
+		$page = 3;
 		foreach ($tickets as $t) {
 			$profile = Profiles::model()->findByAttributes(array('tid' => $t->id));
 			$page--;
 			if ($profile) {
 				if($page == 0) {
 					$this->actionBoardingTicket($profile->id, TRUE);
-					$page = 2;
+					$page = 3;
 				}
 				else $this->actionBoardingTicket($profile->id);
 			}

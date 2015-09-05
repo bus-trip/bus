@@ -1,19 +1,20 @@
 div.bt_div {
-	margin: 10px 5px 50px 5px;
+	margin: 10px 5px 10px 5px;
 	border-top: 1px solid #000000;
 	border-bottom: 1px solid #000000;
 	border-left: 1px dashed #000000;
 	border-right: 1px dashed #000000;
 	padding: 5px;
 	width: 500px;
-	height: 400px;
+	height: 300px;
 	float: none !important;
+	font-size: 12px;
 }
 
 div.orgLogo {
 	font-family: "Monotype Corsiva", "serif";
 	font-weight: bold;
-	font-size: 24px;
+	font-size: 18px;
 	width: auto;
 	float: left;
 	margin-right: 20px;
@@ -28,7 +29,7 @@ div.orgInfo {
 }
 
 div.orgContacts {
-	font-size: 18px;
+	font-size: 10px;
 	text-align: center;
 }
 
@@ -57,7 +58,7 @@ div.ticketInfo div.empty {
 	float: right;
 	text-align: right;
 	width: auto;
-	height: 18px;
+	/*height: 18px;*/
 	margin-right: 20px;
 }
 
