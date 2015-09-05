@@ -1,6 +1,6 @@
 <?php
 
-class PDFMakeController extends Controller
+class PdfmakeController extends Controller
 {
 //	public function actionIndex($profileId)
 //	{
