@@ -49,7 +49,7 @@
 			Наименование документа
 		</div>
 		<div class="empty">
-
+			<?php echo $passportType; ?>
 		</div>
 	</div>
 	<div class="ticketInfo">
