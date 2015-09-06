@@ -51,19 +51,19 @@ class PdfmakeController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				  'actions'=>array('index','view'),
-				  'users'=>array('*'),
+				  'actions' => array('index', 'view'),
+				  'users'   => array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				  'actions'=>array('create','update'),
-				  'users'=>array('@'),
+				  'actions' => array('create', 'update'),
+				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions'=>array('ticket','triptickets', 'boardingticketslist', 'boardingticket'),
-				  'users'=>array('admin'),
+				  'actions' => array('ticket', 'triptickets', 'boardingticketslist', 'boardingticket'),
+				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
-				  'users'=>array('*'),
+				  'users' => array('*'),
 			),
 		);
 	}
@@ -117,18 +117,17 @@ class PdfmakeController extends Controller
 	public function actionBoardingTicketsList($id)
 	{
 		$criteria = new CDbCriteria();
-		$criteria->condition = 'idTrip=' . $id . ' and (status=' . TICKET_CONFIRMED . ' or status=' . TICKET_RESERVED . ')';
+		$criteria->condition = 'idTrip=' . $id . ' and status=' . TICKET_CONFIRMED . ' order by place';
 		$tickets = Tickets::model()->findAll($criteria);
 		$page = 3;
 		foreach ($tickets as $t) {
 			$profile = Profiles::model()->findByAttributes(array('tid' => $t->id));
 			$page--;
 			if ($profile) {
-				if($page == 0) {
+				if ($page == 0) {
 					$this->actionBoardingTicket($profile->id, TRUE);
 					$page = 3;
-				}
-				else $this->actionBoardingTicket($profile->id);
+				} else $this->actionBoardingTicket($profile->id);
 			}
 		}
 	}
@@ -150,6 +149,7 @@ class PdfmakeController extends Controller
 				'ticketId'      => $Profile->tid,
 				'name'          => $Profile->last_name . " " . $Profile->name . " " . $Profile->middle_name,
 				'birthDate'     => $Profile->birth,
+				'passportType'  => 'Паспорт',
 				'passport'      => $Profile->passport,
 				'direction'     => $Profile->t->idTrip0->idDirection0->startPoint . " - " . $Profile->t->idTrip0->idDirection0->endPoint,
 				'departure'     => date("d.m.Y", strtotime($Profile->t->idTrip0->departure)),
