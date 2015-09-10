@@ -178,19 +178,19 @@ class DiscountsController extends Controller
 			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
 		}
 //		Затем скидка по поездкам
-		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
-		if ($Discount) {
-			$criteria = new CDbCriteria();
-			$criteria->select = 't.id';
-			$criteria->join = 'left join tickets as ti on t.tid=ti.id';
-			$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
-			$criteria->condition = 'ti.id != ' . $Profile->tid . ' and (tr.status=1 or tr.status=2) and (ti.status=2 or ti.status=1) and t.passport="' . $Profile->passport . '" and t.last_name ="' . $Profile->last_name . '"';
-			$profiles = Profiles::model()->count($criteria);
-			$tmp = preg_split("/\+/", $Discount->id);
-			if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) {
-				$Ticket->price = $Discount->amountType == 0 ? $Ticket->price - $Discount->amount : $Ticket->price * (1 - $Discount->amount / 100);
-			}
-		}
+//		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
+//		if ($Discount) {
+//			$criteria = new CDbCriteria();
+//			$criteria->select = 't.id';
+//			$criteria->join = 'left join tickets as ti on t.tid=ti.id';
+//			$criteria->join .= ' left join trips as tr on tr.id=ti.idTrip';
+//			$criteria->condition = 'ti.id != ' . $Profile->tid . ' and (tr.status=1 or tr.status=2) and (ti.status=2 or ti.status=1) and t.passport="' . $Profile->passport . '" and t.last_name ="' . $Profile->last_name . '"';
+//			$profiles = Profiles::model()->count($criteria);
+//			$tmp = preg_split("/\+/", $Discount->id);
+//			if (($profiles + 1) % $tmp[1] == 0 && $profiles != 0) {
+//				$Ticket->price = $Discount->amountType == 0 ? $Ticket->price - $Discount->amount : $Ticket->price * (1 - $Discount->amount / 100);
+//			}
+//		}
 
 		return $Ticket->price;
 	}
