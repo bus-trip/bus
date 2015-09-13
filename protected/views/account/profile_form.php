@@ -49,7 +49,16 @@
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'sex'); ?>
-	<?php echo $form->dropDownList($model, 'sex', array('none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский')); ?>
+	<?php
+	switch ($model->sex) {
+		case 'Мужской':
+			$model->sex = 0;
+			break;
+		case 'Женский':
+			$model->sex = 1;
+			break;
+	}
+	echo $form->dropDownList($model, 'sex', ['none' => '-Выберите-', 0 => 'Мужской', 1 => 'Женский']); ?>
 	<?php echo $form->error($model, 'sex'); ?>
 </div>
 
