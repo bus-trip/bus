@@ -21,8 +21,12 @@
 	<?php echo CHtml::encode($data->sex); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('passport')); ?>:</b>
-	<?php echo CHtml::encode($data->passport); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('doc_type')); ?>:</b>
+	<?php echo CHtml::encode($data->doc_type); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('doc_num')); ?>:</b>
+	<?php echo CHtml::encode($data->doc_num); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('phone')); ?>:</b>

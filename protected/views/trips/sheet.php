@@ -18,7 +18,7 @@ $this->menu = array(
 	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>"/>
 	<input type="hidden" name="monthSelect" value="<?php echo $selectDate['monthSelect']; ?>"/>
 	<input type="submit" name="submit" value="Вернуться к расписанию"
-		   style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+		   style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
 </form>
 <p/>
 <h2>Посадочная ведомость</h2>
@@ -60,15 +60,15 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => '№',
 		),
 		array(
-			'name'   => 'passport',
-			'header' => 'Паспорт',
+			'name'   => 'doc_num',
+			'header' => 'Документ',
 			'type'   => 'raw',
 			//			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
-			'value'  => 'isset($data["profile_id"]) ? "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
+			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
 														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
 														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />
 														<input type=\"hidden\" name=\"monthSelect\" value=\"' . $selectDate["monthSelect"] . '\" />
-														<input type=\"submit\" value=\"".$data["passport"]."\" style=\"background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
+														<input type=\"submit\" value=\"".$data["doc_num"]."\" style=\"padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
 														</form>" : ""',
 		),
 		array(
@@ -113,14 +113,14 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'create_ticket' => array(
 					'label'    => 'Создать билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
-					'visible'  => 'empty($data["passport"])',
+					'visible'  => 'empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
 					'options'  => array('class' => 'create-ticket', 'data-tripId' => $dataHeader['trips']['id']),
 				),
 				'edit_ticket'   => array(
 					'label'    => 'Редактировать билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/edit.png',
-					'visible'  => '!empty($data["passport"])',
+					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
 					'options'  => array('class' => 'edit-ticket', 'data-tripid' => $dataHeader['trips']['id']),
 				),
@@ -128,21 +128,21 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'label'    => 'Подтвердить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/success.png',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/confirm/$data[ticket_id]")',
-					'visible'  => '!empty($data["passport"]) && $data["status"] != 2',
+					'visible'  => '!empty($data["doc_num"]) && $data["status"] != 2',
 					'click'    => 'function(){return confirm("Вы хотите подтвердить бронь?");}'
 				),
 				'delete'        => array(
 					'label'    => 'Отменить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/cancel.png',
 					'url'      => 'Yii::app()->controller->createUrl("trips/deleteticket/$data[ticket_id]")',
-					'visible'  => '!empty($data["passport"])',
+					'visible'  => '!empty($data["doc_num"])',
 					'click'    => 'function(){ return confirm("Вы хотите отменить бронирование/покупку этого билета?"); }'
 				),
 				'blacklist'     => array(
 					'label'    => 'Внести в чёрный список',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/' . $dataHeader['trips']['id'] . '/profileid/$data[profile_id]/action/add")',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/blacklist.png',
-					'visible'  => 'empty($data["black_list"]) && !empty($data["passport"])',
+					'visible'  => 'empty($data["black_list"]) && !empty($data["doc_num"])',
 					'click'    => 'function(){ return confirm("Хотите внести пассажира в чёрный список?"); }'
 				),
 				'unblacklist'   => array(
@@ -155,13 +155,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'ticket'        => array(
 					'label'    => 'Войти в билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
-					'visible'  => '!empty($data["passport"])',
+					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
 				),
 				'boarding'      => array(
 					'label'    => 'Печать билета',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
-					'visible'  => '!empty($data["passport"])',
+					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profile_id]")',
 					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
 				),
