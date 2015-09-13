@@ -207,11 +207,13 @@ class TicketsController extends Controller
 	{
 		$criteria = new CDbCriteria();
 		$criteria->addCondition('last_name=:last_name');
-		$criteria->addCondition('passport=:passport');
+		$criteria->addCondition('doc_type=:doc_type');
+		$criteria->addCondition('doc_num=:doc_num');
 		$criteria->addCondition('t.tid IS NOT NULL');
 		$criteria->params = array(
 			':last_name' => $profile->last_name,
-			':passport'  => $profile->passport
+			':doc_type'  => $profile->doc_type,
+			':doc_num'   => $profile->doc_num
 		);
 		return Profiles::model()->findAll($criteria);
 	}

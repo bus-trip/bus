@@ -30,15 +30,16 @@
 
 
 <div class="row">
-	<div class="passport-input">
-		<label for="user_passport1" class="required">Серия <span class="required">*</span></label>
-		<input class="code" type="text" name="user_passport1" id="" maxlength="4" size="4"/>
-		<label for="user_passport2" class="required">Номер <span class="required">*</span></label>
-		<input class="number" type="text" name="user_passport2" id="" maxlength="6" size="6"/>
+	<?php echo $form->labelEx($model, 'doc_type'); ?>
+	<?php echo $form->dropDownList($model, 'doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
+														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении']); ?>
+	<?php echo $form->error($model, 'doc_type'); ?>
+</div>
 
-		<?php echo $form->hiddenField($model, 'passport', array('class' => 'code_number')); ?>
-	</div>
-	<?php echo $form->error($model, 'passport'); ?>
+<div class="row">
+	<?php echo $form->labelEx($model, 'doc_num'); ?>
+	<?php echo $form->textField($model, 'doc_num'); ?>
+	<?php echo $form->error($model, 'doc_num'); ?>
 </div>
 
 <div class="row">

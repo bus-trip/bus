@@ -115,10 +115,10 @@ $(function () {
 							var input_name = $(this).attr('name');
 							if ($(this)[0].tagName == 'INPUT') {
 								$(this).val(ui.item.data[input_name]);
-								//console.log(ui.item.data[input_name]);
-								//console.log(input_name);
 							} else if ($(this)[0].tagName == 'TEXTAREA') {
 								$(this).text(ui.item.data[input_name]);
+							} else if($(this)[0].tagName == 'SELECT'){
+								$(this).val(ui.item.data[input_name]);
 							}
 						});
 					}
@@ -166,7 +166,7 @@ $(function () {
 			op = self.data('op'),
 			tripId = self.data('tripid'),
 			placeId = self.data('placeid'),
-			form_inputs = self.parents('tr').find('input,textarea');
+			form_inputs = self.parents('tr').find('input,textarea,select');
 
 		form_inputs.removeClass('error').each(function () {
 			var val = $(this).val(),

@@ -38,9 +38,16 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'passport'); ?>
-		<?php echo $form->textField($model,'passport',array('size'=>15,'maxlength'=>15)); ?>
-		<?php echo $form->error($model,'passport'); ?>
+		<?php echo $form->labelEx($model, 'doc_type'); ?>
+		<?php echo $form->dropDownList($model, 'doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
+															Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении']); ?>
+		<?php echo $form->error($model, 'doc_type'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'doc_num'); ?>
+		<?php echo $form->textField($model,'doc_num'); ?>
+		<?php echo $form->error($model,'doc_num'); ?>
 	</div>
 
 	<div class="row">

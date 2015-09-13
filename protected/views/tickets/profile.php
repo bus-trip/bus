@@ -9,7 +9,7 @@ if (isset($tripId["trip_id"])) {
 		<input type="hidden" name="yearSelect" value="<?php echo $tripId['yearSelect']; ?>"/>
 		<input type="hidden" name="monthSelect" value="<?php echo $tripId['monthSelect']; ?>"/>
 		<input type="submit" value="Вернуться к ведомости"
-			   style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+			   style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
 	</form>
 	<p/>
 	<?php
