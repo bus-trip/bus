@@ -132,7 +132,7 @@ class AccountController extends Controller
 		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
 		$this->breadcrumbs[]              = 'Редактирование профиля';
 
-		$model = $this->loadProfile($id);
+		$model        = $this->loadProfile($id);
 		$model->birth = date('d.m.Y', $model->birth);
 		if ($model && $model->uid == $this->user->id &&
 			$attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))
@@ -145,6 +145,16 @@ class AccountController extends Controller
 			}
 		}
 		$this->render('one_passenger', ['model' => $model]);
+	}
+
+	public function actionTickets()
+	{
+		$this->pageTitle     = 'Мои билеты';
+		$this->breadcrumbs[] = 'Мои билеты';
+
+		$dataProvider = new CActiveDataProvider('Tickets', []);
+
+		$this->render('tickets', ['dataProvider' => $dataProvider]);
 	}
 
 	/**
