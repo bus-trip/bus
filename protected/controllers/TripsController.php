@@ -694,71 +694,71 @@ class TripsController extends Controller
 		$criteria->condition = 'idTrip=:idTrip AND place=:place';
 		$criteria->params    = array(':idTrip' => $tripId, ':place' => $placeId);
 		$criteria->addNotInCondition('t.status', array(TICKET_CANCELED));
-		$Tickets = Tickets::model()->with('profiles')->with(array('idTrip0', 'idDirection0' => 'idTrip0'))
+		$tickets = Tickets::model()->with('profiles')->with(array('idTrip0', 'idDirection0' => 'idTrip0'))
 						  ->findAll($criteria);
-		$Ticket  = !empty($Tickets) ? $Tickets[count($Tickets) - 1] : new Tickets();
-		$errors  = array();
+		$ticket  = !empty($tickets) ? $tickets[count($tickets) - 1] : new Tickets();
+
+		if (!empty($ticket->profiles)) {
+			/** @var $profile Profiles */
+			$profile = $ticket->profiles[count($ticket->profiles) - 1];
+		} else {
+			$profile = new Profiles();
+		}
+
+		$errors = array();
 		if (!empty($_POST['data'])) { // обновляем/создаем профиль и билет
-			if (!empty($Ticket->profiles)) {
-				$Profile = $Ticket->profiles[count($Ticket->profiles) - 1];
-			} else {
-				$Profile = new Profiles();
+			$profile->doc_type    = $_POST['data']['Profiles[doc_type'];
+			$profile->doc_num     = $_POST['data']['Profiles[doc_num'];
+			$profile->last_name   = $_POST['data']['Profiles[last_name'];
+			$profile->name        = $_POST['data']['Profiles[name'];
+			$profile->middle_name = $_POST['data']['Profiles[middle_name'];
+			$profile->phone       = $_POST['data']['Profiles[phone'];
+			$profile->birth       = $_POST['data']['Profiles[birth'];
+			$profile->black_list  = $_POST['data']['Profiles[black_list'];
+			$profile->black_desc  = $_POST['data']['Profiles[black_desc'];
+
+			if ($profileLoad = Profiles::model()->findAllByPk($_POST['data']['Profiles[id'])) {
+				$profile->sex = $profileLoad[0]->sex;
 			}
 
-			$Profile->doc_type    = $_POST['data']['Profiles[doc_type'];
-			$Profile->doc_num     = $_POST['data']['Profiles[doc_num'];
-			$Profile->last_name   = $_POST['data']['Profiles[last_name'];
-			$Profile->name        = $_POST['data']['Profiles[name'];
-			$Profile->middle_name = $_POST['data']['Profiles[middle_name'];
-			$Profile->phone       = $_POST['data']['Profiles[phone'];
-			$Profile->birth       = $_POST['data']['Profiles[birth'];
-			$Profile->black_list  = $_POST['data']['Profiles[black_list'];
-			$Profile->black_desc  = $_POST['data']['Profiles[black_desc'];
-			if ($Profile->validate()) {
-
-				$Ticket->idTrip       = $tripId;
-				$Ticket->place        = $placeId;
-				$Ticket->address_from = $_POST['data']['Tickets[address_from'];
-				$Ticket->address_to   = $_POST['data']['Tickets[address_to'];
-				$Ticket->remark       = $_POST['data']['Tickets[remark'];
-				$Ticket->price        = $_POST['data']['Tickets[price'];
-				if (empty($Ticket->status)) {
-					$Ticket->status = TICKET_RESERVED;
+			if ($profile->validate()) {
+				$ticket->idTrip       = $tripId;
+				$ticket->place        = $placeId;
+				$ticket->address_from = $_POST['data']['Tickets[address_from'];
+				$ticket->address_to   = $_POST['data']['Tickets[address_to'];
+				$ticket->remark       = $_POST['data']['Tickets[remark'];
+				$ticket->price        = $_POST['data']['Tickets[price'];
+				if (empty($ticket->status)) {
+					$ticket->status = TICKET_RESERVED;
 				}
 
-				if ($Ticket->validate() && $Ticket->save()) {
-					$Profile->tid = $Ticket->id;
-					$Profile->save();
-					if ($Ticket->idTrip0->idDirection0->price == $Ticket->price)
-						$Ticket->price = $discount->getDiscount($Profile->id);
-					$Ticket->save();
-					Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " забронирован");
+				if ($ticket->validate() && $ticket->save()) {
+					$profile->tid = $ticket->id;
+					$profile->save();
+					if ($ticket->idTrip0->idDirection0->price == $ticket->price)
+						$ticket->price = $discount->getDiscount($profile->id);
+					$ticket->save();
+					Yii::app()->user->setFlash('success', "Билет #" . str_pad($ticket->id, 4, '0', STR_PAD_LEFT) . " забронирован");
 				} else {
-					$errors = $Ticket->getErrors();
+					$errors = $ticket->getErrors();
 				}
 			} else {
-				$errors = $Profile->getErrors();
+				$errors = $profile->getErrors();
 			}
 		}
 
-		if (!$Ticket->price) {
+		if (!$ticket->price) {
 			$criteria1            = new CDbCriteria();
 			$criteria1->join      = 'left join trips as tr on t.id=tr.idDirection';
 			$criteria1->condition = 'tr.id=' . $tripId;
 			$criteria1->addCondition('t.parentId=0');
 			$Direction     = Directions::model()->find($criteria1);
-			$Ticket->price = $Direction->price;
+			$ticket->price = $Direction->price;
 			$default_price = '';
 		} else {
-			$default_price = $Ticket->price;
+			$default_price = $ticket->price;
 		}
 
-		if (!empty($Ticket->profiles)) {
-			/** @var $profile Profiles */
-			$profile = $Ticket->profiles[count($Ticket->profiles) - 1];
-		} else {
-			$profile = new Profiles();
-		}
 		$options = '';
 		foreach ([Profiles::DOC_PASSPORT          => 'Пасспорт',
 				  Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
@@ -767,40 +767,41 @@ class TripsController extends Controller
 				 ] as $value => $name) {
 
 			$options .= '<option value="' . $value . '"';
-			if (!empty($Ticket->profiles) && $profile->doc_type == $value) {
+			if (!empty($ticket->profiles) && $profile->doc_type == $value) {
 				$options .= ' selected="selected"';
 			}
 			$options .= '>' . $name . '</option>';
 		}
 
 		$inputs = array(
-			'<select class="autocomplete" name="Profiles[doc_type]">' . $options . '</select><input class="autocomplete" type="text" name="Profiles[doc_num]" maxlength="64" size="10" value="' . (!empty($Ticket->profiles) ? $profile->doc_num : '') . '" />',
-			'<input class="autocomplete" type="text" name="Profiles[last_name]" size="10" value="' . (!empty($Ticket->profiles) ? $profile->last_name : '') . '" />',
-			'<input class="autocomplete" type="text" name="Profiles[name]" size="10" value="' . (!empty($Ticket->profiles) ? $profile->name : '') . '" />',
-			'<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($Ticket->profiles) ? $profile->middle_name : '') . '" />',
-			'<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($Ticket->profiles) ? $profile->phone : '') . '" />',
-			'<input class="autocomplete" type="text" name="Profiles[birth]" size="10" value="' . (!empty($Ticket->profiles) ? $profile->birth : '') . '" />',
-			'<textarea class="autocomplete dadata" name="Tickets[address_from]">' . $Ticket->address_from . '</textarea>',
-			'<textarea class="autocomplete dadata" name="Tickets[address_to]">' . $Ticket->address_to . '</textarea>',
-			'<textarea name="Tickets[remark]">' . $Ticket->remark . '</textarea>',
-			'<input type="text" name="Tickets[price]" value="' . $Ticket->price . '" />',
+			'<input class="autocomplete" type="hidden"  name="Profiles[id]" value="' . (!empty($ticket->profiles) ? $profile->id : '') . '"/>' .
+			'<select class="autocomplete" name="Profiles[doc_type]">' . $options . '</select><input class="autocomplete" type="text" name="Profiles[doc_num]" maxlength="64" size="10" value="' . (!empty($ticket->profiles) ? $profile->doc_num : '') . '" />',
+			'<input class="autocomplete" type="text" name="Profiles[last_name]" size="10" value="' . (!empty($ticket->profiles) ? $profile->last_name : '') . '" />',
+			'<input class="autocomplete" type="text" name="Profiles[name]" size="10" value="' . (!empty($ticket->profiles) ? $profile->name : '') . '" />',
+			'<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($ticket->profiles) ? $profile->middle_name : '') . '" />',
+			'<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($ticket->profiles) ? $profile->phone : '') . '" />',
+			'<input class="autocomplete" type="text" name="Profiles[birth]" size="10" value="' . (!empty($ticket->profiles) ? $profile->birth : '') . '" />',
+			'<textarea class="autocomplete dadata" name="Tickets[address_from]">' . $ticket->address_from . '</textarea>',
+			'<textarea class="autocomplete dadata" name="Tickets[address_to]">' . $ticket->address_to . '</textarea>',
+			'<textarea name="Tickets[remark]">' . $ticket->remark . '</textarea>',
+			'<input type="text" name="Tickets[price]" value="' . $ticket->price . '" />',
 		);
 
 		$bl = array(
-			'in_bl'      => (!empty($Ticket->profiles) ? $profile->black_list : 0),
-			'in_bl_desc' => (!empty($Ticket->profiles) ? $profile->black_desc : null)
+			'in_bl'      => (!empty($ticket->profiles) ? $profile->black_list : 0),
+			'in_bl_desc' => (!empty($ticket->profiles) ? $profile->black_desc : null)
 		);
 
 		$inline = array(
-			(string) (!empty($Ticket->profiles) ? $profile->getAttributeLabel('doc_type') . '<br>' . CHtml::link($profile->doc_num, array("tickets/profile/" . $profile->id)) : ''),
-			(string) (!empty($Ticket->profiles) ? $profile->last_name : ''),
-			(string) (!empty($Ticket->profiles) ? $profile->name : ''),
-			(string) (!empty($Ticket->profiles) ? $profile->middle_name : ''),
-			(string) (!empty($Ticket->profiles) ? $profile->phone : ''),
-			(string) (!empty($Ticket->profiles) ? $profile->birth : ''),
-			(string) $Ticket->address_from,
-			(string) $Ticket->address_to,
-			(string) $Ticket->remark,
+			(string) (!empty($ticket->profiles) ? $profile->getAttributeLabel('doc_type') . '<br>' . CHtml::link($profile->doc_num, array("tickets/profile/" . $profile->id)) : ''),
+			(string) (!empty($ticket->profiles) ? $profile->last_name : ''),
+			(string) (!empty($ticket->profiles) ? $profile->name : ''),
+			(string) (!empty($ticket->profiles) ? $profile->middle_name : ''),
+			(string) (!empty($ticket->profiles) ? $profile->phone : ''),
+			(string) (!empty($ticket->profiles) ? $profile->birth : ''),
+			(string) $ticket->address_from,
+			(string) $ticket->address_to,
+			(string) $ticket->remark,
 			(string) $default_price
 		);
 
@@ -851,6 +852,7 @@ class TripsController extends Controller
 							'value' => $profile->$field,
 							'info'  => '(' . $profile->shortName() . '; ' . $profile->getAttributeLabel('doc_type') . ': ' . $profile->doc_num . ') ' . $ticket->shortAddress() . $str_in_bl,
 							'data'  => array(
+								'Profiles[id]'          => $profile->id,
 								'Profiles[doc_type]'    => $profile->doc_type,
 								'Profiles[doc_num]'     => $profile->doc_num,
 								'Profiles[last_name]'   => $profile->last_name,
