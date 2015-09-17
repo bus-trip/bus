@@ -189,7 +189,7 @@ class Profiles extends CActiveRecord
 
 	public function validate($attributes = null, $clearErrors = true)
 	{
-		if ($this->sex == 'none') {
+		if ($this->sex === 'none') {
 			$this->sex = null;
 		}
 
