@@ -1,0 +1,97 @@
+div.bt_div {
+	margin: 10px 5px 10px 5px;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px dashed #000000;
+	border-right: 1px dashed #000000;
+	padding: 5px;
+	width: 500px;
+	height: 300px;
+	float: none !important;
+	font-size: 12px;
+}
+
+div.orgLogo {
+	font-family: "Monotype Corsiva", "serif";
+	font-weight: bold;
+	font-size: 18px;
+	width: auto;
+	float: left;
+	margin-right: 20px;
+	border: 1px solid #000000;
+	padding: 7px 5px;
+}
+
+div.orgInfo {
+	height: 30px;
+	font-size: 10px;
+	padding-top: 10px;
+}
+
+div.orgContacts {
+	font-size: 10px;
+	text-align: center;
+}
+
+div.bt_div hr {
+	width: 100%;
+}
+
+div.bt_div div.ticketId {
+	float: left;
+	width: 100%;
+	margin-top: 3px;
+	margin-bottom: 8px;
+}
+
+div.ticketInfo {
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #000000;
+}
+
+div.ticketInfo div {
+	float: left;
+}
+
+div.ticketInfo div.empty {
+	float: right;
+	text-align: right;
+	width: auto;
+	/*height: 18px;*/
+	margin-right: 20px;
+}
+
+div.departureTime {
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #000000;
+}
+
+div.departureTime div {
+	float: left;
+	/*width: 250px;*/
+}
+
+div.departureTime div.depTime, div.tPlace {
+	float: left;
+	width: 50px;
+	margin-left: 100px;
+}
+
+div.saleDate {
+	width: 100%;
+	float: left;
+	border-bottom: 1px solid #000000;
+}
+
+div.saleDate div {
+	float: left;
+	/*width: 250px;*/
+}
+
+div.saleDate div.sDate, div.authograph {
+	float: left;
+	width: 100px;
+	margin-left: 100px;
+}

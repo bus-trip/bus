@@ -468,7 +468,7 @@ body .ui-menu .ui-menu-item a {
 #checkout-profiles-wrapper #profiles .profile-item .del{
 	margin: 10px 0 0;
     border-bottom: 1px dashed;
-    
+
 	color: #FF0000;
     display: inline-block;
     cursor: pointer;
@@ -487,7 +487,7 @@ body .ui-menu .ui-menu-item a {
 
 #checkout-profiles-wrapper #profiles .profile-item .row label{
     width: 32%;
-	
+
     display: inline-block;
 }
 
@@ -560,4 +560,8 @@ body .ui-menu .ui-menu-item a {
 #wizard-wrapper .back{
     float: left;
     margin-top: -18px;
+}
+select.autocomplete {
+	width: 103px;
+	margin-bottom: 2px;
 }

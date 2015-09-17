@@ -1,14 +1,18 @@
 <?php
-if(isset($tripId["trip_id"])) {
+/**
+ * @var $this TicketsController
+ */
+
+if (isset($tripId["trip_id"])) {
 	?>
 	<form action="/trips/sheet/<?php echo $tripId["trip_id"]; ?>" method="post">
 		<input type="hidden" name="yearSelect" value="<?php echo $tripId['yearSelect']; ?>"/>
 		<input type="hidden" name="monthSelect" value="<?php echo $tripId['monthSelect']; ?>"/>
 		<input type="submit" value="Вернуться к ведомости"
-			   style="background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
+			   style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
 	</form>
 	<p/>
-<?php
+	<?php
 }
 ?>
 <h1><?php print $this->pageTitle; ?></h1>
@@ -16,8 +20,9 @@ if(isset($tripId["trip_id"])) {
 	<h2>Информация о профиле пассажира</h2>
 
 	<div class="data">
-		<?php print $this->renderPartial('one_passenger_data', array('data' => $model)); ?>
+		<?php print $this->renderPartial('application.views.account.one_passenger_data', array('data' => $model), true); ?>
 	</div>
+	<div class="edit"><a href="<?= $this->createUrl('tickets/profileEdit', ['id' => $model->id]) ?>" target="_blank">Изменить</a></div>
 </div>
 <br><br>
 <div class="row">

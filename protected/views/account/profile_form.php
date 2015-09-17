@@ -7,6 +7,14 @@
 
 <?php echo $form->errorSummary($model); ?>
 
+<fieldset>
+	<div class="row">
+		<?php echo $form->checkBox($model, 'black_list'); ?>
+		<?php echo $form->labelEx($model, 'black_list', array('class' => 'inline')); ?>
+		<?php echo $form->error($model, 'black_list'); ?>
+	</div>
+</fieldset>
+
 <div class="row">
 	<?php echo $form->labelEx($model, 'last_name'); ?>
 	<?php echo $form->textField($model, 'last_name'); ?>
@@ -27,32 +35,35 @@
 
 
 <div class="row">
-	<div class="passport-input">
-		<label for="user_passport1" class="required">Серия <span class="required">*</span></label>
-		<input class="code" type="text" name="user_passport1" id="" maxlength="4" size="4"/>
-		<label for="user_passport2" class="required">Номер <span class="required">*</span></label>
-		<input class="number" type="text" name="user_passport2" id="" maxlength="6" size="6"/>
+	<?php echo $form->labelEx($model, 'doc_type'); ?>
+	<?php echo $form->dropDownList($model, 'doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
+														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
+														Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
+														Profiles::DOC_MILITARY_ID       => 'Военный билет']); ?>
+	<?php echo $form->error($model, 'doc_type'); ?>
+</div>
 
-		<?php echo $form->hiddenField($model, 'passport', ['class' => 'code_number']); ?>
-	</div>
-	<?php echo $form->error($model, 'passport'); ?>
+<div class="row">
+	<?php echo $form->labelEx($model, 'doc_num'); ?>
+	<?php echo $form->textField($model, 'doc_num'); ?>
+	<?php echo $form->error($model, 'doc_num'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'phone'); ?>
-	<?php echo $form->textField($model, 'phone', ['class' => 'phone']); ?>
+	<?php echo $form->textField($model, 'phone', array('class' => 'phone')); ?>
 	<?php echo $form->error($model, 'phone'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'sex'); ?>
-	<?php echo $form->dropDownList($model, 'sex', ['none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский']); ?>
+	<?php echo $form->dropDownList($model, 'sex', array('none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский')); ?>
 	<?php echo $form->error($model, 'sex'); ?>
 </div>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'birth'); ?>
-	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
+	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
 		'model'     => $model,
 		'attribute' => 'birth',
 		'language'  => 'ru',

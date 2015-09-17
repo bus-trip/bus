@@ -26,23 +26,33 @@ class TicketsController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				  'actions' => array('index', 'view'),
-				  'users'   => array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				  'actions' => array('create', 'update'),
-				  'users'   => array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'profile', 'confirm', 'blacklist', 'unblacklist', 'passengers'),
-				  'users'   => array('admin'),
-			),
-			array('deny',  // deny all users
-				  'users' => array('*'),
-			),
-		);
+		return [
+			['allow',  // allow all users to perform 'index' and 'view' actions
+			 'actions' => ['index', 'view'],
+			 'users'   => ['*'],
+			],
+			['allow', // allow authenticated user to perform 'create' and 'update' actions
+			 'actions' => ['create', 'update'],
+			 'users'   => ['@'],
+			],
+			['allow', // allow admin user to perform 'admin' and 'delete' actions
+			 'actions' => [
+				 'admin',
+				 'delete',
+				 'profile',
+				 'confirm',
+				 'blacklist',
+				 'unblacklist',
+				 'passengers',
+				 'searchticket',
+				 'profileEdit'
+			 ],
+			 'users'   => ['admin'],
+			],
+			['deny',  // deny all users
+			 'users' => ['*'],
+			],
+		];
 	}
 
 	/**
@@ -134,7 +144,7 @@ class TicketsController extends Controller
 	 */
 	public function actionConfirm($id)
 	{
-		$model = $this->loadModel($id);
+		$model         = $this->loadModel($id);
 		$model->status = 2;
 
 		if ($model->save())
@@ -160,7 +170,7 @@ class TicketsController extends Controller
 				break;
 			case 'del':
 				$Profile->black_list = 0;
-				$Profile->black_desc = NULL;
+				$Profile->black_desc = null;
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
@@ -193,32 +203,36 @@ class TicketsController extends Controller
 		));
 	}
 
-	public function actionProfile($id)
+	protected function getSameProfiles($profile)
 	{
-		$Profile = Profiles::model()->findByPk($id);
-		if (!$Profile)
-			throw new CHttpException(404, 'The requested page does not exist.');
-
 		$criteria = new CDbCriteria();
-//		$criteria->addCondition('name=:name');
 		$criteria->addCondition('last_name=:last_name');
-//		$criteria->addCondition('middle_name=:middle_name');
-		$criteria->addCondition('passport=:passport');
+		$criteria->addCondition('doc_type=:doc_type');
+		$criteria->addCondition('doc_num=:doc_num');
 		$criteria->addCondition('t.tid IS NOT NULL');
 		$criteria->params = array(
-			':last_name' => $Profile->last_name,
-			//								  ':name'        => $Profile->name,
-			//								  ':middle_name' => $Profile->middle_name,
-			':passport'  => $Profile->passport
+			':last_name' => $profile->last_name,
+			':doc_type'  => $profile->doc_type,
+			':doc_num'   => $profile->doc_num
 		);
-		$SameProfiles = Profiles::model()->findAll($criteria);
-		$tickets = array();
-		foreach ($SameProfiles as $itemProfile) {
-			$criteria_tickets = new CDbCriteria();
+		return Profiles::model()->findAll($criteria);
+	}
+
+	public function actionProfile($id)
+	{
+		$profile = Profiles::model()->findByPk($id);
+		if (!$profile)
+			throw new CHttpException(404, 'The requested page does not exist.');
+
+		$tickets = [];
+
+		$sameProfiles = $this->getSameProfiles($profile);
+		foreach ($sameProfiles as $itemProfile) {
+			$criteria_tickets            = new CDbCriteria();
 			$criteria_tickets->condition = 't.id=:id';
-			$criteria_tickets->params = array(':id' => $itemProfile->tid);
-//			$criteria_tickets->addNotInCondition('t.status', array(TICKET_CANCELED));
-			$ticketObj = Tickets::model()->with(array('idTrip0', 'idDirection0' => 'idTrip0'))->find($criteria_tickets);
+			$criteria_tickets->params    = array(':id' => $itemProfile->tid);
+			$ticketObj                   = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
+												  ->find($criteria_tickets);
 			if ($ticketObj) {
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
@@ -246,16 +260,48 @@ class TicketsController extends Controller
 		);
 
 		$this->render('profile', array(
-			'model'        => $Profile,
+			'model'        => $profile,
 			'dataProvider' => $dataProvider,
 			'tripId'       => isset($_POST) ? $_POST : '',
 		));
 	}
 
+	public function actionProfileEdit($id)
+	{
+		$profile = Profiles::model()->findByPk($id);
+		if (!$profile)
+			throw new CHttpException(404, 'The requested page does not exist.');
+
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($profile))) {
+			$sameProfiles = $this->getSameProfiles($profile);
+			$profile->setAttributes($attributes);
+			if ($profile->validate() && $profile->save()) {
+				foreach ($sameProfiles as $itemProfile) {
+					$itemProfile->setAttributes($attributes);
+					if ($itemProfile->validate()) {
+						$itemProfile->save();
+					}
+				}
+				Yii::app()->user->setFlash('success', 'Профиль сохранен');
+				$this->redirect(['tickets/profile/' . $id]);
+			}
+		}
+
+		$this->pageTitle = 'Редактирование профиля пассажира';
+
+		$this->breadcrumbs = [
+			'Рейсы'                      => ['trips/admin/status/actual'],
+			'Просмотр билетов пассажира' => ['tickets/profile/' . $id],
+			$this->pageTitle
+		];
+
+		return $this->render('profile_edit', ['model' => $profile]);
+	}
+
 	function actionPassengers()
 	{
-		$this->layout = '//layouts/column1';
-		$this->pageTitle = 'Все пассажиры';
+		$this->layout      = '//layouts/column1';
+		$this->pageTitle   = 'Все пассажиры';
 		$this->breadcrumbs = array($this->pageTitle);
 
 		$model = new Profiles('search');
@@ -278,7 +324,7 @@ class TicketsController extends Controller
 	public function loadModel($id)
 	{
 		$model = Tickets::model()->findByPk($id);
-		if ($model === NULL)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 
 		return $model;

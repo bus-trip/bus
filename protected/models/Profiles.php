@@ -10,7 +10,8 @@
  * @property string  $last_name
  * @property string  $name
  * @property string  $middle_name
- * @property string  $passport
+ * @property string  $doc_num
+ * @property integer $doc_type
  * @property string  $phone
  * @property integer $sex
  * @property integer $birth
@@ -24,6 +25,11 @@
  */
 class Profiles extends CActiveRecord
 {
+	const DOC_PASSPORT          = 1;
+	const DOC_BIRTH_CERTIFICATE = 2;
+	const DOC_FOREIGN_PASSPORT  = 3;
+	const DOC_MILITARY_ID       = 4;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -40,17 +46,16 @@ class Profiles extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-//			array('last_name, name, passport, phone', 'required'),
-array('last_name, name, middle_name, passport, phone, birth', 'required'),
-array('uid, tid, passport, sex, black_list', 'numerical', 'integerOnly' => true),
-array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
-array('passport', 'length', 'max' => 10, 'min' => 10),
-array('phone', 'length', 'max' => 17),
-array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
-array('birth', 'date', 'format' => 'dd.MM.yyyy'),
-// The following rule is used by search().
-// @todo Please remove those attributes that should not be searched.
-array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, black_list, black_desc, created', 'safe', 'on' => 'search'),
+			array('last_name, name, middle_name, doc_num, doc_type, phone, birth', 'required'),
+			array('uid, tid, sex, birth, black_list, doc_type', 'numerical', 'integerOnly' => true),
+			array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
+			array('doc_num', 'length', 'max' => 64),
+			array('phone', 'length', 'max' => 17),
+			array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
+			array('birth', 'date', 'format' => 'dd.MM.yyyy'),
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, uid, tid, last_name, name, middle_name, doc_num, doc_type, phone, sex, birth, black_list, black_desc, created', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -79,7 +84,8 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 			'last_name'   => 'Фамилия',
 			'name'        => 'Имя',
 			'middle_name' => 'Отчество',
-			'passport'    => 'Серия и номер паспорта',
+			'doc_num'     => 'Номер документа',
+			'doc_type'    => 'Тип документа',
 			'phone'       => 'Телефон',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
@@ -87,6 +93,65 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 			'black_desc'  => 'Причина',
 			'created'     => 'Created',
 		);
+	}
+
+	public function getAttributeLabel($attribute)
+	{
+		if ($attribute == 'doc_type') {
+			switch ($this->doc_type) {
+				case self::DOC_PASSPORT:
+					return 'Паспорт';
+				case self::DOC_BIRTH_CERTIFICATE:
+					return 'Свидетельство о рождении';
+				case self::DOC_FOREIGN_PASSPORT:
+					return 'Загран паспорт';
+				case self::DOC_MILITARY_ID:
+					return 'Военный билет';
+				default:
+					return null;
+			}
+		}
+
+		return parent::getAttributeLabel($attribute);
+	}
+
+	public static function getDocType($id)
+	{
+		switch ($id) {
+			case self::DOC_PASSPORT:
+				return 'Паспорт';
+			case self::DOC_BIRTH_CERTIFICATE:
+				return 'Свидетельство о рождении';
+			case self::DOC_FOREIGN_PASSPORT:
+				return 'Загран паспорт';
+			case self::DOC_MILITARY_ID:
+				return 'Военный билет';
+			default:
+				return '';
+		}
+	}
+
+	public static function getBlackList($id)
+	{
+		switch ($id) {
+			case 1:
+				return 'Да';
+			default:
+				return 'Нет';
+		}
+	}
+
+	protected function beforeValidate()
+	{
+		switch ($this->sex) {
+			case 'Мужской':
+				$this->sex = 1;
+				break;
+			case 'Женский':
+				$this->sex = 0;
+				break;
+		}
+		return parent::beforeValidate();
 	}
 
 	/**
@@ -113,7 +178,8 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		$criteria->compare('last_name', $this->last_name, true);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('middle_name', $this->middle_name, true);
-		$criteria->compare('passport', $this->passport);
+		$criteria->compare('doc_num', $this->doc_num);
+		$criteria->compare('doc_type', $this->doc_type);
 		$criteria->compare('phone', $this->phone, true);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
@@ -145,15 +211,22 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 			$this->sex = null;
 		}
 
+		if (preg_match('#\.#', $this->birth)) {
+			$this->birth = strtotime($this->birth);
+		}
+
 		return parent::validate($attributes, $clearErrors);
 	}
 
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
-			if ($this->birth != '') {
+			if ($this->birth == ''){
+				$this->birth = null;
+			} else {
 				$this->birth = strtotime($this->birth);
 			}
+
 
 			$this->name      = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);
@@ -168,8 +241,8 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 	{
 		// сохраняем значение черного листа всем профилям с одной фамилией и с одним номером паспорта
 		$criteria            = new CDbCriteria;
-		$criteria->condition = 'passport=:passport AND last_name=:last_name';
-		$criteria->params    = array(':passport' => $this->passport, ':last_name' => $this->last_name);
+		$criteria->condition = 'doc_type=:doc_type AND doc_num=:doc_num AND last_name=:last_name';
+		$criteria->params    = array(':doc_type' => $this->doc_type, ':doc_num' => $this->doc_num, ':last_name' => $this->last_name);
 		$Profiles            = Profiles::model()->findAll($criteria);
 		if (!empty($Profiles)) {
 			foreach ($Profiles as $profile) {
@@ -182,6 +255,25 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		}
 
 		parent::afterSave();
+	}
+
+	public function afterFind()
+	{
+		if ($this->birth)
+			$this->birth = date('d.m.Y', $this->birth);
+
+		if ($this->sex !== null) {
+			switch ($this->sex) {
+				case 0:
+					$this->sex = 'Мужской';
+					break;
+				case 1:
+					$this->sex = 'Женский';
+					break;
+			}
+		}
+
+		return parent::afterFind();
 	}
 
 	public function shortName()
@@ -205,7 +297,8 @@ array('id, uid, tid, last_name, name, middle_name, passport, phone, sex, birth, 
 		$criteria->compare('last_name', $this->last_name, true);
 		$criteria->compare('name', $this->name, true);
 		$criteria->compare('middle_name', $this->middle_name, true);
-		$criteria->compare('passport', $this->passport);
+		$criteria->compare('doc_num', $this->doc_num);
+		$criteria->compare('doc_type', $this->doc_type);
 		$criteria->compare('phone', $this->phone, true);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
