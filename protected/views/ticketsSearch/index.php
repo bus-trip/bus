@@ -17,7 +17,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				<?php
 				echo CHtml::label('Откуда:', 'startPoint');
 				echo '<br/>';
-				echo isset($selPoints) ? CHtml::dropDownList('startPoint', $selPoints['startPoint'], $points) : CHtml::dropDownList('startPoint', '', $points, array('empty'=>'Выберите'));
+				echo isset($selPoints) ? CHtml::dropDownList('startPoint', $selPoints['startPoint'], $points, array('empty'=>'Выберите')) : CHtml::dropDownList('startPoint', '', $points, array('empty'=>'Выберите'));
 				?>
 			</td>
 			<td>
@@ -46,7 +46,7 @@ $form = $this->beginWidget('CActiveForm', array(
 				<?php
 				echo CHtml::label('Куда:', 'endPoint');
 				echo '<br/>';
-				echo isset($selPoints) ? CHtml::dropDownList('endPoint', $selPoints['endPoint'], $points) : CHtml::dropDownList('endPoint', '', $points, array('empty'=>'Выберите'));
+				echo isset($selPoints) ? CHtml::dropDownList('endPoint', $selPoints['endPoint'], $points, array('empty'=>'Выберите')) : CHtml::dropDownList('endPoint', '', $points, array('empty'=>'Выберите'));
 				?>
 			</td>
 			<td>
