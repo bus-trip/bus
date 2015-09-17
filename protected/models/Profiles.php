@@ -121,6 +121,15 @@ class Profiles extends CActiveRecord
 		}
 	}
 
+	public static function getBlackList($id){
+		switch ($id) {
+			case 1:
+				return 'Да';
+			default:
+				return 'Нет';
+		}
+	}
+
 	protected function beforeValidate()
 	{
 		switch ($this->sex) {

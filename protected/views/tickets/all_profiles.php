@@ -37,6 +37,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		[
 			'name'   => 'sex',
 			'header' => 'Пол',
+			'filter' => CHtml::dropDownList('Profiles[sex]', $model->sex, ['' => '-Выберите-', 0 => 'Мужской', 1 => 'Женский']),
 		],
 		[
 			'name'   => 'birth',
@@ -46,6 +47,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'black_list',
 			'header' => 'BL',
 			'filter' => CHtml::dropDownList('Profiles[black_list]', $model->black_list, ['' => '-Выберите-', 0 => 'Не в ЧС', 1 => 'В ЧС']),
+			'value'  => 'isset($data["id"]) ? Profiles::getBlackList($data["black_list"]) : ""',
 		],
 		[
 			'name'   => 'black_desc',
