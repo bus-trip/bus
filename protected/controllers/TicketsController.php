@@ -209,7 +209,7 @@ class TicketsController extends Controller
 		$criteria->addCondition('last_name=:last_name');
 		$criteria->addCondition('doc_type=:doc_type');
 		$criteria->addCondition('doc_num=:doc_num');
-		$criteria->addCondition('t.tid IS NOT NULL');
+//		$criteria->addCondition('t.tid IS NOT NULL');
 		$criteria->params = array(
 			':last_name' => $profile->last_name,
 			':doc_type'  => $profile->doc_type,
@@ -275,7 +275,7 @@ class TicketsController extends Controller
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($profile))) {
 			$sameProfiles = $this->getSameProfiles($profile);
 			$profile->setAttributes($attributes);
-			if ($profile->validate() && $profile->save()) {
+			if ($profile->save()) {
 				foreach ($sameProfiles as $itemProfile) {
 					$itemProfile->setAttributes($attributes);
 					if ($itemProfile->validate()) {

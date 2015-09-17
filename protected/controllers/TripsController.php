@@ -441,7 +441,7 @@ class TripsController extends Controller
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["address_to"] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->phone . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->birth . '</td>';
-					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->getAttributeLabel('doc_type') . ': ' . $profile->doc_num . '</td>';
+					$tbl .= '<td style="border: 1px solid #000000;">' . Profiles::getDocType($profile->doc_type) . ': ' . $profile->doc_num . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t['remark'] . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $t["price"] . '</td>';
 					$tbl .= '</tr>';
@@ -530,7 +530,7 @@ class TripsController extends Controller
 					$tbl .= '<tr style="font-size: 8pt;">';
 					$tbl .= '<td width="30px" style="border: 1px solid #000000;">' . $i . '</td>';
 					$tbl .= '<td style="border: 1px solid #000000;">' . $profile->last_name . ' ' . $profile->name . ' ' . $profile->middle_name . '</td>';
-					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->getAttributeLabel('doc_type') . ': ' . $profile->doc_num . '</td>';
+					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . Profiles::getDocType($profile->doc_type) . ': ' . $profile->doc_num . '</td>';
 					$tbl .= '<td width="80px" style="border: 1px solid #000000;">' . $profile->birth . '</td>';
 					$tbl .= '<td width="80px" style="border: 1px solid #000000;"></td>';
 					$tbl .= '</tr>';
@@ -718,7 +718,14 @@ class TripsController extends Controller
 			$profile->black_desc  = $_POST['data']['Profiles[black_desc'];
 
 			if ($profileLoad = Profiles::model()->findAllByPk($_POST['data']['Profiles[id'])) {
-				$profile->sex = $profileLoad[0]->sex;
+				switch ($profileLoad[0]->sex) {
+					case 'Мужской':
+						$profile->sex = Profiles::SEX_MALE;
+						break;
+					case 'Женский':
+						$profile->sex = Profiles::SEX_FEMALE;
+						break;
+				}
 			}
 
 			if ($profile->validate()) {
@@ -793,7 +800,7 @@ class TripsController extends Controller
 		);
 
 		$inline = array(
-			(string) (!empty($ticket->profiles) ? $profile->getAttributeLabel('doc_type') . '<br>' . CHtml::link($profile->doc_num, array("tickets/profile/" . $profile->id)) : ''),
+			(string) (!empty($ticket->profiles) ? Profiles::getDocType($profile->doc_type) . '<br>' . CHtml::link($profile->doc_num, array("tickets/profile/" . $profile->id)) : ''),
 			(string) (!empty($ticket->profiles) ? $profile->last_name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->middle_name : ''),
@@ -850,7 +857,7 @@ class TripsController extends Controller
 						$str_in_bl  = $profile->black_list == 1 ? '; В ЧС' : '';
 						$res[$skey] = array(
 							'value' => $profile->$field,
-							'info'  => '(' . $profile->shortName() . '; ' . $profile->getAttributeLabel('doc_type') . ': ' . $profile->doc_num . ') ' . $ticket->shortAddress() . $str_in_bl,
+							'info'  => '(' . $profile->shortName() . '; ' . Profiles::getDocType($profile->doc_type) . ': ' . $profile->doc_num . ') ' . $ticket->shortAddress() . $str_in_bl,
 							'data'  => array(
 								'Profiles[id]'          => $profile->id,
 								'Profiles[doc_type]'    => $profile->doc_type,

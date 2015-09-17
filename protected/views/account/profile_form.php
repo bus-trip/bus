@@ -55,13 +55,13 @@
 	<?php
 	switch ($model->sex) {
 		case 'Мужской':
-			$model->sex = 0;
+			$model->sex = Profiles::SEX_MALE;
 			break;
 		case 'Женский':
-			$model->sex = 1;
+			$model->sex = Profiles::SEX_FEMALE;
 			break;
 	}
-	echo $form->dropDownList($model, 'sex', ['none' => '-Выберите-', 0 => 'Мужской', 1 => 'Женский']); ?>
+	echo $form->dropDownList($model, 'sex', ['none' => '-Выберите-', Profiles::SEX_MALE => 'Мужской', Profiles::SEX_FEMALE => 'Женский']); ?>
 	<?php echo $form->error($model, 'sex'); ?>
 </div>
 

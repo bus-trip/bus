@@ -42,7 +42,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		[
 			'name'   => 'sex',
 			'header' => 'Пол',
-			'filter' => CHtml::dropDownList('Profiles[sex]', $model->sex, ['' => '-Выберите-', 0 => 'Мужской', 1 => 'Женский']),
+			'filter' => CHtml::dropDownList('Profiles[sex]', $model->sex, ['' => '-Выберите-', Profiles::SEX_MALE => 'Мужской', Profiles::SEX_FEMALE => 'Женский']),
 		],
 		[
 			'name'   => 'birth',

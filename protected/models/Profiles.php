@@ -29,6 +29,8 @@ class Profiles extends CActiveRecord
 	const DOC_BIRTH_CERTIFICATE = 2;
 	const DOC_FOREIGN_PASSPORT  = 3;
 	const DOC_MILITARY_ID       = 4;
+	const SEX_MALE              = 1;
+	const SEX_FEMALE            = 0;
 
 	/**
 	 * @return string the associated database table name
@@ -95,26 +97,6 @@ class Profiles extends CActiveRecord
 		);
 	}
 
-	public function getAttributeLabel($attribute)
-	{
-		if ($attribute == 'doc_type') {
-			switch ($this->doc_type) {
-				case self::DOC_PASSPORT:
-					return 'Паспорт';
-				case self::DOC_BIRTH_CERTIFICATE:
-					return 'Свидетельство о рождении';
-				case self::DOC_FOREIGN_PASSPORT:
-					return 'Загран паспорт';
-				case self::DOC_MILITARY_ID:
-					return 'Военный билет';
-				default:
-					return null;
-			}
-		}
-
-		return parent::getAttributeLabel($attribute);
-	}
-
 	public static function getDocType($id)
 	{
 		switch ($id) {
@@ -145,10 +127,10 @@ class Profiles extends CActiveRecord
 	{
 		switch ($this->sex) {
 			case 'Мужской':
-				$this->sex = 1;
+				$this->sex = self::SEX_MALE;
 				break;
 			case 'Женский':
-				$this->sex = 0;
+				$this->sex = self::SEX_FEMALE;
 				break;
 		}
 		return parent::beforeValidate();
@@ -264,10 +246,10 @@ class Profiles extends CActiveRecord
 
 		if ($this->sex !== null) {
 			switch ($this->sex) {
-				case 0:
+				case self::SEX_MALE:
 					$this->sex = 'Мужской';
 					break;
-				case 1:
+				case self::SEX_FEMALE:
 					$this->sex = 'Женский';
 					break;
 			}

@@ -63,7 +63,7 @@ $pdfTicket = '
 						<tr>
 							<td style="border: 1px solid #000000">' . $profile->name . ' ' . $profile->middle_name . ' ' . $profile->last_name . '</td>
 							<td style="border: 1px solid #000000">Паспорт</td>
-							<td style="border: 1px solid #000000">' . $profile->getAttributeLabel('doc_type') . ': ' . $profile->doc_num . '</td>
+							<td style="border: 1px solid #000000">' . Profiles::getDocType($profile->doc_type) . ': ' . $profile->doc_num . '</td>
 							<td style="border: 1px solid #000000">' . $ticket->place . '</td>
 							<td style="border: 1px solid #000000">' . $ticket->price . '</td>
 						</tr>
