@@ -63,7 +63,7 @@
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'birth'); ?>
-	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', [
 		'model'     => $model,
 		'attribute' => 'birth',
 		'language'  => 'ru',

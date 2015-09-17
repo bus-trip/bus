@@ -47,12 +47,11 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('last_name, name, middle_name, doc_num, doc_type, phone, birth', 'required'),
-			array('uid, tid, sex, birth, black_list, doc_type', 'numerical', 'integerOnly' => true),
+			array('uid, tid, sex, birth, black_list, doc_type, birth', 'numerical', 'integerOnly' => true),
 			array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
 			array('doc_num', 'length', 'max' => 64),
 			array('phone', 'length', 'max' => 17),
 			array('sex, black_list', 'length', 'max' => 1, 'min' => 1),
-			array('birth', 'date', 'format' => 'dd.MM.yyyy'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, uid, tid, last_name, name, middle_name, doc_num, doc_type, phone, sex, birth, black_list, black_desc, created', 'safe', 'on' => 'search'),
@@ -84,8 +83,8 @@ class Profiles extends CActiveRecord
 			'last_name'   => 'Фамилия',
 			'name'        => 'Имя',
 			'middle_name' => 'Отчество',
-			'doc_num'     => 'Номер документа',
 			'doc_type'    => 'Тип документа',
+			'doc_num'     => 'Номер документа',
 			'phone'       => 'Телефон',
 			'sex'         => 'Пол',
 			'birth'       => 'Дата рождения',
@@ -223,10 +222,7 @@ class Profiles extends CActiveRecord
 		if (parent::beforeSave()) {
 			if ($this->birth == ''){
 				$this->birth = null;
-			} else {
-				$this->birth = strtotime($this->birth);
 			}
-
 
 			$this->name      = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);

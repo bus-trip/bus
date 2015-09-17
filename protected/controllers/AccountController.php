@@ -133,12 +133,12 @@ class AccountController extends Controller
 		$this->breadcrumbs[]              = 'Редактирование профиля';
 
 		$model        = $this->loadProfile($id);
-		$model->birth = date('d.m.Y', $model->birth);
+//		$model->birth = date('d.m.Y', $model->birth);
 		if ($model && $model->uid == $this->user->id &&
 			$attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))
 		) {
 			$model->setAttributes($attributes);
-			if ($model->validate() && $model->save()) {
+			if ($model->save()) {
 				Yii::app()->user->setFlash('success', "Профиль &laquo;" . $model->shortName() . "&raquo; обновлен");
 				$url = $this->createUrl('/account/passengers');
 				$this->redirect($url);
