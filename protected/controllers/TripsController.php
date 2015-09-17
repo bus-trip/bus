@@ -739,7 +739,7 @@ class TripsController extends Controller
 					$ticket->status = TICKET_RESERVED;
 				}
 
-				if ($ticket->validate() && $ticket->save()) {
+				if ($ticket->save()) {
 					$profile->tid = $ticket->id;
 					$profile->save();
 					if ($ticket->idTrip0->idDirection0->price == $ticket->price)
