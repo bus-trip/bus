@@ -54,7 +54,7 @@
 	</div>
 	<div class="ticketInfo">
 		<div>
-			Серия и номер
+			Номер документа
 		</div>
 		<div class="empty">
 			<?php echo $passport; ?>

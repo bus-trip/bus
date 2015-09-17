@@ -27,6 +27,8 @@ class Profiles extends CActiveRecord
 {
 	const DOC_PASSPORT          = 1;
 	const DOC_BIRTH_CERTIFICATE = 2;
+	const DOC_FOREIGN_PASSPORT  = 3;
+	const DOC_MILITARY_ID       = 4;
 
 	/**
 	 * @return string the associated database table name
@@ -101,6 +103,10 @@ class Profiles extends CActiveRecord
 					return 'Паспорт';
 				case self::DOC_BIRTH_CERTIFICATE:
 					return 'Свидетельство о рождении';
+				case self::DOC_FOREIGN_PASSPORT:
+					return 'Загран паспорт';
+				case self::DOC_MILITARY_ID:
+					return 'Военный билет';
 				default:
 					return null;
 			}
@@ -116,12 +122,17 @@ class Profiles extends CActiveRecord
 				return 'Паспорт';
 			case self::DOC_BIRTH_CERTIFICATE:
 				return 'Свидетельство о рождении';
+			case self::DOC_FOREIGN_PASSPORT:
+				return 'Загран паспорт';
+			case self::DOC_MILITARY_ID:
+				return 'Военный билет';
 			default:
 				return '';
 		}
 	}
 
-	public static function getBlackList($id){
+	public static function getBlackList($id)
+	{
 		switch ($id) {
 			case 1:
 				return 'Да';

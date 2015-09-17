@@ -22,7 +22,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Тип документа',
 			'type'   => 'raw',
 			'value'  => 'isset($data["id"]) ? Profiles::getDocType($data["doc_type"]) : ""',
-			'filter' => CHtml::dropDownList('Profiles[doc_type]', $model->doc_type, ['' => '-Выберите-', Profiles::DOC_PASSPORT => 'Паспорт', Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении']),
+			'filter' => CHtml::dropDownList('Profiles[doc_type]', $model->doc_type, [
+				''                              => '-Выберите-',
+				Profiles::DOC_PASSPORT          => 'Паспорт',
+				Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
+				Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
+				Profiles::DOC_MILITARY_ID       => 'Военный билет']),
 		],
 		[
 			'name'   => 'doc_num',

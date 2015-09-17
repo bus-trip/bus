@@ -13,6 +13,12 @@ foreach ($data as $id => $item) {
 			case Profiles::DOC_BIRTH_CERTIFICATE:
 				$item = 'Свидетельство о рождении';
 				break;
+			case Profiles::DOC_FOREIGN_PASSPORT:
+				$item = 'Загран паспорт';
+				break;
+			case Profiles::DOC_MILITARY_ID:
+				$item = 'Военный билет';
+				break;
 		}
 	}
 	if (in_array($id, array('id', 'tid', 'uid', 'created')) || !$item || $item == 'null') continue;

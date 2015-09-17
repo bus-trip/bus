@@ -77,11 +77,11 @@ class PdfmakeController extends Controller
 				$Trip = Trips::model()->findByPk($Ticket->idTrip);
 			}
 			if ($Trip) {
-				$Direction = Directions::model()->findByPk($Trip->idDirection);
-				$Bus = Buses::model()->findByPk($Trip->idBus);
-				$Bus->number = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
+				$Direction       = Directions::model()->findByPk($Trip->idDirection);
+				$Bus             = Buses::model()->findByPk($Trip->idBus);
+				$Bus->number     = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
 				$Trip->departure = date('d.m.Y H:i', strtotime($Trip->departure));
-				$Trip->arrival = date('d.m.Y H:i', strtotime($Trip->arrival));
+				$Trip->arrival   = date('d.m.Y H:i', strtotime($Trip->arrival));
 			}
 
 			$this->render(
@@ -116,27 +116,27 @@ class PdfmakeController extends Controller
 
 	public function actionBoardingTicketsList($id)
 	{
-		$criteria = new CDbCriteria();
+		$criteria            = new CDbCriteria();
 		$criteria->condition = 'idTrip=' . $id . ' and status=' . TICKET_CONFIRMED . ' order by place';
-		$tickets = Tickets::model()->findAll($criteria);
-		$page = 3;
+		$tickets             = Tickets::model()->findAll($criteria);
+		$page                = 3;
 		foreach ($tickets as $t) {
 			$profile = Profiles::model()->findByAttributes(array('tid' => $t->id));
 			$page--;
 			if ($profile) {
 				if ($page == 0) {
-					$this->actionBoardingTicket($profile->id, TRUE);
+					$this->actionBoardingTicket($profile->id, true);
 					$page = 3;
 				} else $this->actionBoardingTicket($profile->id);
 			}
 		}
 	}
 
-	public function actionBoardingTicket($profileId, $pagebreak = FALSE)
+	public function actionBoardingTicket($profileId, $pagebreak = false)
 	{
-		/**	@var $organization Organization */
+		/**    @var $organization Organization */
 		$organization = Organization::model()->findByPk(1);
-		/**	@var $profile Profiles */
+		/**    @var $profile Profiles */
 		$profile = Profiles::model()->findByPk($profileId);
 		$this->renderPartial(
 			'boardingticket',
@@ -151,7 +151,7 @@ class PdfmakeController extends Controller
 				'ticketId'      => $profile->tid,
 				'name'          => $profile->last_name . " " . $profile->name . " " . $profile->middle_name,
 				'birthDate'     => $profile->birth,
-				'passportType'  => $profile->getAttributeLabel('doc_type'),
+				'passportType'  => Profiles::getDocType($profile->doc_type),
 				'passport'      => $profile->doc_num,
 				'direction'     => $profile->t->idTrip0->idDirection0->startPoint . " - " . $profile->t->idTrip0->idDirection0->endPoint,
 				'departure'     => date("d.m.Y", strtotime($profile->t->idTrip0->departure)),

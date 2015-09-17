@@ -32,7 +32,9 @@
 <div class="row">
 	<?php echo $form->labelEx($model, 'doc_type'); ?>
 	<?php echo $form->dropDownList($model, 'doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
-														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении']); ?>
+														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
+														Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
+														Profiles::DOC_MILITARY_ID       => 'Военный билет']); ?>
 	<?php echo $form->error($model, 'doc_type'); ?>
 </div>
 
