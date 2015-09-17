@@ -110,6 +110,7 @@ class TicketsSearchController extends Controller
 		$criteria->condition = 'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND;
 		$criteria->group = 'parentId';
 		$dirsAll = Directions::model()->findAllByAttributes(array('startPoint' => $startPoint), $criteria);
+		$dirsByStart = NULL;
 		foreach ($dirsAll as $ds) {
 			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
 																			 ->findByPk($ds->attributes['parentId'])->attributes;
