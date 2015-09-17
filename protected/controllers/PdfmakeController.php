@@ -77,11 +77,11 @@ class PdfmakeController extends Controller
 				$Trip = Trips::model()->findByPk($Ticket->idTrip);
 			}
 			if ($Trip) {
-				$Direction = Directions::model()->findByPk($Trip->idDirection);
-				$Bus = Buses::model()->findByPk($Trip->idBus);
-				$Bus->number = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
+				$Direction       = Directions::model()->findByPk($Trip->idDirection);
+				$Bus             = Buses::model()->findByPk($Trip->idBus);
+				$Bus->number     = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
 				$Trip->departure = date('d.m.Y H:i', strtotime($Trip->departure));
-				$Trip->arrival = date('d.m.Y H:i', strtotime($Trip->arrival));
+				$Trip->arrival   = date('d.m.Y H:i', strtotime($Trip->arrival));
 			}
 
 			$this->render(
@@ -116,49 +116,51 @@ class PdfmakeController extends Controller
 
 	public function actionBoardingTicketsList($id)
 	{
-		$criteria = new CDbCriteria();
+		$criteria            = new CDbCriteria();
 		$criteria->condition = 'idTrip=' . $id . ' and status=' . TICKET_CONFIRMED . ' order by place';
-		$tickets = Tickets::model()->findAll($criteria);
-		$page = 3;
+		$tickets             = Tickets::model()->findAll($criteria);
+		$page                = 3;
 		foreach ($tickets as $t) {
 			$profile = Profiles::model()->findByAttributes(array('tid' => $t->id));
 			$page--;
 			if ($profile) {
 				if ($page == 0) {
-					$this->actionBoardingTicket($profile->id, TRUE);
+					$this->actionBoardingTicket($profile->id, true);
 					$page = 3;
 				} else $this->actionBoardingTicket($profile->id);
 			}
 		}
 	}
 
-	public function actionBoardingTicket($profileId, $pagebreak = FALSE)
+	public function actionBoardingTicket($profileId, $pagebreak = false)
 	{
-		$Organization = Organization::model()->findByPk(1);
-		$Profile = Profiles::model()->findByPk($profileId);
+		/**    @var $organization Organization */
+		$organization = Organization::model()->findByPk(1);
+		/**    @var $profile Profiles */
+		$profile = Profiles::model()->findByPk($profileId);
 		$this->renderPartial(
 			'boardingticket',
 			array(
 				'organization'  => array(
-					'name'     => $Organization->name,
-					'contacts' => $Organization->contacts,
-					'site'     => $Organization->site,
-					'email'    => $Organization->email,
-					'info'     => $Organization->info,
+					'name'     => $organization->name,
+					'contacts' => $organization->contacts,
+					'site'     => $organization->site,
+					'email'    => $organization->email,
+					'info'     => $organization->info,
 				),
-				'ticketId'      => $Profile->tid,
-				'name'          => $Profile->last_name . " " . $Profile->name . " " . $Profile->middle_name,
-				'birthDate'     => $Profile->birth,
-				'passportType'  => 'Паспорт',
-				'passport'      => $Profile->passport,
-				'direction'     => $Profile->t->idTrip0->idDirection0->startPoint . " - " . $Profile->t->idTrip0->idDirection0->endPoint,
-				'departure'     => date("d.m.Y", strtotime($Profile->t->idTrip0->departure)),
-				'departureTime' => date("H:i", strtotime($Profile->t->idTrip0->departure)),
-				'arrival'       => date("d.m.Y", strtotime($Profile->t->idTrip0->arrival)),
-				'arrivalTime'   => date("H:i", strtotime($Profile->t->idTrip0->arrival)),
-				'bus'           => $Profile->t->idTrip0->idBus0->model . " " . $Profile->t->idTrip0->idBus0->number,
-				'place'         => $Profile->t->place,
-				'price'         => $Profile->t->price,
+				'ticketId'      => $profile->tid,
+				'name'          => $profile->last_name . " " . $profile->name . " " . $profile->middle_name,
+				'birthDate'     => $profile->birth,
+				'passportType'  => Profiles::getDocType($profile->doc_type),
+				'passport'      => $profile->doc_num,
+				'direction'     => $profile->t->idTrip0->idDirection0->startPoint . " - " . $profile->t->idTrip0->idDirection0->endPoint,
+				'departure'     => date("d.m.Y", strtotime($profile->t->idTrip0->departure)),
+				'departureTime' => date("H:i", strtotime($profile->t->idTrip0->departure)),
+				'arrival'       => date("d.m.Y", strtotime($profile->t->idTrip0->arrival)),
+				'arrivalTime'   => date("H:i", strtotime($profile->t->idTrip0->arrival)),
+				'bus'           => $profile->t->idTrip0->idBus0->model . " " . $profile->t->idTrip0->idBus0->number,
+				'place'         => $profile->t->place,
+				'price'         => $profile->t->price,
 				'pageBreak'     => $pagebreak,
 			)
 		);

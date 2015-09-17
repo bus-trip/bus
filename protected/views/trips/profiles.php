@@ -15,63 +15,57 @@ $this->menu = array(
 
 <?php
 global $gtripId, $gplaceId;
-$gtripId = $tripId;
+$gtripId  = $tripId;
 $gplaceId = $placeId;
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'user-auth-data-grid',
-	'dataProvider' => $model->searchWithGroupBy(array('passport', 'black_list')),
-	'template'              => '{items}{pager}',
+	'dataProvider' => $model->searchWithGroupBy(array('doc_type', 'doc_num', 'black_list')),
+	'template'     => '{items}{pager}',
 	'filter'       => $model,
-	'columns'      => array(
-//		array(
-//			'name'   => 'id',
-//			'header' => 'ID',
-//		),
-//		array(
-//			'name'   => 'uid',
-//			'header' => 'UserID',
-//		),
-//		array(
-//			'name'   => 'tid',
-//			'header' => 'TicketID',
-//		),
-		array(
+	'columns'      => [
+		[
 			'name'   => 'last_name',
 			'header' => 'Фамилия',
-		),
-		array(
+		],
+		[
 			'name'   => 'name',
 			'header' => 'Имя',
-		),
-		array(
+		],
+		[
 			'name'   => 'middle_name',
 			'header' => 'Отчество',
-		),
-		array(
-			'name'   => 'passport',
-			'header' => 'Серия и номер паспорта',
-		),
-		array(
+		],
+		[
+			'name'   => 'doc_type',
+			'header' => 'Тип документа',
+			'type'   => 'raw',
+			'value'  => 'isset($data["id"]) ? Profiles::getDocType($data["doc_type"]) : ""',
+		],
+		[
+			'name'   => 'doc_num',
+			'header' => 'Номер документа',
+		],
+		[
 			'name'   => 'phone',
 			'header' => 'Телефон',
-		),
-		array(
+		],
+		[
 			'name'   => 'sex',
 			'header' => 'Пол',
-		),
-		array(
+		],
+		[
 			'name'   => 'birth',
 			'header' => 'Дата рождения',
-		),
-		array(
+		],
+		[
 			'name'   => 'black_list',
 			'header' => 'BL',
-		),
-		array(
+		],
+		[
 			'class'    => 'CButtonColumn',
 			'template' => '{chose_profile}',
-			'buttons'  => array(
-				'chose_profile' => array(
+			'buttons'  => [
+				'chose_profile' => [
 					'label'    => 'Выбрать профиль',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
 					'url'      => function ($data) {
@@ -79,11 +73,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 
 						return Yii::app()->controller->createUrl('trips/sheet/' . $gtripId . '/' . $gplaceId . '/' . $data['id']);
 					},
-				)
-			)
-		)
-	)
+				]
+			]
+		]
+	]
 )); ?>
 
 <p><a href="<?php print Yii::app()->controller->createUrl('trips/sheet/' . $tripId . '/' . $placeId . '/0'); ?>">
-	Создать билет с новым профилем пассажира</a></p>
+		Создать билет с новым профилем пассажира</a></p>
