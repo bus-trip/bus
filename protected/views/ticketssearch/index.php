@@ -11,51 +11,51 @@ $form = $this->beginWidget('CActiveForm', array(
 	'enableAjaxValidation' => FALSE,
 ));
 ?>
-	<table style="border: 1px solid #ccc; padding: 10px; width: 400px;">
-		<tr>
-			<td>
-				<?php
-				echo CHtml::label('Откуда:', 'startPoint');
-				echo '<br/>';
-				echo isset($selPoints) ? CHtml::dropDownList('startPoint', $selPoints['startPoint'], $points) : CHtml::dropDownList('startPoint', '', $points, array('empty'=>'Выберите'));
-				?>
-			</td>
-			<td>
-				<?php
-				echo CHtml::label('Отправление: ', 'departure');
-				echo '<br/>';
-				Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
-				$this->widget('CJuiDateTimePicker', array(
-					'name'      => 'departure',
-					'attribute' => 'departure',
-					'mode'      => 'date',
-					'value'     => isset($selPoints) ? $selPoints['departure'] : date("d.m.Y"),
-					'options'   => array(
-						'dateFormat'  => 'dd.mm.yy',
-						'changeMonth' => TRUE,
-						'changeYear'  => TRUE,
-						'minDate'     => 0,
-					),
-					'language'  => 'ru',
-				));
-				?>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<?php
-				echo CHtml::label('Куда:', 'endPoint');
-				echo '<br/>';
-				echo isset($selPoints) ? CHtml::dropDownList('endPoint', $selPoints['endPoint'], $points) : CHtml::dropDownList('endPoint', '', $points, array('empty'=>'Выберите'));
-				?>
-			</td>
-			<td>
-				<?php
-				echo CHtml::submitButton('Искать');
-				?>
-			</td>
-		</tr>
-	</table>
+<table style="border: 1px solid #ccc; padding: 10px; width: 400px;">
+	<tr>
+		<td>
+			<?php
+			echo CHtml::label('Откуда:', 'startPoint');
+			echo '<br/>';
+			echo isset($selPoints) ? CHtml::dropDownList('startPoint', $selPoints['startPoint'], $points, array('empty' => 'Выберите')) : CHtml::dropDownList('startPoint', '', $points, array('empty' => 'Выберите'));
+			?>
+		</td>
+		<td>
+			<?php
+			echo CHtml::label('Отправление: ', 'departure');
+			echo '<br/>';
+			Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+			$this->widget('CJuiDateTimePicker', array(
+				'name'      => 'departure',
+				'attribute' => 'departure',
+				'mode'      => 'date',
+				'value'     => isset($selPoints) ? $selPoints['departure'] : date("d.m.Y"),
+				'options'   => array(
+					'dateFormat'  => 'dd.mm.yy',
+					'changeMonth' => TRUE,
+					'changeYear'  => TRUE,
+					'minDate'     => 0,
+				),
+				'language'  => 'ru',
+			));
+			?>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<?php
+			echo CHtml::label('Куда:', 'endPoint');
+			echo '<br/>';
+			echo isset($selPoints) ? CHtml::dropDownList('endPoint', $selPoints['endPoint'], $points, array('empty' => 'Выберите')) : CHtml::dropDownList('endPoint', '', $points, array('empty' => 'Выберите'));
+			?>
+		</td>
+		<td>
+			<?php
+			echo CHtml::submitButton('Искать');
+			?>
+		</td>
+	</tr>
+</table>
 <?php
 $this->endWidget();
 
