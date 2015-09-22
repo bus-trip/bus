@@ -6,7 +6,12 @@
 
 namespace UserInterface\controllers;
 
+use Buses;
+use CArrayDataProvider;
+use CDbCriteria;
 use CException;
+use CJavaScript;
+use Directions;
 use Profiles;
 use Tickets;
 use Trips;
@@ -23,18 +28,13 @@ class DefaultController extends Controller
 	{
 		switch ($step) {
 			case self::STEP_FIND:
-				return 'Поиск рейса';
-				break;
+				return 'Рейс';
 			case self::STEP_PROFILE:
-				return 'Заполнение профиля';
-				break;
+				return 'Профиль';
 			case self::STEP_REVIEW:
 				return 'Проверка';
-				break;
 			case self::STEP_PAYMENT:
-				return 'Оплата билета';
-				break;
-
+				return 'Оплата';
 			default:
 				return '';
 		}
@@ -44,6 +44,48 @@ class DefaultController extends Controller
 	const STEP_PAYMENT = 'payment';
 	const STEP_PROFILE = 'profile';
 	const STEP_REVIEW  = 'review';
+
+	private function getDirections($startPoint, $endPoint = '')
+	{
+		$directions          = [];
+		$criteria            = new CDbCriteria();
+		$criteria->condition = 'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND;
+		$criteria->group     = 'parentId';
+		$dirsAll             = Directions::model()->findAllByAttributes(['startPoint' => $startPoint], $criteria);
+		$dirsByStart         = null;
+		foreach ($dirsAll as $ds) {
+			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
+																			 ->findByPk($ds->attributes['parentId'])->attributes;
+			else $dirsByStart[] = Directions::model()->findByPk($ds->attributes['id'])->attributes;
+		}
+		if ($dirsByStart) {
+			foreach ($dirsByStart as $ds) {
+				if (isset($endPoint)) {
+					$points = $this->getStationsByDirectionId($ds['id']);
+					if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
+				} else $directions[] = $ds;
+			}
+		}
+		return array_unique($directions);
+	}
+
+	private function getStationsByDirectionId($id)
+	{
+		$dir      = Directions::model()->findByPk($id);
+		$sPoint   = $dir->startPoint;
+		$points   = [];
+		$points[] = $dir->startPoint;
+		while (($point = Directions::model()
+								   ->findByAttributes(['startPoint' => $sPoint, 'parentId' => $dir->id]))) {
+			$points[] = $point->startPoint;
+			$points[] = $point->endPoint;
+			$sPoint   = $point->endPoint;
+		}
+		$points[] = $dir->endPoint;
+		$points   = array_unique($points);
+
+		return $points;
+	}
 
 	public function behaviors()
 	{
@@ -85,32 +127,39 @@ class DefaultController extends Controller
 	 */
 	public function wizardProcessStep($event)
 	{
-		$profileModels = $userProfiles = [];
+		$profileModels = $userProfiles = $selPoints = [];
+		$points        = ['' => '- Выберите -'];
 		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
 
-			if ($event->getStep() == self::STEP_PROFILE) {
-				$profilesData  = Yii::app()->getRequest()->getPost(CHtml::modelName(new Profiles()));
-				$profilesSaved = [];
-				if ($profilesData) {
-					foreach ($profilesData as $id => $item) {
-						$profileModel = new Profiles();
-						$profileModel->setAttributes($item);
-						if ($profileModel->validate()) {
-							$profilesSaved[$id] = $item;
-						}
-						$profileModels[] = $profileModel;
-					}
-				}
+			switch ($event->getStep()) {
+				case self::STEP_FIND:
 
-				if (count($profilesSaved) == count($profilesData)) {
-					$checkoutModel->profiles = $profilesSaved;
-				}
-			} elseif ($event->getStep() == self::STEP_REVIEW) {
-				$savedData = $this->read(self::STEP_FIND);
-				$trip      = Trips::model()->with('idBus0', 'idDirection0')->findByPk($savedData['tripId']);
+					break;
+				case self::STEP_PROFILE:
+					$profilesData  = Yii::app()->getRequest()->getPost(CHtml::modelName(new Profiles()));
+					$profilesSaved = [];
+					if ($profilesData) {
+						foreach ($profilesData as $id => $item) {
+							$profileModel = new Profiles();
+							$profileModel->setAttributes($item);
+							if ($profileModel->validate()) {
+								$profilesSaved[$id] = $item;
+							}
+							$profileModels[] = $profileModel;
+						}
+					}
+
+					if (count($profilesSaved) == count($profilesData)) {
+						$checkoutModel->profiles = $profilesSaved;
+					}
+					break;
+				case self::STEP_REVIEW:
+					$savedData = $this->read(self::STEP_FIND);
+					$trip      = Trips::model()->with('idBus0', 'idDirection0')->findByPk($savedData['tripId']);
+					break;
 			}
 
 			if ($checkoutModel->validate()) {
@@ -118,6 +167,13 @@ class DefaultController extends Controller
 
 				$saving = $checkoutModel->attributes;
 				$event->sender->save($saving);
+			}
+		} elseif ($event->getStep() == self::STEP_FIND) {
+			$query               = Directions::model()->findAll();
+			$checkoutModel->date = date("d.m.Y");
+			foreach ($query as $q) {
+				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
+				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
 			}
 		} elseif ($event->getStep() == self::STEP_PROFILE) {
 			$savedData    = $this->read(self::STEP_PROFILE);
@@ -144,6 +200,7 @@ class DefaultController extends Controller
 									 'profileModels' => $profileModels,
 									 'userProfiles'  => $userProfiles,
 									 'trip'          => $trip,
+									 'points'        => $points,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}
@@ -227,5 +284,50 @@ class DefaultController extends Controller
 	{
 		$this->layout = '//layouts/column1';
 		$this->render('complete');
+	}
+
+	public function actionSearch()
+	{
+		$output        = [];
+		$checkoutModel = new Checkout(self::STEP_FIND);
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
+			$checkoutModel->setAttributes($attributes);
+			if ($checkoutModel->validate()) {
+
+				$directions = $this->getDirections($checkoutModel->pointFrom, $checkoutModel->pointTo);
+				$tripsAttr  = [];
+				foreach ($directions as $d) {
+					$criteria            = new CDbCriteria();
+					$criteria->condition = "idDirection=" . $d['id'] . " and departure between '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 00:00:00' and '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 23:59:59'";
+					$trips               = Trips::model()
+												->findAllByAttributes(array('idDirection' => $d['id']), $criteria);
+					foreach ($trips as $t) {
+						$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . TICKET_CONFIRMED . "," . TICKET_RESERVED . ")";
+						$tickets             = Tickets::model()->count($criteria);
+						$bus                 = Buses::model()->findByPk($t->attributes['idBus']);
+
+						if ($bus->places > $tickets) {
+							$tripsAttr[] = array(
+								'id'          => $t->attributes['id'],
+								'direction'   => $d['startPoint'] . ' - ' . $d['endPoint'],
+								'departure'   => $t->attributes['departure'],
+								'arrival'     => $t->attributes['arrival'],
+								'description' => $t->attributes['description']
+							);
+						}
+					}
+				}
+
+				$output['success'] = $this->renderPartial('trips',
+														  ['trips' => new CArrayDataProvider($tripsAttr),
+														   'model' => $checkoutModel], true);
+			} else {
+				$output['errors'] = $checkoutModel->getErrors();
+			}
+		}
+
+		header('Content-type: application/json');
+		echo CJavaScript::jsonEncode($output);
+		Yii::app()->end();
 	}
 }

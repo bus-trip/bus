@@ -14,15 +14,28 @@ class Checkout extends CFormModel
 	/**
 	 * @var int Id рейса
 	 */
-	public $tripId      = 409;
+	public $tripId;
+	public $pointFrom;
+	public $pointTo;
+	public $date;
 	public $profiles;
 	public $profileStep = 1;
 	public $reviewStep  = 1;
 
+	public function attributeLabels()
+	{
+		return [
+			'pointFrom' => 'Откуда',
+			'pointTo'   => 'Куда',
+			'date'      => 'Отправление',
+		];
+	}
+
 	public function rules()
 	{
 		return [
-			['tripId', 'required', 'on' => DefaultController::STEP_FIND],
+			['pointFrom, pointTo', 'required', 'on' => DefaultController::STEP_FIND],
+			['tripId, date', 'safe', 'on' => DefaultController::STEP_FIND],
 			['profileStep, profiles', 'required', 'on' => DefaultController::STEP_PROFILE],
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
 			['reviewStep', 'required', 'on' => DefaultController::STEP_REVIEW],
