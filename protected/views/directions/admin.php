@@ -54,11 +54,11 @@ $('.search-form form').submit(function(){
 		array(
             'header'=>'Действия',
 			'class'=>'CButtonColumn',
-            'template'=>'{update}&nbsp;&nbsp;&nbsp;{delete}',
+            'template'=>'{update}&nbsp;&nbsp;{delete}',
             'buttons'=>array(
-                'update'=>array(
-                    'url'=>'Yii::app()->controller->createUrl("directions/update", array("id"=>$data["id"]))',
-                ),
+				'update'=>array(
+					'url'=>'Yii::app()->controller->createUrl("directions/edit", array("id"=>$data["id"]))',
+				),
                 'delete'=>array(
                     'url'=>'Yii::app()->controller->createUrl("directions/delete", array("id"=>$data["id"]))',
                 )

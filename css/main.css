@@ -436,3 +436,25 @@ select.autocomplete {
 	width: 103px;
 	margin-bottom: 2px;
 }
+
+/* Add point to direction dialog */
+table.addPointclass {
+	width: 450px;
+	border-spacing: 0;
+	border-collapse: separate;
+}
+table.addPointclass td {
+	padding: 0;
+}
+table.addPointclass td input[type=submit] {
+	margin-top: 10px;
+}
+
+#dirpoints-grid {
+	width: auto;
+	float: left;
+}
+
+#directions-grid {
+	float: right;
+}
