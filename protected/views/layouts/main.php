@@ -27,9 +27,9 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo" class="left"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 
-		<ul class="right">
+		<ul class="login-block">
 			<?php if (Yii::app()->user->isGuest) { ?>
 <!--				<li><a href="--><?php //echo $this->createUrl('/user/register') ?><!--" rel="nofollow">Регистрация</a></li>-->
 				<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
@@ -40,8 +40,6 @@
 				<li><a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a></li>
 			<?php } ?>
 		</ul>
-
-		<div style="clear:both"></div>
 	</div>
 
 	<!-- header -->

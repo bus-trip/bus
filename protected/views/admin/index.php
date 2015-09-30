@@ -22,10 +22,10 @@ $yearSelect = '';
 ?>
 <table id="main">
 	<caption>
-		<div style="float: left;"><b>Рейсы
-				на <?php echo $currentDate['year'] . '  ' . $monthNames[$currentDate['month']]; ?></b></div>
-		<div style="float: right;">
-			<a href="/"><input type="button" value="Текущий месяц"/></a>
+		<div class="month">Рейсы
+				на <?php echo  $monthNames[$currentDate['month']] . '  ' . $currentDate['year']; ?></div>
+		<div class="calendar-control">
+			<a href="/"><input class="btn-current-month" type="button" value=""/></a>
 			<?php
 			if (isset($currentDate) && is_array($currentDate)) {
 				echo CHtml::dropDownList(
@@ -81,6 +81,15 @@ $yearSelect = '';
 			?>
 		</div>
 	</caption>
+	<tr class="weekday">
+	    <td>Пн</td>
+	    <td>Вт</td>
+	    <td>Ср</td>
+	    <td>Чт</td>
+	    <td>Пт</td>
+	    <td>Сб</td>
+	    <td>Вс</td>
+	</tr>
 	<?php
 	$firstDOW = date("w", strtotime(date("01." . $currentDate['month'] . "." . $currentDate['year'])));
 	if ($firstDOW == 0) $firstDOW = 7;
@@ -93,15 +102,15 @@ $yearSelect = '';
 			echo "</tr>";
 			echo "<tr>";
 		}
-		echo "<td style='border: 1px solid black; width: 113px; height: 80px; vertical-align: top;";
-		if ($i < $firstDOW || $i > $maxDays + $firstDOW - 1) echo "background-color: lightgray;";
-		if ($i == date("d") + $firstDOW - 1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "background-color: lightgreen;";
+		echo "<td ";
+		if ($i < $firstDOW || $i > $maxDays + $firstDOW - 1) echo "class='not-active'";
+		if ($i == date("d") + $firstDOW - 1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "class='current-date'";
 		echo "'>";
 		if ($i >= $firstDOW && $i <= $maxDays + $firstDOW - 1) {
 			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i + 1 - $firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
-			echo "<div style='width: 70px; float: left; font-size: 16px;'>";
+			echo "<div class='date'>";
 			if ($i + 1 - $firstDOW < 10) echo "0";
-			echo date($i + 1 - $firstDOW . "." . $currentDate['month'] . "." . $currentDate['year']);
+			echo date($i + 1 - $firstDOW);
 			echo "</div>";
 			if (!empty($tripsParam[$i + 1 - $firstDOW]['exttrips'])) {
 				echo "<div style='float: right;'>";
