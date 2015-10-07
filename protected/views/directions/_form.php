@@ -20,12 +20,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'parentId'); ?>
-        <?php echo $form->dropDownList($model,'parentId',$parentDir); ?>
-		<?php echo $form->error($model,'parentId'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'startPoint'); ?>
 		<?php echo $form->textField($model,'startPoint',array('size'=>60,'maxlength'=>255)); ?>
 		<?php echo $form->error($model,'startPoint'); ?>
