@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 <h2>Направления</h2>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'directions-grid',
+	'id'=>'main-directions-grid',
 	'dataProvider'=>$modelData,//$model->search(),
 //	'filter'=>$model,
 	'columns'=>array(

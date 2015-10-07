@@ -33,7 +33,7 @@ $('.search-form form').submit(function(){
 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'dirpoints-grid',
-	'dataProvider' => $dpModel->search(),
+	'dataProvider' => $dirPoints,
 	'columns'      => array(
 		array(
 			'name'   => 'name',
@@ -46,12 +46,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'buttons'  => array(
 				'add' => array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
+					'url'      => 'Yii::app()->controller->createUrl(
+																	"directions/addPoint",
+																	array(
+																		"id"=>$data["id"]
+																	)
+																)',
+					'click'    => "js: function(){
+										$('#pointFrame').load($(this).attr('href'));
+										$('#pointDialog').dialog('open');
+										return false;
+									}",
 				),
 				'update' => array(
-					'url' => 'Yii::app()->controller->createUrl("directions/update", array("id"=>$data["id"]))',
+					'url' => 'Yii::app()->controller->createUrl("directions/editPoint", array("id"=>$data["id"]))',
 				),
 				'delete' => array(
-					'url' => 'Yii::app()->controller->createUrl("directions/delete", array("id"=>$data["id"]))',
+					'url' => 'Yii::app()->controller->createUrl("directions/deletePoint", array("id"=>$data["id"]))',
 				)
 			)
 		)
@@ -78,30 +89,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'header'   => 'Действия',
 			'class'    => 'CButtonColumn',
-			'template' => '{add}&nbsp;&nbsp;{update}&nbsp;&nbsp;{delete}',
+			'template' => '{update}',
 			'buttons'  => array(
-				'add'    => array(
-					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
-					'url'      => 'Yii::app()->controller->createUrl(
-																	"directions/addPoint",
-																	array(
-																		"id"=>' . $parent['id'] . ',
-																		"prevPoint"=>$data["startPoint"],
-																		"postPoint"=>$data["endPoint"]
-																	)
-																)',
-					'click'    => "js: function(){
-										$('#pointFrame').load($(this).attr('href'));
-										$('#pointDialog').dialog('open');
-										return false;
-									}",
-				),
 				'update' => array(
 					'url' => 'Yii::app()->controller->createUrl("directions/update", array("id"=>$data["id"]))',
 				),
-				'delete' => array(
-					'url' => 'Yii::app()->controller->createUrl("directions/delete", array("id"=>$data["id"]))',
-				)
 			)
 		),
 	),

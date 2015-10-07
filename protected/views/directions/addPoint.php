@@ -8,7 +8,7 @@
 ?>
 <p/>
 <form
-	action="<?php echo Yii::app()->controller->createUrl("directions/addPoint", array("id" => $data["id"], "prevPoint" => $data["prevPoint"])); ?>"
+	action="<?php echo Yii::app()->controller->createUrl("directions/addPoint", array("id" => $data["id"])); ?>"
 	method="post">
 	<input type="hidden" name="id" value="<?php echo $data["id"]; ?>"/>
 	<table class="addPointclass">
@@ -17,11 +17,11 @@
 			<td>&lt;</td>
 			<td><input type="text" name="price1" placeholder="руб." style="width:40px; text-align: center;"/></td>
 			<td>&gt;</td>
-			<td><input type="text" name="nextPoint" placeholder="Пункт" style="width:100px; text-align: center;"/></td>
+			<td><input type="text" name="newPoint" placeholder="Пункт" style="width:100px; text-align: center;"/></td>
 			<td>&lt;</td>
 			<td><input type="text" name="price2" placeholder="руб." style="width:50px; text-align: center;"/></td>
 			<td>&gt;</td>
-			<td><input type="text" name="postPoint" value="<?php echo $data['postPoint']; ?>" style="width:100px; text-align: center;" disabled/></td>
+			<td><input type="text" name="nextPoint" value="<?php echo $data['nextPoint']; ?>" style="width:100px; text-align: center;" disabled/></td>
 		</tr>
 		<tr>
 			<td colspan="9" style="text-align: right;"><input type="submit" name="submit" value="Добавить" onsubmit="checkFields();"/></td>

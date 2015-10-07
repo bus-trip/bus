@@ -33,7 +33,7 @@ class Directions extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('parentId, startPoint, endPoint, price, status', 'required'),
+			array('startPoint, endPoint, price', 'required'),
 			array('parentId, price, status', 'numerical', 'integerOnly'=>true),
 			array('startPoint, endPoint', 'length', 'max'=>255),
 			// The following rule is used by search().
