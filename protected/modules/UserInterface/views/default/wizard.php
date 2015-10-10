@@ -7,7 +7,7 @@
  */
 ?>
 <div id="wizard-wrapper" class="clearfix">
-	<?php $this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved', 'trip', 'points', 'selPoints')); ?>
+	<?php $this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved', 'trip', 'points', 'selPoints', 'places')); ?>
 
 	<?php if ($checkoutModel->scenario != 'find') { ?>
 		<div class="back">

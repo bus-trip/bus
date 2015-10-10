@@ -7,6 +7,7 @@
 namespace UserInterface\models;
 
 use CFormModel;
+use Trips;
 use UserInterface\controllers\DefaultController;
 
 class Checkout extends CFormModel
@@ -20,6 +21,8 @@ class Checkout extends CFormModel
 	public $date;
 	public $profiles;
 	public $profileStep = 1;
+	public $places;
+	public $placesStep  = 1;
 	public $reviewStep  = 1;
 
 	public function attributeLabels()
@@ -28,6 +31,7 @@ class Checkout extends CFormModel
 			'pointFrom' => 'Откуда',
 			'pointTo'   => 'Куда',
 			'date'      => 'Отправление',
+			'places'    => 'Место'
 		];
 	}
 
@@ -40,6 +44,19 @@ class Checkout extends CFormModel
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
 			['reviewStep', 'required', 'on' => DefaultController::STEP_REVIEW],
 			['reviewStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_REVIEW],
+			['placesStep', 'required', 'on' => DefaultController::STEP_PLACE],
+			['placesStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PLACE],
+			['places', 'placesValidate', 'on' => DefaultController::STEP_PLACE]
 		];
+	}
+
+	public function placesValidate($attribute)
+	{
+		$trip   = Trips::model()->with('idBus0')->findByPk($this->tripId);
+		$places = $trip ? DefaultController::getAvailablePlaces($trip, true) : [];
+		foreach ($this->places as $place) {
+			if (!isset($places[$place]))
+				$this->addError($attribute, $place);
+		}
 	}
 }

@@ -71,5 +71,7 @@ $(function () {
 			});
 	});
 
+	$('#UserInterface_models_Checkout_places input[value^="not-"]').attr('disabled', 'disabled');
+
 
 });

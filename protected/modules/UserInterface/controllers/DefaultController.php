@@ -13,6 +13,7 @@ use CException;
 use CJavaScript;
 use Directions;
 use Profiles;
+use TempReserve;
 use Tickets;
 use Trips;
 use UserInterface\components\Controller;
@@ -24,11 +25,19 @@ use Yii;
 
 class DefaultController extends Controller
 {
+	const STEP_FIND    = 'find';
+	const STEP_PLACE   = 'place';
+	const STEP_PAYMENT = 'payment';
+	const STEP_PROFILE = 'profile';
+	const STEP_REVIEW  = 'review';
+
 	protected function getWizardTitle($step)
 	{
 		switch ($step) {
 			case self::STEP_FIND:
 				return 'Рейс';
+			case self::STEP_PLACE:
+				return 'Места';
 			case self::STEP_PROFILE:
 				return 'Профиль';
 			case self::STEP_REVIEW:
@@ -39,11 +48,6 @@ class DefaultController extends Controller
 				return '';
 		}
 	}
-
-	const STEP_FIND    = 'find';
-	const STEP_PAYMENT = 'payment';
-	const STEP_PROFILE = 'profile';
-	const STEP_REVIEW  = 'review';
 
 	private function getDirections($startPoint, $endPoint = '')
 	{
@@ -93,13 +97,12 @@ class DefaultController extends Controller
 			'wizard' => [
 				'class'       => 'ext.Wizard.WizardBehavior',
 				'steps'       => [self::STEP_FIND,
+								  self::STEP_PLACE,
 								  self::STEP_PROFILE,
 								  self::STEP_REVIEW,
-								  //								  self::STEP_PAYMENT,
 				],
 				'autoAdvance' => false,
 				'finishedUrl' => '/UserInterface/default/complete',
-
 			]
 		];
 	}
@@ -127,16 +130,19 @@ class DefaultController extends Controller
 	 */
 	public function wizardProcessStep($event)
 	{
-		$profileModels = $userProfiles = $selPoints = [];
+		$profileModels = $userProfiles = $selPoints = $places = [];
 		$points        = ['' => '- Выберите -'];
 		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
-
 			switch ($event->getStep()) {
 				case self::STEP_FIND:
 
+					break;
+				case self::STEP_PLACE:
+					$savedData             = $this->read(self::STEP_FIND);
+					$checkoutModel->tripId = $savedData['tripId'];
 					break;
 				case self::STEP_PROFILE:
 					$profilesData  = Yii::app()->getRequest()->getPost(CHtml::modelName(new Profiles()));
@@ -167,13 +173,27 @@ class DefaultController extends Controller
 
 				$saving = $checkoutModel->attributes;
 				$event->sender->save($saving);
+
+				if ($event->getStep() == self::STEP_PLACE) {
+					$savedData = $this->read(self::STEP_PLACE);
+					$this->reservedTicket($savedData['tripId'], $savedData['places']);
+				}
 			}
-		} elseif ($event->getStep() == self::STEP_FIND) {
+		}
+
+		if ($event->getStep() == self::STEP_FIND) {
 			$query               = Directions::model()->findAll();
 			$checkoutModel->date = date("d.m.Y");
 			foreach ($query as $q) {
 				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
 				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+			}
+		} elseif ($event->getStep() == self::STEP_PLACE) {
+			$savedData = $this->read();
+			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
+			$places    = $trip ? self::getAvailablePlaces($trip) : [];
+			if (!empty($savedData[self::STEP_PLACE]['places'])) {
+				$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
 			}
 		} elseif ($event->getStep() == self::STEP_PROFILE) {
 			$savedData    = $this->read(self::STEP_PROFILE);
@@ -201,6 +221,7 @@ class DefaultController extends Controller
 									 'userProfiles'  => $userProfiles,
 									 'trip'          => $trip,
 									 'points'        => $points,
+									 'places'        => $places,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}
@@ -218,6 +239,20 @@ class DefaultController extends Controller
 		$event->sender->reset();
 	}
 
+	protected function reservedTicket($tripId, $placeIds)
+	{
+		foreach ($placeIds as $placeId) {
+			$row = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+			if (!$row) {
+				$tempReserve          = new TempReserve();
+				$tempReserve->tripId  = $tripId;
+				$tempReserve->placeId = $placeId;
+				$tempReserve->save();
+			}
+		}
+		$_SESSION['temp_reserve'][$tripId] = $placeIds;
+	}
+
 	/**
 	 * @param $tripId
 	 * @param $profileData
@@ -226,19 +261,19 @@ class DefaultController extends Controller
 	 */
 	public function createOrder($tripId, $placeId, $profileData)
 	{
-		$Profile = new Profiles();
+		$profile = new Profiles();
 		list($discount) = Yii::app()->createController('discounts');
-		$Profile->setAttributes($profileData);
-		if ($Profile->validate()) {
-			$Ticket         = new Tickets();
-			$Ticket->status = 1;
-			$Ticket->idTrip = $tripId;
-			$Ticket->place  = $placeId;
-			if ($Ticket->validate() && $Ticket->save()) {
-				$Profile->tid = $Ticket->id;
-				$Profile->save();
-				$Ticket->price = $discount->getDiscount($Profile->id);
-				return $Ticket->save();
+		$profile->setAttributes($profileData);
+		if ($profile->validate()) {
+			$ticket         = new Tickets();
+			$ticket->status = TICKET_RESERVED;
+			$ticket->idTrip = $tripId;
+			$ticket->place  = $placeId;
+			if ($ticket->save()) {
+				$profile->tid = $ticket->id;
+				$profile->save();
+				$ticket->price = $discount->getDiscount($profile->id);
+				return $ticket->save();
 			}
 		}
 	}
@@ -329,5 +364,29 @@ class DefaultController extends Controller
 		header('Content-type: application/json');
 		echo CJavaScript::jsonEncode($output);
 		Yii::app()->end();
+	}
+
+	public static function getAvailablePlaces(Trips $trip, $onlyValues = false)
+	{
+		$criteria            = new CDbCriteria();
+		$criteria->condition = 'idTrip=:idTrip';
+		$criteria->params    = array(':idTrip' => $trip->id);
+		$criteria->addInCondition('t.status', [TICKET_RESERVED, TICKET_CONFIRMED]);
+
+		$tickets       = Tickets::model()->findAll($criteria);
+		$notAvailPlace = [];
+		foreach ($tickets as $ticket) {
+			$notAvailPlace[] = $ticket->place;
+		}
+
+		$places = [];
+		for ($i = 1; $i <= $trip->idBus0->places; $i++) {
+			if (!in_array($i, $notAvailPlace) || $onlyValues)
+				$places[$i] = $i;
+			else
+				$places['not-' . $i] = $i . ' - занято';
+		}
+
+		return $places;
 	}
 }
