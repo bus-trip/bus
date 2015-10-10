@@ -641,7 +641,6 @@ table#main .current-date .date {
     width: 100%;
     height: 100%;
     background-color: transparent;
-    cursor: pointer;
 }
 
 .btn-current-month-icon {
