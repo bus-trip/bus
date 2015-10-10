@@ -1,28 +1,26 @@
 <?php
 
 /**
- * This is the model class for table "directions".
+ * This is the model class for table "dirpoints".
  *
- * The followings are the available columns in table 'directions':
+ * The followings are the available columns in table 'dirpoints':
  * @property integer $id
- * @property integer $parentId
- * @property string $startPoint
- * @property string $endPoint
- * @property integer $price
- * @property integer $status
+ * @property integer $prevId
+ * @property integer $nextId
+ * @property integer $directionId
+ * @property string $name
  *
  * The followings are the available model relations:
- * @property Tickets[] $tickets
- * @property Trips[] $trips
+ * @property Directions $direction
  */
-class Directions extends CActiveRecord
+class Dirpoints extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'directions';
+		return 'dirpoints';
 	}
 
 	/**
@@ -33,12 +31,12 @@ class Directions extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('startPoint, endPoint, price', 'required'),
-			array('parentId, price, status', 'numerical', 'integerOnly'=>true),
-			array('startPoint, endPoint', 'length', 'max'=>255),
+			array('prevId, nextId, directionId, name', 'required'),
+			array('prevId, nextId, directionId', 'numerical', 'integerOnly'=>true),
+			array('name', 'length', 'max'=>500),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, parentId, startPoint, endPoint, price', 'safe', 'on'=>'search'),
+			array('id, prevId, nextId, directionId, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,8 +48,7 @@ class Directions extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'tickets' => array(self::HAS_MANY, 'Tickets', 'idDirection'),
-			'trips' => array(self::HAS_MANY, 'Trips', 'idDirection'),
+			'direction' => array(self::BELONGS_TO, 'Directions', 'directionId'),
 		);
 	}
 
@@ -62,11 +59,10 @@ class Directions extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'parentId' => 'Родительское направление',
-			'startPoint' => 'Начальный пункт',
-			'endPoint' => 'Конечный пункт',
-			'price' => 'Стоимость',
-            'status' => 'Статус направления',
+			'prevId' => 'Prev',
+			'nextId' => 'Next',
+			'directionId' => 'Direction',
+			'name' => 'Name',
 		);
 	}
 
@@ -89,11 +85,10 @@ class Directions extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('parentId',$this->parentId);
-		$criteria->compare('startPoint',$this->startPoint,true);
-		$criteria->compare('endPoint',$this->endPoint,true);
-		$criteria->compare('price',$this->price);
-        $criteria->compare('status',$this->status);
+		$criteria->compare('prevId',$this->prevId);
+		$criteria->compare('nextId',$this->nextId);
+		$criteria->compare('directionId',$this->directionId);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -104,7 +99,7 @@ class Directions extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Directions the static model class
+	 * @return Dirpoints the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
