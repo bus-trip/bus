@@ -52,6 +52,11 @@ class Checkout extends CFormModel
 
 	public function placesValidate($attribute)
 	{
+		if(empty($this->places)) {
+			$this->addError($attribute, 'Необходимо выбрать места');
+			return;
+		}
+
 		$trip   = Trips::model()->with('idBus0')->findByPk($this->tripId);
 		$places = $trip ? DefaultController::getAvailablePlaces($trip, true) : [];
 		foreach ($this->places as $place) {

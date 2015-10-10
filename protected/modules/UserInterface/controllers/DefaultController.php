@@ -138,7 +138,7 @@ class DefaultController extends Controller
 			$checkoutModel->setAttributes($attributes);
 			switch ($event->getStep()) {
 				case self::STEP_FIND:
-
+					unset($_SESSION['temp_reserve']);
 					break;
 				case self::STEP_PLACE:
 					$savedData             = $this->read(self::STEP_FIND);
@@ -192,7 +192,9 @@ class DefaultController extends Controller
 			$savedData = $this->read();
 			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
 			$places    = $trip ? self::getAvailablePlaces($trip) : [];
-			if (!empty($savedData[self::STEP_PLACE]['places'])) {
+			if (isset($_SESSION['temp_reserve'][$trip->id]) &&
+				!empty($savedData[self::STEP_PLACE]['places'])
+			) {
 				$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
 			}
 		} elseif ($event->getStep() == self::STEP_PROFILE) {
@@ -242,13 +244,13 @@ class DefaultController extends Controller
 	protected function reservedTicket($tripId, $placeIds)
 	{
 		foreach ($placeIds as $placeId) {
-			$row = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
-			if (!$row) {
-				$tempReserve          = new TempReserve();
-				$tempReserve->tripId  = $tripId;
-				$tempReserve->placeId = $placeId;
-				$tempReserve->save();
-			}
+			TempReserve::model()->deleteAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+
+			$tempReserve          = new TempReserve();
+			$tempReserve->tripId  = $tripId;
+			$tempReserve->placeId = $placeId;
+			$tempReserve->created = time();
+			$tempReserve->save();
 		}
 		$_SESSION['temp_reserve'][$tripId] = $placeIds;
 	}
