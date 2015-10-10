@@ -61,7 +61,7 @@ body {
 }
 
 #logo {
-	padding: 40px 0;
+	padding: 20px 0;
 	font-size: 24px;
     text-transform: uppercase;
     color: #fff;
@@ -526,28 +526,6 @@ select.autocomplete {
 	margin-bottom: 2px;
 }
 
-/* Add point to direction dialog */
-table.addPointclass {
-	width: 450px;
-	border-spacing: 0;
-	border-collapse: separate;
-}
-table.addPointclass td {
-	padding: 0;
-}
-table.addPointclass td input[type=submit] {
-	margin-top: 10px;
-}
-
-#dirpoints-grid {
-	width: auto;
-	float: left;
-}
-
-#directions-grid {
-	float: right;
-}
-
 table#main {
     border-collapse: collapse;
 }
@@ -598,12 +576,31 @@ table#main caption .calendar-control {
 
 table#main caption .calendar-control select{
     border: 0;
-    border-bottom: 1px solid #ccc;
-    margin: 0 0 0 10px;
-    font-size: 16px;
+    border-bottom: 1px solid #039BE5;
     color: #333;
+    margin: 4px 0 0 18px;
+    font-size: 16px;
     background-color: transparent;
     cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+table#main caption .calendar-control select:active {
+    background-color: rgba(255,255,255,.5);
+}
+
+table#main caption .calendar-control select:active, table#main caption .calendar-control select:hover{
+    border-bottom: 1px solid #01579B;
+}
+
+table#main caption .calendar-control select option {
+    color: #fff;
+    font-size: 14px;
+    background-color: #01579B;
 }
 
 table#main td {
@@ -623,16 +620,45 @@ table#main .current-date .date {
     font-weight: 700;
 }
 
-.btn-current-month {
+.current-month {
+    display: inline-block;
+    position: relative;
     height: 32px;
     width: 32px;
     border-radius: 50%;
     cursor: pointer;
-    border: 0;
     background-color: #039BE5;
     transition: all .1s ease-in-out; 
+    overflow: hidden;
+    vertical-align: middle;
+    background-image: url(../images/cal.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 
-.btn-current-month:hover {
+.btn-current-month {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btn-current-month-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 30px !important;
+}
+
+.btn-current-month-icon:before {
+    font-size: 16px;
+    color: #fff;
+}
+
+.current-month:hover {
     background-color: #01579B;
 }

@@ -25,7 +25,9 @@ $yearSelect = '';
 		<div class="month">Рейсы
 				на <?php echo  $monthNames[$currentDate['month']] . '  ' . $currentDate['year']; ?></div>
 		<div class="calendar-control">
-			<a href="/"><input class="btn-current-month" type="button" value=""/></a>
+		    <span class="current-month" title="Текущий месяц">
+			    <a href="/"><input class="btn-current-month" type="button" value=""/></a>
+            </span>
 			<?php
 			if (isset($currentDate) && is_array($currentDate)) {
 				echo CHtml::dropDownList(
