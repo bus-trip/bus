@@ -1,2 +1,5 @@
 .idea
 .idea/*
+assets
+protected/runtime
+protected/yii.php
