@@ -57,10 +57,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				),
 				'update' => array(
 					'label' => 'Редактировать',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
 					'url'   => 'Yii::app()->controller->createUrl("trips/update", array("id"=>$data["id"]))',
 				),
 				'delete' => array(
 					'label' => 'Удалить',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/delete.png',
 					'url'   => 'Yii::app()->controller->createUrl("trips/delete", array("id"=>$data["id"]))',
 				)
 			)

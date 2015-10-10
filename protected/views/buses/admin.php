@@ -51,9 +51,11 @@ $this->menu = array(
 			'template'           => '{update}&nbsp;&nbsp;&nbsp;{delete}',
 			'buttons'            => array(
 				'update' => array(
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
 					'url' => 'Yii::app()->controller->createUrl("buses/update", array("id"=>$data["id"]))',
 				),
 				'delete' => array(
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/delete.png',
 					'url' => 'Yii::app()->controller->createUrl("buses/delete", array("id"=>$data["id"]))',
 				)
 			)
