@@ -24,14 +24,18 @@ class Checkout extends CFormModel
 	public $places;
 	public $placesStep  = 1;
 	public $reviewStep  = 1;
+	public $address_from;
+	public $address_to;
 
 	public function attributeLabels()
 	{
 		return [
-			'pointFrom' => 'Откуда',
-			'pointTo'   => 'Куда',
-			'date'      => 'Отправление',
-			'places'    => 'Место'
+			'pointFrom'    => 'Откуда',
+			'pointTo'      => 'Куда',
+			'date'         => 'Отправление',
+			'places'       => 'Место',
+			'address_from' => 'Посадка (адрес)',
+			'address_to'   => 'Высадка (адрес)',
 		];
 	}
 
@@ -42,17 +46,19 @@ class Checkout extends CFormModel
 			['tripId, date', 'safe', 'on' => DefaultController::STEP_FIND],
 			['profileStep, profiles', 'required', 'on' => DefaultController::STEP_PROFILE],
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
+			['address_from, address_to', 'safe', 'on' => DefaultController::STEP_PROFILE],
 			['reviewStep', 'required', 'on' => DefaultController::STEP_REVIEW],
 			['reviewStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_REVIEW],
 			['placesStep', 'required', 'on' => DefaultController::STEP_PLACE],
 			['placesStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PLACE],
-			['places', 'placesValidate', 'on' => DefaultController::STEP_PLACE]
+			['places', 'placesValidate', 'on' => DefaultController::STEP_PLACE],
+
 		];
 	}
 
 	public function placesValidate($attribute)
 	{
-		if(empty($this->places)) {
+		if (empty($this->places)) {
 			$this->addError($attribute, 'Необходимо выбрать места');
 			return;
 		}

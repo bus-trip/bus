@@ -238,10 +238,12 @@ class DefaultController extends Controller
 	 */
 	public function wizardFinished($event)
 	{
-		$tripId = $event->data[self::STEP_FIND]['tripId'];
+		$tripId       = $event->data[self::STEP_FIND]['tripId'];
+		$address_from = $event->data[self::STEP_PROFILE]['address_from'];
+		$address_to   = $event->data[self::STEP_PROFILE]['address_to'];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
-			$this->createOrder($tripId, $placeId, $profileData);
+			$this->createOrder($tripId, $placeId, $profileData, $address_from, $address_to);
 		}
 		$event->sender->reset();
 	}
@@ -266,18 +268,20 @@ class DefaultController extends Controller
 	 *
 	 * @return bool
 	 */
-	public function createOrder($tripId, $placeId, $profileData)
+	public function createOrder($tripId, $placeId, $profileData, $address_from, $address_to)
 	{
 		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
-		if(!empty($tempReserve)) {
+		if (!empty($tempReserve)) {
 			$profile = new Profiles();
 			list($discount) = Yii::app()->createController('discounts');
 			$profile->setAttributes($profileData);
 			if ($profile->validate()) {
-				$ticket         = new Tickets();
-				$ticket->status = TICKET_RESERVED;
-				$ticket->idTrip = $tripId;
-				$ticket->place  = $placeId;
+				$ticket               = new Tickets();
+				$ticket->status       = TICKET_RESERVED;
+				$ticket->idTrip       = $tripId;
+				$ticket->place        = $placeId;
+				$ticket->address_from = $address_from;
+				$ticket->address_to   = $address_to;
 				if ($ticket->save()) {
 					$profile->tid = $ticket->id;
 					$profile->save();

@@ -48,6 +48,17 @@ $form = $this->beginWidget('CActiveForm'); ?>
 			</div>
 		<?php } ?>
 	</div>
+
+	<div id="address">
+		<div class="address-item">
+			<div><?= $form->labelEx($checkoutModel, 'address_from') ?></div>
+			<div><?= $form->textArea($checkoutModel, 'address_from') ?></div>
+		</div>
+		<div class="address-item">
+			<div><?= $form->labelEx($checkoutModel, 'address_to') ?></div>
+			<div><?= $form->textArea($checkoutModel, 'address_to') ?></div>
+		</div>
+	</div>
 </div>
 
 
