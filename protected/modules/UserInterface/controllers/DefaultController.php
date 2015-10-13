@@ -239,8 +239,9 @@ class DefaultController extends Controller
 	public function wizardFinished($event)
 	{
 		$tripId = $event->data[self::STEP_FIND]['tripId'];
-		foreach ($event->data[self::STEP_PROFILE]['profiles'] as $placeId => $profileData) {
-			$this->createOrder($tripId, ($placeId + 1), $profileData);
+		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
+			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
+			$this->createOrder($tripId, $placeId, $profileData);
 		}
 		$event->sender->reset();
 	}
@@ -267,19 +268,26 @@ class DefaultController extends Controller
 	 */
 	public function createOrder($tripId, $placeId, $profileData)
 	{
-		$profile = new Profiles();
-		list($discount) = Yii::app()->createController('discounts');
-		$profile->setAttributes($profileData);
-		if ($profile->validate()) {
-			$ticket         = new Tickets();
-			$ticket->status = TICKET_RESERVED;
-			$ticket->idTrip = $tripId;
-			$ticket->place  = $placeId;
-			if ($ticket->save()) {
-				$profile->tid = $ticket->id;
-				$profile->save();
-				$ticket->price = $discount->getDiscount($profile->id);
-				return $ticket->save();
+		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+		if(!empty($tempReserve)) {
+			$profile = new Profiles();
+			list($discount) = Yii::app()->createController('discounts');
+			$profile->setAttributes($profileData);
+			if ($profile->validate()) {
+				$ticket         = new Tickets();
+				$ticket->status = TICKET_RESERVED;
+				$ticket->idTrip = $tripId;
+				$ticket->place  = $placeId;
+				if ($ticket->save()) {
+					$profile->tid = $ticket->id;
+					$profile->save();
+					$ticket->price = $discount->getDiscount($profile->id);
+					TempReserve::model()->deleteAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+					return $ticket->save();
+				}
+			}
+			if (isset($_SESSION['temp_reserve'][$tripId])) {
+				unset($_SESSION['temp_reserve'][$tripId]);
 			}
 		}
 	}

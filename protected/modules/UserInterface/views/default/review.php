@@ -34,6 +34,8 @@ $profileLabels = $profile->attributeLabels();
 									$item = 'Женский';
 									break;
 							}
+						} elseif($id=='doc_type'){
+							$item = Profiles::getDocType($item);
 						}
 						?>
 						<div class="row">
