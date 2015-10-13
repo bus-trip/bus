@@ -51,16 +51,17 @@ $clientScript
 	<div id="mainmenu">
 		<?php
 		if (Yii::app()->user->name == 'admin') {
-			$this->widget('zii.widgets.CMenu', array(
-				'items' => array(
-					array('label' => 'Главная', 'url' => array('/admin/index')),
-					array('label' => 'Автобусы', 'url' => array('/buses/admin')),
-					array('label' => 'Рейсы', 'url' => array('/trips/admin/status/actual')),
+			$this->widget('zii.widgets.CMenu', [
+				'items' => [
+					['label' => 'Главная', 'url' => ['/admin/index']],
+					['label' => 'Автобусы', 'url' => ['/buses/admin']],
+					['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
 					//                    array('label' => 'Расписания', 'url' => array('/schedule/admin')),
-					array('label' => 'Направления', 'url' => array('/directions/admin')),
-					array('label' => 'Все пассажиры', 'url' => array('/tickets/passengers?Profiles_sort=last_name')),
-				),
-			));
+					['label' => 'Направления', 'url' => ['/directions/admin']],
+					['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
+					['label' => 'UserInterface', 'url' => ['/UserInterface/default/index']],
+				],
+			]);
 		}
 		?>
 	</div>
