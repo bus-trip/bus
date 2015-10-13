@@ -3,6 +3,15 @@ html {
 	height: 100%;
 }
 
+a {
+    color: #039BE5;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #01579B;
+}
+
 body {
 	margin: 0;
 	padding: 0;
@@ -14,20 +23,28 @@ body {
 }
 
 #page {
-	margin-top: 5px;
-	margin-bottom: 5px;
-	background: white;
-	border: 1px solid #C9E0ED;
+	background: #fff;
 }
 
 #header {
 	margin: 0;
 	padding: 0;
-	border-top: 3px solid #C9E0ED;
+    background-color: #3949AB;
+    text-align: justify;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+#header:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    visibility: hidden;
 }
 
 #content {
-	padding: 20px;
+	padding: 0 20px 20px;
 	overflow: auto;
 }
 
@@ -44,36 +61,98 @@ body {
 }
 
 #logo {
-	padding: 10px 20px;
-	font-size: 200%;
+	padding: 20px 0;
+	font-size: 24px;
+    text-transform: uppercase;
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.login-block {
+    color: #fff;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    list-style-type: none;
+}
+
+.login-block li {
+    margin: 8px 0;
+}
+
+.login-block a {
+    text-decoration: none;
+    color: #fff;
+    opacity: .5;
+    -webkit-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
+}
+
+.login-block a:hover {
+    opacity: 1;
 }
 
 #mainmenu {
-	background: white url(bg.gif) repeat-x left top;
+	background-color: #3F51B5;
 }
 
 #mainmenu ul {
-	padding: 6px 20px 5px 20px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
+    font-size: 0;
+    height: 64px;
+    line-height: 64px;
 }
 
 #mainmenu ul li {
-	display: inline;
+	display: inline-block;
 }
 
 #mainmenu ul li a {
+    display: inline-block;
 	color: #ffffff;
+    position: relative;
 	background-color: transparent;
-	font-size: 12px;
+	font-size: 14px;
+    text-transform: uppercase;
 	font-weight: bold;
 	text-decoration: none;
-	padding: 5px 8px;
+	padding: 0 20px;
+    box-sizing: border-box;
+    opacity: .75;
+    border-bottom: 0 solid #00BCD4;
+    -webkit-transition: all .1s ease-in-out;
+    -o-transition: all .1s ease-in-out;
+    transition: all .1s ease-in-out;
 }
 
-#mainmenu ul li a:hover, #mainmenu ul li.active a {
-	color: #6399cd;
-	background-color: #EFF4FA;
-	text-decoration: none;
+#mainmenu ul li a:hover {
+    opacity: 1;
+}
+
+#mainmenu ul li a:active {
+    opacity: 1;
+    background-color: rgba(255,255,255,.2);
+}
+
+#mainmenu ul li.active a{
+    opacity: 1;
+}
+
+#mainmenu ul li.active a:after {
+    content: '';
+    height: 4px;
+    width: 100%;
+    display: block;
+	background-color: #00BCD4;
+    opacity: 1;
+    bottom: 0;
+    left: 0;
+    position: absolute;
 }
 
 div.flash-error, div.flash-notice, div.flash-success {
@@ -123,12 +202,9 @@ div.view {
 }
 
 div.breadcrumbs {
-	font-size: 0.9em;
-	padding: 15px 20px 5px;
-}
-
-div.breadcrumbs span {
-	font-weight: bold;
+	font-size: 14px;
+	padding: 20px;
+    font-weight: 700;
 }
 
 div.search-form {
@@ -325,10 +401,17 @@ html[xmlns] .clearfix {
 /*}*/
 
 .trips {
-	height: 27px;
-	padding: 0 2px;
-	margin: 1px 0;
-	border-radius: 7px;
+	background-color: #039BE5;
+    border-radius: 4px;
+    color: #fff;
+    padding: 4px 6px;
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+    margin: 0 0 2px;
+    -webkit-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    transition: all .2s ease-in;
 }
 
 .trips-full {
@@ -340,8 +423,14 @@ html[xmlns] .clearfix {
 }
 
 .trips-empty {
-	background-color: cadetblue;
+	background-color: #039BE5;
 }
+
+.trips-empty:hover {
+    background-color: #01579B;
+}
+
+[value=""]
 
 #trips-sheet .button-column {
 	text-align: left;
@@ -566,6 +655,283 @@ body .ui-menu .ui-menu-item a {
 select.autocomplete {
 	width: 103px;
 	margin-bottom: 2px;
+}
+
+table#main {
+    border-collapse: collapse;
+}
+
+table#main .weekday td{
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #777;
+    border-bottom: 1px solid #ccc;
+    padding: 28px 10px 8px 18px;
+}
+
+table#main .date {
+    margin-bottom: 10px;
+    display: inline-block;
+    color: #333;
+    height: 32px;
+    width: 32px;
+    line-height: 34px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+}
+
+table#main caption {
+    padding: 20px;
+    text-align: justify;
+}
+
+table#main caption:after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+    height: 0;
+    visibility: hidden;
+}
+
+table#main caption .month {
+    font-size: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    color: #333;
+}
+
+table#main caption .calendar-control {
+    display: inline-block;
+}
+
+table#main caption .calendar-control select{
+    border: 0;
+    border-bottom: 1px solid #039BE5;
+    color: #333;
+    margin: 4px 0 0 18px;
+    font-size: 16px;
+    background-color: transparent;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+table#main caption .calendar-control select:active {
+    background-color: rgba(255,255,255,.5);
+}
+
+table#main caption .calendar-control select:active, table#main caption .calendar-control select:hover{
+    border-bottom: 1px solid #01579B;
+}
+
+table#main caption .calendar-control select option {
+    color: #fff;
+    font-size: 14px;
+    background-color: #01579B;
+}
+
+table#main td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    border-left: 1px solid #f3f3f3;
+    border-right: 1px solid #f3f3f3;
+}
+
+table#main .current-date {
+    background-color: #f3f3f3;
+}
+
+table#main .current-date .date {
+    background-color: #E91E63;
+    color: #fff;
+    font-weight: 700;
+}
+
+.current-month {
+    display: inline-block;
+    position: relative;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: #039BE5;
+    transition: all .1s ease-in-out;
+    overflow: hidden;
+    vertical-align: middle;
+    background-image: url(../images/cal.png);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.btn-current-month {
+    border: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.btn-current-month-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 30px !important;
+}
+
+.btn-current-month-icon:before {
+    font-size: 16px;
+    color: #fff;
+}
+
+.current-month:hover {
+    background-color: #01579B;
+}
+
+.grid-view-loading
+{
+	background:url(loading.gif) no-repeat;
+}
+
+.grid-view
+{
+	padding: 15px 0;
+}
+
+.grid-view table.items
+{
+	background: white;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.grid-view table.items th, .grid-view table.items td
+{
+	padding: 8px 10px;
+}
+
+.grid-view table.items th
+{
+    color: rgba(255,255,255,.85);
+    padding: 10px;
+	text-align: left;
+    text-transform: uppercase;
+}
+
+.grid-view table.items th a
+{
+    color: inherit;
+	font-weight: bold;
+	text-decoration: none;
+    font-size: 12px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.grid-view table.items th a:hover
+{
+	color: rgba(255,255,255,1);
+}
+
+.grid-view table.items th a.asc
+{
+	background:url(up.gif) right center no-repeat;
+	padding-right: 10px;
+}
+
+.grid-view table.items th a.desc
+{
+	background:url(down.gif) right center no-repeat;
+	padding-right: 10px;
+}
+
+.grid-view table.items tr.even
+{
+	background: #FFF;
+}
+
+.grid-view table.items tr.odd
+{
+	background: #E0F7FA;
+}
+
+.grid-view table.items tr.selected
+{
+	background: #BCE774;
+}
+
+.grid-view table.items tr:hover.selected
+{
+	background: #CCFF66;
+}
+
+.grid-view table.items tbody tr:hover
+{
+	background: #B2EBF2;
+}
+
+.grid-view .link-column img
+{
+	border: 0;
+}
+
+.grid-view .button-column
+{
+	text-align: center;
+	width: 80px;
+    white-space: nowrap;
+}
+
+.grid-view .button-column a {
+    display: inline-block;
+    opacity: .75;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+}
+
+.grid-view .button-column a:hover {
+    opacity: 1;
+}
+
+.grid-view .button-column img
+{
+	border: 0;
+}
+
+.grid-view .checkbox-column
+{
+	width: 15px;
+}
+
+.grid-view .summary
+{
+	margin: 0 0 5px 0;
+	text-align: right;
+}
+
+.grid-view .pager
+{
+	margin: 5px 0 0 0;
+	text-align: right;
+}
+
+.grid-view .empty
+{
+	font-style: italic;
+}
+
+.grid-view .filters input,
+.grid-view .filters select
+{
+	width: 100%;
+	border: 1px solid #ccc;
 }
 
 #profiles .place{

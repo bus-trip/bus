@@ -1,11 +1,20 @@
-<?php /* @var $this Controller */ ?>
+<?php
+/*
+ * @var $this Controller
+ */
+
+$baseUrl = Yii::app()->request->baseUrl;
+$clientScript = Yii::app()->getClientScript();
+$clientScript
+	->registerCssFile($baseUrl . '/css/main.css')
+	->registerCssFile($baseUrl . '/css/form.css');
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<meta name="language" content="en"/>
-
 	<!-- blueprint CSS framework -->
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/screen.css"
 		  media="screen, projection"/>
@@ -15,19 +24,18 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/ie.css"
 		  media="screen, projection"/>
 	<![endif]-->
-
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css"/>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css"/>
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
+
 <body>
+
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo" class="left"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 
 		<ul class="account-menu right">
+		<ul class="login-block">
 			<?php if (Yii::app()->user->isGuest) { ?>
 				<li><a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a></li>
 				<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
@@ -38,7 +46,6 @@
 				<li><a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a></li>
 			<?php } ?>
 		</ul>
-		<div style="clear:both"></div>
 	</div>
 	<!-- header -->
 	<div id="mainmenu">

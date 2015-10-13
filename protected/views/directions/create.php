@@ -14,4 +14,4 @@ $this->menu=array(
 
 <h2>Новое направление</h2>
 
-<?php $this->renderPartial('_form', array('model'=>$model, 'parentDir'=>$parentDir)); ?>
+<?php $this->renderPartial('_form', array('model'=>$model)); ?>
