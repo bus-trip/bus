@@ -368,6 +368,12 @@ class DefaultController extends Controller
 		Yii::app()->end();
 	}
 
+	/**
+	 * @param Trips      $trip
+	 * @param bool|false $onlyValues
+	 *
+	 * @return array
+	 */
 	public static function getAvailablePlaces(Trips $trip, $onlyValues = false)
 	{
 		$criteria            = new CDbCriteria();
@@ -379,6 +385,14 @@ class DefaultController extends Controller
 		$notAvailPlace = [];
 		foreach ($tickets as $ticket) {
 			$notAvailPlace[] = $ticket->place;
+		}
+
+		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $trip->id]);
+		if (!empty($tempReserve)) {
+			foreach ($tempReserve as $item) {
+				if (isset($_SESSION['temp_reserve'][$trip->id]) && !in_array($item->placeId, $_SESSION['temp_reserve'][$trip->id]))
+					$notAvailPlace[] = $item->placeId;
+			}
 		}
 
 		$places = [];
