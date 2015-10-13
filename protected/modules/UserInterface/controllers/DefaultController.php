@@ -70,7 +70,7 @@ class DefaultController extends Controller
 				} else $directions[] = $ds;
 			}
 		}
-		return array_unique($directions);
+		return !empty($directions) ? array_unique($directions) : [];
 	}
 
 	private function getStationsByDirectionId($id)
