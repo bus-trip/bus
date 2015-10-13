@@ -40,19 +40,21 @@
 </div>
 
 
-<!--<div class="row">-->
-<!--	<div class="passport-input">-->
-<!--		<label for="user_passport1" class="required">Серия <span class="required">*</span></label>-->
-<!--		<input class="code --><?php //echo ($profileModel->getError('passport')) ? 'error' : ''; ?><!--" type="text"-->
-<!--			   name="user_passport1" id="" maxlength="4" size="4"/>-->
-<!--		<label for="user_passport2" class="required">Номер <span class="required">*</span></label>-->
-<!--		<input class="number --><?php //echo ($profileModel->getError('passport')) ? 'error' : ''; ?><!--" type="text"-->
-<!--			   name="user_passport2" id="" maxlength="6" size="6"/>-->
-<!---->
-<!--		--><?php //echo CHtml::activeHiddenField($profileModel, '[' . $i . ']passport', ['class' => 'code_number']); ?>
-<!--	</div>-->
-<!--	--><?php //echo CHtml::error($profileModel, '[' . $i . ']passport'); ?>
-<!--</div>-->
+
+<div class="row">
+	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']doc_type'); ?>
+	<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
+														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
+														Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
+														Profiles::DOC_MILITARY_ID       => 'Военный билет']); ?>
+	<?php echo CHtml::error($profileModel, '[' . $i . ']doc_type'); ?>
+</div>
+
+<div class="row">
+	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']doc_num'); ?>
+	<?php echo CHtml::activeTextField($profileModel, '[' . $i . ']doc_num'); ?>
+	<?php echo CHtml::error($profileModel, '[' . $i . ']doc_num'); ?>
+</div>
 
 <div class="row">
 	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']phone'); ?>

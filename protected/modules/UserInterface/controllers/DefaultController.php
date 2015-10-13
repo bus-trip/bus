@@ -198,18 +198,22 @@ class DefaultController extends Controller
 				$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
 			}
 		} elseif ($event->getStep() == self::STEP_PROFILE) {
-			$savedData    = $this->read(self::STEP_PROFILE);
+			$savedDataProfile = $this->read(self::STEP_PROFILE);
+			$savedDataPlaces  = $this->read(self::STEP_PLACE);
+
+			foreach ($savedDataPlaces['places'] as $num) {
+				$profileModels[] = new Profiles();
+			}
+
 			$userProfiles = Profiles::model()
 									->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
 														  ['order' => 'created DESC']);
-			if (!empty($savedData['profiles'])) {
-				foreach ($savedData['profiles'] as $i => $item) {
+			if (!empty($savedDataProfile['profiles'])) {
+				foreach ($savedDataProfile['profiles'] as $i => $item) {
 					$profileModel = new Profiles();
 					$profileModel->setAttributes($item);
 					$profileModels[$i] = $profileModel;
 				}
-			} else {
-				$profileModels[] = new Profiles();
 			}
 		} elseif ($event->getStep() == self::STEP_REVIEW) {
 			$savedData = $this->read(self::STEP_FIND);

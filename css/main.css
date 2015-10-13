@@ -450,6 +450,7 @@ body .ui-menu .ui-menu-item a {
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
     padding-top: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -499,7 +500,8 @@ body .ui-menu .ui-menu-item a {
     margin-left: 23px;
 }
 
-#checkout-profiles-wrapper #profiles .profile-item .row input{
+#checkout-profiles-wrapper #profiles .profile-item .row input,
+#checkout-profiles-wrapper #profiles .profile-item .row select{
     display: inline-block;
     width: 60%;
 }
@@ -564,4 +566,9 @@ body .ui-menu .ui-menu-item a {
 select.autocomplete {
 	width: 103px;
 	margin-bottom: 2px;
+}
+
+#profiles .place{
+	font-weight: bold;
+	margin-bottom: 8px;
 }
