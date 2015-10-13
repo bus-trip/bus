@@ -132,7 +132,7 @@ class AccountController extends Controller
 		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
 		$this->breadcrumbs[]              = 'Редактирование профиля';
 
-		$model        = $this->loadProfile($id);
+		$model = $this->loadProfile($id);
 //		$model->birth = date('d.m.Y', $model->birth);
 		if ($model && $model->uid == $this->user->id &&
 			$attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))
@@ -152,9 +152,54 @@ class AccountController extends Controller
 		$this->pageTitle     = 'Мои билеты';
 		$this->breadcrumbs[] = 'Мои билеты';
 
-		$dataProvider = new CActiveDataProvider('Tickets', []);
+		$criteria            = new CDbCriteria;
+		$criteria->condition = 'uid=:uid AND t.tid IS NOT NULL';
+		$criteria->params    = array(':uid' => Yii::app()->getUser()->id);
+		$data                = Profiles::model()->with('tickets')->findAll($criteria);
 
-		$this->render('tickets', ['dataProvider' => $dataProvider]);
+		$arrData = array();
+		foreach ($data as $d) {
+			if (!isset($trip[$d->tickets->idTrip]))
+				$trip[$d->tickets->idTrip] = Trips::model()->with('idDirection0')->findAllByPk($d->tickets->idTrip);
+
+			$arrData[] = array(
+				'id'           => $d->tid,
+				'name'         => $d->last_name . ' ' . $d->name,
+				'place'        => $d->tickets->place,
+				'price'        => $d->tickets->price,
+				'status'       => $d->tickets->status,
+				'address_from' => $d->tickets->address_from,
+				'address_to'   => $d->tickets->address_to,
+				'departure'    => $trip[$d->tickets->idTrip][0]->departure,
+				'arrival'      => $trip[$d->tickets->idTrip][0]->arrival,
+				'startPoint'   => $trip[$d->tickets->idTrip][0]->idDirection0->startPoint,
+				'endPoint'     => $trip[$d->tickets->idTrip][0]->idDirection0->endPoint,
+			);
+		}
+
+		$modelData = new CArrayDataProvider(
+			$arrData,
+			array(
+				'keyField'   => 'id',
+				'sort'       => array(
+					'attributes' => array(
+						'name',
+						'place',
+						'price',
+						'status',
+						'departure',
+						'arrival'
+					)
+				),
+				'pagination' => array(
+					'pageSize' => 20,
+				),
+			)
+		);
+
+		$this->render('tickets', array(
+			'modelData' => $modelData,
+		));
 	}
 
 	/**

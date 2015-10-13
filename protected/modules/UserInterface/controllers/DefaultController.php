@@ -205,9 +205,14 @@ class DefaultController extends Controller
 				$profileModels[] = new Profiles();
 			}
 
-			$userProfiles = Profiles::model()
-									->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
-														  ['order' => 'created DESC']);
+			$userProfilesModels = Profiles::model()
+										  ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+																['order' => 'created DESC']);
+			foreach ($userProfilesModels as $p) {
+				$key                = md5($p->doc_type . '::' . $p->doc_num . '::' . $p->last_name . '::' . $p->black_list);
+				$userProfiles[$key] = $p;
+			}
+
 			if (!empty($savedDataProfile['profiles'])) {
 				foreach ($savedDataProfile['profiles'] as $i => $item) {
 					$profileModel = new Profiles();
@@ -284,6 +289,7 @@ class DefaultController extends Controller
 				$ticket->address_to   = $address_to;
 				if ($ticket->save()) {
 					$profile->tid = $ticket->id;
+					$profile->uid = Yii::app()->getUser()->id;
 					$profile->save();
 					$ticket->price = $discount->getDiscount($profile->id);
 					TempReserve::model()->deleteAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
