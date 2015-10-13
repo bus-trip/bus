@@ -66,11 +66,12 @@ class DefaultController extends Controller
 			foreach ($dirsByStart as $ds) {
 				if (isset($endPoint)) {
 					$points = $this->getStationsByDirectionId($ds['id']);
-					if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
-				} else $directions[] = $ds;
+					if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points))
+						$directions[$ds['id']] = $ds;
+				} else $directions[$ds['id']] = $ds;
 			}
 		}
-		return !empty($directions) ? array_unique($directions) : [];
+		return $directions;
 	}
 
 	private function getStationsByDirectionId($id)
