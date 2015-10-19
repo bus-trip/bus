@@ -187,13 +187,11 @@ class DefaultController extends Controller
 			$query = Dirpoints::model()->findAll();
 			$checkoutModel->date = date("d.m.Y");
 			foreach ($query as $q) {
-//				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
-//				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
 				if($q->direction->status != DIRTRIP_CANCELED){
 					$points[$q->name] = $q->name;
 				}
 			}
-			sort($points);
+			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
 			$savedData = $this->read();
 			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
