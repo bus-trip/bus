@@ -138,6 +138,7 @@ class PdfmakeController extends Controller
 		$organization = Organization::model()->findByPk(1);
 		/**    @var $profile Profiles */
 		$profile = Profiles::model()->findByPk($profileId);
+		$ticket = Tickets::model()->findByPk($profile->tid);
 		$this->renderPartial(
 			'boardingticket',
 			array(
@@ -153,14 +154,14 @@ class PdfmakeController extends Controller
 				'birthDate'     => $profile->birth,
 				'passportType'  => Profiles::getDocType($profile->doc_type),
 				'passport'      => $profile->doc_num,
-				'direction'     => $profile->t->idTrip0->idDirection0->startPoint . " - " . $profile->t->idTrip0->idDirection0->endPoint,
-				'departure'     => date("d.m.Y", strtotime($profile->t->idTrip0->departure)),
-				'departureTime' => date("H:i", strtotime($profile->t->idTrip0->departure)),
-				'arrival'       => date("d.m.Y", strtotime($profile->t->idTrip0->arrival)),
-				'arrivalTime'   => date("H:i", strtotime($profile->t->idTrip0->arrival)),
-				'bus'           => $profile->t->idTrip0->idBus0->model . " " . $profile->t->idTrip0->idBus0->number,
-				'place'         => $profile->t->place,
-				'price'         => $profile->t->price,
+				'direction'     => $ticket->idTrip0->idDirection0->startPoint . " - " . $ticket->idTrip0->idDirection0->endPoint,
+				'departure'     => date("d.m.Y", strtotime($ticket->idTrip0->departure)),
+				'departureTime' => date("H:i", strtotime($ticket->idTrip0->departure)),
+				'arrival'       => date("d.m.Y", strtotime($ticket->idTrip0->arrival)),
+				'arrivalTime'   => date("H:i", strtotime($ticket->idTrip0->arrival)),
+				'bus'           => $ticket->idTrip0->idBus0->model . " " . $ticket->idTrip0->idBus0->number,
+				'place'         => $ticket->place,
+				'price'         => $ticket->price,
 				'pageBreak'     => $pagebreak,
 			)
 		);

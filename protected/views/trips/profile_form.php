@@ -36,9 +36,9 @@
 		<label for="user_passport2" class="required">Номер <span class="required">*</span></label>
 		<input class="number" type="text" name="user_passport2" id="" maxlength="6" size="6"/>
 
-		<?php echo $form->hiddenField($model, 'passport', array('class' => 'code_number')); ?>
+		<?php echo $form->hiddenField($model, 'doc_num', array('class' => 'code_number')); ?>
 	</div>
-	<?php echo $form->error($model, 'passport'); ?>
+	<?php echo $form->error($model, 'doc_num'); ?>
 </div>
 
 <div class="row">

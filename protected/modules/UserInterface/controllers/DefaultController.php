@@ -12,6 +12,7 @@ use CDbCriteria;
 use CException;
 use CJavaScript;
 use Directions;
+use Dirpoints;
 use Profiles;
 use TempReserve;
 use Tickets;
@@ -183,12 +184,16 @@ class DefaultController extends Controller
 		}
 
 		if ($event->getStep() == self::STEP_FIND) {
-			$query               = Directions::model()->findAll();
+			$query = Dirpoints::model()->findAll();
 			$checkoutModel->date = date("d.m.Y");
 			foreach ($query as $q) {
-				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
-				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+//				if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
+//				if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+				if($q->direction->status != DIRTRIP_CANCELED){
+					$points[$q->name] = $q->name;
+				}
 			}
+			sort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
 			$savedData = $this->read();
 			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
@@ -308,7 +313,7 @@ class DefaultController extends Controller
 	 */
 	public function wizardInvalidStep($event)
 	{
-		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a vaild step in this wizard');
+		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a valid step in this wizard');
 	}
 
 	public function actionIndex($step = null)

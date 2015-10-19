@@ -53,12 +53,17 @@ class TicketsSearchController extends Controller
 
 	public function actionIndex()
 	{
-		$query = Directions::model()->findAll();
+//		$query = Directions::model()->findAll();
+		$query = Dirpoints::model()->findAll();
 		$points = array();
 		foreach ($query as $q) {
-			if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
-			if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+//			if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
+//			if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
+			if($q->direction->status != DIRTRIP_CANCELED){
+				$points[$q->name] = $q->name;
+			}
 		}
+		sort($points);
 		$indexData['points'] = $points;
 
 		if (isset($_POST['startPoint']) && isset($_POST['endPoint']) && isset($_POST['departure'])) {
