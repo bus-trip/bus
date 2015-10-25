@@ -6,51 +6,61 @@
  * @var $dataProvider CDataProvider
  */
 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('zii.widgets.grid.CGridView', [
 	'id'           => 'user-auth-data-grid',
 	'dataProvider' => $modelData,
 	'template'     => '{items}{pager}',
-	'columns'      => array(
-		array(
+	'columns'      => [
+		[
 			'name'   => 'name',
 			'header' => 'Имя',
-		),
-		array(
+		],
+		[
 			'name'   => 'place',
 			'header' => 'Место',
-		),
-		array(
+		],
+		[
 			'name'   => 'price',
 			'header' => 'Цена',
-		),
-		array(
+		],
+		[
 			'name'   => 'status',
 			'header' => 'Статус',
-		),
-		array(
+		],
+		[
 			'name'   => 'address_from',
 			'header' => 'Выезд',
-		),
-		array(
+		],
+		[
 			'name'   => 'address_to',
 			'header' => 'Приезд',
-		),
-		array(
+		],
+		[
 			'name'   => 'departure',
 			'header' => 'Время отъезда',
-		),
-		array(
+		],
+		[
 			'name'   => 'arrival',
 			'header' => 'Время прибытия',
-		),
-		array(
+		],
+		[
 			'name'   => 'startPoint',
 			'header' => 'Маршрут от',
-		),
-		array(
+		],
+		[
 			'name'   => 'endPoint',
 			'header' => 'Маршрут до',
-		),
-
-	),
-));
+		],
+		[
+			'class'    => 'CButtonColumn',
+			'template' => '{boarding}',
+			'buttons'  => [
+				'boarding' => [
+					'label'    => 'Печать билета',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
+					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profileId]")',
+					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
+				]
+			]]
+	],
+]);

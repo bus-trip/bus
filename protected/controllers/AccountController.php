@@ -174,6 +174,7 @@ class AccountController extends Controller
 				'arrival'      => $trip[$d->tickets->idTrip][0]->arrival,
 				'startPoint'   => $trip[$d->tickets->idTrip][0]->idDirection0->startPoint,
 				'endPoint'     => $trip[$d->tickets->idTrip][0]->idDirection0->endPoint,
+				'profileId'    => $d->id
 			);
 		}
 

@@ -938,3 +938,8 @@ table#main .current-date .date {
 	font-weight: bold;
 	margin-bottom: 8px;
 }
+
+#checkout-complete-wrapper{
+	text-align: center;
+	margin: 20px auto;
+}
