@@ -11,7 +11,7 @@
 	<h2>Направление</h2>
 
 	<p><?php print $trip->idDirection0->startPoint . ' - ' . $trip->idDirection0->endPoint ?><br>
-		Стоимость одного билета: <?php print $trip->idDirection0->price ?> руб.</p>
+		Стоимость: <b><?= array_sum($prices) ?> руб.</b></p>
 
 	<h2>Информация об автобусе</h2>
 

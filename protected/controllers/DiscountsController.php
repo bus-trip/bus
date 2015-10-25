@@ -148,35 +148,23 @@ class DiscountsController extends Controller
 	 * Устанавливает скидку для определённого билета.
 	 *
 	 * @param $profileId
+	 *
 	 * @return integer
 	 */
 	public function getDiscount($profileId)
 	{
 		$Profile = Profiles::model()->findByPk($profileId);
-		$Ticket = Tickets::model()->findByPk($Profile->tid);
+		$Ticket  = Tickets::model()->findByPk($Profile->tid);
 		if (!$Ticket->price) {
-			$criteria = new CDbCriteria();
-			$criteria->join = 'join trips as tr on t.id=tr.idDirection';
+			$criteria            = new CDbCriteria();
+			$criteria->join      = 'join trips as tr on t.id=tr.idDirection';
 			$criteria->condition = 'tr.id=' . $Ticket->idTrip;
-			$Direction = Directions::model()->find($criteria);
-			$Ticket->price = $Direction->price;
+			$Direction           = Directions::model()->find($criteria);
+			$Ticket->price       = $Direction->price;
 		}
 
-//		Детская скидка. Не учитывал скидку по местам и поездкам.
-		$Discount = Discounts::model()->findByPk("AGE");
-		$bdate1 = new DateTime(date("Y-m-d",strtotime($Profile->birth)));
-		$bdate2 = new DateTime(date("Y-m-d"));
-		$bdiff = $bdate1->diff($bdate2);
-		if($Discount && ($bdiff->y < 12)) {
-			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
-			return $Ticket->price;
-		}
+		$Ticket->price = $this->getDiscountAmount($Profile->birth, $Ticket->place, $Ticket->price);
 
-//		Скидка по месту
-		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
-		if ($Discount) {
-			$Ticket->price = $Discount->amountType == 1 ? $Ticket->price * (1 - $Discount->amount / 100) : $Ticket->price - $Discount->amount;
-		}
 //		Затем скидка по поездкам
 //		$Discount = Discounts::model()->findByPk("TRIPSCOUNT+3");
 //		if ($Discount) {
@@ -195,10 +183,43 @@ class DiscountsController extends Controller
 		return $Ticket->price;
 	}
 
+	public function getDiscountAmount($birth, $place, $price)
+	{
+		// Детская скидка. Не учитывал скидку по местам и поездкам.
+		$priceDiscount = $this->getDiscountByAge($birth, $price);
+		if ($priceDiscount != $price)
+			return $priceDiscount;
+
+		// Скидка по месту
+		return $this->getDiscountByPlace($place, $price);
+	}
+
+	public function getDiscountByAge($birth, $price)
+	{
+		$Discount = Discounts::model()->findByPk("AGE");
+		$bdate1   = new DateTime(date("Y-m-d", strtotime($birth)));
+		$bdate2   = new DateTime(date("Y-m-d"));
+		$bdiff    = $bdate1->diff($bdate2);
+		if ($Discount && ($bdiff->y < 12)) {
+			return $Discount->amountType == 1 ? $price * (1 - $Discount->amount / 100) : $price - $Discount->amount;
+		}
+		return $price;
+	}
+
+	public function getDiscountByPlace($place, $price)
+	{
+		$Discount = Discounts::model()->findByPk("PLACE+" . $place);
+		if ($Discount) {
+			return $Discount->amountType == 1 ? $price * (1 - $Discount->amount / 100) : $price - $Discount->amount;
+		}
+
+		return (int) $price;
+	}
+
 	public function actionShowdiscount($profileId)
 	{
-		$Profile = Profiles::model()->findByPk($profileId);
-		$Ticket = Tickets::model()->findByPk($Profile->tid);
+		$Profile      = Profiles::model()->findByPk($profileId);
+		$Ticket       = Tickets::model()->findByPk($Profile->tid);
 		$discountType = array('PLACE', 'DATEDIR', 'AGE', 'TRIPSCOUNT');
 
 		$Discount = Discounts::model()->findByPk("PLACE+" . $Ticket->place);
@@ -274,7 +295,7 @@ class DiscountsController extends Controller
 	public function loadModel($id)
 	{
 		$model = Discounts::model()->findByPk($id);
-		if ($model === NULL)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 
 		return $model;

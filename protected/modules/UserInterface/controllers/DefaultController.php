@@ -132,7 +132,7 @@ class DefaultController extends Controller
 	 */
 	public function wizardProcessStep($event)
 	{
-		$profileModels = $userProfiles = $selPoints = $places = [];
+		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
 		$points        = ['' => '- Выберите -'];
 		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
@@ -184,10 +184,10 @@ class DefaultController extends Controller
 		}
 
 		if ($event->getStep() == self::STEP_FIND) {
-			$query = Dirpoints::model()->findAll();
+			$query               = Dirpoints::model()->findAll();
 			$checkoutModel->date = date("d.m.Y");
 			foreach ($query as $q) {
-				if($q->direction->status != DIRTRIP_CANCELED){
+				if ($q->direction->status != DIRTRIP_CANCELED) {
 					$points[$q->name] = $q->name;
 				}
 			}
@@ -225,8 +225,17 @@ class DefaultController extends Controller
 				}
 			}
 		} elseif ($event->getStep() == self::STEP_REVIEW) {
-			$savedData = $this->read(self::STEP_FIND);
-			$trip      = Trips::model()->with('idBus0', 'idDirection0')->findByPk($savedData['tripId']);
+			$savedData = $this->read();
+			$trip      = Trips::model()->with('idBus0', 'idDirection0')
+							  ->findByPk($savedData[self::STEP_FIND]['tripId']);
+
+			$savedDataPlaces  = $this->read(self::STEP_PLACE);
+			$savedDataProfile = $this->read(self::STEP_PROFILE);
+			foreach ($savedDataPlaces['places'] as $i => $num) {
+				/** @var \DiscountsController $discount */
+				list($discount) = Yii::app()->createController('discounts');
+				$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $trip->idDirection0->price);
+			}
 		}
 
 		if (!$event->handled) {
@@ -237,6 +246,7 @@ class DefaultController extends Controller
 									 'trip'          => $trip,
 									 'points'        => $points,
 									 'places'        => $places,
+									 'prices'        => $prices,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}

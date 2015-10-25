@@ -12,14 +12,20 @@ $profile       = new Profiles();
 $profileLabels = $profile->attributeLabels();
 
 ?>
-<?php print $this->renderPartial('trip', compact('trip'), true) ?>
+<?php print $this->renderPartial('trip', compact('trip', 'prices'), true) ?>
 
 	<div id="checkout-profiles-wrapper">
-		<h2>Профили билета</h2>
+		<h2><?= count($saved[DefaultController::STEP_PROFILE]['profiles']) == 1 ? 'Билет' : 'Билеты' ?></h2>
 
 		<div id="profiles" class="clearfix">
-			<?php foreach ($saved[DefaultController::STEP_PROFILE]['profiles'] as $profileItem) { ?>
+			<?php foreach ($saved[DefaultController::STEP_PROFILE]['profiles'] as $i => $profileItem) { ?>
 				<div class="profile-item">
+					<div class="row">
+						Номер места: <b><?= $saved[DefaultController::STEP_PLACE]['places'][$i] ?></b>
+					</div>
+					<div class="row">
+						Стоимость: <b><?= $prices[$saved[DefaultController::STEP_PLACE]['places'][$i]] ?> руб.</b>
+					</div>
 					<?php
 					foreach ($profileItem as $id => $item) {
 						if ($id == 'sex') {
@@ -34,7 +40,7 @@ $profileLabels = $profile->attributeLabels();
 									$item = 'Женский';
 									break;
 							}
-						} elseif($id=='doc_type'){
+						} elseif ($id == 'doc_type') {
 							$item = Profiles::getDocType($item);
 						}
 						?>
