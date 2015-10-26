@@ -184,6 +184,15 @@ class AccountController extends Controller
 			];
 		}
 
+		usort($arrData, function ($a, $b) {
+			if ($a['departure'] == $b['departure'])
+				return 0;
+			else if ($a['departure'] > $b['departure'])
+				return -1;
+			else
+				return 1;
+		});
+
 		$modelData = new CArrayDataProvider(
 			$arrData,
 			[
