@@ -40,13 +40,12 @@
 </div>
 
 
-
 <div class="row">
 	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']doc_type'); ?>
 	<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
-														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
-														Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
-														Profiles::DOC_MILITARY_ID       => 'Военный билет']); ?>
+																				 Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
+																				 Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
+																				 Profiles::DOC_MILITARY_ID       => 'Военный билет']); ?>
 	<?php echo CHtml::error($profileModel, '[' . $i . ']doc_type'); ?>
 </div>
 
@@ -64,7 +63,18 @@
 
 <div class="row">
 	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']sex'); ?>
-	<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']sex', ['none' => '-Выберите-', '0' => 'Мужской', '1' => 'Женский']); ?>
+	<?php
+	switch ($profileModel->sex) {
+		case 'Мужской':
+			$profileModel->sex = Profiles::SEX_MALE;
+			break;
+		case 'Женский':
+			$profileModel->sex = Profiles::SEX_FEMALE;
+			break;
+	}
+	echo CHtml::activeDropDownList($profileModel, '[' . $i . ']sex', ['none'               => '-Выберите-',
+																			Profiles::SEX_MALE   => 'Мужской',
+																			Profiles::SEX_FEMALE => 'Женский']); ?>
 	<?php echo CHtml::error($profileModel, '[' . $i . ']sex'); ?>
 </div>
 
