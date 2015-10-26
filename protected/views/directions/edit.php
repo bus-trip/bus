@@ -34,6 +34,7 @@ $('.search-form form').submit(function(){
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'dirpoints-grid',
 	'dataProvider' => $dirPoints,
+	'ajaxUpdate'   => FALSE,
 	'columns'      => array(
 		array(
 			'name'   => 'name',
@@ -44,7 +45,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'    => 'CButtonColumn',
 			'template' => '{add}&nbsp;&nbsp;{update}&nbsp;&nbsp;{delete}',
 			'buttons'  => array(
-				'add' => array(
+				'add'    => array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
 					'url'      => 'Yii::app()->controller->createUrl(
 																	"directions/addPoint",
@@ -57,12 +58,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
 										$('#pointDialog').dialog('open');
 										return false;
 									}",
+					'visible'  => '$row!=' . ($dirPointsSize - 1)
 				),
 				'update' => array(
-					'url' => 'Yii::app()->controller->createUrl("directions/editPoint", array("id"=>$data["id"]))',
+					'url'     => 'Yii::app()->controller->createUrl("directions/editPoint", array("id"=>$data["id"]))',
+					'visible' => '$row!=' . ($dirPointsSize - 1) . ' && $row!=0',
+					'click'   => "js: function(){
+										$('#editPointFrame').load($(this).attr('href'));
+										$('#editPointDialog').dialog('open');
+										return false;
+									}",
 				),
 				'delete' => array(
-					'url' => 'Yii::app()->controller->createUrl("directions/deletePoint", array("id"=>$data["id"]))',
+					'url'     => 'Yii::app()->controller->createUrl("directions/deletePoint", array("id"=>$data["id"]))',
+					'visible' => '$row!=' . ($dirPointsSize - 1) . ' && $row!=0'
 				)
 			)
 		)
@@ -107,14 +116,27 @@ $this->beginWidget('zii.widgets.jui.CJuiDialog', array(
 		'title'    => 'Новый пункт в направлении',
 		'autoOpen' => FALSE,
 		'modal'    => TRUE,
-		'width'    => 500,
-		'height'   => 160,
+		'width'    => 620,
+		'height'   => 190,
 	),
 ));
 ?>
 	<div id="pointFrame" width="100%" height="100%"></div>
 <?php
-
 $this->endWidget();
 
+$this->beginWidget('zii.widgets.jui.CJuiDialog', array(
+	'id'      => 'editPointDialog',
+	'options' => array(
+		'title'    => 'Редактирование названия пункта',
+		'autoOpen' => FALSE,
+		'modal'    => TRUE,
+		'width'    => 350,
+		'height'   => 180,
+	),
+));
+?>
+	<div id="editPointFrame" width="100%" height="100%"></div>
+<?php
+$this->endWidget();
 ?>

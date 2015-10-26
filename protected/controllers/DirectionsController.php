@@ -36,7 +36,7 @@ class DirectionsController extends Controller
 				  'users'   => array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'edit', 'addPoint'),
+				  'actions' => array('admin', 'delete', 'edit', 'addPoint', 'editPoint', 'deletePoint'),
 				  'users'   => array('admin'),
 			),
 			array('deny',  // deny all users
@@ -100,7 +100,7 @@ class DirectionsController extends Controller
 		}
 
 		$this->render('create', array(
-			'model'     => $parentModel,
+			'model' => $parentModel,
 		));
 	}
 
@@ -123,33 +123,6 @@ class DirectionsController extends Controller
 			if ($model->validate() && $model->save()) {
 				$this->redirect(array('admin'));
 			}
-
-//            $nmodel = new Directions();
-//            $nmodel->id = $id;
-//			$nmodel->attributes=$_POST['Directions'];
-//
-//            if(array_diff($model->attributes,$nmodel->attributes)){
-//                $model->status = 0;
-//                $model->save();
-//                unset($nmodel->id);
-//			    if($nmodel->save()){
-//                    if($model->parentId == 0){
-//                        $criteria = new CDbCriteria();
-//                        $criteria->condition = 'parentId=:parentId';
-//                        $criteria->addCondition('status=:status');
-//                        $criteria->params = array(
-//                            ':parentId'=>$id,
-//                            ':status'=>1,
-//                        );
-//                        $childDirs = Directions::model()->findAll($criteria);
-//                        foreach($childDirs as $c){
-//                            $c->parentId = $nmodel->id;
-//                            $c->save();
-//                        }
-//                    }
-//                    $this->redirect(array('admin'));
-//                }
-//            }
 		}
 
 		if ($model->parentId != 0) {
@@ -220,7 +193,7 @@ class DirectionsController extends Controller
 			if ($d->parentId == 0) $arrParent[$d->id] = $d->startPoint . ' - ' . $d->endPoint;
 		}
 		foreach ($data as $d) {
-				$arrData[] = array(
+			$arrData[] = array(
 				'id'         => $d->id,
 				'parentId'   => ($d->parentId != 0 ? $arrParent[$d->parentId] : ''),
 				'startPoint' => $d->startPoint,
@@ -264,14 +237,14 @@ class DirectionsController extends Controller
 		if (isset($_GET['Directions']))
 			$model->attributes = $_GET['Directions'];
 
-		$parent = Directions::model()->find(array('condition'=>'id='.$id));
+		$parent = Directions::model()->find(array('condition' => 'id=' . $id));
 
 		// Пункты остановок в направлении в порядке следования.
 		$dpModel = new Dirpoints();
 		$dirArr = array();
 		$dirPoint = Dirpoints::model()->find(
 			array(
-				'condition' => 'directionId=' . $id . ' and prevId = 0'
+				'condition' => 'directionId=' . $id . ' and prevId = 0 and nextId != 0'
 			)
 		);
 		array_push($dirArr, $dirPoint);
@@ -287,7 +260,7 @@ class DirectionsController extends Controller
 		for ($i = 0; $i < count($dirArr) - 1; $i++) {
 			for ($j = $i + 1; $j < count($dirArr); $j++) {
 				$data = Directions::model()
-								 ->find(array('condition' => 'startPoint="' . $dirArr[$i]->name . '" and endPoint="' . $dirArr[$j]->name . '"'));
+								  ->find(array('condition' => 'startPoint="' . $dirArr[$i]->name . '" and endPoint="' . $dirArr[$j]->name . '"'));
 				$arrData[] = array(
 					'id'         => $data->id,
 					'parentId'   => $data->parentId,
@@ -338,11 +311,12 @@ class DirectionsController extends Controller
 		);
 
 		$this->render('edit', array(
-			'model'     => $model,
-			'parent'    => $parent->attributes,
-			'modelData' => $modelData,
-			'dpModel'   => $dpModel,
-			'dirPoints' => $dirData,
+			'model'         => $model,
+			'parent'        => $parent->attributes,
+			'modelData'     => $modelData,
+			'dpModel'       => $dpModel,
+			'dirPoints'     => $dirData,
+			'dirPointsSize' => count($dirArr)
 		));
 	}
 
@@ -370,7 +344,7 @@ class DirectionsController extends Controller
 			$dirArr = array();
 			$dirPoint = Dirpoints::model()->find(
 				array(
-					'condition' => 'directionId=' . $prevPoint->directionId . ' and prevId = 0'
+					'condition' => 'directionId=' . $prevPoint->directionId . ' and prevId = 0 and nextId != 0'
 				)
 			);
 			array_push($dirArr, $dirPoint->name);
@@ -411,6 +385,64 @@ class DirectionsController extends Controller
 				)
 			);
 		}
+	}
+
+	public function actionEditPoint($id)
+	{
+		$model = Dirpoints::model()->findByPk($id);
+		if (isset($_POST['newName']) && !empty($_POST['newName'])) {
+			$directions = Directions::model()->findAll(
+				array(
+					'condition' => 'parentId=' . $model->directionId . ' and (startPoint = "' . $model->name . '" or endPoint="' . $model->name . '") and status!=' . DIRTRIP_CANCELED
+				)
+			);
+			foreach ($directions as $d) {
+				$dirModel = Directions::model()->findByPk($d->id);
+				if ($dirModel->startPoint == $model->name) {
+					$dirModel->startPoint = $_POST['newName'];
+					$dirModel->save();
+				} elseif ($dirModel->endPoint == $model->name) {
+					$dirModel->endPoint = $_POST['newName'];
+					$dirModel->save();
+				}
+			}
+			$model->name = $_POST['newName'];
+			$model->save();
+			$this->redirect(array('directions/edit/', 'id' => $model->directionId));
+		} else {
+			$this->renderPartial(
+				'editPoint',
+				array(
+					'data' => array(
+						'id'      => $id,
+						'oldName' => $model->name,
+					)
+				)
+			);
+		}
+	}
+
+	public function actionDeletePoint($id)
+	{
+		$model = Dirpoints::model()->findByPk($id);
+		$prevModel = Dirpoints::model()->findByPk($model->prevId);
+		$nextModel = Dirpoints::model()->findByPk($model->nextId);
+		$prevModel->nextId = $nextModel->id;
+		$nextModel->prevId = $prevModel->id;
+		$prevModel->save();
+		$nextModel->save();
+		$model->prevId = 0;
+		$model->nextId = 0;
+		$model->save();
+		$directions = Directions::model()->findAll(
+			array(
+				'condition' => '(startPoint="' . $model->name . '" or endPoint="' . $model->name . '") and parentId=' . $model->directionId
+			)
+		);
+		foreach ($directions as $d) {
+			$d->delete();
+		}
+		$this->redirect(array('directions/edit/', 'id' => $model->directionId));
 	}
 
 	/**

@@ -134,18 +134,23 @@ class TicketsSearchController extends Controller
 
 	private function getStationsByDirectionId($id)
 	{
-		$dir = Directions::model()->findByPk($id);
-		$sPoint = $dir->startPoint;
-		$points = [];
-		$points[] = $dir->startPoint;
-		while (($point = Directions::model()
-								   ->findByAttributes(['startPoint' => $sPoint, 'parentId' => $dir->id]))) {
-			$points[] = $point->startPoint;
-			$points[] = $point->endPoint;
-			$sPoint = $point->endPoint;
+//		$dir = Directions::model()->findByPk($id);
+//		$sPoint = $dir->startPoint;
+		$points = array();
+//		$points[] = $dir->startPoint;
+//		while (($point = Directions::model()
+//								   ->findByAttributes(array('startPoint' => $sPoint, 'parentId' => $dir->id)))) {
+//			$points[] = $point->startPoint;
+//			$points[] = $point->endPoint;
+//			$sPoint = $point->endPoint;
+//		}
+//		$points[] = $dir->endPoint;
+//		$points = array_unique($points);
+		$point = Dirpoints::model()->find(array('condition'=>'directionId='.$id.' and prevId=0'));
+		$points[] = $point->name;
+		while($point = Dirpoints::model()->find(array('condition'=>'directionId='.$id.' and prevId='.$point->id))){
+			$points[] = $point->name;
 		}
-		$points[] = $dir->endPoint;
-		$points = array_unique($points);
 
 		return $points;
 	}
