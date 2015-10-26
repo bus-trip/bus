@@ -65,9 +65,14 @@ class AccountController extends Controller
 	{
 		$this->pageTitle     = 'Мои профили';
 		$this->breadcrumbs[] = 'Мои профили';
-
-		$profiles = Profiles::model()
-							->findAllByAttributes(['uid' => $this->user->id], ['order' => 'created DESC']);
+		$profiles            = [];
+		$userProfilesModels  = Profiles::model()
+									   ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+															 ['order' => 'created DESC']);
+		foreach ($userProfilesModels as $p) {
+			$key            = md5($p->doc_type . '::' . $p->doc_num . '::' . $p->last_name . '::' . $p->black_list);
+			$profiles[$key] = $p;
+		}
 
 		$this->render('passengers', ['profiles' => $profiles]);
 	}
@@ -238,10 +243,10 @@ class AccountController extends Controller
 	{
 		return [
 			['allow', // allow authenticated users to access all actions
-				  'users' => ['@'],
+			 'users' => ['@'],
 			],
 			['deny', // deny all users
-				  'users' => ['*'],
+			 'users' => ['*'],
 			],
 		];
 	}
