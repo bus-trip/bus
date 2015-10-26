@@ -1,18 +1,18 @@
 <div class="item-profile form">
 
-	<?php $form = $this->beginWidget('CActiveForm', array(
+	<?php $form = $this->beginWidget('CActiveForm', [
 		'id'                   => 'admin-ticket-form',
 		// Please note: When you enable ajax validation, make sure the corresponding
 		// controller action is handling ajax validation correctly.
 		// See class documentation of CActiveForm for details on this,
 		// you need to use the performAjaxValidation()-method described there.
-		'enableAjaxValidation' => FALSE,
-	)); ?>
+		'enableAjaxValidation' => false,
+	]); ?>
 
 	<fieldset>
 		<label>Профиль пассажира</label>
 
-		<?php $this->renderPartial('profile_form', array('form' => $form, 'model' => $profile)); ?>
+		<?php $this->renderPartial('profile_form', ['form' => $form, 'model' => $profile, 'edit_bl' => true]); ?>
 	</fieldset>
 
 

@@ -6,14 +6,15 @@
 <p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
 
 <?php echo $form->errorSummary($model); ?>
-
-<fieldset>
-	<div class="row">
-		<?php echo $form->checkBox($model, 'black_list'); ?>
-		<?php echo $form->labelEx($model, 'black_list', array('class' => 'inline')); ?>
-		<?php echo $form->error($model, 'black_list'); ?>
-	</div>
-</fieldset>
+<?php if ($edit_bl) { ?>
+	<fieldset>
+		<div class="row">
+			<?php echo $form->checkBox($model, 'black_list'); ?>
+			<?php echo $form->labelEx($model, 'black_list', ['class' => 'inline']); ?>
+			<?php echo $form->error($model, 'black_list'); ?>
+		</div>
+	</fieldset>
+<?php } ?>
 
 <div class="row">
 	<?php echo $form->labelEx($model, 'last_name'); ?>
