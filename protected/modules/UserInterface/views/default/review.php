@@ -30,13 +30,13 @@ $profileLabels = $profile->attributeLabels();
 					foreach ($profileItem as $id => $item) {
 						if ($id == 'sex') {
 							switch ($item) {
-								case null:
+								case 'none':
 									$item = 'Не указано';
 									break;
-								case 0:
+								case Profiles::SEX_MALE:
 									$item = 'Мужской';
 									break;
-								case 1:
+								case Profiles::SEX_FEMALE:
 									$item = 'Женский';
 									break;
 							}

@@ -63,16 +63,7 @@
 
 <div class="row">
 	<?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']sex'); ?>
-	<?php
-	switch ($profileModel->sex) {
-		case 'Мужской':
-			$profileModel->sex = Profiles::SEX_MALE;
-			break;
-		case 'Женский':
-			$profileModel->sex = Profiles::SEX_FEMALE;
-			break;
-	}
-	echo CHtml::activeDropDownList($profileModel, '[' . $i . ']sex', ['none'               => '-Выберите-',
+	<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']sex', ['none'               => '-Выберите-',
 																			Profiles::SEX_MALE   => 'Мужской',
 																			Profiles::SEX_FEMALE => 'Женский']); ?>
 	<?php echo CHtml::error($profileModel, '[' . $i . ']sex'); ?>
