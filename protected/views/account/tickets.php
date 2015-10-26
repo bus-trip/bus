@@ -58,7 +58,7 @@ $this->widget('zii.widgets.grid.CGridView', [
 				'boarding' => [
 					'label'    => 'Печать билета',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
-					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profileId]")',
+					'url'      => 'Yii::app()->controller->createUrl("pdfmake/ticket/profileId/$data[profileId]")',
 					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
 				]
 			]]
