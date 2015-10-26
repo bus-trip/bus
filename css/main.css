@@ -943,3 +943,7 @@ table#main .current-date .date {
 	text-align: center;
 	margin: 20px auto;
 }
+
+table.addPointclass tr td {
+	padding: 5px 0 5px 0;
+}
