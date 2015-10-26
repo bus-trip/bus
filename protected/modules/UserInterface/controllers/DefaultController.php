@@ -431,11 +431,17 @@ class DefaultController extends Controller
 			}
 		}
 
+		/** @var \DiscountsController $discount */
+		list($discount) = Yii::app()->createController('discounts');
+
 		$places = [];
 		for ($i = 1; $i <= $trip->idBus0->places; $i++) {
-			if (!in_array($i, $notAvailPlace) || $onlyValues)
+			if ($onlyValues)
 				$places[$i] = $i;
-			else
+			elseif (!in_array($i, $notAvailPlace)) {
+				$price      = $discount->getDiscountByPlace($i, $trip->idDirection0->price);
+				$places[$i] = '№' . $i . ': ' . $price . ' руб.';
+			} else
 				$places['not-' . $i] = $i . ' - занято';
 		}
 
