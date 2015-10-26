@@ -19,10 +19,10 @@ class TicketsSearchController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
+		return [
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
-		);
+		];
 	}
 
 	/**
@@ -32,30 +32,30 @@ class TicketsSearchController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				  'actions' => array('index', 'view'),
-				  'users'   => array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				  'actions' => array('create', 'update'),
-				  'users'   => array('@'),
-			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => array('admin', 'delete', 'tripselect'),
-				  'users'   => array('admin'),
-			),
-			array('deny',  // deny all users
-				  'users' => array('*'),
-			),
-		);
+		return [
+			['allow',  // allow all users to perform 'index' and 'view' actions
+				  'actions' => ['index', 'view'],
+				  'users'   => ['*'],
+			],
+			['allow', // allow authenticated user to perform 'create' and 'update' actions
+				  'actions' => ['create', 'update'],
+				  'users'   => ['@'],
+			],
+			['allow', // allow admin user to perform 'admin' and 'delete' actions
+				  'actions' => ['admin', 'delete', 'tripselect'],
+				  'users'   => ['admin'],
+			],
+			['deny',  // deny all users
+				  'users' => ['*'],
+			],
+		];
 	}
 
 	public function actionIndex()
 	{
 //		$query = Directions::model()->findAll();
 		$query = Dirpoints::model()->findAll();
-		$points = array();
+		$points = [];
 		foreach ($query as $q) {
 //			if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
 //			if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
@@ -68,13 +68,13 @@ class TicketsSearchController extends Controller
 
 		if (isset($_POST['startPoint']) && isset($_POST['endPoint']) && isset($_POST['departure'])) {
 			$directions = $this->getDirections($_POST['startPoint'], $_POST['endPoint']);
-			$tripsAttr = array();
+			$tripsAttr = [];
 			foreach ($directions as $d) {
 				$criteria = new CDbCriteria();
 				$criteria->condition = "idDirection=" . $d['id'] . " and departure between '" . date('Y-m-d', strtotime($_POST['departure'])) . " 00:00:00' and '" . date('Y-m-d', strtotime($_POST['departure'])) . " 23:59:59'";
-				$trips = Trips::model()->findAllByAttributes(array('idDirection' => $d['id']), $criteria);
+				$trips = Trips::model()->findAllByAttributes(['idDirection' => $d['id']], $criteria);
 				foreach ($trips as $t) {
-					$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . TICKET_CONFIRMED . "," . TICKET_RESERVED . ")";
+					$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . Tickets::STATUS_CONFIRMED . "," . Tickets::STATUS_RESERVED . ")";
 					$tickets = Tickets::model()->count($criteria);
 					$bus = Buses::model()->findByPk($t->attributes['idBus']);
 					/*
@@ -82,13 +82,13 @@ class TicketsSearchController extends Controller
 					 */
 
 					if ($bus->places > $tickets) {
-						$tripsAttr[] = array(
+						$tripsAttr[] = [
 							'id'          => $t->attributes['id'],
 							'direction'   => $d['startPoint'] . ' - ' . $d['endPoint'],
 							'departure'   => $t->attributes['departure'],
 							'arrival'     => $t->attributes['arrival'],
 							'description' => $t->attributes['description']
-						);
+						];
 					}
 				}
 			}
@@ -96,11 +96,11 @@ class TicketsSearchController extends Controller
 			$tripsAttr = new CArrayDataProvider($tripsAttr);
 
 			$indexData['trips'] = $tripsAttr;
-			$indexData['selPoints'] = array(
+			$indexData['selPoints'] = [
 				'startPoint' => $_POST['startPoint'],
 				'endPoint'   => $_POST['endPoint'],
 				'departure'  => $_POST['departure']
-			);
+			];
 		}
 		$this->render(
 			'index',
@@ -110,11 +110,11 @@ class TicketsSearchController extends Controller
 
 	private function getDirections($startPoint, $endPoint = '')
 	{
-		$directions = array();
+		$directions = [];
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND;
 		$criteria->group = 'parentId';
-		$dirsAll = Directions::model()->findAllByAttributes(array('startPoint' => $startPoint), $criteria);
+		$dirsAll = Directions::model()->findAllByAttributes(['startPoint' => $startPoint], $criteria);
 		$dirsByStart = NULL;
 		foreach ($dirsAll as $ds) {
 			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
@@ -136,10 +136,10 @@ class TicketsSearchController extends Controller
 	{
 		$dir = Directions::model()->findByPk($id);
 		$sPoint = $dir->startPoint;
-		$points = array();
+		$points = [];
 		$points[] = $dir->startPoint;
 		while (($point = Directions::model()
-								   ->findByAttributes(array('startPoint' => $sPoint, 'parentId' => $dir->id)))) {
+								   ->findByAttributes(['startPoint' => $sPoint, 'parentId' => $dir->id]))) {
 			$points[] = $point->startPoint;
 			$points[] = $point->endPoint;
 			$sPoint = $point->endPoint;
@@ -168,7 +168,7 @@ class TicketsSearchController extends Controller
 		if (isset($_POST['Directions'])) {
 			$model->attributes = $_POST['Directions'];
 			if ($model->save())
-				$this->redirect(array('admin', 'id' => $model->id));
+				$this->redirect(['admin', 'id' => $model->id]);
 		}
 
 		$data = Yii::app()->db->createCommand()
@@ -177,18 +177,18 @@ class TicketsSearchController extends Controller
 							  ->where('parentId=0')
 							  ->queryAll();
 
-		$parentDir = array(
+		$parentDir = [
 			0 => 'Новое направление',
-		);
+		];
 
 		foreach ($data as $d) {
 			$parentDir[$d['id']] = $d['startPoint'] . ' - ' . $d['endPoint'];
 		}
 
-		$this->render('create', array(
+		$this->render('create', [
 			'model'     => $model,
 			'parentDir' => $parentDir,
-		));
+		]);
 	}
 
 	/**
@@ -208,7 +208,7 @@ class TicketsSearchController extends Controller
 
 			$model->attributes = $_POST['Directions'];
 			if ($model->validate() && $model->save()) {
-				$this->redirect(array('admin'));
+				$this->redirect(['admin']);
 			}
 
 //            $nmodel = new Directions();
@@ -245,19 +245,19 @@ class TicketsSearchController extends Controller
 								  ->from('directions')
 								  ->where('id=(select parentId from directions where id=' . $model->id . ')')
 								  ->queryAll();
-			$parentDir = array(
+			$parentDir = [
 				$data[0]['id'] => $data[0]['startPoint'] . ' - ' . $data[0]['endPoint'],
-			);
+			];
 		} else {
-			$parentDir = array(
+			$parentDir = [
 				'0' => $model->startPoint . ' - ' . $model->endPoint,
-			);
+			];
 		}
 
-		$this->render('update', array(
+		$this->render('update', [
 			'model'     => $model,
 			'parentDir' => $parentDir,
-		));
+		]);
 	}
 
 	/**
@@ -274,7 +274,7 @@ class TicketsSearchController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if (!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : ['admin']);
 	}
 
 	/**
@@ -298,48 +298,48 @@ class TicketsSearchController extends Controller
 		if (isset($_GET['Directions']))
 			$model->attributes = $_GET['Directions'];
 
-		$data = Directions::model()->findAll(array(
+		$data = Directions::model()->findAll([
 												 'condition' => 'status=:status',
-												 'params'    => array(':status' => 1),
-											 ));
+												 'params'    => [':status' => 1],
+											 ]);
 
-		$arrData = array();
+		$arrData = [];
 		foreach ($data as $d) {
 			if ($d->parentId == 0) $arrParent[$d->id] = $d->startPoint . ' - ' . $d->endPoint;
 		}
 		foreach ($data as $d) {
-			$arrData[] = array(
+			$arrData[] = [
 				'id'         => $d->id,
 				'parentId'   => ($d->parentId != 0 ? $arrParent[$d->parentId] : ''),
 				'startPoint' => $d->startPoint,
 				'endPoint'   => $d->endPoint,
 				'price'      => $d->price,
 				'status'     => $d->status,
-			);
+			];
 		}
 		$modelData = new CArrayDataProvider(
 			$arrData,
-			array(
+			[
 				'keyField'   => 'id',
-				'sort'       => array(
-					'attributes' => array(
+				'sort'       => [
+					'attributes' => [
 						'id',
 						'parentId',
 						'startPoint',
 						'endPoint',
 						'price'
-					),
-				),
-				'pagination' => array(
+					],
+				],
+				'pagination' => [
 					'pageSize' => 20,
-				),
-			)
+				],
+			]
 		);
 
-		$this->render('admin', array(
+		$this->render('admin', [
 			'model'     => $model,
 			'modelData' => $modelData,
-		));
+		]);
 	}
 
 	/**

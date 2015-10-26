@@ -11,11 +11,6 @@ defined('YII_DEBUG') or define('YII_DEBUG', TRUE);
 // specify how many levels of call stack should be shown in each log message
 //defined('YII_TRACE_LEVEL') or define('YII_TRACE_LEVEL', 3);
 
-// define value tickets statuses
-define('TICKET_CANCELED', 0);
-define('TICKET_RESERVED', 1);
-define('TICKET_CONFIRMED', 2);
-
 define('DIRTRIP_CANCELED', 0);
 define('DIRTRIP_MAIN', 1);
 define('DIRTRIP_EXTEND', 2);

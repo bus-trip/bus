@@ -19,6 +19,10 @@
  */
 class Tickets extends CActiveRecord
 {
+	const STATUS_CANCELED  = 0;
+	const STATUS_RESERVED  = 1;
+	const STATUS_CONFIRMED = 2;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -36,7 +40,7 @@ class Tickets extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idTrip', 'required'),
-			array('idTrip, place, price, status', 'numerical', 'integerOnly' => TRUE),
+			array('idTrip, place, price, status', 'numerical', 'integerOnly' => true),
 			array('address_from, address_to, remark', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -96,9 +100,9 @@ class Tickets extends CActiveRecord
 		$criteria->compare('idTrip', $this->idTrip);
 		$criteria->compare('place', $this->place);
 		$criteria->compare('price', $this->price);
-		$criteria->compare('address_from', $this->address_from, TRUE);
-		$criteria->compare('address_to', $this->address_to, TRUE);
-		$criteria->compare('remark', $this->remark, TRUE);
+		$criteria->compare('address_from', $this->address_from, true);
+		$criteria->compare('address_to', $this->address_to, true);
+		$criteria->compare('remark', $this->remark, true);
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
@@ -127,13 +131,14 @@ class Tickets extends CActiveRecord
 	public static function statuses()
 	{
 		return array(
-			TICKET_CANCELED  => 'Отменен',
-			TICKET_RESERVED  => 'Забронирован',
-			TICKET_CONFIRMED => 'Подтвержден',
+			self::STATUS_CANCELED  => 'Отменен',
+			self::STATUS_RESERVED  => 'Забронирован',
+			self::STATUS_CONFIRMED => 'Подтвержден',
 		);
 	}
 
-	public function shortAddress(){
+	public function shortAddress()
+	{
 		if ($this->address_from || $this->address_to)
 			return (mb_strlen($this->address_from, "UTF-8") > 10 ? (mb_substr($this->address_from, 0, 10, "UTF-8") . '...') : $this->address_from) . ' - ' .
 			(mb_strlen($this->address_to, "UTF-8") > 10 ? (mb_substr($this->address_to, 0, 10, "UTF-8") . '...') : $this->address_to);

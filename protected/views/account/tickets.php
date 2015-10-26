@@ -11,56 +11,34 @@ $this->widget('zii.widgets.grid.CGridView', [
 	'dataProvider' => $modelData,
 	'template'     => '{items}{pager}',
 	'columns'      => [
-		[
-			'name'   => 'name',
-			'header' => 'Имя',
-		],
-		[
-			'name'   => 'place',
-			'header' => 'Место',
-		],
-		[
-			'name'   => 'price',
-			'header' => 'Цена',
-		],
-		[
-			'name'   => 'status',
-			'header' => 'Статус',
-		],
-		[
-			'name'   => 'address_from',
-			'header' => 'Выезд',
-		],
-		[
-			'name'   => 'address_to',
-			'header' => 'Приезд',
-		],
-		[
-			'name'   => 'departure',
-			'header' => 'Время отъезда',
-		],
-		[
-			'name'   => 'arrival',
-			'header' => 'Время прибытия',
-		],
-		[
-			'name'   => 'startPoint',
-			'header' => 'Маршрут от',
-		],
-		[
-			'name'   => 'endPoint',
-			'header' => 'Маршрут до',
-		],
-		[
-			'class'    => 'CButtonColumn',
-			'template' => '{boarding}',
-			'buttons'  => [
-				'boarding' => [
-					'label'    => 'Печать билета',
-					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
-					'url'      => 'Yii::app()->controller->createUrl("pdfmake/ticket/profileId/$data[profileId]")',
-					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
-				]
-			]]
+		['name'   => 'startPoint',
+		 'header' => 'Пункт отправления',
+		 'value'  => '$data["startPoint"] . " " . $data["address_from"]'],
+		['name'   => 'endPoint',
+		 'header' => 'Пункт прибытия',
+		 'value'  => '$data["endPoint"] . " " . $data["address_to"]'],
+		['name'   => 'departure',
+		 'header' => 'Время отправления'],
+		['name'   => 'arrival',
+		 'header' => 'Время прибытия'],
+		['name'   => 'name',
+		 'header' => 'ФИО'],
+		['name'   => 'place',
+		 'header' => 'Место'],
+		['name'   => 'price',
+		 'header' => 'Цена'],
+		['name'   => 'status',
+		 'header' => 'Статус'],
+		['class'    => 'CButtonColumn',
+		 'template' => '{boarding}',
+		 'buttons'  => [
+			 'boarding' => [
+				 'label'    => 'Печать билета',
+				 'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
+				 'url'      => 'Yii::app()->controller->createUrl("pdfmake/ticket/profileId/$data[profileId]")',
+				 'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
+			 ]
+		 ]
+		]
 	],
 ]);

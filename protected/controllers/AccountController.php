@@ -154,20 +154,21 @@ class AccountController extends Controller
 
 		$criteria            = new CDbCriteria;
 		$criteria->condition = 'uid=:uid AND t.tid IS NOT NULL';
-		$criteria->params    = array(':uid' => Yii::app()->getUser()->id);
+		$criteria->params    = [':uid' => Yii::app()->getUser()->id];
 		$data                = Profiles::model()->with('tickets')->findAll($criteria);
 
-		$arrData = array();
+		$arrData = [];
 		foreach ($data as $d) {
 			if (!isset($trip[$d->tickets->idTrip]))
 				$trip[$d->tickets->idTrip] = Trips::model()->with('idDirection0')->findAllByPk($d->tickets->idTrip);
 
-			$arrData[] = array(
+			$statuses  = $d->tickets->getStatuses();
+			$arrData[] = [
 				'id'           => $d->tid,
 				'name'         => $d->last_name . ' ' . $d->name,
 				'place'        => $d->tickets->place,
 				'price'        => $d->tickets->price,
-				'status'       => $d->tickets->status,
+				'status'       => $statuses[$d->tickets->status],
 				'address_from' => $d->tickets->address_from,
 				'address_to'   => $d->tickets->address_to,
 				'departure'    => $trip[$d->tickets->idTrip][0]->departure,
@@ -175,32 +176,32 @@ class AccountController extends Controller
 				'startPoint'   => $trip[$d->tickets->idTrip][0]->idDirection0->startPoint,
 				'endPoint'     => $trip[$d->tickets->idTrip][0]->idDirection0->endPoint,
 				'profileId'    => $d->id
-			);
+			];
 		}
 
 		$modelData = new CArrayDataProvider(
 			$arrData,
-			array(
+			[
 				'keyField'   => 'id',
-				'sort'       => array(
-					'attributes' => array(
+				'sort'       => [
+					'attributes' => [
 						'name',
 						'place',
 						'price',
 						'status',
 						'departure',
 						'arrival'
-					)
-				),
-				'pagination' => array(
+					]
+				],
+				'pagination' => [
 					'pageSize' => 20,
-				),
-			)
+				],
+			]
 		);
 
-		$this->render('tickets', array(
+		$this->render('tickets', [
 			'modelData' => $modelData,
-		));
+		]);
 	}
 
 	/**
@@ -223,9 +224,9 @@ class AccountController extends Controller
 	 */
 	public function filters()
 	{
-		return array(
+		return [
 			'accessControl', // perform access control for CRUD operations
-		);
+		];
 	}
 
 	/**
@@ -235,13 +236,13 @@ class AccountController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow', // allow authenticated users to access all actions
-				  'users' => array('@'),
-			),
-			array('deny', // deny all users
-				  'users' => array('*'),
-			),
-		);
+		return [
+			['allow', // allow authenticated users to access all actions
+				  'users' => ['@'],
+			],
+			['deny', // deny all users
+				  'users' => ['*'],
+			],
+		];
 	}
 }

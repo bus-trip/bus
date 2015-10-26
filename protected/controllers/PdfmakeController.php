@@ -117,7 +117,7 @@ class PdfmakeController extends Controller
 	public function actionBoardingTicketsList($id)
 	{
 		$criteria            = new CDbCriteria();
-		$criteria->condition = 'idTrip=' . $id . ' and status=' . TICKET_CONFIRMED . ' order by place';
+		$criteria->condition = 'idTrip=' . $id . ' and status=' . Tickets::STATUS_CONFIRMED . ' order by place';
 		$tickets             = Tickets::model()->findAll($criteria);
 		$page                = 3;
 		foreach ($tickets as $t) {

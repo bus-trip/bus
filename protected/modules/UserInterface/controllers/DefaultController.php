@@ -296,7 +296,7 @@ class DefaultController extends Controller
 			$profile->setAttributes($profileData);
 			if ($profile->validate()) {
 				$ticket               = new Tickets();
-				$ticket->status       = TICKET_RESERVED;
+				$ticket->status       = Tickets::STATUS_RESERVED;
 				$ticket->idTrip       = $tripId;
 				$ticket->place        = $placeId;
 				$ticket->address_from = $address_from;
@@ -375,7 +375,7 @@ class DefaultController extends Controller
 					$trips               = Trips::model()
 												->findAllByAttributes(array('idDirection' => $d['id']), $criteria);
 					foreach ($trips as $t) {
-						$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . TICKET_CONFIRMED . "," . TICKET_RESERVED . ")";
+						$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . Tickets::STATUS_CONFIRMED . "," . Tickets::STATUS_RESERVED . ")";
 						$tickets             = Tickets::model()->count($criteria);
 						$bus                 = Buses::model()->findByPk($t->attributes['idBus']);
 
@@ -415,7 +415,7 @@ class DefaultController extends Controller
 		$criteria            = new CDbCriteria();
 		$criteria->condition = 'idTrip=:idTrip';
 		$criteria->params    = array(':idTrip' => $trip->id);
-		$criteria->addInCondition('t.status', [TICKET_RESERVED, TICKET_CONFIRMED]);
+		$criteria->addInCondition('t.status', [Tickets::STATUS_RESERVED, Tickets::STATUS_CONFIRMED]);
 
 		$tickets       = Tickets::model()->findAll($criteria);
 		$notAvailPlace = [];
