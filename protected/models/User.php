@@ -14,6 +14,7 @@
  */
 class User extends CActiveRecord
 {
+	public $pass;
 	public $pass2;
 	public $rememberMe;
 
