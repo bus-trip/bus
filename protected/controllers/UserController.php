@@ -16,10 +16,7 @@ class UserController extends Controller
 			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
-				if ($model->username == 'admin')
-					$url = $this->createUrl(Yii::app()->params['frontPage']['admin']);
-				else
-					$url = $this->createUrl(Yii::app()->params['frontPage']['user']);
+				$url = $this->createUrl('/site/index');
 				$this->redirect($url);
 			}
 		}
