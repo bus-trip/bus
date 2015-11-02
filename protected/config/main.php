@@ -41,7 +41,6 @@ return array(
 			'urlFormat'      => 'path',
 			'showScriptName' => false,
 			'rules'          => array(
-				''                                                       => 'admin/index',
 				'<controller:\w+>/<id:\d+>'                              => '<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'                 => '<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'                          => '<controller>/<action>',
@@ -97,6 +96,10 @@ return array(
 	'params'     => array(
 		// this is used in contact page
 		'adminEmail' => 'webmaster@example.com',
-		'siteEmail' => 'no-reply@bus.webjails.ru'
+		'siteEmail'  => 'no-reply@bus.webjails.ru',
+		'frontPage'  => [
+			'admin' => '/admin/index',
+			'user'  => '/UserInterface/default/index/step/find'
+		]
 	),
 );

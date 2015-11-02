@@ -3,7 +3,7 @@
  * @var $this Controller
  */
 
-$baseUrl = Yii::app()->request->baseUrl;
+$baseUrl      = Yii::app()->request->baseUrl;
 $clientScript = Yii::app()->getClientScript();
 $clientScript
 	->registerCssFile($baseUrl . '/css/main.css')
@@ -35,17 +35,17 @@ $clientScript
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 
 		<ul class="account-menu right">
-		<ul class="login-block">
-			<?php if (Yii::app()->user->isGuest) { ?>
-				<li><a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a></li>
-				<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
-			<?php } else { ?>
-				<li><a href="<?php echo $this->createUrl('/account'); ?>" rel="nofollow">Личный
-						кабинет</a>&nbsp;(<?php echo Yii::app()->user->name; ?>)
-				</li>
-				<li><a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a></li>
-			<?php } ?>
-		</ul>
+			<ul class="login-block">
+				<?php if (Yii::app()->user->isGuest) { ?>
+					<li><a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a></li>
+					<li><a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a></li>
+				<?php } else { ?>
+					<li><a href="<?php echo $this->createUrl('/account'); ?>" rel="nofollow">Личный
+							кабинет</a>&nbsp;(<?php echo Yii::app()->user->name; ?>)
+					</li>
+					<li><a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a></li>
+				<?php } ?>
+			</ul>
 	</div>
 	<!-- header -->
 	<div id="mainmenu">
@@ -53,13 +53,12 @@ $clientScript
 		if (Yii::app()->user->name == 'admin') {
 			$this->widget('zii.widgets.CMenu', [
 				'items' => [
-					['label' => 'Главная', 'url' => ['/admin/index']],
+					['label' => 'Рейсы на месяц', 'url' => ['/admin/index']],
 					['label' => 'Автобусы', 'url' => ['/buses/admin']],
 					['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
-					//                    array('label' => 'Расписания', 'url' => array('/schedule/admin')),
 					['label' => 'Направления', 'url' => ['/directions/admin']],
 					['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
-					['label' => 'UserInterface', 'url' => ['/UserInterface/default/index']],
+					['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
 				],
 			]);
 		}
@@ -75,14 +74,14 @@ $clientScript
 		<div class="wrapper">
 			<div class="flash-success"><?php echo Yii::app()->user->getFlash('success'); ?></div>
 		</div>
-	<?php
+		<?php
 	}
 	if (Yii::app()->user->hasFlash('error')) {
 		?>
 		<div class="wrapper">
 			<div class="flash-error"><?php echo Yii::app()->user->getFlash('error'); ?></div>
 		</div>
-	<?php
+		<?php
 	}
 	if (Yii::app()->user->hasFlash('notice')) {
 		?>

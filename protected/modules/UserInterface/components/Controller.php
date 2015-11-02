@@ -8,6 +8,7 @@ namespace UserInterface\components;
 
 use Controller as MainController;
 use CMenu;
+use Yii;
 
 class Controller extends MainController
 {
@@ -30,8 +31,6 @@ class Controller extends MainController
 		$this->getOwner()->generateMenuItems();
 		return $this->getOwner()->_menu;
 	}
-
-
 
 	private function generateMenuItems()
 	{
@@ -67,5 +66,13 @@ class Controller extends MainController
 			];
 
 		$this->getOwner()->_menu->items = $items;
+	}
+
+	public function init()
+	{
+		parent::init();
+
+		if (Yii::app()->user->isGuest)
+			$this->redirect($this->createUrl('/user/login'));
 	}
 }
