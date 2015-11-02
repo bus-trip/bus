@@ -96,9 +96,11 @@ class UserController extends Controller
 
 	public function actionNew_password($id, $t)
 	{
-		$user = User::model()->findAllByPk($id);
-		if (!$user)
+		$users = User::model()->findAllByPk($id);
+		if (empty($users))
 			throw new CHttpException(404, 'Страница не найдена');
+
+		$user = $users[0];
 
 		if (md5('superman' . $user->pass) != $t)
 			throw new CHttpException(500, 'Неправильная ссылка');
@@ -107,7 +109,7 @@ class UserController extends Controller
 		$user->pass = md5('spyderman2' . $new_pass);
 		$user->save(false);
 
-		$identity = new UserIdentity($user->mail, $new_pass);
+		$identity = new UserIdentity($user->login, $new_pass);
 		if ($identity->authenticate())
 			Yii::app()->user->login($identity);
 
