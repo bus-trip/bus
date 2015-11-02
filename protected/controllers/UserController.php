@@ -84,7 +84,7 @@ class UserController extends Controller
 	{
 		$mail = new YiiMailer();
 		$mail->setView('common');
-		$mail->setFrom(Yii::app()->params['paramName']['siteEmail'], Yii::app()->name);
+		$mail->setFrom(Yii::app()->params['siteEmail'], Yii::app()->name);
 		$mail->setData(array('title' => $title, 'message' => $body));
 		$mail->setTo($to);
 		$mail->setSubject($title);
@@ -113,7 +113,7 @@ class UserController extends Controller
 		if ($identity->authenticate())
 			Yii::app()->user->login($identity);
 
-		return $this->redirect($this->createUrl('/account'));
+		return $this->redirect($this->createUrl('/account/edit'));
 	}
 
 	protected function login()
