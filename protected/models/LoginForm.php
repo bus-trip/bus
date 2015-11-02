@@ -7,8 +7,8 @@
  */
 class LoginForm extends CFormModel
 {
-	public  $username;
-	public  $password;
+	public $username;
+	public $password;
 //	public  $rememberMe = 15 * 60; // 15 min
 	private $_identity;
 
@@ -23,7 +23,7 @@ class LoginForm extends CFormModel
 			// username and password are required
 			array('username, password', 'required'),
 			// rememberMe needs to be a boolean
-//			array('rememberMe', 'boolean'),
+			//			array('rememberMe', 'boolean'),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
 		);
@@ -76,7 +76,8 @@ class LoginForm extends CFormModel
 	{
 		if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
 			//$duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
-			Yii::app()->user->login($this->_identity);
+			$duration = 15 * 60; // 15 min
+			Yii::app()->user->login($this->_identity, $duration);
 
 			return true;
 		} else
