@@ -41,7 +41,7 @@ class UserController extends Controller
 		$model = new User();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
-			if ($model->validate() && $model->save()) {
+			if ($model->save()) {
 				$this->username   = $model->login;
 				$this->password   = $attributes['pass'];
 				$this->rememberMe = $model->rememberMe;
@@ -55,6 +55,63 @@ class UserController extends Controller
 		}
 
 		$this->render('register', array('model' => $model));
+	}
+
+	public function actionRecover()
+	{
+		$this->pageTitle = 'Восстановление пароля';
+		$userRecover     = new UserRecover();
+		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($userRecover))) {
+			$userRecover->setAttributes($attributes);
+			if ($userRecover->validate()) {
+
+				$body = $this->renderPartial('application.views.mail.recover', array(
+					'user' => $userRecover->user->login,
+					'link' => $this->createAbsoluteUrl('user/new_password', array('id' => $userRecover->user->id, 't' => md5('superman' . $userRecover->user->pass))),
+				), true);
+
+				if ($userRecover->user->mail) {
+					$this->mail($userRecover->user->mail, 'Восстановление пароля', $body);
+					Yii::app()->user->setFlash('success', 'Инструкции по восстановлению пароля направлены на эл.адрес <b>' . $userRecover->user->mail . '</b>');
+				}
+			}
+		}
+
+		$this->render('recover', ['model' => $userRecover]);
+	}
+
+	public function mail($to, $title, $body)
+	{
+		$mail = new YiiMailer();
+		$mail->setView('common');
+		$mail->setFrom(Yii::app()->params['paramName']['siteEmail'], Yii::app()->name);
+		$mail->setData(array('title' => $title, 'message' => $body));
+		$mail->setTo($to);
+		$mail->setSubject($title);
+
+		if (!$mail->send()) {
+			//error log
+		}
+	}
+
+	public function actionNew_password($id, $t)
+	{
+		$user = User::model()->findAllByPk($id);
+		if (!$user)
+			throw new CHttpException(404, 'Страница не найдена');
+
+		if (md5('superman' . $user->pass) != $t)
+			throw new CHttpException(500, 'Неправильная ссылка');
+
+		$new_pass   = substr(md5(rand()), 0, 7);
+		$user->pass = md5('spyderman2' . $new_pass);
+		$user->save(false);
+
+		$identity = new UserIdentity($user->mail, $new_pass);
+		if ($identity->authenticate())
+			Yii::app()->user->login($identity);
+
+		return $this->redirect($this->createUrl('/account'));
 	}
 
 	protected function login()
@@ -89,7 +146,7 @@ class UserController extends Controller
 	{
 		return array(
 			array('deny',
-				  'actions' => array('login', 'register'),
+				  'actions' => array('login', 'register', 'recover'),
 				  'users'   => array('@'),
 			),
 			array('deny',

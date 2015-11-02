@@ -3,7 +3,7 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm */
 
-$this->pageTitle = Yii::app()->name . ' - Login';
+$this->pageTitle   = Yii::app()->name . ' - Login';
 $this->breadcrumbs = array(
 	'Авторизация',
 );
@@ -31,13 +31,17 @@ $this->breadcrumbs = array(
 	</div>
 
 	<div class="row rememberMe">
-		<?php echo $form->checkBox($model, 'rememberMe', array('checked'=>'checked')); ?>
+		<?php echo $form->checkBox($model, 'rememberMe', array('checked' => 'checked')); ?>
 		<?php echo $form->label($model, 'rememberMe'); ?>
 		<?php echo $form->error($model, 'rememberMe'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton('Войти'); ?>
+	</div>
+
+	<div>
+		<a href="<?= $this->createUrl('/user/recover') ?>">Забыли пароль?</a>
 	</div>
 
 	<?php $this->endWidget(); ?>
