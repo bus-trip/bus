@@ -36,7 +36,7 @@ class LoginForm extends CFormModel
 	{
 		return array(
 			'rememberMe' => 'Запомнить',
-			'username'   => 'Логин',
+			'username'   => 'Логин или email',
 			'password'   => 'Пароль'
 		);
 	}
@@ -61,8 +61,23 @@ class LoginForm extends CFormModel
 	public function login()
 	{
 		if ($this->_identity === null) {
-			$this->_identity = new UserIdentity($this->username, $this->password);
-			$this->_identity->authenticate();
+
+			$criteria = new CDbCriteria();
+			$criteria->addCondition('login=:login', 'OR');
+			$criteria->addCondition('mail=:mail', 'OR');
+			$criteria->params = array(
+				':login' => $this->username,
+				':mail'  => $this->username,
+			);
+
+			$user = User::model()->find($criteria);
+			if ($user) {
+				$this->_identity = new UserIdentity($user->login, $user->pass);
+				$this->_identity->authenticate();
+			} else {
+				$this->_identity = new UserIdentity($this->username, $this->password);
+				$this->_identity->authenticate();
+			}
 		}
 		if ($this->_identity->errorCode === UserIdentity::ERROR_NONE) {
 			$duration = $this->rememberMe ? 3600 * 24 * 30 : 0; // 30 days
