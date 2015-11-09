@@ -1,10 +1,6 @@
 <?php
 
-// This is the configuration for yiic console application.
-// Any writable CConsoleApplication properties can be configured here.
-
-$db = require_once('bus.webjails.ru.php');
-return array(
+$config = array(
 	'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
 	'name'       => 'My Console Application',
 
@@ -13,7 +9,6 @@ return array(
 
 	// application components
 	'components' => array(
-		'db'  => $db['components']['db'],
 		'log' => array(
 			'class'  => 'CLogRouter',
 			'routes' => array(
@@ -25,3 +20,21 @@ return array(
 		),
 	),
 );
+
+//get host
+foreach ($_SERVER['argv'] as $arg) {
+	if (strpos($arg, 'host=') === 0) {
+		$host = substr($arg, 5);
+		break;
+	}
+}
+
+if (isset($host)) {
+	$cs = __DIR__ . DIRECTORY_SEPARATOR . $host . '.php';
+	if (!file_exists($cs))
+		die('Domain config <b>' . $cs . '</b> not found');
+	$configServer = require_once($cs);
+	$config       = array_merge($config, $configServer);
+}
+
+return $config;
