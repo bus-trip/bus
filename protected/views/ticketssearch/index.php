@@ -88,6 +88,11 @@ if (isset($trips)) {
 				'name'   => 'arrival',
 				'header' => 'Прибытие',
 			),
+
+			array(
+				'name' => 'places',
+				'header' => 'Свободных мест'
+			),
 			array(
 				'name'   => 'description',
 				'header' => 'Описание',

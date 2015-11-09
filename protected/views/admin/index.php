@@ -156,7 +156,7 @@ $yearSelect = '';
 
 			if ($tripsParam[$i + 1 - $firstDOW]['date'] == $tripsDate) {
 				echo "<div class='trips-dir'>";
-				echo "<form action='trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip1']['id'] . "' method='POST'>";
+				echo "<form action='/trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip1']['id'] . "' method='POST'>";
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 05:30:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 12:00:00' name='trips-date'>";
 				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip1']['idDirection'] . "' name='trips-dir-id' />";
@@ -166,7 +166,7 @@ $yearSelect = '';
 				echo "</form>";
 				echo "</div>";
 				echo "<div class='trips-dir'>";
-				echo "<form action='trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip2']['id'] . "' method='POST'>";
+				echo "<form action='/trips/sheet/" . $tripsParam[$i + 1 - $firstDOW]['trip2']['id'] . "' method='POST'>";
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 14:00:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 22:00:00' name='trips-date'>";
 				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip2']['idDirection'] . "' name='trips-dir-id' />";

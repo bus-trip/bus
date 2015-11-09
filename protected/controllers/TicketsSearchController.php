@@ -34,36 +34,33 @@ class TicketsSearchController extends Controller
 	{
 		return [
 			['allow',  // allow all users to perform 'index' and 'view' actions
-				  'actions' => ['index', 'view'],
-				  'users'   => ['*'],
+			 'actions' => ['index', 'view'],
+			 'users'   => ['*'],
 			],
 			['allow', // allow authenticated user to perform 'create' and 'update' actions
-				  'actions' => ['create', 'update'],
-				  'users'   => ['@'],
+			 'actions' => ['create', 'update'],
+			 'users'   => ['@'],
 			],
 			['allow', // allow admin user to perform 'admin' and 'delete' actions
-				  'actions' => ['admin', 'delete', 'tripselect'],
-				  'users'   => ['admin'],
+			 'actions' => ['admin', 'delete', 'tripselect'],
+			 'users'   => ['admin'],
 			],
 			['deny',  // deny all users
-				  'users' => ['*'],
+			 'users' => ['*'],
 			],
 		];
 	}
 
 	public function actionIndex()
 	{
-//		$query = Directions::model()->findAll();
 		$query = Dirpoints::model()->findAll();
 		$points = [];
 		foreach ($query as $q) {
-//			if (!in_array($q->startPoint, $points)) $points[$q->startPoint] = $q->startPoint;
-//			if (!in_array($q->endPoint, $points)) $points[$q->endPoint] = $q->endPoint;
-			if($q->direction->status != DIRTRIP_CANCELED){
+			if ($q->direction->status != DIRTRIP_CANCELED) {
 				$points[$q->name] = $q->name;
 			}
 		}
-		sort($points);
+		ksort($points);
 		$indexData['points'] = $points;
 
 		if (isset($_POST['startPoint']) && isset($_POST['endPoint']) && isset($_POST['departure'])) {
@@ -75,19 +72,15 @@ class TicketsSearchController extends Controller
 				$trips = Trips::model()->findAllByAttributes(['idDirection' => $d['id']], $criteria);
 				foreach ($trips as $t) {
 					$criteria->condition = "idTrip=" . $t->attributes['id'] . " and status in (" . Tickets::STATUS_CONFIRMED . "," . Tickets::STATUS_RESERVED . ")";
-					$tickets = Tickets::model()->count($criteria);
-					$bus = Buses::model()->findByPk($t->attributes['idBus']);
-					/*
-					 * проверку по участкам на наличие мест добавить здесь
-					 */
-
-					if ($bus->places > $tickets) {
+					$freePlaces = $this->getFreePlaces($t->id);
+					if ($freePlaces) {
 						$tripsAttr[] = [
 							'id'          => $t->attributes['id'],
 							'direction'   => $d['startPoint'] . ' - ' . $d['endPoint'],
 							'departure'   => $t->attributes['departure'],
 							'arrival'     => $t->attributes['arrival'],
-							'description' => $t->attributes['description']
+							'description' => $t->attributes['description'],
+							'places'      => $freePlaces
 						];
 					}
 				}
@@ -108,56 +101,76 @@ class TicketsSearchController extends Controller
 		);
 	}
 
-	private function getDirections($startPoint, $endPoint = '')
+	private function getDirections($startPoint, $endPoint)
 	{
-		$directions = [];
-		$criteria = new CDbCriteria();
-		$criteria->condition = 'status = ' . DIRTRIP_MAIN . ' or status = ' . DIRTRIP_EXTEND;
-		$criteria->group = 'parentId';
-		$dirsAll = Directions::model()->findAllByAttributes(['startPoint' => $startPoint], $criteria);
-		$dirsByStart = NULL;
+		$directions = array();
+		$dirsAll = Directions::model()->findAll(
+			array(
+				'condition' => 'status != ' . DIRTRIP_CANCELED . ' and parentId !=0 and startPoint = "' . $startPoint . '" and endPoint="' . $endPoint . '"',
+				'group'     => 'parentId'
+			)
+		);
+
+		$dirsByStart = array();
 		foreach ($dirsAll as $ds) {
-			if ($ds->attributes['parentId'] != 0) $dirsByStart[] = Directions::model()
-																			 ->findByPk($ds->attributes['parentId'])->attributes;
-			else $dirsByStart[] = Directions::model()->findByPk($ds->attributes['id'])->attributes;
+			$parentDir = Directions::model()->findAll(
+				array('condition' => 'id=' . $ds->parentId . ' and status != ' . DIRTRIP_CANCELED)
+			);
+			if (!empty($parentDir)) $dirsByStart[] = $parentDir[0]->attributes;
 		}
-		if ($dirsByStart) {
+		if (!empty($dirsByStart)) {
 			foreach ($dirsByStart as $ds) {
-				if (isset($endPoint)) {
-					$points = $this->getStationsByDirectionId($ds['id']);
-					if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
-				} else $directions[] = $ds;
+				$points = $this->getStationsByDirectionId($ds['id']);
+				if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
 			}
 		}
-		return array_unique($directions);
+
+		return $directions;
 	}
 
 	private function getStationsByDirectionId($id)
 	{
-//		$dir = Directions::model()->findByPk($id);
-//		$sPoint = $dir->startPoint;
 		$points = array();
-//		$points[] = $dir->startPoint;
-//		while (($point = Directions::model()
-//								   ->findByAttributes(array('startPoint' => $sPoint, 'parentId' => $dir->id)))) {
-//			$points[] = $point->startPoint;
-//			$points[] = $point->endPoint;
-//			$sPoint = $point->endPoint;
-//		}
-//		$points[] = $dir->endPoint;
-//		$points = array_unique($points);
-		$point = Dirpoints::model()->find(array('condition'=>'directionId='.$id.' and prevId=0'));
+		$point = Dirpoints::model()->findByAttributes(
+			array(
+				'directionId' => $id,
+				'prevId'      => 0
+			)
+		);
 		$points[] = $point->name;
-		while($point = Dirpoints::model()->find(array('condition'=>'directionId='.$id.' and prevId='.$point->id))){
+		while ($point = Dirpoints::model()
+								 ->find(array('condition' => 'directionId=' . $id . ' and prevId=' . $point->id))) {
 			$points[] = $point->name;
 		}
 
 		return $points;
 	}
 
-	private function getFreePlaces($startPoint, $endPoint, $trips)
+	private function getFreePlaces($tripId)
 	{
+		$this->getTakenPlaces($tripId);
+		$trip = Trips::model()->findByPk($tripId);
+		$allPlaces = $trip->idBus0->places;
+		$takenPlaces = Tickets::model()
+							  ->count(array('condition' => 'idTrip=' . $tripId . ' and status!=' . Tickets::STATUS_CANCELED));
+		if ($allPlaces > $takenPlaces) return $allPlaces - $takenPlaces;
+		else return FALSE;
 	}
+
+	private function getTakenPlaces($tripId){
+		$direction = Directions::model()->findByPk($tripId->idDirection);
+		if(!empty($direction)){
+			if($direction->parentId) $direction = Directions::model()->findByPk($direction->parentId);
+			$points = $this->getStationsByDirectionId($direction->id);
+			$places = [];
+			foreach($points as $p){
+				$places[$p] = 0;
+//				print " -- ". $p . " -- ";
+			}
+
+		}
+	}
+
 
 	/**
 	 * Creates a new model.

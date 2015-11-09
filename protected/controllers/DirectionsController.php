@@ -121,7 +121,7 @@ class DirectionsController extends Controller
 
 			$model->attributes = $_POST['Directions'];
 			if ($model->validate() && $model->save()) {
-				$this->redirect(array('admin'));
+				$this->redirect(array('edit', 'id' => $model->parentId));
 			}
 		}
 
@@ -237,7 +237,7 @@ class DirectionsController extends Controller
 		if (isset($_GET['Directions']))
 			$model->attributes = $_GET['Directions'];
 
-		$parent = Directions::model()->find(array('condition' => 'id=' . $id));
+		$parent = Directions::model()->findByPk($id);
 
 		// Пункты остановок в направлении в порядке следования.
 		$dpModel = new Dirpoints();
@@ -260,15 +260,17 @@ class DirectionsController extends Controller
 		for ($i = 0; $i < count($dirArr) - 1; $i++) {
 			for ($j = $i + 1; $j < count($dirArr); $j++) {
 				$data = Directions::model()
-								  ->find(array('condition' => 'startPoint="' . $dirArr[$i]->name . '" and endPoint="' . $dirArr[$j]->name . '"'));
-				$arrData[] = array(
-					'id'         => $data->id,
-					'parentId'   => $data->parentId,
-					'startPoint' => $data->startPoint,
-					'endPoint'   => $data->endPoint,
-					'price'      => $data->price,
-					'status'     => $data->status,
-				);
+								  ->find(array('condition' => 'startPoint="' . $dirArr[$i]->name . '" and endPoint="' . $dirArr[$j]->name . '" and parentId='.$parent->id));
+				if($data) {
+					$arrData[] = array(
+						'id'         => $data->id,
+						'parentId'   => $data->parentId,
+						'startPoint' => $data->startPoint,
+						'endPoint'   => $data->endPoint,
+						'price'      => $data->price,
+						'status'     => $data->status,
+					);
+				}
 			}
 		}
 
@@ -358,7 +360,7 @@ class DirectionsController extends Controller
 			for ($i = 0; $i < count($dirArr) - 1; $i++) {
 				for ($j = $i + 1; $j < count($dirArr); $j++) {
 					if (!($dir = Directions::model()
-										   ->find(array('condition' => 'startPoint="' . $dirArr[$i] . '" and endPoint="' . $dirArr[$j] . '"')))
+										   ->find(array('condition' => 'startPoint="' . $dirArr[$i] . '" and endPoint="' . $dirArr[$j] . '" and parentId='.$point->directionId)))
 					) {
 						$dir = new Directions();
 						$dir->startPoint = $dirArr[$i];
@@ -439,10 +441,14 @@ class DirectionsController extends Controller
 				'condition' => '(startPoint="' . $model->name . '" or endPoint="' . $model->name . '") and parentId=' . $model->directionId
 			)
 		);
+		$model->delete();
 		foreach ($directions as $d) {
-			$d->delete();
+//			$d->delete();
+			$model = $this->loadModel($d->id);
+			$model->status = 0;
+			$model->save();
 		}
-		$this->redirect(array('directions/edit/', 'id' => $model->directionId));
+		$this->redirect(array('directions/edit/', 'id' => $prevModel->directionId));
 	}
 
 	/**
