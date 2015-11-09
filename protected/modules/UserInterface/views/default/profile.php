@@ -14,10 +14,9 @@ $ajaxCheck = $this->createUrl('/UserInterface/profiles/check');
 $ajaxForm  = $this->createUrl('/UserInterface/profiles/form');
 
 $varProfiles = [];
+/** @var Profiles[] $userProfile */
 foreach ($userProfiles as $userProfile) {
 	$values = $userProfile->getAttributes();
-//	$values['birth'] = date('d.m.Y', $values['birth']);
-	$values['birth']               = date('d.m.Y', time());
 	$varProfiles[$userProfile->id] = $values;
 }
 $jsonProfiles = json_encode($varProfiles);
