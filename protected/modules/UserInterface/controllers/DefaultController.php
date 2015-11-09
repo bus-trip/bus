@@ -326,6 +326,22 @@ class DefaultController extends Controller
 
 	public function actionIndex($step = null)
 	{
+		if (isset($_SESSION['temp_reserve'])) {
+			foreach ($_SESSION['temp_reserve'] as $tripId => $placeIds) {
+				$criteria = new CDbCriteria();
+				$criteria->addCondition('tripId=:tripId');
+				$criteria->params = [':tripId' => $tripId];
+				$criteria->addInCondition('placeId', array_values($placeIds));
+				$tempReserve = TempReserve::model()->findAll($criteria);
+
+				if (!$tempReserve) {
+					unset($_SESSION['temp_reserve']);
+					$this->resetWizard($step);
+					$this->redirect('/UserInterface/default/timeout');
+				}
+			}
+		}
+
 		$this->pageTitle = $this->getWizardTitle($step);
 		$this->process($step);
 	}
@@ -348,6 +364,13 @@ class DefaultController extends Controller
 		$output = $this->createUrl($url);
 
 		return $output;
+	}
+
+	public function actionTimeout()
+	{
+		$this->layout    = '//layouts/column1';
+		$this->pageTitle = 'Время оформления вышло';
+		return $this->render('error');
 	}
 
 	/**
