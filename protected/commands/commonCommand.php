@@ -6,7 +6,7 @@
  */
 class commonCommand extends CConsoleCommand
 {
-	public function actionTest()
+	public function actionUnreserve()
 	{
 		Yii::import('application.models.TempReserve');
 
