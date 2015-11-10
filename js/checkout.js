@@ -19,6 +19,8 @@ $(function () {
 
 				var select = wrap.find('select[name="Profiles[' + wrapIndex + '][' + index + ']"]');
 				if (select.length > 0) {
+					console.log(select);
+					console.log(select.find('option:contains("' + value + '")'));
 					var val = select.find('option:contains("' + value + '")').attr('value');
 					select.val(val);
 				}

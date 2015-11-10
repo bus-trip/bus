@@ -72,11 +72,7 @@ class UserController extends Controller
 
 				if ($userRecover->user->mail) {
 					$this->mail($userRecover->user->mail, 'Восстановление пароля', $body);
-					$mess = 'Инструкции по восстановлению пароля направлены на эл.адрес';
-					if ($attributes['login'] == $userRecover->user->mail) {
-						$mess .= ' <b>' . $userRecover->user->mail . '</b>';
-					}
-					Yii::app()->user->setFlash('success', $mess);
+					Yii::app()->user->setFlash('success', 'Инструкции по восстановлению пароля направлены на эл.адрес <b>' . $userRecover->user->mail . '</b>');
 				}
 			}
 		}

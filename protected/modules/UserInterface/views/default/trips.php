@@ -8,13 +8,17 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'trips-grid',
 	'dataProvider' => $trips,
 	'template'     => '{items}{pager}',
-	'ajaxUpdate'   => false,
+	'ajaxUpdate'   => FALSE,
 	'columns'      => array(
 		array(
 			'header' => '',
 			'name'   => 'id',
 			'type'   => 'raw',
-			'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))',
+			'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))."<br/>".CHtml::hiddenField("' . CHtml::modelName($model) . '[idDirection]", $data["idDirection"])',
+		),
+		array(
+			'name'   => 'trip',
+			'header' => 'Маршрут следования',
 		),
 		array(
 			'name'   => 'direction',
@@ -29,8 +33,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Прибытие',
 		),
 		array(
-			'name'   => 'description',
-			'header' => 'Описание',
+			'name'   => 'price',
+			'header' => 'Стоимость',
+		),
+		array(
+			'name'   => 'places',
+			'header' => 'Свободных мест',
 		),
 	),
 ));

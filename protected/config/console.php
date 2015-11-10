@@ -1,40 +1,37 @@
 <?php
 
-$config = array(
-	'basePath'   => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-	'name'       => 'My Console Application',
+// This is the configuration for yiic console application.
+// Any writable CConsoleApplication properties can be configured here.
+return array(
+	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+	'name'=>'My Console Application',
 
 	// preloading 'log' component
-	'preload'    => array('log'),
+	'preload'=>array('log'),
 
 	// application components
-	'components' => array(
-		'log' => array(
-			'class'  => 'CLogRouter',
-			'routes' => array(
+	'components'=>array(
+		'db'=>array(
+			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
+		),
+		// uncomment the following to use a MySQL database
+		/*
+		'db'=>array(
+			'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+			'emulatePrepare' => true,
+			'username' => 'root',
+			'password' => '',
+			'charset' => 'utf8',
+		),
+		*/
+		'log'=>array(
+			'class'=>'CLogRouter',
+			'routes'=>array(
 				array(
-					'class'  => 'CFileLogRoute',
-					'levels' => 'error, warning',
+					'class'=>'CFileLogRoute',
+					'levels'=>'error, warning',
 				),
 			),
 		),
 	),
 );
-
-//get host
-foreach ($_SERVER['argv'] as $arg) {
-	if (strpos($arg, 'host=') === 0) {
-		$host = substr($arg, 5);
-		break;
-	}
-}
-
-if (isset($host)) {
-	$cs = __DIR__ . DIRECTORY_SEPARATOR . $host . '.php';
-	if (!file_exists($cs))
-		die('Domain config <b>' . $cs . '</b> not found');
-	$configServer = require_once($cs);
-	$config       = array_merge($config, $configServer);
-}
-
-return $config;
