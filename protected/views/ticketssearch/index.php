@@ -92,10 +92,6 @@ if (isset($trips)) {
 				'name'   => 'description',
 				'header' => 'Описание',
 			),
-			array(
-				'name' => 'places',
-				'header' => 'Свободных мест'
-			),
 		),
 	));
 	echo CHtml::submitButton('Выбрать', array('id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled'));
