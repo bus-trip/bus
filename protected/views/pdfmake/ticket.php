@@ -76,7 +76,7 @@ $pdfTicket = '
 						</tr>
 					</table>
 					<br/>
-					<div style="width: 100%; float: left; height: 40px; font-size:16px;"><b>Статус билета:</b> <span style="color: ' . ($ticket->status == 0 ? "red" : "green") . '">' . ($ticket->status == 0 ? "Забронировано" : "Оплачено") . '</span></div>
+					<div style="width: 100%; float: left; height: 40px; font-size:16px;"><b>Статус билета:</b> <span style="color: ' . ($ticket->status == Tickets::STATUS_RESERVED ? "red" : "green") . '">' . ($ticket->status == Tickets::STATUS_RESERVED ? "Забронировано" : "Оплачено") . '</span></div>
 					<div style="width: 100%; float: left; height: 150px; font-size:10px;">
 						Примечание:
 						<ul>
