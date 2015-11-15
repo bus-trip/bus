@@ -60,10 +60,6 @@ $form = $this->beginWidget('CActiveForm', array(
 $this->endWidget();
 
 if (isset($trips)) {
-	$form = $this->beginWidget('CActiveForm', array(
-		'id'                   => 'selecttrip-form',
-		'enableAjaxValidation' => FALSE,
-	));
 	$this->widget('zii.widgets.grid.CGridView', array(
 		'id'           => 'trips-grid',
 		'dataProvider' => $trips,
@@ -74,7 +70,11 @@ if (isset($trips)) {
 				'header' => '',
 				'name'   => 'id',
 				'type'   => 'raw',
-				'value'  => 'CHtml::radioButton("trips",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))',
+				'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))."<br/>".CHtml::hiddenField("' . CHtml::modelName($model) . '[idDirection]", $data["idDirection"])',
+			),
+			array(
+				'name'   => 'trip',
+				'header' => 'Маршрут следования',
 			),
 			array(
 				'name'   => 'direction',
@@ -89,12 +89,17 @@ if (isset($trips)) {
 				'header' => 'Прибытие',
 			),
 			array(
-				'name'   => 'description',
-				'header' => 'Описание',
+				'name'   => 'price',
+				'header' => 'Стоимость',
+			),
+			array(
+				'name'   => 'places',
+				'header' => 'Свободных мест',
 			),
 		),
 	));
+
 	echo CHtml::submitButton('Выбрать', array('id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled'));
-	$this->endWidget();
+//	$this->endWidget();
 }
 ?>

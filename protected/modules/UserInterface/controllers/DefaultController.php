@@ -76,13 +76,14 @@ class DefaultController extends Controller
 		return $directions;
 	}
 
-	private function getPartDirections($startPoint, $endPoint){
+	private function getPartDirections($startPoint, $endPoint)
+	{
 		$directions = [];
 		$dirsAll = Directions::model()->findAll(
-			array(
+			[
 				'condition' => 'status != ' . DIRTRIP_CANCELED . ' and parentId !=0 and startPoint = "' . $startPoint . '" and endPoint="' . $endPoint . '"',
 				'group'     => 'parentId'
-			)
+			]
 		);
 		foreach ($dirsAll as $ds) {
 			$directions[] = $ds;
@@ -108,19 +109,61 @@ class DefaultController extends Controller
 		return $points;
 	}
 
-	private function getFreePlaces($tripId)
+	private function getFreePlaces($tripId, $startPoint, $endPoint)
 	{
 		$trip = Trips::model()->findByPk($tripId);
-		$allPlaces = $trip->idBus0->places;
-		$takenPlaces = $this->getTakenPlaces($tripId);
-		if ($allPlaces > $takenPlaces) return $allPlaces - $takenPlaces;
-		else return FALSE;
-	}
+		$points = $this->getStationsByDirectionId($trip->idDirection);
+		$dirPoints = [];
+		foreach ($points as $p) {
+			$dirPoints[$p] = 0;
+		}
 
-	private function getTakenPlaces($tripId)
-	{
-		return Tickets::model()
-					  ->count(['condition' => 'idTrip=' . $tripId . ' and status!=' . Tickets::STATUS_CANCELED]);
+		$allDirs = Directions::model()
+							 ->findAll(['condition' => 'parentId=' . $trip->idDirection . ' and status!=' . DIRTRIP_CANCELED]);
+		$dirArr = [];
+		foreach ($allDirs as $d) {
+			$tickets = Tickets::model()
+							  ->count(['condition' => 'idTrip=' . $tripId . ' and idDirection=' . $d['id'] . ' and status!=' . Tickets::STATUS_CANCELED]);
+			$dirArr[] = [
+				'startPoint' => $d['startPoint'],
+				'endPoint'   => $d['endPoint'],
+				'tickets'    => $tickets
+			];
+		}
+
+		foreach ($dirArr as $d) {
+			if ($d['tickets'] > 0) {
+				$i = FALSE;
+				foreach ($dirPoints as $k => $p) {
+					if ($k == $d['startPoint']) {
+						$i = TRUE;
+					}
+					if ($i && $k != $startPoint) {
+						$dirPoints[$k]++;
+					}
+					if ($k == $d['endPoint']) {
+						$i = FALSE;
+					}
+				}
+			}
+		}
+
+		$allPlaces = $trip->idBus0->places;
+		$i = FALSE;
+		$maxFreePlace = 0;
+		foreach ($dirPoints as $k => $p) {
+			if ($k == $startPoint) {
+				$i = TRUE;
+			}
+			if ($i) {
+				if ($p > $maxFreePlace) $maxFreePlace = $p;
+			}
+			if ($k == $endPoint) {
+				$i = FALSE;
+			}
+		}
+
+		return $allPlaces - $maxFreePlace;
 	}
 
 	public function behaviors()
@@ -407,7 +450,7 @@ class DefaultController extends Controller
 					$trips = Trips::model()->findAllByAttributes(['idDirection' => $d['parentId']], $criteria);
 					$parent = Directions::model()->findByPk($d['parentId']);
 					foreach ($trips as $t) {
-						$freePlaces = $this->getFreePlaces($t->id);
+						$freePlaces = $this->getFreePlaces($t->id, $checkoutModel->pointFrom, $checkoutModel->pointTo);
 						if ($freePlaces) {
 							$tripsAttr[] = [
 								'id'          => $t->attributes['id'],
