@@ -138,7 +138,7 @@ class DefaultController extends Controller
 					if ($k == $d['startPoint']) {
 						$i = TRUE;
 					}
-					if ($i && $k != $startPoint) {
+					if ($i && $k != $startPoint && $k != $endPoint) {
 						$dirPoints[$k]++;
 					}
 					if ($k == $d['endPoint']) {

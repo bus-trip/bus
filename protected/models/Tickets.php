@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'tickets':
  * @property integer    $id
  * @property integer    $idTrip
+ * @property integer	$idDirection
  * @property integer    $place
  * @property integer    $price
  * @property string     $address_from
