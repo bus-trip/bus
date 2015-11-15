@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'tickets':
  * @property integer    $id
  * @property integer    $idTrip
- * @property integer	$idDirection
+ * @property integer    $idDirection
  * @property integer    $place
  * @property integer    $price
  * @property string     $address_from
@@ -20,8 +20,8 @@
  */
 class Tickets extends CActiveRecord
 {
-	const STATUS_CANCELED  = 0;
-	const STATUS_RESERVED  = 1;
+	const STATUS_CANCELED = 0;
+	const STATUS_RESERVED = 1;
 	const STATUS_CONFIRMED = 2;
 
 	/**
@@ -41,7 +41,7 @@ class Tickets extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('idTrip', 'required'),
-			array('idTrip, place, price, status', 'numerical', 'integerOnly' => true),
+			array('idTrip, idDirection, place, price, status', 'numerical', 'integerOnly' => TRUE),
 			array('address_from, address_to, remark', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -70,6 +70,7 @@ class Tickets extends CActiveRecord
 		return array(
 			'id'           => 'ID',
 			'idTrip'       => 'Id Trip',
+			'idDirection'  => 'Id Direction',
 			'place'        => 'Место',
 			'price'        => 'Цена билета',
 			'address_from' => 'Адрес от',
@@ -99,11 +100,12 @@ class Tickets extends CActiveRecord
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('idTrip', $this->idTrip);
+		$criteria->compare('idDirection', $this->idDirection);
 		$criteria->compare('place', $this->place);
 		$criteria->compare('price', $this->price);
-		$criteria->compare('address_from', $this->address_from, true);
-		$criteria->compare('address_to', $this->address_to, true);
-		$criteria->compare('remark', $this->remark, true);
+		$criteria->compare('address_from', $this->address_from, TRUE);
+		$criteria->compare('address_to', $this->address_to, TRUE);
+		$criteria->compare('remark', $this->remark, TRUE);
 		$criteria->compare('status', $this->status);
 
 		return new CActiveDataProvider($this, array(
