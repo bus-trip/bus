@@ -8,6 +8,7 @@
  * @property string    $model
  * @property string    $number
  * @property integer   $places
+ * @property string    $plane
  * @property string    $description
  * @property integer   $status
  *
@@ -33,10 +34,11 @@ class Buses extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('model, number, places, status', 'required'),
+			array('model, number, places, plane, status', 'required'),
 			array('places, status', 'numerical', 'integerOnly' => TRUE),
 			array('model', 'length', 'max' => 100),
 			array('number', 'length', 'max' => 20),
+			array('plane', 'length', 'max' => 255),
 			array('description', 'length', 'max' => '1000'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -67,6 +69,7 @@ class Buses extends CActiveRecord
 			'model'       => 'Model',
 			'number'      => 'Number',
 			'places'      => 'Places',
+			'plane'       => 'Plane',
 			'description' => 'Description',
 			'status'      => 'Status',
 		);
@@ -94,6 +97,7 @@ class Buses extends CActiveRecord
 		$criteria->compare('model', $this->model, TRUE);
 		$criteria->compare('number', $this->number, TRUE);
 		$criteria->compare('places', $this->places);
+		$criteria->compare('plane', $this->plane);
 		$criteria->compare('description', $this->description, TRUE);
 		$criteria->compare('status', $this->status);
 
