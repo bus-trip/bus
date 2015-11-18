@@ -34,19 +34,19 @@ class TicketsSearchController extends Controller
 	{
 		return [
 			['allow',  // allow all users to perform 'index' and 'view' actions
-			 'actions' => ['index', 'view'],
-			 'users'   => ['*'],
+				  'actions' => ['index', 'view'],
+				  'users'   => ['*'],
 			],
 			['allow', // allow authenticated user to perform 'create' and 'update' actions
-			 'actions' => ['create', 'update'],
-			 'users'   => ['@'],
+				  'actions' => ['create', 'update'],
+				  'users'   => ['@'],
 			],
 			['allow', // allow admin user to perform 'admin' and 'delete' actions
-			 'actions' => ['admin', 'delete', 'tripselect'],
-			 'users'   => ['admin'],
+				  'actions' => ['admin', 'delete', 'tripselect'],
+				  'users'   => ['admin'],
 			],
 			['deny',  // deny all users
-			 'users' => ['*'],
+				  'users' => ['*'],
 			],
 		];
 	}

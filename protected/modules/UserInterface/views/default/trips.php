@@ -8,7 +8,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'id'           => 'trips-grid',
 	'dataProvider' => $trips,
 	'template'     => '{items}{pager}',
-	'ajaxUpdate'   => FALSE,
+	'ajaxUpdate'   => false,
 	'columns'      => array(
 		array(
 			'header' => '',

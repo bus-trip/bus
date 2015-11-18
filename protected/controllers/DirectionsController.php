@@ -121,7 +121,7 @@ class DirectionsController extends Controller
 
 			$model->attributes = $_POST['Directions'];
 			if ($model->validate() && $model->save()) {
-				$this->redirect(array('edit', 'id' => $model->parentId));
+				$this->redirect(array('admin'));
 			}
 		}
 

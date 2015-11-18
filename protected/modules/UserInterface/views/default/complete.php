@@ -9,5 +9,5 @@
 <div id="checkout-complete-wrapper">
 	<h2>Оформление закончено</h2>
 
-	<p>Вы можете распечатать билеты из <a href="<?= $this->createUrl('/account/tickets')?>">личного кабинета</a>.</p>
+	<p>Вы можете распечатать билеты из <a href="<?= $this->createUrl('/account/tickets') ?>">личного кабинета</a>.</p>
 </div>
