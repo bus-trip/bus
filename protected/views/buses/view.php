@@ -24,5 +24,6 @@ $this->menu=array(
 		'id',
 		'number',
 		'places',
+		'plane'
 	),
 )); ?>

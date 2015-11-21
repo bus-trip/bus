@@ -70,8 +70,12 @@ class BusesController extends Controller
 
 		if (isset($_POST['Buses'])) {
 			$model->attributes = $_POST['Buses'];
-			if ($model->save())
+			$file = CUploadedFile::getInstance($model, 'plane');
+			$model->plane = $file->name;
+			if ($model->save()) {
+				$file->saveAs(Yii::app()->basePath . '\upload\\' . $file->name, FALSE);
 				$this->redirect(array('admin'));
+			}
 		}
 
 		$this->render('create', array(
