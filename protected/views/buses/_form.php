@@ -59,7 +59,7 @@
         <?php echo $form->error($model,'status'); ?>
     </div>
 
-	<div style="margin-left: 350px; margin-top: -350px;">
+	<div style="">
 		<?php
 			echo (!empty($model->plane)) ? CHtml::image("/upload/".$model->plane,"",array("style"=>"width:400px;")) : "";
 		?>
