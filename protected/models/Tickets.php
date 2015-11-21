@@ -20,8 +20,8 @@
  */
 class Tickets extends CActiveRecord
 {
-	const STATUS_CANCELED  = 0;
-	const STATUS_RESERVED  = 1;
+	const STATUS_CANCELED = 0;
+	const STATUS_RESERVED = 1;
 	const STATUS_CONFIRMED = 2;
 
 	/**

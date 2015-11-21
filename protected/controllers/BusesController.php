@@ -70,8 +70,12 @@ class BusesController extends Controller
 
 		if (isset($_POST['Buses'])) {
 			$model->attributes = $_POST['Buses'];
-			if ($model->save())
+			$file = CUploadedFile::getInstance($model, 'plane');
+			$model->plane = $file->name;
+			if ($model->save()) {
+				$file->saveAs(Yii::app()->basePath . '\upload\\' . $file->name, FALSE);
 				$this->redirect(array('admin'));
+			}
 		}
 
 		$this->render('create', array(
@@ -147,6 +151,7 @@ class BusesController extends Controller
 				'model'       => $d->model,
 				'number'      => $d->number,
 				'places'      => $d->places,
+				'plane'       => $d->plane,
 				'description' => $d->description,
 				'status'      => ($d->status == 1 ? 'Работает' : 'Не работает'),
 			);
@@ -162,6 +167,7 @@ class BusesController extends Controller
 						'model',
 						'number',
 						'places',
+						'plane',
 						'description',
 						'status'
 					)
@@ -209,6 +215,7 @@ class BusesController extends Controller
 				'model'       => $d->model,
 				'number'      => $d->number,
 				'places'      => $d->places,
+				'plane'       => $d->plane,
 				'description' => $d->description,
 				'status'      => ($d->status == 1 ? 'Работает' : 'Не работает'),
 			);
@@ -224,6 +231,7 @@ class BusesController extends Controller
 						'model',
 						'number',
 						'places',
+						'plane',
 						'description',
 						'status'
 					)

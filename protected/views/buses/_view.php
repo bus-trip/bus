@@ -21,6 +21,10 @@
     <?php echo CHtml::encode($data->places); ?>
     <br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('plane')); ?>:</b>
+	<?php echo CHtml::encode($data->plane); ?>
+	<br />
+
     <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
     <?php echo CHtml::encode($data->places); ?>
     <br />

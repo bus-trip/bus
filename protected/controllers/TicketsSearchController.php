@@ -75,6 +75,7 @@ class TicketsSearchController extends Controller
 					if ($freePlaces) {
 						$tripsAttr[] = [
 							'id'          => $t->attributes['id'],
+							'trip'        => $_POST['startPoint'] . " - " . $_POST['endPoint'],
 							'direction'   => $d['startPoint'] . ' - ' . $d['endPoint'],
 							'departure'   => $t->attributes['departure'],
 							'arrival'     => $t->attributes['arrival'],

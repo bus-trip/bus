@@ -8,6 +8,9 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'buses-form',
+	'htmlOptions' => array(
+		'enctype' => 'multipart/form-data',
+	),
 	// Please note: When you enable ajax validation, make sure the corresponding
 	// controller action is handling ajax validation correctly.
 	// There is a call to performAjaxValidation() commented in generated controller code.
@@ -37,6 +40,12 @@
         <?php echo $form->error($model,'model'); ?>
     </div>
 
+	<div class="row">
+        <?php echo $form->labelEx($model,'Схема автобуса'); ?>
+		<?php echo $form->fileField($model, 'plane', array('id'=>'planeId')); ?>
+		<?php echo $form->error($model,'plane'); ?>
+    </div>
+
     <div class="row">
         <?php echo $form->labelEx($model,'Краткое описание'); ?>
         <?php echo $form->textField($model,'description',array('size'=>20,'maxlength'=>100)); ?>
@@ -49,6 +58,12 @@
         <?php // echo $form->textField($model,'status',array('size'=>20,'maxlength'=>100)); ?>
         <?php echo $form->error($model,'status'); ?>
     </div>
+
+	<div style="margin-left: 350px; margin-top: -350px;">
+		<?php
+			echo (!empty($model->plane)) ? CHtml::image("/upload/".$model->plane,"",array("style"=>"width:400px;")) : "";
+		?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Обновить'); ?>

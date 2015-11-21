@@ -36,6 +36,12 @@ $this->menu = array(
 			'header' => 'Кол-во мест',
 		),
 		array(
+			'name'              => 'plane',
+			'header'            => 'Схема',
+			'type'              => 'raw',
+			'value'             => '(!empty($data["plane"])) ? CHtml::image("/upload/".$data["plane"],"",array("style"=>"width:50px;")) : ""',
+		),
+		array(
 			'name'   => 'description',
 			'header' => 'Описание',
 		),
@@ -52,11 +58,11 @@ $this->menu = array(
 			'buttons'            => array(
 				'update' => array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/update.png',
-					'url' => 'Yii::app()->controller->createUrl("buses/update", array("id"=>$data["id"]))',
+					'url'      => 'Yii::app()->controller->createUrl("buses/update", array("id"=>$data["id"]))',
 				),
 				'delete' => array(
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/delete.png',
-					'url' => 'Yii::app()->controller->createUrl("buses/delete", array("id"=>$data["id"]))',
+					'url'      => 'Yii::app()->controller->createUrl("buses/delete", array("id"=>$data["id"]))',
 				)
 			)
 		),
