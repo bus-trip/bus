@@ -73,7 +73,7 @@ class BusesController extends Controller
 			$file = CUploadedFile::getInstance($model, 'plane');
 			$model->plane = $file->name;
 			if ($model->save()) {
-				$file->saveAs(Yii::app()->basePath . '\upload\\' . $file->name, FALSE);
+				$file->saveAs(Yii::app()->basePath . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . $file->name, FALSE);
 				$this->redirect(array('admin'));
 			}
 		}
