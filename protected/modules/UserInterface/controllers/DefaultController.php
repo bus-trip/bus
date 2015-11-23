@@ -138,7 +138,7 @@ class DefaultController extends Controller
 					if ($k == $d['startPoint']) {
 						$i = TRUE;
 					}
-					if ($i && $k != $startPoint && $k != $endPoint) {
+					if ($i && ($k != $startPoint || $k != $endPoint)) {
 						$dirPoints[$k]++;
 					}
 					if ($k == $d['endPoint']) {
@@ -208,6 +208,7 @@ class DefaultController extends Controller
 		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
 		$points = ['' => '- Выберите -'];
 		$trip = FALSE;
+		$plane = FALSE;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -269,6 +270,7 @@ class DefaultController extends Controller
 			$savedData = $this->read();
 			$trip = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
 			$places = $trip ? self::getAvailablePlaces($trip) : [];
+			$checkoutModel->plane = $trip->idBus0->plane;
 			if (isset($_SESSION['temp_reserve'][$trip->id]) &&
 				!empty($savedData[self::STEP_PLACE]['places'])
 			) {
