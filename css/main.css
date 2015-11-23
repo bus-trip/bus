@@ -519,6 +519,7 @@ body .ui-menu .ui-menu-item a {
 	display: none;
 	margin: 10px;
 	width: 100%;
+	float: left;
 }
 
 .account-menu li{
@@ -957,4 +958,22 @@ table#main .current-date .date {
 
 table.addPointclass tr td {
 	padding: 5px 0 5px 0;
+}
+
+#sheet-bus-info {
+	width: 40%;
+	float: left;
+}
+
+#sheet-bus-plane {
+	width: 40%;
+	float: right;
+	height: 180px;
+}
+
+#sheet-bus-plane img {
+	transform: rotate(-90deg);
+	position: relative;
+	top: -130px;
+	height: 350px;
 }
