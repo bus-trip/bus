@@ -3,4 +3,5 @@
 assets
 protected/runtime
 protected/yii.php
+protected/yiic
 upload/*
