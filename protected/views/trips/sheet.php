@@ -21,15 +21,22 @@ $this->menu = array(
 		   style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
 </form>
 <p/>
-<h2>Посадочная ведомость</h2>
-Направление: <?php echo $dataHeader['direction']['startPoint'] . ' - ' . $dataHeader['direction']['endPoint']; ?><br/>
-Отправление: <?php echo $dataHeader['trips']['departure']; ?>&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo $dataHeader['trips']['arrival']; ?>
-<br/>
-Автобус: <?php echo $dataHeader['bus']['model'] . ', номер ' . $dataHeader['bus']['number']; ?>
-&nbsp;&nbsp;
-<?php
-echo CHtml::link('Редактировать', "#", array("id" => "bus-link"));
-?>
+<div id="sheet-bus-info">
+	<h2>Посадочная ведомость</h2>
+	Направление: <?php echo $dataHeader['direction']['startPoint'] . ' - ' . $dataHeader['direction']['endPoint']; ?>
+	<br/>
+	Отправление: <?php echo $dataHeader['trips']['departure']; ?>
+	&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo $dataHeader['trips']['arrival']; ?>
+	<br/>
+	Автобус: <?php echo $dataHeader['bus']['model'] . ', номер ' . $dataHeader['bus']['number']; ?>
+	&nbsp;&nbsp;
+	<?php
+	echo CHtml::link('Редактировать', "#", array("id" => "bus-link"));
+	?>
+</div>
+<div id="sheet-bus-plane">
+	<?= (!empty($dataHeader['bus']['plane'])) ? CHtml::image(Yii::app()->baseUrl . "/" . Buses::UPLOAD_DIR . "/" . $dataHeader['bus']['plane']) : ""; ?>
+</div>
 <div id="select-bus">
 	<h3>Выбор автобуса для рейса:</h3>
 

@@ -96,12 +96,6 @@ class TripsController extends Controller
 		if (isset($_POST['trips-date'])) {
 			$model->departure = $_POST['trips-date'];
 		}
-//		elseif (isset($_REQUEST['trips-date'])) {
-//			$model->departure = $_REQUEST['trips-date'];
-//		}
-//		if (isset($_REQUEST['trips-arrive'])) {
-//			$model->arrival = $_REQUEST['trips-arrive'];
-//		}
 
 		$model->departure   = Yii::app()->user->getState('trips-date');
 		$model->arrival     = Yii::app()->user->getState('trips-arrive');
@@ -110,7 +104,6 @@ class TripsController extends Controller
 		$data       = Directions::model()
 								->findAllByAttributes(['status' => 1, 'parentId' => 0]); //findAllByPk($model->idDirection);
 		$directions = [];
-//		$directions['empty'] = 'Выберите направление';
 		foreach ($data as $d) {
 			$directions[$d->id] = $d->startPoint . " - " . $d->endPoint;
 		}
