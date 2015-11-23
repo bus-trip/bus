@@ -525,6 +525,17 @@ body .ui-menu .ui-menu-item a {
 	white-space: nowrap;
 }
 
+#bus-plane {
+	float: left;
+	position: relative;
+	top: -350px;
+	left: 300px;
+}
+#bus-plane img {
+	/*width: 250px;*/
+	height: 320px;
+}
+
 #checkout-profiles-wrapper #profiles{
     margin: 0 0 20px;
     clear: both;

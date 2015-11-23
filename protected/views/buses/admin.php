@@ -36,10 +36,10 @@ $this->menu = array(
 			'header' => 'Кол-во мест',
 		),
 		array(
-			'name'              => 'plane',
-			'header'            => 'Схема',
-			'type'              => 'raw',
-			'value'             => '(!empty($data["plane"])) ? CHtml::image("/upload/".$data["plane"],"",array("style"=>"width:50px;")) : ""',
+			'name'   => 'plane',
+			'header' => 'Схема',
+			'type'   => 'raw',
+			'value'  => '(!empty($data["plane"])) ? CHtml::image(Yii::app()->baseUrl . "/" . Buses::UPLOAD_DIR . "/" . $data["plane"],"",array("style"=>"width:50px; height:70px;")) : ""',
 		),
 		array(
 			'name'   => 'description',

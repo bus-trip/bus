@@ -28,6 +28,6 @@ $form = $this->beginWidget('CActiveForm'); ?>
 <div class="row buttons">
 	<?php echo CHtml::submitButton('Далее'); ?>
 </div>
-
 <?php $this->endWidget(); ?>
+<div id="bus-plane"><?= ($checkoutModel->plane) ? CHtml::image(Yii::app()->baseUrl . "/" . Buses::UPLOAD_DIR . "/" . $checkoutModel->plane, "") : ""; ?></div>
 

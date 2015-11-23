@@ -18,6 +18,8 @@
  */
 class Buses extends CActiveRecord
 {
+	const UPLOAD_DIR = "upload";
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -35,7 +37,7 @@ class Buses extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('model, number, places, status', 'required'),
-			array('plane', 'file', 'types'=>'jpg,jpeg,gif,png','maxSize'=>10*1024*1024),
+			array('plane', 'file', 'types' => 'jpg,jpeg,gif,png', 'maxSize' => 10 * 1024 * 1024),
 			array('places, status', 'numerical', 'integerOnly' => TRUE),
 			array('model', 'length', 'max' => 100),
 			array('number', 'length', 'max' => 20),

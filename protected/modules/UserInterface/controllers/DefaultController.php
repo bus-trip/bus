@@ -137,7 +137,7 @@ class DefaultController extends Controller
 					if ($k == $d['startPoint']) {
 						$i = true;
 					}
-					if ($i && $k != $startPoint && $k != $endPoint) {
+					if ($i && ($k != $startPoint || $k != $endPoint)) {
 						$dirPoints[$k]++;
 					}
 					if ($k == $d['endPoint']) {
@@ -205,8 +205,8 @@ class DefaultController extends Controller
 	public function wizardProcessStep($event)
 	{
 		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
-		$points        = ['' => '- Выберите -'];
-		$trip          = false;
+		$points = ['' => '- Выберите -'];
+		$trip = FALSE;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -266,8 +266,9 @@ class DefaultController extends Controller
 			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
 			$savedData = $this->read();
-			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
-			$places    = $trip ? self::getAvailablePlaces($trip) : [];
+			$trip = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
+			$places = $trip ? self::getAvailablePlaces($trip) : [];
+			$checkoutModel->plane = $trip->idBus0->plane;
 			if (isset($_SESSION['temp_reserve'][$trip->id]) &&
 				!empty($savedData[self::STEP_PLACE]['places'])
 			) {

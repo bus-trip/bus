@@ -26,6 +26,7 @@ class Checkout extends CFormModel
 	public $reviewStep  = 1;
 	public $address_from;
 	public $address_to;
+	public $plane;
 
 	public function attributeLabels()
 	{
@@ -52,6 +53,7 @@ class Checkout extends CFormModel
 			['placesStep', 'required', 'on' => DefaultController::STEP_PLACE],
 			['placesStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PLACE],
 			['places', 'placesValidate', 'on' => DefaultController::STEP_PLACE],
+			['plane', 'safe', 'on' => DefaultController::STEP_PLACE],
 
 		];
 	}

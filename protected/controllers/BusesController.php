@@ -71,9 +71,11 @@ class BusesController extends Controller
 		if (isset($_POST['Buses'])) {
 			$model->attributes = $_POST['Buses'];
 			$file = CUploadedFile::getInstance($model, 'plane');
-			$model->plane = $file->name;
+			do {
+				$model->plane = md5($file->name) . "." . $file->getExtensionName();
+			} while (file_exists(DIRECTORY_SEPARATOR . Buses::UPLOAD_DIR . DIRECTORY_SEPARATOR . $model->plane));
 			if ($model->save()) {
-				$file->saveAs(Yii::app()->basePath . DIRECTORY_SEPARATOR . 'upload' . DIRECTORY_SEPARATOR . $file->name, FALSE);
+				$file->saveAs(Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Buses::UPLOAD_DIR . DIRECTORY_SEPARATOR . $model->plane, FALSE);
 				$this->redirect(array('admin'));
 			}
 		}
@@ -104,8 +106,16 @@ class BusesController extends Controller
 				)
 			);
 			if ($tripsCount == 0 || $model->status == 1) {
-				if ($model->save())
+				$file = CUploadedFile::getInstance($model, 'plane');
+				do {
+					$model->plane = md5($file->name) . "." . $file->getExtensionName();
+				} while (file_exists(DIRECTORY_SEPARATOR . Buses::UPLOAD_DIR . DIRECTORY_SEPARATOR . $model->plane));
+				if ($model->save()) {
+					$file->saveAs(Yii::app()->basePath . DIRECTORY_SEPARATOR . ".." . DIRECTORY_SEPARATOR . Buses::UPLOAD_DIR . DIRECTORY_SEPARATOR . $model->plane, FALSE);
 					$this->redirect(array('admin'));
+				} else {
+					$model->addError('status', 'Ошибка сохранения');
+				}
 			} else {
 				$model->addError('status', 'Нельзя удалить автобус, назначенный в рейс');
 			}
