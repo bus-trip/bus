@@ -42,7 +42,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'Схема автобуса'); ?>
-		<?php echo $form->fileField($model, 'plane', array('id' => 'planeId')); ?>
+		<?php echo $form->fileField($model, 'plane'); ?>
 		<?php echo $form->error($model, 'plane'); ?>
 	</div>
 
