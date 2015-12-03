@@ -49,32 +49,6 @@ class DefaultController extends Controller
 		}
 	}
 
-	private function getDirections($startPoint, $endPoint = '')
-	{
-		$directions  = [];
-		$dirsAll     = Directions::model()->findAll(
-			array(
-				'condition' => 'status != ' . DIRTRIP_CANCELED . ' and parentId !=0 and startPoint = "' . $startPoint . '" and endPoint="' . $endPoint . '"',
-				'group'     => 'parentId'
-			)
-		);
-		$dirsByStart = [];
-		foreach ($dirsAll as $ds) {
-			$parentDir = Directions::model()->findAll(
-				['condition' => 'id=' . $ds->parentId . ' and status != ' . DIRTRIP_CANCELED]
-			);
-			if (!empty($parentDir)) $dirsByStart[] = $parentDir[0]->attributes;
-		}
-		if (!empty($dirsByStart)) {
-			foreach ($dirsByStart as $ds) {
-				$points = $this->getStationsByDirectionId($ds['id']);
-				if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
-			}
-		}
-
-		return $directions;
-	}
-
 	private function getPartDirections($startPoint, $endPoint)
 	{
 		$directions = [];
@@ -205,8 +179,8 @@ class DefaultController extends Controller
 	public function wizardProcessStep($event)
 	{
 		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
-		$points = ['' => '- Выберите -'];
-		$trip = FALSE;
+		$points        = ['' => '- Выберите -'];
+		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -257,7 +231,7 @@ class DefaultController extends Controller
 
 		if ($event->getStep() == self::STEP_FIND) {
 			$query               = Dirpoints::model()->findAll();
-			$checkoutModel->date = date("d.m.Y");
+			$checkoutModel->date = date("d.m.Y", strtotime("+1 day"));
 			foreach ($query as $q) {
 				if ($q->direction->status != DIRTRIP_CANCELED) {
 					$points[$q->name] = $q->name;
@@ -265,9 +239,9 @@ class DefaultController extends Controller
 			}
 			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
-			$savedData = $this->read();
-			$trip = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
-			$places = $trip ? self::getAvailablePlaces($trip) : [];
+			$savedData            = $this->read();
+			$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
+			$places               = $trip ? self::getAvailablePlaces($trip) : [];
 			$checkoutModel->plane = $trip->idBus0->plane;
 			if (isset($_SESSION['temp_reserve'][$trip->id]) &&
 				!empty($savedData[self::STEP_PLACE]['places'])
@@ -337,6 +311,9 @@ class DefaultController extends Controller
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
 			$this->createOrder($tripId, $placeId, $profileData, $address_from, $address_to);
 		}
+		if (isset($_SESSION['temp_reserve'])) {
+			unset($_SESSION['temp_reserve']);
+		}
 		$event->sender->reset();
 	}
 
@@ -383,9 +360,6 @@ class DefaultController extends Controller
 
 					return $ticket->save();
 				}
-			}
-			if (isset($_SESSION['temp_reserve'][$tripId])) {
-				unset($_SESSION['temp_reserve'][$tripId]);
 			}
 		}
 	}
@@ -463,12 +437,10 @@ class DefaultController extends Controller
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
 			if ($checkoutModel->validate()) {
-
 				$directions = $this->getPartDirections($checkoutModel->pointFrom, $checkoutModel->pointTo);
 				$tripsAttr  = [];
 				foreach ($directions as $d) {
 					$criteria = new CDbCriteria();
-//					$criteria->condition = "idDirection=" . $d['id'] . " and departure between '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 00:00:00' and '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 23:59:59'";
 					$criteria->condition = "idDirection=" . $d['parentId'] . " and departure between '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 00:00:00' and '" . date('Y-m-d', strtotime($checkoutModel->date)) . " 23:59:59'";
 					$trips               = Trips::model()
 												->findAllByAttributes(['idDirection' => $d['parentId']], $criteria);
