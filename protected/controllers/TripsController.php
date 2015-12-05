@@ -760,7 +760,7 @@ class TripsController extends Controller
 		}
 
 		$options = '';
-		foreach ([Profiles::DOC_PASSPORT          => 'Пасспорт',
+		foreach ([Profiles::DOC_PASSPORT          => 'Паспорт',
 				  Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
 				  Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
 				  Profiles::DOC_MILITARY_ID       => 'Военный билет'
