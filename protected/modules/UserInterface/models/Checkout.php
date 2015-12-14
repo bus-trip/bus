@@ -7,6 +7,7 @@
 namespace UserInterface\models;
 
 use CFormModel;
+use Directions;
 use Trips;
 use UserInterface\controllers\DefaultController;
 
@@ -16,6 +17,7 @@ class Checkout extends CFormModel
 	 * @var int Id рейса
 	 */
 	public $tripId;
+	public $directionId;
 	public $pointFrom;
 	public $pointTo;
 	public $date;
@@ -44,7 +46,7 @@ class Checkout extends CFormModel
 	{
 		return [
 			['pointFrom, pointTo', 'required', 'on' => DefaultController::STEP_FIND],
-			['tripId, date', 'safe', 'on' => DefaultController::STEP_FIND],
+			['tripId, directionId, date', 'safe', 'on' => DefaultController::STEP_FIND],
 			['profileStep, profiles', 'required', 'on' => DefaultController::STEP_PROFILE],
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
 			['address_from, address_to', 'safe', 'on' => DefaultController::STEP_PROFILE],
@@ -66,7 +68,8 @@ class Checkout extends CFormModel
 		}
 
 		$trip   = Trips::model()->with('idBus0')->findByPk($this->tripId);
-		$places = $trip ? DefaultController::getAvailablePlaces($trip, true) : [];
+		$direction = Directions::model()->findByPk($this->directionId);
+		$places = $trip ? DefaultController::getAvailablePlaces($trip, $direction, true) : [];
 		foreach ($this->places as $place) {
 			if (!isset($places[$place]))
 				$this->addError($attribute, $place);

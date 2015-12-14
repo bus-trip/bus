@@ -5,8 +5,9 @@
  *
  * The followings are the available columns in table 'temp_reserve':
  * @property integer $tripId
+ * @property integer $directionId
  * @property integer $placeId
- * @property integer $created
+ * @property string $created
  */
 class TempReserve extends CActiveRecord
 {
@@ -26,11 +27,12 @@ class TempReserve extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tripId, placeId, created', 'required'),
-			array('tripId, placeId, created', 'numerical', 'integerOnly'=>true),
+			array('tripId, directionId, placeId, created', 'required'),
+			array('tripId, directionId, placeId', 'numerical', 'integerOnly'=>true),
+			array('created', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('tripId, placeId, created', 'safe', 'on'=>'search'),
+			array('tripId, directionId, placeId, created', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -52,8 +54,9 @@ class TempReserve extends CActiveRecord
 	{
 		return array(
 			'tripId' => 'Trip',
+			'directionId' => 'Direction',
 			'placeId' => 'Place',
-			'created' => 'Created'
+			'created' => 'Created',
 		);
 	}
 
@@ -76,8 +79,9 @@ class TempReserve extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('tripId',$this->tripId);
+		$criteria->compare('directionId',$this->directionId);
 		$criteria->compare('placeId',$this->placeId);
-		$criteria->compare('created',$this->created);
+		$criteria->compare('created',$this->created,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
