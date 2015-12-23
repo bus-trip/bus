@@ -14,7 +14,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => '',
 			'name'   => 'id',
 			'type'   => 'raw',
-			'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))."<br/>".CHtml::hiddenField("' . CHtml::modelName($model) . '[idDirection]", $data["idDirection"])',
+			'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))."<br/>".CHtml::hiddenField("' . CHtml::modelName($model) . '[directionId]", $data["directionId"])',
 		),
 		array(
 			'name'   => 'trip',

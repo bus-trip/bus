@@ -137,8 +137,8 @@ class DefaultController extends Controller
 					if ($k == $d['startPoint']) {
 						$i = true;
 					}
-					if ($i && ($k != $startPoint || $k != $endPoint)) {
-						$dirPoints[$k]++;
+					if ($i && $k != $d['endPoint']) {
+						$dirPoints[$k] += $d['tickets'];
 					}
 					if ($k == $d['endPoint']) {
 						$i = false;
@@ -154,7 +154,7 @@ class DefaultController extends Controller
 			if ($k == $startPoint) {
 				$i = true;
 			}
-			if ($i) {
+			if ($i && $k != $endPoint) {
 				if ($p > $maxFreePlace) $maxFreePlace = $p;
 			}
 			if ($k == $endPoint) {
@@ -205,8 +205,9 @@ class DefaultController extends Controller
 	public function wizardProcessStep($event)
 	{
 		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
-		$points = ['' => '- Выберите -'];
-		$trip = FALSE;
+		$points        = ['' => '- Выберите -'];
+		$trip          = false;
+		$plane         = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -215,8 +216,9 @@ class DefaultController extends Controller
 					unset($_SESSION['temp_reserve']);
 					break;
 				case self::STEP_PLACE:
-					$savedData             = $this->read(self::STEP_FIND);
-					$checkoutModel->tripId = $savedData['tripId'];
+					$savedData                  = $this->read(self::STEP_FIND);
+					$checkoutModel->tripId      = $savedData['tripId'];
+					$checkoutModel->directionId = $savedData['directionId'];
 					break;
 				case self::STEP_PROFILE:
 					$profilesData  = Yii::app()->getRequest()->getPost(CHtml::modelName(new Profiles()));
@@ -250,7 +252,7 @@ class DefaultController extends Controller
 
 				if ($event->getStep() == self::STEP_PLACE) {
 					$savedData = $this->read(self::STEP_PLACE);
-					$this->reservedTicket($savedData['tripId'], $savedData['places']);
+					$this->reservedTicket($savedData['tripId'], $savedData['directionId'], $savedData['places']);
 				}
 			}
 		}
@@ -265,11 +267,12 @@ class DefaultController extends Controller
 			}
 			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
-			$savedData = $this->read();
-			$trip = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
-			$places = $trip ? self::getAvailablePlaces($trip) : [];
+			$savedData            = $this->read();
+			$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
+			$direction            = Directions::model()->findByPk($savedData[self::STEP_FIND]['directionId']);
+			$places               = $trip ? self::getAvailablePlaces($trip, $direction) : [];
 			$checkoutModel->plane = $trip->idBus0->plane;
-			if (isset($_SESSION['temp_reserve'][$trip->id]) &&
+			if (isset($_SESSION['temp_reserve'][$trip->id . "|" . $savedData[self::STEP_FIND]['directionId']]) &&
 				!empty($savedData[self::STEP_PLACE]['places'])
 			) {
 				$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
@@ -302,12 +305,14 @@ class DefaultController extends Controller
 			$trip      = Trips::model()->with('idBus0', 'idDirection0')
 							  ->findByPk($savedData[self::STEP_FIND]['tripId']);
 
-			$savedDataPlaces  = $this->read(self::STEP_PLACE);
-			$savedDataProfile = $this->read(self::STEP_PROFILE);
+			$savedDataDirection = $this->read(self::STEP_FIND);
+			$selDir             = Directions::model()->findByPk($savedDataDirection['directionId']);
+			$savedDataPlaces    = $this->read(self::STEP_PLACE);
+			$savedDataProfile   = $this->read(self::STEP_PROFILE);
 			foreach ($savedDataPlaces['places'] as $i => $num) {
 				/** @var \DiscountsController $discount */
 				list($discount) = Yii::app()->createController('discounts');
-				$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $trip->idDirection0->price);
+				$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $selDir->price);
 			}
 		}
 
@@ -331,27 +336,30 @@ class DefaultController extends Controller
 	public function wizardFinished($event)
 	{
 		$tripId       = $event->data[self::STEP_FIND]['tripId'];
+		$directionId  = $event->data[self::STEP_FIND]['directionId'];
 		$address_from = $event->data[self::STEP_PROFILE]['address_from'];
 		$address_to   = $event->data[self::STEP_PROFILE]['address_to'];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
-			$this->createOrder($tripId, $placeId, $profileData, $address_from, $address_to);
+			$this->createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to);
 		}
 		$event->sender->reset();
 	}
 
-	protected function reservedTicket($tripId, $placeIds)
+	protected function reservedTicket($tripId, $directionId, $placeIds)
 	{
 		foreach ($placeIds as $placeId) {
-			TempReserve::model()->deleteAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+			TempReserve::model()
+					   ->deleteAllByAttributes(['tripId' => $tripId, 'directionId' => $directionId, 'placeId' => $placeId]);
 
-			$tempReserve          = new TempReserve();
-			$tempReserve->tripId  = $tripId;
-			$tempReserve->placeId = $placeId;
-			$tempReserve->created = time();
+			$tempReserve              = new TempReserve();
+			$tempReserve->tripId      = $tripId;
+			$tempReserve->directionId = $directionId;
+			$tempReserve->placeId     = $placeId;
+			$tempReserve->created     = time();
 			$tempReserve->save();
 		}
-		$_SESSION['temp_reserve'][$tripId] = $placeIds;
+		$_SESSION['temp_reserve'][$tripId . "|" . $directionId] = $placeIds;
 	}
 
 	/**
@@ -360,7 +368,7 @@ class DefaultController extends Controller
 	 *
 	 * @return bool
 	 */
-	public function createOrder($tripId, $placeId, $profileData, $address_from, $address_to)
+	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to)
 	{
 		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
 		if (!empty($tempReserve)) {
@@ -371,6 +379,7 @@ class DefaultController extends Controller
 				$ticket               = new Tickets();
 				$ticket->status       = Tickets::STATUS_RESERVED;
 				$ticket->idTrip       = $tripId;
+				$ticket->idDirection  = $directionId;
 				$ticket->place        = $placeId;
 				$ticket->address_from = $address_from;
 				$ticket->address_to   = $address_to;
@@ -379,13 +388,14 @@ class DefaultController extends Controller
 					$profile->uid = Yii::app()->getUser()->id;
 					$profile->save();
 					$ticket->price = $discount->getDiscount($profile->id);
-					TempReserve::model()->deleteAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+					TempReserve::model()
+							   ->deleteAllByAttributes(['tripId' => $tripId, 'directionId' => $directionId, 'placeId' => $placeId]);
 
 					return $ticket->save();
 				}
 			}
-			if (isset($_SESSION['temp_reserve'][$tripId])) {
-				unset($_SESSION['temp_reserve'][$tripId]);
+			if (isset($_SESSION['temp_reserve'][$tripId . "|" . $directionId])) {
+				unset($_SESSION['temp_reserve'][$tripId . "|" . $directionId]);
 			}
 		}
 	}
@@ -480,7 +490,7 @@ class DefaultController extends Controller
 								'id'          => $t->attributes['id'],
 								'trip'        => $checkoutModel->pointFrom . ' - ' . $checkoutModel->pointTo,
 								'direction'   => $parent->startPoint . ' - ' . $parent->endPoint,
-								'idDirection' => $d['id'],
+								'directionId' => $d['id'],
 								'departure'   => $t->attributes['departure'],
 								'arrival'     => $t->attributes['arrival'],
 								'price'       => $d['price'],
@@ -509,23 +519,60 @@ class DefaultController extends Controller
 	 *
 	 * @return array
 	 */
-	public static function getAvailablePlaces(Trips $trip, $onlyValues = false)
+	public static function getAvailablePlaces(Trips $trip, Directions $direction, $onlyValues = false)
 	{
-		$criteria            = new CDbCriteria();
+		$criteria = new CDbCriteria();
+//		$criteria->condition = 'idTrip=:idTrip and idDirection=:idDirection';
 		$criteria->condition = 'idTrip=:idTrip';
-		$criteria->params    = array(':idTrip' => $trip->id);
+//		$criteria->params = [':idTrip' => $trip->id, ':idDirection' => $direction->id];
+		$criteria->params = [':idTrip' => $trip->id];
 		$criteria->addInCondition('t.status', [Tickets::STATUS_RESERVED, Tickets::STATUS_CONFIRMED]);
 
-		$tickets       = Tickets::model()->findAll($criteria);
+		$tickets = Tickets::model()->findAll($criteria);
+
 		$notAvailPlace = [];
 		foreach ($tickets as $ticket) {
-			$notAvailPlace[] = $ticket->place;
+			$dirs = Directions::model()->find(['condition' => 'id=' . $ticket->idDirection]);
+			unset($dPoints);
+			$dPoints[] = Dirpoints::model()
+								  ->find(['condition' => 'name="' . $dirs->startPoint . '" and directionId=' . $direction->parentId])->attributes;
+			$p         = $dPoints[0];
+			while (($p = Dirpoints::model()
+								  ->find(['condition' => 'directionId=' . $direction->parentId . ' and prevId=' . $p['id']])) && $p['name'] != $dirs->endPoint) {
+				$dPoints[] = $p->attributes;
+				$p         = $p->attributes;
+			}
+			unset($tDirs);
+			foreach ($dPoints as $p) {
+				$tDirs[$ticket->place][] = $p['name'];
+			}
+			unset($dPoints);
+			$dPoints[] = Dirpoints::model()
+								  ->find(['condition' => 'name="' . $direction->startPoint . '" and directionId=' . $direction->parentId])->attributes;
+			$p         = $dPoints[0];
+			while (($p = Dirpoints::model()
+								  ->find(['condition' => 'directionId=' . $direction->parentId . ' and prevId=' . $p['id']])) && $p['name'] != $direction->endPoint) {
+				$dPoints[] = $p->attributes;
+				$p         = $p->attributes;
+			}
+			unset($rDir);
+			foreach ($dPoints as $p) {
+				$rDir[] = $p['name'];
+			}
+			if (isset($tDirs) && is_array($tDirs) && isset($rDir) && is_array($rDir)) {
+				foreach ($tDirs as $p => $t) {
+					foreach ($rDir as $r) {
+						if (in_array($r, $t) && !in_array($p, $notAvailPlace)) $notAvailPlace[] = $p;
+					}
+				}
+			}
 		}
 
-		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $trip->id]);
+		$tempReserve = TempReserve::model()
+								  ->findAllByAttributes(['tripId' => $trip->id, 'directionId' => $direction->id]);
 		if (!empty($tempReserve)) {
 			foreach ($tempReserve as $item) {
-				if (isset($_SESSION['temp_reserve'][$trip->id]) && !in_array($item->placeId, $_SESSION['temp_reserve'][$trip->id]))
+				if (isset($_SESSION['temp_reserve'][$trip->id . "|" . $direction->id]) && !in_array($item->placeId, $_SESSION['temp_reserve'][$trip->id . "|" . $direction->id]))
 					$notAvailPlace[] = $item->placeId;
 			}
 		}
@@ -538,7 +585,7 @@ class DefaultController extends Controller
 			if ($onlyValues)
 				$places[$i] = $i;
 			elseif (!in_array($i, $notAvailPlace)) {
-				$price      = $discount->getDiscountByPlace($i, $trip->idDirection0->price);
+				$price      = $discount->getDiscountByPlace($i, $direction->price);
 				$places[$i] = '№' . $i . ': ' . $price . ' руб.';
 			} else
 				$places['not-' . $i] = $i . ' - занято';
