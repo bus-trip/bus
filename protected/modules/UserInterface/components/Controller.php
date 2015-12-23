@@ -6,8 +6,8 @@
 
 namespace UserInterface\components;
 
-use Controller as MainController;
 use CMenu;
+use Controller as MainController;
 use Yii;
 
 class Controller extends MainController
