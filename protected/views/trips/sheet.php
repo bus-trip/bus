@@ -119,7 +119,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'    => 'CButtonColumn',
-			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}<br/>{ticket}&nbsp;&nbsp;&nbsp;{boarding}',
+			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}&nbsp;&nbsp;&nbsp;{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}<br/>{ticket}&nbsp;&nbsp;&nbsp;{boarding}',
 			'buttons'  => array(
 				'create_ticket' => array(
 					'label'    => 'Создать билет',

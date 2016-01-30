@@ -276,27 +276,6 @@ class TripsController extends Controller
 		}
 
 		$arrPlaces = [];
-//		for ($i = 1; $i <= $bus["places"]; $i++) {
-//			$arrPlaces[$i] = [
-//				'profile_id'  => '',
-//				'place'       => $i,
-//				'doc_type'    => '',
-//				'doc_num'     => '',
-//				'last_name'   => '',
-//				'name'        => '',
-//				'middle_name' => '',
-//				'birthday'    => '',
-//				'phone'       => '',
-//				'direction'   => '',
-//				'startPoint'  => '',
-//				'endPoint'    => '',
-//				'price'       => '',
-//				'remark'      => '',
-//				'status'      => '',
-//				'black_list'  => '',
-//				'ticket_id'   => '',
-//			];
-//		}
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'tid=:tid';
 		foreach ($tickets as $t) {
@@ -373,7 +352,7 @@ class TripsController extends Controller
 			[
 				'keyField'   => 'place',
 				'pagination' => [
-					'pageSize' => 50, //$bus["places"],
+					'pageSize' => count($arrPlaces), //$bus["places"],
 				]
 			]
 		);
