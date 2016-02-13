@@ -53,7 +53,6 @@ $this->menu = array(
 <br/>
 
 <?php
-
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'                    => 'trips-sheet',
 	'dataProvider'          => $dataProvider,
@@ -119,7 +118,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		array(
 			'class'    => 'CButtonColumn',
-			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}&nbsp;&nbsp;&nbsp;{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}<br/>{ticket}&nbsp;&nbsp;&nbsp;{boarding}',
+			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}&nbsp;&nbsp;&nbsp;{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}<br/>{ticket}&nbsp;&nbsp;&nbsp;{boarding}&nbsp;&nbsp;&nbsp;{create_part_ticket}',
 			'buttons'  => array(
 				'create_ticket' => array(
 					'label'    => 'Создать билет',
@@ -132,7 +131,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'label'    => 'Редактировать билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/edit.png',
 					'visible'  => '!empty($data["doc_num"])',
-					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
+					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]/$data[directionId]")',
 					'options'  => array('class' => 'edit-ticket', 'data-tripid' => $dataHeader['trips']['id']),
 				),
 				'confirm'       => array(
@@ -167,7 +166,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'label'    => 'Войти в билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
 					'visible'  => '!empty($data["doc_num"])',
-					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
+					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]/$data[directionId]")',
 				),
 				'boarding'      => array(
 					'label'    => 'Печать билета',
@@ -175,6 +174,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("pdfmake/boardingticket/profileId/$data[profile_id]")',
 					'click'    => 'function(){ newWin = window.open($(this).attr("href"),"Boarding Ticket", "height=600,width=800"); if(window.focus){ newWin.focus; newWin.print();} return false; }',
+				),
+				'create_part_ticket' => array(
+					'label'    => 'Создать билет',
+					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
+					'visible'  => '!empty($data["doc_num"])',
+					'url'      => 'Yii::app()->controller->createUrl("trips/sheetpart/' . $dataHeader['trips']['id'] . '/$data[place]")',
+					'options'  => array('class' => 'create-part-ticket', 'data-tripId' => $dataHeader['trips']['id']),
 				),
 			)
 		),

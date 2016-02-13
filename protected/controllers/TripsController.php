@@ -36,7 +36,7 @@ class TripsController extends Controller
 			 'users'   => ['@'],
 			],
 			['allow', // allow admin user to perform 'admin' and 'delete' actions
-			 'actions' => ['admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'],
+			 'actions' => ['admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'sheetpart', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'],
 			 'users'   => ['admin'],
 			],
 			['deny', // deny all users
@@ -297,6 +297,7 @@ class TripsController extends Controller
 				'birthday'    => $profile->birth,
 				'phone'       => $profile->phone,
 				'direction'   => $direction->startPoint . " - " . $direction->endPoint,
+				'directionId'   => $direction->id,
 				'startPoint'  => $t["address_from"],
 				'endPoint'    => $t["address_to"],
 				'price'       => $t["price"],
@@ -327,6 +328,7 @@ class TripsController extends Controller
 					'birthday'    => '',
 					'phone'       => '',
 					'direction'   => '',
+					'directionId' => '',
 					'startPoint'  => '',
 					'endPoint'    => '',
 					'price'       => '',
@@ -568,7 +570,56 @@ class TripsController extends Controller
 		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");
 	}
 
-	public function actionProfiles($tripId, $placeId)
+	public function actionProfiles($tripId, $placeId, $directionId)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'idTrip=:idTrip AND place=:place AND idDirection=:direction';
+		$criteria->params = [':idTrip' => $tripId, ':place' => $placeId, ':direction' => $directionId];
+		$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
+		$Ticket = Tickets::model()->findAll($criteria);
+
+		if (!empty($Ticket)) {
+			$Ticket = $Ticket[count($Ticket) - 1]; // последний созданный профайл
+			// билет создан, страница редактирования
+			$Profile = Profiles::model()->findByAttributes(['tid' => $Ticket->id]);
+			if (!$Profile) {
+				$Profile = new Profiles();
+				$Profile->tid = $Ticket->id;
+			}
+			// обработчик формы
+			if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
+				$Ticket->attributes = $_POST['Tickets'];
+				$Profile->attributes = $_POST['Profiles'];
+				if ($Profile->validate() && $Profile->save() && $Ticket->validate() && $Ticket->save()) {
+					Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " обновлен");
+
+					$url = $this->createUrl('/trips/sheet/' . $tripId);
+					$this->redirect($url);
+				}
+			}
+
+			$this->render('ticket', [
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'profile' => $Profile ? $Profile : new Profiles(),
+				'model'   => $Ticket
+			]);
+		} else {
+			// создаем билет
+			$model = new Profiles('search');
+			$model->unsetAttributes(); // clear any default values
+			if (isset($_GET['Profiles']))
+				$model->attributes = $_GET['Profiles'];
+
+			$this->render('profiles', [
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'model'   => $model,
+			]);
+		}
+	}
+
+	public function actionSheetPart($tripId, $placeId, $directionId)
 	{
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'idTrip=:idTrip AND place=:place';
@@ -710,12 +761,16 @@ class TripsController extends Controller
 
 		$placeId = $_POST['placeId'];
 
-		$criteria = new CDbCriteria();
-		$criteria->condition = 'idTrip=:idTrip AND place=:place';
-		$criteria->params = [':idTrip' => $tripId, ':place' => $placeId];
-		$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
-		$tickets = Tickets::model()->with('profiles')->with(['idTrip0', 'idDirection0' => 'idTrip0'])
-						  ->findAll($criteria);
+		$tickets = array();
+		if(isset($_POST['directionId'])) {
+			$directionId         = $_POST['directionId'];
+			$criteria            = new CDbCriteria();
+			$criteria->condition = 'idTrip=:idTrip AND place=:place AND t.idDirection=:direction';
+			$criteria->params    = [':idTrip' => $tripId, ':place' => $placeId, ':direction' => $directionId];
+			$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
+			$tickets = Tickets::model()->with('profiles')->with(['idTrip0', 'idDirection0' => 'idTrip0'])
+							  ->findAll($criteria);
+		}
 		$ticket = !empty($tickets) ? $tickets[count($tickets) - 1] : new Tickets();
 
 		if (!empty($ticket->profiles)) {
