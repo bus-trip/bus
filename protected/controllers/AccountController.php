@@ -157,16 +157,19 @@ class AccountController extends Controller
 		$this->pageTitle     = 'Мои билеты';
 		$this->breadcrumbs[] = 'Мои билеты';
 
-		$criteria            = new CDbCriteria;
-		$criteria->condition = 'uid=:uid AND t.tid IS NOT NULL';
-		$criteria->params    = [':uid' => Yii::app()->getUser()->id];
-		$data                = Profiles::model()->with('tickets')->findAll($criteria);
-
+		$data    = Profiles::model()->with('tickets')
+						   ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+												 ['order' => 'tid DESC']);
 		$arrData = [];
 		foreach ($data as $d) {
-			if (!isset($trip[$d->tickets->idTrip]))
-				$trip[$d->tickets->idTrip] = Trips::model()->with('idDirection0')->findAllByPk($d->tickets->idTrip);
-
+			if (!$d->tickets) {
+				continue;
+			}
+			$trip      = Trips::model()->findByPk($d->tickets->idTrip);
+			$direction = Directions::model()->findByPk($d->tickets->idDirection);
+			if (!$direction) {
+				continue;
+			}
 			$statuses  = $d->tickets->getStatuses();
 			$arrData[] = [
 				'id'           => $d->tid,
@@ -176,10 +179,10 @@ class AccountController extends Controller
 				'status'       => $statuses[$d->tickets->status],
 				'address_from' => $d->tickets->address_from,
 				'address_to'   => $d->tickets->address_to,
-				'departure'    => $trip[$d->tickets->idTrip][0]->departure,
-				'arrival'      => $trip[$d->tickets->idTrip][0]->arrival,
-				'startPoint'   => $trip[$d->tickets->idTrip][0]->idDirection0->startPoint,
-				'endPoint'     => $trip[$d->tickets->idTrip][0]->idDirection0->endPoint,
+				'departure'    => $trip->departure,
+				'arrival'      => $trip->arrival,
+				'startPoint'   => $direction->startPoint,
+				'endPoint'     => $direction->endPoint,
 				'profileId'    => $d->id
 			];
 		}

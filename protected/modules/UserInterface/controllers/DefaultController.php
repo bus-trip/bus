@@ -49,32 +49,6 @@ class DefaultController extends Controller
 		}
 	}
 
-	private function getDirections($startPoint, $endPoint = '')
-	{
-		$directions  = [];
-		$dirsAll     = Directions::model()->findAll(
-			array(
-				'condition' => 'status != ' . DIRTRIP_CANCELED . ' and parentId !=0 and startPoint = "' . $startPoint . '" and endPoint="' . $endPoint . '"',
-				'group'     => 'parentId'
-			)
-		);
-		$dirsByStart = [];
-		foreach ($dirsAll as $ds) {
-			$parentDir = Directions::model()->findAll(
-				['condition' => 'id=' . $ds->parentId . ' and status != ' . DIRTRIP_CANCELED]
-			);
-			if (!empty($parentDir)) $dirsByStart[] = $parentDir[0]->attributes;
-		}
-		if (!empty($dirsByStart)) {
-			foreach ($dirsByStart as $ds) {
-				$points = $this->getStationsByDirectionId($ds['id']);
-				if (in_array($startPoint, $points) && in_array($endPoint, $points) && array_search($startPoint, $points) < array_search($endPoint, $points)) $directions[] = $ds;
-			}
-		}
-
-		return $directions;
-	}
-
 	private function getPartDirections($startPoint, $endPoint)
 	{
 		$directions = [];
@@ -207,7 +181,6 @@ class DefaultController extends Controller
 		$profileModels = $userProfiles = $selPoints = $places = $prices = [];
 		$points        = ['' => '- Выберите -'];
 		$trip          = false;
-		$plane         = false;
 		$checkoutModel = new Checkout($event->getStep());
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
@@ -370,7 +343,7 @@ class DefaultController extends Controller
 	 */
 	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to)
 	{
-		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId]);
+		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
 		if (!empty($tempReserve)) {
 			$profile = new Profiles();
 			list($discount) = Yii::app()->createController('discounts');
@@ -387,7 +360,7 @@ class DefaultController extends Controller
 					$profile->tid = $ticket->id;
 					$profile->uid = Yii::app()->getUser()->id;
 					$profile->save();
-					$ticket->price = $discount->getDiscount($profile->id);
+					$ticket->price = $discount->getDiscount($profile->id, $directionId);
 					TempReserve::model()
 							   ->deleteAllByAttributes(['tripId' => $tripId, 'directionId' => $directionId, 'placeId' => $placeId]);
 
@@ -410,11 +383,16 @@ class DefaultController extends Controller
 
 	public function actionIndex($step = null)
 	{
-		if (isset($_SESSION['temp_reserve'])) {
-			foreach ($_SESSION['temp_reserve'] as $tripId => $placeIds) {
-				$criteria = new CDbCriteria();
-				$criteria->addCondition('tripId=:tripId');
-				$criteria->params = [':tripId' => $tripId];
+		if ($step === null && isset($_SESSION['temp_reserve'])) {
+			unset($_SESSION['temp_reserve']);
+		} elseif (isset($_SESSION['temp_reserve'])) {
+			foreach ($_SESSION['temp_reserve'] as $id => $placeIds) {
+				$k           = explode('|', $id);
+				$tripId      = $k[0];
+				$directionId = $k[1];
+				$criteria    = new CDbCriteria();
+				$criteria->addCondition('tripId=:tripId AND directionId=:directionId');
+				$criteria->params = [':tripId' => $tripId, ':directionId' => $directionId];
 				$criteria->addInCondition('placeId', array_values($placeIds));
 				$tempReserve = TempReserve::model()->findAll($criteria);
 

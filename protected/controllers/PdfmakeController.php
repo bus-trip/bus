@@ -72,28 +72,30 @@ class PdfmakeController extends Controller
 	{
 		if (($Profile = Profiles::model()->findByPk($profileId))) {
 			$Profile->created = date('d.m.Y', strtotime($Profile->created));
-			if ($Profile) $Ticket = Tickets::model()->findByPk($Profile->tid);
-			if ($Ticket) {
-				$Trip = Trips::model()->findByPk($Ticket->idTrip);
-			}
-			if ($Trip) {
-				$Direction       = Directions::model()->findByPk($Trip->idDirection);
-				$Bus             = Buses::model()->findByPk($Trip->idBus);
-				$Bus->number     = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
-				$Trip->departure = date('d.m.Y H:i', strtotime($Trip->departure));
-				$Trip->arrival   = date('d.m.Y H:i', strtotime($Trip->arrival));
-			}
+			if ($Profile) {
+				$Ticket = Tickets::model()->findByPk($Profile->tid);
+				if ($Ticket) {
+					$Trip = Trips::model()->findByPk($Ticket->idTrip);
+					if ($Trip) {
+						$Direction       = Directions::model()->findByPk($Ticket->idDirection);
+						$Bus             = Buses::model()->findByPk($Trip->idBus);
+						$Bus->number     = $Bus->number == 'нет' ? 'Не указан' : $Bus->number;
+						$Trip->departure = date('d.m.Y H:i', strtotime($Trip->departure));
+						$Trip->arrival   = date('d.m.Y H:i', strtotime($Trip->arrival));
+					}
 
-			$this->render(
-				'ticket',
-				array(
-					'profile'   => $Profile,
-					'ticket'    => $Ticket,
-					'bus'       => $Bus,
-					'direction' => $Direction,
-					'trip'      => $Trip
-				)
-			);
+					$this->render(
+						'ticket',
+						array(
+							'profile'   => $Profile,
+							'ticket'    => $Ticket,
+							'bus'       => $Bus,
+							'direction' => $Direction,
+							'trip'      => $Trip
+						)
+					);
+				}
+			}
 		}
 
 		$this->render(
@@ -138,7 +140,7 @@ class PdfmakeController extends Controller
 		$organization = Organization::model()->findByPk(1);
 		/**    @var $profile Profiles */
 		$profile = Profiles::model()->findByPk($profileId);
-		$ticket = Tickets::model()->findByPk($profile->tid);
+		$ticket  = Tickets::model()->findByPk($profile->tid);
 		$this->renderPartial(
 			'boardingticket',
 			array(

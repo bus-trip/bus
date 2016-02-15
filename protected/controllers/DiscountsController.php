@@ -151,16 +151,20 @@ class DiscountsController extends Controller
 	 *
 	 * @return integer
 	 */
-	public function getDiscount($profileId)
+	public function getDiscount($profileId, $directionId = null)
 	{
 		$Profile = Profiles::model()->findByPk($profileId);
 		$Ticket  = Tickets::model()->findByPk($Profile->tid);
 		if (!$Ticket->price) {
-			$criteria            = new CDbCriteria();
-			$criteria->join      = 'join trips as tr on t.id=tr.idDirection';
-			$criteria->condition = 'tr.id=' . $Ticket->idTrip;
-			$Direction           = Directions::model()->find($criteria);
-			$Ticket->price       = $Direction->price;
+			if ($directionId !== null) {
+				$Direction     = Directions::model()->findByPk($directionId);
+			} else {
+				$criteria       = new CDbCriteria();
+				$criteria->join = 'join trips as tr on t.id=tr.idDirection';
+				$criteria->condition = 'tr.id=' . $Ticket->idTrip;
+				$Direction     = Directions::model()->find($criteria);
+			}
+			$Ticket->price = $Direction->price;
 		}
 
 		$Ticket->price = $this->getDiscountAmount($Profile->birth, $Ticket->place, $Ticket->price);
