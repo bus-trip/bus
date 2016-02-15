@@ -129,16 +129,15 @@ class TicketsSearchController extends Controller
 
 	private function getStationsByDirectionId($id)
 	{
-		$points = array();
+		$points = [];
 		$point = Dirpoints::model()->findByAttributes(
-			array(
+			[
 				'directionId' => $id,
 				'prevId'      => 0
-			)
+			]
 		);
 		$points[] = $point->name;
-		while ($point = Dirpoints::model()
-								 ->find(array('condition' => 'directionId=' . $id . ' and prevId=' . $point->id))) {
+		while ($point = Dirpoints::model()->find(['condition' => 'directionId=' . $id . ' and prevId=' . $point->id])) {
 			$points[] = $point->name;
 		}
 
@@ -149,6 +148,7 @@ class TicketsSearchController extends Controller
 	{
 		$trip = Trips::model()->findByPk($tripId);
 		$points = $this->getStationsByDirectionId($trip->idDirection);
+
 		$dirPoints = [];
 		foreach ($points as $p) {
 			$dirPoints[$p] = 0;
@@ -174,8 +174,8 @@ class TicketsSearchController extends Controller
 					if ($k == $d['startPoint']) {
 						$i = TRUE;
 					}
-					if ($i && $k != $startPoint) {
-						$dirPoints[$k]++;
+					if ($i && $k != $d['endPoint']) {
+						$dirPoints[$k]+=$d['tickets'];
 					}
 					if ($k == $d['endPoint']) {
 						$i = FALSE;
@@ -183,6 +183,9 @@ class TicketsSearchController extends Controller
 				}
 			}
 		}
+
+		print_r($dirPoints);
+		print '<br/>';
 
 		$allPlaces = $trip->idBus0->places;
 		$i = FALSE;
