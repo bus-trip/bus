@@ -36,7 +36,7 @@ class TripsController extends Controller
 			 'users'   => ['@'],
 			],
 			['allow', // allow admin user to perform 'admin' and 'delete' actions
-			 'actions' => ['admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'],
+			 'actions' => ['admin', 'delete', 'sheet', 'sheetprint', 'sheetfullprint', 'profiles', 'sheetpart', 'createticket', 'deleteticket', 'inline', 'sprofiles', 'selectbus', 'dadata'],
 			 'users'   => ['admin'],
 			],
 			['deny', // deny all users
@@ -276,63 +276,85 @@ class TripsController extends Controller
 		}
 
 		$arrPlaces = [];
-		for ($i = 1; $i <= $bus["places"]; $i++) {
-			$arrPlaces[$i] = [
-				'profile_id'  => '',
-				'place'       => $i,
-				'doc_type'    => '',
-				'doc_num'     => '',
-				'last_name'   => '',
-				'name'        => '',
-				'middle_name' => '',
-				'birthday'    => '',
-				'phone'       => '',
-				'startPoint'  => '',
-				'endPoint'    => '',
-				'price'       => '',
-				'remark'      => '',
-				'status'      => '',
-				'black_list'  => '',
-				'ticket_id'   => '',
-			];
-		}
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'tid=:tid';
-		for ($i = 1; $i <= $bus['places']; $i++) {
-			foreach ($tickets as $t) {
-				if ($t["place"] == $i) {
-					$criteria->params = [':tid' => $t["id"]];
-					/**    @var $profile Profiles */
-					$profile = Profiles::model()->find($criteria);
-					if (!$profile) $profile = new Profiles();
-					$arrPlaces[$i] = [
-						'profile_id'  => $profile->id,
-						'place'       => $i,
-						'doc_type'    => $profile->doc_type,
-						'doc_num'     => $profile->doc_num,
-						'last_name'   => $profile->last_name,
-						'name'        => $profile->name,
-						'middle_name' => $profile->middle_name,
-						'birthday'    => $profile->birth,
-						'phone'       => $profile->phone,
-						'startPoint'  => $t["address_from"],
-						'endPoint'    => $t["address_to"],
-						'price'       => $t["price"],
-						'remark'      => $t["remark"],
-						'status'      => $t["status"],
-						'black_list'  => $profile->black_list ? '!' : '',
-						'ticket_id'   => $profile->tid,
-					];
+		foreach ($tickets as $t) {
+			$criteria->params = [':tid' => $t["id"]];
+			/**    @var $profile Profiles */
+			$profile = Profiles::model()->find($criteria);
+
+			$direction = Directions::model()->findByPk($t["idDirection"]);
+
+			if (!$profile) $profile = new Profiles();
+			$arrPlaces[] = [
+				'profile_id'  => $profile->id,
+				'place'       => $t["place"],
+				'doc_type'    => $profile->doc_type,
+				'doc_num'     => $profile->doc_num,
+				'last_name'   => $profile->last_name,
+				'name'        => $profile->name,
+				'middle_name' => $profile->middle_name,
+				'birthday'    => $profile->birth,
+				'phone'       => $profile->phone,
+				'direction'   => $direction->startPoint . " - " . $direction->endPoint,
+				'directionId'   => $direction->id,
+				'startPoint'  => $t["address_from"],
+				'endPoint'    => $t["address_to"],
+				'price'       => $t["price"],
+				'remark'      => $t["remark"],
+				'status'      => $t["status"],
+				'black_list'  => $profile->black_list ? '!' : '',
+				'ticket_id'   => $profile->tid,
+			];
+		}
+
+		for ($i = 1; $i <= $bus["places"]; $i++) {
+			$emptyPlace = TRUE;
+			foreach ($arrPlaces as $p) {
+				if ($i == $p["place"]) {
+					$emptyPlace = FALSE;
+					break;
 				}
 			}
+			if ($emptyPlace) {
+				array_push($arrPlaces, [
+					'profile_id'  => '',
+					'place'       => $i,
+					'doc_type'    => '',
+					'doc_num'     => '',
+					'last_name'   => '',
+					'name'        => '',
+					'middle_name' => '',
+					'birthday'    => '',
+					'phone'       => '',
+					'direction'   => '',
+					'directionId' => '',
+					'startPoint'  => '',
+					'endPoint'    => '',
+					'price'       => '',
+					'remark'      => '',
+					'status'      => '',
+					'black_list'  => '',
+					'ticket_id'   => '',
+				]);
+			}
 		}
+
+		function placeSort($a, $b)
+		{
+			if ($a["place"] == $b["place"]) return 0;
+
+			return ($a["place"] < $b["place"]) ? -1 : 1;
+		}
+
+		usort($arrPlaces, "placeSort");
 
 		$dataProvider = new CArrayDataProvider(
 			$arrPlaces,
 			[
 				'keyField'   => 'place',
 				'pagination' => [
-					'pageSize' => $bus["places"],
+					'pageSize' => count($arrPlaces), //$bus["places"],
 				]
 			]
 		);
@@ -548,7 +570,56 @@ class TripsController extends Controller
 		$pdf->Output("trips-" . $trips['departure'] . "-" . $bus['number'] . ".pdf", "I");
 	}
 
-	public function actionProfiles($tripId, $placeId)
+	public function actionProfiles($tripId, $placeId, $directionId)
+	{
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'idTrip=:idTrip AND place=:place AND idDirection=:direction';
+		$criteria->params = [':idTrip' => $tripId, ':place' => $placeId, ':direction' => $directionId];
+		$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
+		$Ticket = Tickets::model()->findAll($criteria);
+
+		if (!empty($Ticket)) {
+			$Ticket = $Ticket[count($Ticket) - 1]; // последний созданный профайл
+			// билет создан, страница редактирования
+			$Profile = Profiles::model()->findByAttributes(['tid' => $Ticket->id]);
+			if (!$Profile) {
+				$Profile = new Profiles();
+				$Profile->tid = $Ticket->id;
+			}
+			// обработчик формы
+			if (!empty($_POST['Profiles']) && !empty($_POST['Tickets'])) {
+				$Ticket->attributes = $_POST['Tickets'];
+				$Profile->attributes = $_POST['Profiles'];
+				if ($Profile->validate() && $Profile->save() && $Ticket->validate() && $Ticket->save()) {
+					Yii::app()->user->setFlash('success', "Билет #" . str_pad($Ticket->id, 4, '0', STR_PAD_LEFT) . " обновлен");
+
+					$url = $this->createUrl('/trips/sheet/' . $tripId);
+					$this->redirect($url);
+				}
+			}
+
+			$this->render('ticket', [
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'profile' => $Profile ? $Profile : new Profiles(),
+				'model'   => $Ticket
+			]);
+		} else {
+			// создаем билет
+			$model = new Profiles('search');
+			$model->unsetAttributes(); // clear any default values
+			if (isset($_GET['Profiles']))
+				$model->attributes = $_GET['Profiles'];
+
+			$this->render('profiles', [
+				'tripId'  => $tripId,
+				'placeId' => $placeId,
+				'model'   => $model,
+			]);
+		}
+	}
+
+	public function actionSheetPart($tripId, $placeId, $directionId)
 	{
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'idTrip=:idTrip AND place=:place';
@@ -690,12 +761,16 @@ class TripsController extends Controller
 
 		$placeId = $_POST['placeId'];
 
-		$criteria = new CDbCriteria();
-		$criteria->condition = 'idTrip=:idTrip AND place=:place';
-		$criteria->params = [':idTrip' => $tripId, ':place' => $placeId];
-		$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
-		$tickets = Tickets::model()->with('profiles')->with(['idTrip0', 'idDirection0' => 'idTrip0'])
-						  ->findAll($criteria);
+		$tickets = array();
+		if(isset($_POST['directionId'])) {
+			$directionId         = $_POST['directionId'];
+			$criteria            = new CDbCriteria();
+			$criteria->condition = 'idTrip=:idTrip AND place=:place AND t.idDirection=:direction';
+			$criteria->params    = [':idTrip' => $tripId, ':place' => $placeId, ':direction' => $directionId];
+			$criteria->addNotInCondition('t.status', [Tickets::STATUS_CANCELED]);
+			$tickets = Tickets::model()->with('profiles')->with(['idTrip0', 'idDirection0' => 'idTrip0'])
+							  ->findAll($criteria);
+		}
 		$ticket = !empty($tickets) ? $tickets[count($tickets) - 1] : new Tickets();
 
 		if (!empty($ticket->profiles)) {
@@ -790,10 +865,12 @@ class TripsController extends Controller
 								->findAll(['condition' => 'parentId=' . $trip->idDirection . ' and status!=' . DIRTRIP_CANCELED]);
 		$dirOptions = '<option value="0">Выберите участок</option>';
 		$dirHiddens = '';
+		$direction = '';
 		foreach ($directions as $d) {
 			$dirOptions .= '<option value=' . $d->id;
 			if ($d->id == $ticket->idDirection) {
 				$dirOptions .= ' selected="selected"';
+				$direction = $d->startPoint . " - " . $d->endPoint;
 			}
 			$dirOptions .= '>' . $d->startPoint . " - " . $d->endPoint . '</option>';
 			$dirHiddens .= '<input type="hidden" id="price' . $d->id . '" value="' . $d->price . '">';
@@ -807,6 +884,7 @@ class TripsController extends Controller
 			'<input class="autocomplete" type="text" name="Profiles[middle_name]" size="10" value="' . (!empty($ticket->profiles) ? $profile->middle_name : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[phone]" size="12" value="' . (!empty($ticket->profiles) ? $profile->phone : '') . '" />',
 			'<input class="autocomplete" type="text" name="Profiles[birth]" size="10" value="' . (!empty($ticket->profiles) ? $profile->birth : '') . '" />',
+			'<input class="autocomplete" type="text" name="Tickets[direction]" size="10" value="' . $direction . '" disabled/>',
 			'<textarea class="autocomplete dadata" name="Tickets[address_from]">' . $ticket->address_from . '</textarea>',
 			'<textarea class="autocomplete dadata" name="Tickets[address_to]">' . $ticket->address_to . '</textarea>',
 			'<textarea name="Tickets[remark]">' . $ticket->remark . '</textarea>',
@@ -825,6 +903,7 @@ class TripsController extends Controller
 			(string) (!empty($ticket->profiles) ? $profile->middle_name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->phone : ''),
 			(string) (!empty($ticket->profiles) ? $profile->birth : ''),
+			(string) $direction,
 			(string) $ticket->address_from,
 			(string) $ticket->address_to,
 			(string) $ticket->remark,
