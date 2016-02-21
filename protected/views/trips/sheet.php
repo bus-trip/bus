@@ -14,7 +14,7 @@ $this->menu = array(
 	array('label' => 'Рейсы', 'url' => array('admin')),
 );
 ?>
-<form action="/" method="post">
+<form action="/admin/" method="post">
 	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>"/>
 	<input type="hidden" name="monthSelect" value="<?php echo $selectDate['monthSelect']; ?>"/>
 	<input type="submit" name="submit" value="Вернуться к расписанию"
@@ -69,7 +69,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'doc_num',
 			'header' => 'Документ',
 			'type'   => 'raw',
-			//			'value'  => 'isset($data["profile_id"]) ? CHtml::link($data["passport"],array("tickets/profile/" . $data["profile_id"])):""',
 			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
 														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
 														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />

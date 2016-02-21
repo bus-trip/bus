@@ -43,7 +43,7 @@ $yearSelect = '';
 						),
 						'ajax'    => array(
 							'type'   => 'POST',
-							'url'    => '/',
+							'url'    => '/admin/',
 							'data'   => array(
 								'monthSelect' => 'js:this.value',
 								'yearSelect'  => 'js:document.getElementById("yearSelect").value'
@@ -70,7 +70,7 @@ $yearSelect = '';
 						),
 						'ajax'    => array(
 							'type'   => 'POST',
-							'url'    => '/',
+							'url'    => '/admin/',
 							'data'   => array(
 								'monthSelect' => 'js:document.getElementById("monthSelect").value',
 								'yearSelect'  => 'js:this.value'
