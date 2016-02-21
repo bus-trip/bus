@@ -240,6 +240,9 @@ class DefaultController extends Controller
 			}
 			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
+			if (Yii::app()->user->isGuest)
+				$this->redirect($this->createUrl('/user/login'));
+
 			$savedData            = $this->read();
 			$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
 			$direction            = Directions::model()->findByPk($savedData[self::STEP_FIND]['directionId']);
@@ -343,7 +346,8 @@ class DefaultController extends Controller
 	 */
 	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to)
 	{
-		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
+		$tempReserve = TempReserve::model()
+								  ->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
 		if (!empty($tempReserve)) {
 			$profile = new Profiles();
 			list($discount) = Yii::app()->createController('discounts');
@@ -378,7 +382,7 @@ class DefaultController extends Controller
 	 */
 	public function wizardInvalidStep($event)
 	{
-		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a valid step in this wizard');
+//		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a valid step in this wizard');
 	}
 
 	public function actionIndex($step = null)

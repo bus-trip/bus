@@ -68,11 +68,11 @@ class Controller extends MainController
 		$this->getOwner()->_menu->items = $items;
 	}
 
-	public function init()
-	{
-		parent::init();
-
-		if (Yii::app()->user->isGuest)
-			$this->redirect($this->createUrl('/user/login'));
-	}
+//	public function init()
+//	{
+//		parent::init();
+//
+//		if (Yii::app()->user->isGuest)
+//			$this->redirect($this->createUrl('/user/login'));
+//	}
 }
