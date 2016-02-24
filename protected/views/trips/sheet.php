@@ -75,12 +75,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'header' => 'Документ',
 			'type'   => 'raw',
 			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<br/>". CHtml::link($data["doc_num"], ["tickets/profile/" . $data["profile_id"]]) : ""',
-			//			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
-			//														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
-			//														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />
-			//														<input type=\"hidden\" name=\"monthSelect\" value=\"' . $selectDate["monthSelect"] . '\" />
-			//														<input type=\"submit\" value=\"".$data["doc_num"]."\" style=\"padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
-			//														</form>" : ""',
 		),
 		array(
 			'name'   => 'last_name',

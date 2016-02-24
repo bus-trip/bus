@@ -24,6 +24,7 @@ if (isset($_SESSION['trip_id'])) {
 
 	<?php
 	$this->widget('zii.widgets.grid.CGridView', array(
+		'id' => 'profile-ticket-list',
 		'dataProvider'          => $dataProvider,
 		'template'              => '{items}',
 		'rowCssClassExpression' => '
@@ -37,6 +38,10 @@ if (isset($_SESSION['trip_id'])) {
 			array(
 				'name'   => 'direction',
 				'header' => 'Направление',
+			),
+			array(
+				'name'   => 'dir_part',
+				'header' => 'Маршрут',
 			),
 			array(
 				'name'   => 'departure',

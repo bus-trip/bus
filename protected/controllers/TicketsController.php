@@ -144,7 +144,7 @@ class TicketsController extends Controller
 	 */
 	public function actionConfirm($id)
 	{
-		$model         = $this->loadModel($id);
+		$model = $this->loadModel($id);
 		$model->status = 2;
 
 		if ($model->save())
@@ -170,7 +170,7 @@ class TicketsController extends Controller
 				break;
 			case 'del':
 				$Profile->black_list = 0;
-				$Profile->black_desc = null;
+				$Profile->black_desc = NULL;
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
@@ -215,6 +215,7 @@ class TicketsController extends Controller
 			':doc_type'  => $profile->doc_type,
 			':doc_num'   => $profile->doc_num
 		);
+
 		return Profiles::model()->findAll($criteria);
 	}
 
@@ -228,12 +229,13 @@ class TicketsController extends Controller
 
 		$sameProfiles = $this->getSameProfiles($profile);
 		foreach ($sameProfiles as $itemProfile) {
-			$criteria_tickets            = new CDbCriteria();
+			$criteria_tickets = new CDbCriteria();
 			$criteria_tickets->condition = 't.id=:id';
-			$criteria_tickets->params    = array(':id' => $itemProfile->tid);
-			$ticketObj                   = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
-												  ->find($criteria_tickets);
+			$criteria_tickets->params = array(':id' => $itemProfile->tid);
+			$ticketObj = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
+								->find($criteria_tickets);
 			if ($ticketObj) {
+				$directionObj = Directions::model()->findByPk($ticketObj->idDirection);
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
 					'address_from' => $ticketObj->address_from,
@@ -244,6 +246,7 @@ class TicketsController extends Controller
 					'departure'    => $ticketObj->idTrip0->departure,
 					'direction'    => $ticketObj->idTrip0->idDirection0->startPoint . '-' .
 						$ticketObj->idTrip0->idDirection0->endPoint,
+					'dir_part'     => $directionObj->startPoint . '-' . $directionObj->endPoint,
 					'status'       => $ticketObj->status,
 				);
 			}
@@ -262,7 +265,7 @@ class TicketsController extends Controller
 		$this->render('profile', array(
 			'model'        => $profile,
 			'dataProvider' => $dataProvider,
-//			'tripId'       => isset($_POST) ? $_POST : '',
+			//			'tripId'       => isset($_POST) ? $_POST : '',
 		));
 	}
 
@@ -300,8 +303,8 @@ class TicketsController extends Controller
 
 	function actionPassengers()
 	{
-		$this->layout      = '//layouts/column1';
-		$this->pageTitle   = 'Все пассажиры';
+		$this->layout = '//layouts/column1';
+		$this->pageTitle = 'Все пассажиры';
 		$this->breadcrumbs = array($this->pageTitle);
 
 		$model = new Profiles('search');
@@ -324,7 +327,7 @@ class TicketsController extends Controller
 	public function loadModel($id)
 	{
 		$model = Tickets::model()->findByPk($id);
-		if ($model === null)
+		if ($model === NULL)
 			throw new CHttpException(404, 'The requested page does not exist.');
 
 		return $model;
