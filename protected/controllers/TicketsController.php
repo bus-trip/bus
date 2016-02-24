@@ -235,7 +235,8 @@ class TicketsController extends Controller
 			$ticketObj = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
 								->find($criteria_tickets);
 			if ($ticketObj) {
-				$directionObj = Directions::model()->findByPk($ticketObj->idDirection);
+				if($directionObj = Directions::model()->findByPk($ticketObj->idDirection)) $dir_part = $directionObj->startPoint . '-' . $directionObj->endPoint;
+				else $dir_part = '';
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
 					'address_from' => $ticketObj->address_from,
@@ -246,7 +247,7 @@ class TicketsController extends Controller
 					'departure'    => $ticketObj->idTrip0->departure,
 					'direction'    => $ticketObj->idTrip0->idDirection0->startPoint . '-' .
 						$ticketObj->idTrip0->idDirection0->endPoint,
-					'dir_part'     => $directionObj->startPoint . '-' . $directionObj->endPoint,
+					'dir_part'     => $dir_part,
 					'status'       => $ticketObj->status,
 				);
 			}
