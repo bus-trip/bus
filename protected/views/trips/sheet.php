@@ -13,6 +13,11 @@ $this->breadcrumbs = array(
 $this->menu = array(
 	array('label' => 'Рейсы', 'url' => array('admin')),
 );
+
+if(!isset($_SESSION['yearSelect']) || empty($_SESSION['yearSelect'])) $_SESSION['yearSelect'] = $selectDate['yearSelect'];
+if(!isset($_SESSION['monthSelect']) || empty($_SESSION['monthSelect'])) $_SESSION['monthSelect'] = $selectDate['monthSelect'];
+$_SESSION['trip_id'] = $dataHeader["trips"]["id"];
+
 ?>
 <form action="/admin/" method="post">
 	<input type="hidden" name="yearSelect" value="<?php echo $selectDate['yearSelect']; ?>"/>
@@ -69,12 +74,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'name'   => 'doc_num',
 			'header' => 'Документ',
 			'type'   => 'raw',
-			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
-														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
-														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />
-														<input type=\"hidden\" name=\"monthSelect\" value=\"' . $selectDate["monthSelect"] . '\" />
-														<input type=\"submit\" value=\"".$data["doc_num"]."\" style=\"padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
-														</form>" : ""',
+			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<br/>". CHtml::link($data["doc_num"], ["tickets/profile/" . $data["profile_id"]]) : ""',
+			//			'value'  => 'isset($data["profile_id"]) ? Profiles::getDocType($data["doc_type"]) . "<form action=\"/tickets/profile/".$data["profile_id"]."\" method=\"post\">
+			//														<input type=\"hidden\" name=\"trip_id\" value=\"' . $dataHeader["trips"]["id"] . '\">
+			//														<input type=\"hidden\" name=\"yearSelect\" value=\"' . $selectDate["yearSelect"] . '\" />
+			//														<input type=\"hidden\" name=\"monthSelect\" value=\"' . $selectDate["monthSelect"] . '\" />
+			//														<input type=\"submit\" value=\"".$data["doc_num"]."\" style=\"padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;\"/>
+			//														</form>" : ""',
 		),
 		array(
 			'name'   => 'last_name',
@@ -119,55 +125,55 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'class'    => 'CButtonColumn',
 			'template' => '{create_ticket}{edit_ticket}&nbsp;&nbsp;&nbsp;{confirm}&nbsp;&nbsp;&nbsp;{delete}&nbsp;&nbsp;&nbsp;{blacklist}{unblacklist}<br/>{ticket}&nbsp;&nbsp;&nbsp;{boarding}&nbsp;&nbsp;&nbsp;{create_part_ticket}',
 			'buttons'  => array(
-				'create_ticket' => array(
+				'create_ticket'      => array(
 					'label'    => 'Создать билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/add1.png',
 					'visible'  => 'empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]")',
 					'options'  => array('class' => 'create-ticket', 'data-tripId' => $dataHeader['trips']['id']),
 				),
-				'edit_ticket'   => array(
+				'edit_ticket'        => array(
 					'label'    => 'Редактировать билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/edit.png',
 					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]/$data[directionId]")',
 					'options'  => array('class' => 'edit-ticket', 'data-tripid' => $dataHeader['trips']['id']),
 				),
-				'confirm'       => array(
+				'confirm'            => array(
 					'label'    => 'Подтвердить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/success.png',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/confirm/$data[ticket_id]")',
 					'visible'  => '!empty($data["doc_num"]) && $data["status"] != 2',
 					'click'    => 'function(){return confirm("Вы хотите подтвердить бронь?");}'
 				),
-				'delete'        => array(
+				'delete'             => array(
 					'label'    => 'Отменить бронь',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/cancel.png',
 					'url'      => 'Yii::app()->controller->createUrl("trips/deleteticket/$data[ticket_id]")',
 					'visible'  => '!empty($data["doc_num"])',
 					'click'    => 'function(){ return confirm("Вы хотите отменить бронирование/покупку этого билета?"); }'
 				),
-				'blacklist'     => array(
+				'blacklist'          => array(
 					'label'    => 'Внести в чёрный список',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/' . $dataHeader['trips']['id'] . '/profileid/$data[profile_id]/action/add")',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/blacklist.png',
 					'visible'  => 'empty($data["black_list"]) && !empty($data["doc_num"])',
 					'click'    => 'function(){ return confirm("Хотите внести пассажира в чёрный список?"); }'
 				),
-				'unblacklist'   => array(
+				'unblacklist'        => array(
 					'label'    => 'Извлечь из чёрного списка',
 					'url'      => 'Yii::app()->controller->createUrl("tickets/blacklist/id/' . $dataHeader['trips']['id'] . '/profileid/$data[profile_id]/action/del")',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/unblacklist.png',
 					'visible'  => '!empty($data["black_list"])',
 					'click'    => 'function(){ return confirm("Хотите извлечь пассажира из чёрного списка?"); }'
 				),
-				'ticket'        => array(
+				'ticket'             => array(
 					'label'    => 'Войти в билет',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/document_9498.png',
 					'visible'  => '!empty($data["doc_num"])',
 					'url'      => 'Yii::app()->controller->createUrl("trips/sheet/' . $dataHeader['trips']['id'] . '/$data[place]/$data[directionId]")',
 				),
-				'boarding'      => array(
+				'boarding'           => array(
 					'label'    => 'Печать билета',
 					'imageUrl' => Yii::app()->request->baseUrl . '/images/print_ticket.png',
 					'visible'  => '!empty($data["doc_num"])',

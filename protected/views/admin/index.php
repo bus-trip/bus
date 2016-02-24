@@ -23,13 +23,13 @@ $yearSelect = '';
 <table id="main">
 	<caption>
 		<div class="month">Рейсы
-				на <?php echo  $monthNames[$currentDate['month']] . '  ' . $currentDate['year']; ?></div>
+				на <?php echo  $monthNames[$_SESSION['monthSelect']] . '  ' . $_SESSION['yearSelect']; ?></div>
 		<div class="calendar-control">
 		    <span class="current-month" title="Текущий месяц">
 			    <a href="/"><input class="btn-current-month" type="button" value=""/></a>
             </span>
 			<?php
-			if (isset($currentDate) && is_array($currentDate)) {
+			if (isset($_SESSION)) {
 				echo CHtml::dropDownList(
 					'monthSelect',
 					$monthSelect,
@@ -37,7 +37,7 @@ $yearSelect = '';
 					array(
 						'empty'   => 'Выберите месяц',
 						'options' => array(
-							$currentDate['month'] => array(
+							$_SESSION['monthSelect'] => array(
 								'selected' => TRUE
 							)
 						),
@@ -64,7 +64,7 @@ $yearSelect = '';
 					array(
 						'empty'   => 'Выберите год',
 						'options' => array(
-							$currentDate['year'] => array(
+							$_SESSION['yearSelect'] => array(
 								'selected' => TRUE
 							)
 						),
@@ -93,10 +93,10 @@ $yearSelect = '';
 	    <td>Вс</td>
 	</tr>
 	<?php
-	$firstDOW = date("w", strtotime(date("01." . $currentDate['month'] . "." . $currentDate['year'])));
+	$firstDOW = date("w", strtotime(date("01." . $_SESSION['monthSelect'] . "." . $_SESSION['yearSelect'])));
 	if ($firstDOW == 0) $firstDOW = 7;
 	$firstDOW--;
-	$maxDays = date("t", strtotime($currentDate['year'] . "-" . $currentDate['month'] . "-01"));
+	$maxDays = date("t", strtotime($_SESSION['yearSelect'] . "-" . $_SESSION['monthSelect'] . "-01"));
 	$count = $firstDOW >= 5 ? 42 : 35;
 	echo "<tr>";
 	for ($i = 0; $i < $count; $i++) {
@@ -106,10 +106,10 @@ $yearSelect = '';
 		}
 		echo "<td ";
 		if ($i < $firstDOW || $i > $maxDays + $firstDOW - 1) echo "class='not-active'";
-		if ($i == date("d") + $firstDOW - 1 && date("m") == $currentDate['month'] && date("Y") == $currentDate['year']) echo "class='current-date'";
+		if ($i == date("d") + $firstDOW - 1 && date("m") == $_SESSION['monthSelect'] && date("Y") == $_SESSION['yearSelect']) echo "class='current-date'";
 		echo "'>";
 		if ($i >= $firstDOW && $i <= $maxDays + $firstDOW - 1) {
-			$tripsDate = $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i + 1 - $firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
+			$tripsDate = $_SESSION['yearSelect'] . '-' . $_SESSION['monthSelect'] . '-' . ($i + 1 - $firstDOW < 10 ? '0' : '') . ($i + 1 - $firstDOW);
 			echo "<div class='date'>";
 			if ($i + 1 - $firstDOW < 10) echo "0";
 			echo date($i + 1 - $firstDOW);
@@ -140,12 +140,12 @@ $yearSelect = '';
 							input = document.createElement("INPUT");
 							input.type = "hidden";
 							input.name="yearSelect";
-							input.value="'.$currentDate['year'].'";
+							input.value="'.$_SESSION['yearSelect'].'";
 							form.appendChild(input);
 							input = document.createElement("INPUT");
 							input.type = "hidden";
 							input.name="monthSelect";
-							input.value="'.$currentDate['month'].'";
+							input.value="'.$_SESSION['monthSelect'].'";
 							form.appendChild(input);
 							form.submit();
 						}',
@@ -160,8 +160,8 @@ $yearSelect = '';
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 05:30:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 12:00:00' name='trips-date'>";
 				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip1']['idDirection'] . "' name='trips-dir-id' />";
-				echo "<input type='hidden' value='" . $currentDate['year'] . "' name='yearSelect' />";
-				echo "<input type='hidden' value='" . $currentDate['month'] . "' name='monthSelect' />";
+				echo "<input type='hidden' value='" . $_SESSION['yearSelect'] . "' name='yearSelect' />";
+				echo "<input type='hidden' value='" . $_SESSION['monthSelect'] . "' name='monthSelect' />";
 				echo "<input type='submit' value='" . $directions[0]['direction'] . " (" . $tripsParam[$i + 1 - $firstDOW]['trip1']['count'] . ")' class='trips trips-" . $tripsParam[$i + 1 - $firstDOW]['trip1']['full'] . "' />";
 				echo "</form>";
 				echo "</div>";
@@ -170,8 +170,8 @@ $yearSelect = '';
 				echo "<input type='hidden' value='" . date("Y-m-d", strtotime("+1 day", strtotime($tripsDate))) . " 14:00:00' name='trips-arrive' />";
 				echo "<input type='hidden' value='" . $tripsDate . " 22:00:00' name='trips-date'>";
 				echo "<input type='hidden' value='" . $tripsParam[$i + 1 - $firstDOW]['trip2']['idDirection'] . "' name='trips-dir-id' />";
-				echo "<input type='hidden' value='" . $currentDate['year'] . "' name='yearSelect' />";
-				echo "<input type='hidden' value='" . $currentDate['month'] . "' name='monthSelect' />";
+				echo "<input type='hidden' value='" . $_SESSION['yearSelect'] . "' name='yearSelect' />";
+				echo "<input type='hidden' value='" . $_SESSION['monthSelect'] . "' name='monthSelect' />";
 				echo "<input type='submit' value='" . $directions[1]['direction'] . " (" . $tripsParam[$i + 1 - $firstDOW]['trip2']['count'] . ")' class='trips trips-" . $tripsParam[$i + 1 - $firstDOW]['trip2']['full'] . "' />";
 				echo "</form>";
 				echo "</div>";
