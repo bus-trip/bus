@@ -56,8 +56,29 @@ class AdminController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$currentDate['year'] = isset($_POST['yearSelect']) && !empty($_POST['yearSelect']) ? $_POST['yearSelect'] : date('Y');
-		$currentDate['month'] = isset($_POST['monthSelect']) && !empty($_POST['monthSelect']) ? $_POST['monthSelect'] : date('m');
+
+		$currentMonth = date('m');
+		$currentYear = date('Y');
+
+		if (isset($_POST['yearSelect']) && !empty($_POST['yearSelect'])) {
+			$currentDate['year'] = $_POST['yearSelect'];
+			$_SESSION['yearSelect'] = $_POST['yearSelect'];
+		} elseif (isset($_SESSION['yearSelect']) && !empty($_SESSION['yearSelect'])) {
+			$currentDate['year'] = $_SESSION['yearSelect'];
+		} else {
+			$currentDate['year'] = $currentYear;
+			$_SESSION['yearSelect'] = $currentYear;
+		}
+
+		if (isset($_POST['monthSelect']) && !empty($_POST['monthSelect'])) {
+			$currentDate['month'] = $_POST['monthSelect'];
+			$_SESSION['monthSelect'] = $_POST['monthSelect'];
+		} elseif (isset($_SESSION['monthSelect']) && !empty($_SESSION['monthSelect'])) {
+			$currentDate['month'] = $_SESSION['monthSelect'];
+		} else {
+			$currentDate['month'] = $currentMonth;
+			$_SESSION['monthSelect'] = $currentMonth;
+		}
 
 		$tripsParam = array();
 		$maxdate = date("t", strtotime($currentDate['year'] . "-" . $currentDate['month'] . "-01"));
@@ -177,7 +198,7 @@ class AdminController extends Controller
 
 			$criteria = new CDbCriteria();
 			$criteria->select = 'id, idDirection, departure, idBus';
-			$criteria->condition = 'status=' . DIRTRIP_EXTEND. ' and departure like "'.($currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i)).'%"';
+			$criteria->condition = 'status=' . DIRTRIP_EXTEND . ' and departure like "' . ($currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i)) . '%"';
 			$criteria->order = 'idDirection ASC';
 
 			$data = Trips::model()->findAll($criteria);
@@ -191,20 +212,20 @@ class AdminController extends Controller
 				$extTrips[] = array('id' => $d->id, 'Direction' => $DirExt->startPoint . " - " . $DirExt->endPoint, 'departure' => $d->departure);
 			}
 			$tripsParam[$i] = array(
-				'date'     => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
 				'trip1'    => $trip[0],
 				'trip2'    => $trip[1],
 				'exttrips' => $extTrips,
+				'date'     => $currentDate['year'] . '-' . $currentDate['month'] . '-' . ($i < 10 ? '0' . $i : $i),
 			);
 		}
 //		print_r($tripsParam);
 
 		$this->render('index', array(
-			'tripsParam'  => $tripsParam,
+			'tripsParam' => $tripsParam,
 			//			'dataProvider' => $dataProvider,
 			//			'countTrips'   => $countTrips,
-			'currentDate' => $currentDate,
-			'directions'  => $directions,
+			//			'currentDate' => $currentDate,
+			'directions' => $directions,
 		));
 	}
 

@@ -3,16 +3,9 @@
  * @var $this TicketsController
  */
 
-if (isset($tripId["trip_id"])) {
-	?>
-	<form action="/trips/sheet/<?php echo $tripId["trip_id"]; ?>" method="post">
-		<input type="hidden" name="yearSelect" value="<?php echo $tripId['yearSelect']; ?>"/>
-		<input type="hidden" name="monthSelect" value="<?php echo $tripId['monthSelect']; ?>"/>
-		<input type="submit" value="Вернуться к ведомости"
-			   style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>
-	</form>
-	<p/>
-	<?php
+if (isset($_SESSION['trip_id'])) {
+	print CHtml::link("Вернуться к ведомости", ["/trips/sheet/" . $_SESSION['trip_id']]);
+	print "<p/>";
 }
 ?>
 <h1><?php print $this->pageTitle; ?></h1>
@@ -20,9 +13,10 @@ if (isset($tripId["trip_id"])) {
 	<h2>Информация о профиле пассажира</h2>
 
 	<div class="data">
-		<?php print $this->renderPartial('application.views.account.one_passenger_data', array('data' => $model), true); ?>
+		<?php print $this->renderPartial('application.views.account.one_passenger_data', array('data' => $model), TRUE); ?>
 	</div>
-	<div class="edit"><a href="<?= $this->createUrl('tickets/profileEdit', ['id' => $model->id]) ?>" target="_blank">Изменить</a></div>
+	<div class="edit"><a href="<?= $this->createUrl('tickets/profileEdit', ['id' => $model->id]) ?>" target="_blank">Изменить</a>
+	</div>
 </div>
 <br><br>
 <div class="row">

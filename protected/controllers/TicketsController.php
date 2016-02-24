@@ -262,7 +262,7 @@ class TicketsController extends Controller
 		$this->render('profile', array(
 			'model'        => $profile,
 			'dataProvider' => $dataProvider,
-			'tripId'       => isset($_POST) ? $_POST : '',
+//			'tripId'       => isset($_POST) ? $_POST : '',
 		));
 	}
 
