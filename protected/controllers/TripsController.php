@@ -898,13 +898,6 @@ class TripsController extends Controller
 
 		$inline = [
 			(string) (!empty($ticket->profiles) ? Profiles::getDocType($profile->doc_type) . '<br>' . CHtml::link($profile->doc_num, ["tickets/profile/" . $profile->id]) : ''),
-			//(string) (!empty($ticket->profiles) ? Profiles::getDocType($profile->doc_type) .
-			//	'<form action="/tickets/profile/' . $profile->id . '" method="post">' .
-			//	'<input type="hidden" name="trip_id" value="' . $tripId . '">' .
-			//	'<input type="hidden" name="yearSelect" value="' . $trip . '" />' .
-			//	'<input type="hidden" name="monthSelect" value="' . $_POST['monthSelect'] . '" />' .
-			//	'<input type="submit" value="' . $profile->doc_num . '" style="padding:0;background: none; border: none; color: #0066ff; text-decoration: underline; cursor: pointer;"/>' .
-			//	'</form>' : ''),
 			(string) (!empty($ticket->profiles) ? $profile->last_name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->middle_name : ''),
