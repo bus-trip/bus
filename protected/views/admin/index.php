@@ -26,7 +26,11 @@ $yearSelect = '';
 				на <?php echo  $monthNames[$_SESSION['monthSelect']] . '  ' . $_SESSION['yearSelect']; ?></div>
 		<div class="calendar-control">
 		    <span class="current-month" title="Текущий месяц">
-			    <a href="/"><input class="btn-current-month" type="button" value=""/></a>
+				<form action="/admin/index" method="post">
+					<input type="hidden" name="yearSelect" value="<?= date('Y'); ?>" />
+					<input type="hidden" name="monthSelect" value="<?= date('m'); ?>" />
+			    	<input class="btn-current-month" type="submit" value="" />
+				</form>
             </span>
 			<?php
 			if (isset($_SESSION)) {
