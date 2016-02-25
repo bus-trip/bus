@@ -896,13 +896,22 @@ class TripsController extends Controller
 			'in_bl_desc' => (!empty($ticket->profiles) ? $profile->black_desc : NULL)
 		];
 
+		$birth = '';
+		if (!empty($ticket->profiles)) {
+			if (strpos($profile->birth, '.') !== false) {
+				$birth = $profile->birth;
+			} else {
+				$birth = date('d.m.Y', $profile->birth);
+			}
+		}
+
 		$inline = [
 			(string) (!empty($ticket->profiles) ? Profiles::getDocType($profile->doc_type) . '<br>' . CHtml::link($profile->doc_num, ["tickets/profile/" . $profile->id]) : ''),
 			(string) (!empty($ticket->profiles) ? $profile->last_name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->middle_name : ''),
 			(string) (!empty($ticket->profiles) ? $profile->phone : ''),
-			(string) (!empty($ticket->profiles) ? date("d.m.Y", $profile->birth) : ''),
+			$birth,
 			(string) $direction,
 			(string) $ticket->address_from,
 			(string) $ticket->address_to,
