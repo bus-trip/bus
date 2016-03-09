@@ -1,7 +1,7 @@
-html {
+/* html {
 	width: 100%;
 	height: 100%;
-}
+} */
 
 a {
     color: #039BE5;
@@ -12,7 +12,7 @@ a:hover {
     color: #01579B;
 }
 
-body {
+/* body {
 	margin: 0;
 	padding: 0;
 	color: #555;
@@ -20,7 +20,7 @@ body {
 	background: #EFEFEF;
 	width: 100%;
 	height: 100%;
-}
+} */
 
 #page {
 	background: #fff;
@@ -44,8 +44,8 @@ body {
 }
 
 #content {
-	padding: 0 20px 20px;
-	overflow: auto;
+	/* padding: 0 20px 20px; */
+	/* overflow: auto; */
 }
 
 #sidebar {
@@ -278,7 +278,7 @@ div.search-form {
 }
 
 .wrapper {
-	padding: 20px;
+	/* padding: 20px; */
 }
 
 #tabs {

@@ -169,7 +169,11 @@ html {
       background-color: inherit;
       border: 1px solid #680035;
       color: #680035; }
-
+.btn[disabled="disabled"] {
+  background: #A9A7A7;
+  color: #fff;
+  cursor: default;
+}
 .link {
   font-size: 1rem;
   display: inline-block;
@@ -633,3 +637,7 @@ MIN-WIDTH: 1200px
   margin-bottom: 2rem; }
   .img-scheme img {
     height: 100%; }
+
+input[type="radio"] { -webkit-appearance: radio; }
+input[type="checkbox"] { -webkit-appearance: checkbox; }
+div.form label{margin-bottom: 0;}

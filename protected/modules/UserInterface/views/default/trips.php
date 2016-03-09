@@ -43,4 +43,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	),
 ));
 
-echo CHtml::submitButton('Выбрать', ['id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled']);
+echo CHtml::submitButton('Выбрать', ['id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled', 'class' => "btn"]);

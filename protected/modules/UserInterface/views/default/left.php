@@ -5,9 +5,14 @@
  */
 
 foreach ($menu->items as $item) { ?>
-	<li class="<?= $item['active'] ? 'active' : '' ?>">
+	<li>
 		<?php if (!empty($item['url'])) {
-			print '<div class="link">' . CHtml::link($item['label'], $item['url'], isset($item['linkOptions']) ? $item['linkOptions'] : []) . '</div>';
+			$options          = isset($item['linkOptions']) ? $item['linkOptions'] : [];
+			$options['class'] = 'link';
+			if ($item['active']) {
+				$options['class'] .= ' link_active';
+			}
+			print CHtml::link($item['label'], $item['url'], $options);
 //					switch ($item['step']) {
 //						case 'tariff':
 //							if (isset($item['data']['tariff'])) {
@@ -44,7 +49,7 @@ foreach ($menu->items as $item) { ?>
 //							break;
 //					}
 		} else {
-			print $item['label'];
+			print '<span class="link link_disactive">' . $item['label'] . '</span>';
 		}
 
 		?>

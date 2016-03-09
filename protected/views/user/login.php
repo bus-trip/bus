@@ -3,14 +3,11 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm */
 
-$this->pageTitle   = Yii::app()->name . ' - Login';
-$this->breadcrumbs = array(
-	'Авторизация',
-);
 ?>
-
-<h1>Авторизация в системе</h1>
-
+<ul class="nav">
+	<li><span class="link link_active">Авторизация</span></li>
+	<li><a href="<?= $this->createUrl('/user/register')?>" class="link">Регистрация</a></li>
+</ul>
 <div class="form">
 	<?php $form = $this->beginWidget('CActiveForm', array(
 		'id' => 'login-form',
@@ -20,24 +17,18 @@ $this->breadcrumbs = array(
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'username'); ?>
-		<?php echo $form->textField($model, 'username'); ?>
+		<?php echo $form->textField($model, 'username',['class'=>"input-text"]); ?>
 		<?php echo $form->error($model, 'username'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model, 'password'); ?>
-		<?php echo $form->passwordField($model, 'password'); ?>
+		<?php echo $form->passwordField($model, 'password', ['class'=>"input-text"]); ?>
 		<?php echo $form->error($model, 'password'); ?>
 	</div>
 
-<!--	<div class="row rememberMe">-->
-<!--		--><?php //echo $form->checkBox($model, 'rememberMe', array('checked' => 'checked')); ?>
-<!--		--><?php //echo $form->label($model, 'rememberMe'); ?>
-<!--		--><?php //echo $form->error($model, 'rememberMe'); ?>
-<!--	</div>-->
-
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Войти'); ?>
+		<?php echo CHtml::submitButton('Войти', ['class'=>"btn"]); ?>
 	</div>
 
 	<div>

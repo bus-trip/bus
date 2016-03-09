@@ -29,7 +29,8 @@ class UserController extends Controller
 	 */
 	public function actionLogin()
 	{
-		$model = new LoginForm();
+		$this->pageTitle = 'Авторизация';
+		$model           = new LoginForm();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
@@ -61,7 +62,8 @@ class UserController extends Controller
 	 */
 	public function actionRegister()
 	{
-		$model = new User();
+		$this->pageTitle = 'Регистрация';
+		$model           = new User();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
 			if ($model->save()) {

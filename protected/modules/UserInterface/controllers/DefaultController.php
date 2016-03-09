@@ -35,7 +35,7 @@ class DefaultController extends Controller
 	{
 		switch ($step) {
 			case self::STEP_FIND:
-				return 'Рейс';
+				return 'Найти билеты';
 			case self::STEP_PLACE:
 				return 'Места';
 			case self::STEP_PROFILE:
