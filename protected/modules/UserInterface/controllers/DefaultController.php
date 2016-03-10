@@ -37,7 +37,7 @@ class DefaultController extends Controller
 			case self::STEP_FIND:
 				return 'Найти билеты';
 			case self::STEP_PLACE:
-				return 'Места';
+				return 'Выберите места';
 			case self::STEP_PROFILE:
 				return 'Профиль';
 			case self::STEP_REVIEW:
@@ -567,9 +567,9 @@ class DefaultController extends Controller
 				$places[$i] = $i;
 			elseif (!in_array($i, $notAvailPlace)) {
 				$price      = $discount->getDiscountByPlace($i, $direction->price);
-				$places[$i] = '№' . $i . ': ' . $price . ' руб.';
+				$places[$i] = '№' . $i . ': <b>' . $price . '</b> руб.';
 			} else
-				$places['not-' . $i] = $i . ' - занято';
+				$places['not-' . $i] = $i . ' <b class="color-red">Занято</b>';
 		}
 
 		return $places;

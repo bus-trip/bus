@@ -661,8 +661,8 @@ body .ui-menu .ui-menu-item a {
 }
 
 #wizard-wrapper .back{
-    float: left;
-    margin-top: -18px;
+    /* float: left; */
+    /* margin-top: -18px; */
 }
 select.autocomplete {
 	width: 103px;

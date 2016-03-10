@@ -5,11 +5,12 @@
  */
 
 $this->beginContent('//layouts/main'); ?>
-	<ul class="nav">
-		<?php $this->renderPartial('UserInterface.views.default.left', ['menu' => $this->getMenu()]) ?>
-	</ul>
-	<div id="content">
-		<div class="wrapper">
+	<div class="search-ticket">
+		<?= isset($this->pageTitle) && $this->pageTitle ? '<h1 class="title title_c-white title_ta-c">' . $this->pageTitle . '</h1>' : ''; ?>
+		<div class="search-ticket__form">
+			<ul class="nav">
+				<?php $this->renderPartial('UserInterface.views.default.left', ['menu' => $this->getMenu()]) ?>
+			</ul>
 			<!-- flashes -->
 			<?php
 			foreach (Yii::app()->user->getFlashes() as $key => $message) {
