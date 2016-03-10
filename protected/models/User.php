@@ -36,7 +36,7 @@ class User extends CActiveRecord
 		return array(
 			array('login, pass, pass2', 'required'),
 			array('mail', 'email'),
-			array('mail','unique', 'message'=>'Введенный почтовый адрес уже используется. Если Вы уверены, что это Ваш email, попробуйте восстановить пароль.'),
+			array('mail', 'unique', 'message' => 'Введенный почтовый адрес уже используется. Если Вы уверены, что это Ваш email, попробуйте восстановить пароль.'),
 			array('pass, pass2', 'length', 'max' => 32),
 			array('pass2', 'compare', 'compareAttribute' => 'pass', 'message' => "Пароль не совпадает"),
 			array('login, mail', 'length', 'max' => 255),
@@ -64,11 +64,12 @@ class User extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id'    => 'ID',
-			'login' => 'Логин',
-			'pass'  => 'Пароль',
-			'pass2' => 'Повторите пароль',
-			'mail'  => 'E-mail',
+			'id'         => 'ID',
+			'login'      => 'Логин',
+			'pass'       => 'Пароль',
+			'pass2'      => 'Повторите пароль',
+			'mail'       => 'E-mail',
+			'rememberMe' => 'Запомнить',
 		);
 	}
 
@@ -91,9 +92,9 @@ class User extends CActiveRecord
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id);
-		$criteria->compare('login', $this->login, TRUE);
-		$criteria->compare('pass', $this->pass, TRUE);
-		$criteria->compare('mail', $this->mail, TRUE);
+		$criteria->compare('login', $this->login, true);
+		$criteria->compare('pass', $this->pass, true);
+		$criteria->compare('mail', $this->mail, true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -121,17 +122,17 @@ class User extends CActiveRecord
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
-	public function validate($attributes = NULL, $clearErrors = TRUE)
+	public function validate($attributes = null, $clearErrors = true)
 	{
 		if ($this->isNewRecord) {
 			$user_e = User::model()->find('LOWER(login)=?', array(strtolower($this->login)));
-			if ($user_e !== NULL) {
+			if ($user_e !== null) {
 				$this->addError('login', 'Логин занят');
 
-				return FALSE;
+				return false;
 			}
 		}
 

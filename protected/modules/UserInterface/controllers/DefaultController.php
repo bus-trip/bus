@@ -35,11 +35,11 @@ class DefaultController extends Controller
 	{
 		switch ($step) {
 			case self::STEP_FIND:
-				return 'Рейс';
+				return 'Найти билеты';
 			case self::STEP_PLACE:
-				return 'Места';
+				return 'Выберите места';
 			case self::STEP_PROFILE:
-				return 'Профиль';
+				return 'Данные билетов';
 			case self::STEP_REVIEW:
 				return 'Проверка';
 			case self::STEP_PAYMENT:
@@ -240,6 +240,9 @@ class DefaultController extends Controller
 			}
 			ksort($points);
 		} elseif ($event->getStep() == self::STEP_PLACE) {
+			if (Yii::app()->user->isGuest)
+				$this->redirect($this->createUrl('/user/login'));
+
 			$savedData            = $this->read();
 			$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
 			$direction            = Directions::model()->findByPk($savedData[self::STEP_FIND]['directionId']);
@@ -343,7 +346,8 @@ class DefaultController extends Controller
 	 */
 	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to)
 	{
-		$tempReserve = TempReserve::model()->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
+		$tempReserve = TempReserve::model()
+								  ->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
 		if (!empty($tempReserve)) {
 			$profile = new Profiles();
 			list($discount) = Yii::app()->createController('discounts');
@@ -378,7 +382,7 @@ class DefaultController extends Controller
 	 */
 	public function wizardInvalidStep($event)
 	{
-		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a valid step in this wizard');
+//		Yii::app()->getUser()->setFlash('notice', $event->getStep() . ' is not a valid step in this wizard');
 	}
 
 	public function actionIndex($step = null)
@@ -563,9 +567,9 @@ class DefaultController extends Controller
 				$places[$i] = $i;
 			elseif (!in_array($i, $notAvailPlace)) {
 				$price      = $discount->getDiscountByPlace($i, $direction->price);
-				$places[$i] = '№' . $i . ': ' . $price . ' руб.';
+				$places[$i] = '№' . $i . ': <b>' . $price . '</b> руб.';
 			} else
-				$places['not-' . $i] = $i . ' - занято';
+				$places['not-' . $i] = $i . ' <b class="color-red">Занято</b>';
 		}
 
 		return $places;

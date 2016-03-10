@@ -1,22 +1,46 @@
 <?php
 
+use UserInterface\controllers\DefaultController;
+
 class UserController extends Controller
 {
 	protected $username;
 	protected $password;
 	protected $rememberMe;
 
+	public function behaviors()
+	{
+		return [
+			'wizard' => [
+				'class'       => 'ext.Wizard.WizardBehavior',
+				'steps'       => [DefaultController::STEP_FIND,
+								  DefaultController::STEP_PLACE,
+								  DefaultController::STEP_PROFILE,
+								  DefaultController::STEP_REVIEW,
+				],
+				'autoAdvance' => false,
+				'finishedUrl' => '/UserInterface/default/complete',
+			]
+		];
+	}
+
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
-		$model = new LoginForm();
+		$this->pageTitle = 'Авторизация';
+		$model           = new LoginForm();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
-				$url = $this->createUrl('/site/index');
+				$wizerd = $this->read();
+				if (isset($wizerd['find'])) {
+					$url = $this->createUrl('/UserInterface/default/index/step/place');
+				} else {
+					$url = $this->createUrl('/site/index');
+				}
 				$this->redirect($url);
 			}
 		}
@@ -38,7 +62,8 @@ class UserController extends Controller
 	 */
 	public function actionRegister()
 	{
-		$model = new User();
+		$this->pageTitle = 'Регистрация';
+		$model           = new User();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
 			if ($model->save()) {
@@ -46,7 +71,12 @@ class UserController extends Controller
 				$this->password   = $attributes['pass'];
 				$this->rememberMe = $model->rememberMe;
 				if ($this->login()) {
-					$url = $this->createUrl('/account');
+					$wizerd = $this->read();
+					if (isset($wizerd['find'])) {
+						$url = $this->createUrl('/UserInterface/default/index/step/place');
+					} else {
+						$url = $this->createUrl('/site/index');
+					}
 					$this->redirect($url);
 				}
 

@@ -13,48 +13,43 @@ $form = $this->beginWidget('CActiveForm', [
 	'id'                   => 'searchtrip-form',
 	'enableAjaxValidation' => false,
 ]); ?>
-<?php echo $form->errorSummary($checkoutModel); ?>
 
-<table style="border: 1px solid #ccc; padding: 10px; width: 400px;">
-	<tr>
-		<td>
-			<div><?= $form->labelEx($checkoutModel, 'pointFrom') ?></div>
-			<div><?= $form->dropDownList($checkoutModel, 'pointFrom', $points) ?></div>
-
-		</td>
-		<td>
-			<div><?= $form->labelEx($checkoutModel, 'date') ?></div>
-
-			<div><?= $form->error($checkoutModel, 'date') ?></div>
-			<?php
-			Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
-			$this->widget('CJuiDateTimePicker', array(
-				'model'     => $checkoutModel,
-				'attribute' => 'date',
-				'mode'      => 'date',
-				'value'     => $checkoutModel->date,
-				'options'   => array(
-					'dateFormat'  => 'dd.mm.yy',
-					'changeMonth' => true,
-					'changeYear'  => true,
-					'minDate'     => 0,
-				),
-				'language'  => 'ru',
-			));
-			?>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div><?= $form->labelEx($checkoutModel, 'pointTo') ?></div>
-			<div><?= $form->dropDownList($checkoutModel, 'pointTo', $points) ?></div>
-			<div><?= $form->error($checkoutModel, 'pointTo') ?></div>
-		</td>
-		<td>
-			<?= CHtml::submitButton('Найти', ['id' => 'ajax-submit']) ?>
-		</td>
-	</tr>
-</table>
+<div class="grid grid_jc-c">
+	<?php echo $form->errorSummary($checkoutModel); ?>
+	<?= $form->error($checkoutModel, 'pointFrom') ?>
+	<?= $form->error($checkoutModel, 'pointTo') ?>
+	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
+		<?= $form->dropDownList($checkoutModel, 'pointFrom', $points, ['class' => "select", 'data-placeholder' => "Откуда"]) ?>
+	</div>
+	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
+		<?= $form->dropDownList($checkoutModel, 'pointTo', $points, ['class' => "select", 'data-placeholder' => "Куда"]) ?>
+	</div>
+	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
+		<?php
+		Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+		$this->widget('CJuiDateTimePicker', [
+			'model'       => $checkoutModel,
+			'attribute'   => 'date',
+			'mode'        => 'date',
+			'value'       => $checkoutModel->date,
+			'options'     => [
+				'dateFormat'  => 'dd.mm.yy',
+				'changeMonth' => true,
+				'changeYear'  => true,
+				'minDate'     => 0,
+			],
+			'language'    => 'ru',
+			'htmlOptions' => [
+				'class' => 'input-text'
+			]
+		]);
+		?>
+		<?= $form->error($checkoutModel, 'date') ?>
+	</div>
+	<div class="grid__item grid__item_xs-12 grid__item_s-auto grid__item_l-auto">
+		<?= CHtml::submitButton('Найти', ['id' => 'ajax-submit', 'class' => "btn"]) ?>
+	</div>
+</div>
 
 <div id="trip-id"></div>
 
