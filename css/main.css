@@ -979,3 +979,23 @@ table.addPointclass tr td {
 	top: -130px;
 	height: 350px;
 }
+
+#checkout-ticket-wrapper{
+	text-align: left;
+	margin-bottom: 30px;
+}
+
+#checkout-ticket-wrapper h2, #checkout-profiles-wrapper h2{
+	font-weight: bold;
+	margin-top: 10px;
+	text-align: left;
+}
+
+#profile-wrapper{
+	text-align: left;
+}
+
+#profile-wrapper h1{
+	font-size: 16px;
+	margin: 10px 0 10px;
+}

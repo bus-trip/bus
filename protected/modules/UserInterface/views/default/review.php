@@ -13,41 +13,44 @@ $profileLabels = $profile->attributeLabels();
 
 ?>
 <?php print $this->renderPartial('trip', compact('trip', 'prices'), true) ?>
-
 	<div id="checkout-profiles-wrapper">
 		<h2><?= count($saved[DefaultController::STEP_PROFILE]['profiles']) == 1 ? 'Билет' : 'Билеты' ?></h2>
-
-		<div id="profiles" class="clearfix">
+		<div class="grid">
 			<?php foreach ($saved[DefaultController::STEP_PROFILE]['profiles'] as $i => $profileItem) { ?>
-				<div class="profile-item">
-					<div class="row">
-						Номер места: <b><?= $saved[DefaultController::STEP_PLACE]['places'][$i] ?></b>
-					</div>
-					<div class="row">
-						Стоимость: <b><?= $prices[$saved[DefaultController::STEP_PLACE]['places'][$i]] ?> руб.</b>
-					</div>
-					<?php
-					foreach ($profileItem as $id => $item) {
-						if ($id == 'sex') {
-							switch ($item) {
-								case 'none':
-									$item = 'Не указано';
-									break;
-								case Profiles::SEX_MALE:
-									$item = 'Мужской';
-									break;
-								case Profiles::SEX_FEMALE:
-									$item = 'Женский';
-									break;
+				<div class="grid__item grid__item_xs-12 grid__item_s-6 grid__item_l-auto">
+					<table class="form-table form-table_ticket">
+						<tr>
+							<td class="form-table__name">Место</td>
+							<td><b>№<?= $saved[DefaultController::STEP_PLACE]['places'][$i] ?></b></td>
+						</tr>
+						<tr>
+							<td class="form-table__name">Стоимость</td>
+							<td><b><?= $prices[$saved[DefaultController::STEP_PLACE]['places'][$i]] ?></b> руб.</td>
+						</tr>
+						<?php
+						foreach ($profileItem as $id => $item) {
+							if ($id == 'sex') {
+								switch ($item) {
+									case 'none':
+										$item = 'Не указано';
+										break;
+									case Profiles::SEX_MALE:
+										$item = 'Мужской';
+										break;
+									case Profiles::SEX_FEMALE:
+										$item = 'Женский';
+										break;
+								}
+							} elseif ($id == 'doc_type') {
+								$item = Profiles::getDocType($item);
 							}
-						} elseif ($id == 'doc_type') {
-							$item = Profiles::getDocType($item);
-						}
-						?>
-						<div class="row">
-							<?php print $profileLabels[$id] . ': <b>' . $item . '</b>' ?>
-						</div>
-					<?php } ?>
+							?>
+							<tr>
+								<td class="form-table__name"><?= $profileLabels[$id] ?></td>
+								<td><?= $item ?></td>
+							</tr>
+						<?php } ?>
+					</table>
 				</div>
 			<?php } ?>
 		</div>
@@ -57,8 +60,12 @@ $profileLabels = $profile->attributeLabels();
 $form = $this->beginWidget('CActiveForm'); ?>
 
 <?= CHtml::activeHiddenField($checkoutModel, 'reviewStep') ?>
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Далее'); ?>
+	<div class="grid grid_jc-sb">
+		<div class="grid__item grid__item_xs-auto">
+			<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
+		</div>
+		<div class="grid__item grid__item_xs-auto">
+			<?php echo CHtml::submitButton('Оформить', ['class' => 'btn']); ?>
+		</div>
 	</div>
-
 <?php $this->endWidget(); ?>
