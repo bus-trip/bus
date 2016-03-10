@@ -34,36 +34,44 @@ JS
 /** @var $form CActiveForm */
 $form = $this->beginWidget('CActiveForm'); ?>
 
-<div id="checkout-profiles-wrapper">
-	<p class="note">Поля с <span class="required">*</span> являются обязательными.</p>
-
-	<div id="profiles" class="clearfix">
-		<?php foreach ($saved[DefaultController::STEP_PLACE]['places'] as $i => $place) {
-			$profileModel = $profileModels[$i];
-			?>
-			<div class="profile-item">
-				<div class="place">№ места: <?= $place ?></div>
-				<?php $this->renderPartial('UserInterface.views.profiles.item', compact('profileModel', 'i', 'userProfiles')) ?>
-			</div>
-		<?php } ?>
-	</div>
-
-	<div id="address">
-		<div class="address-item">
-			<div><?= $form->labelEx($checkoutModel, 'address_from') ?></div>
-			<div><?= $form->textArea($checkoutModel, 'address_from') ?></div>
-		</div>
-		<div class="address-item">
-			<div><?= $form->labelEx($checkoutModel, 'address_to') ?></div>
-			<div><?= $form->textArea($checkoutModel, 'address_to') ?></div>
-		</div>
-	</div>
-</div>
-
-
 <?= CHtml::activeHiddenField($checkoutModel, 'profileStep') ?>
-<div class="row buttons">
-	<?php echo CHtml::submitButton('Далее'); ?>
+<div id="checkout-profiles-wrapper">
+	<div id="profiles" class="clearfix">
+		<div class="grid">
+			<?php foreach ($saved[DefaultController::STEP_PLACE]['places'] as $i => $place) {
+				$profileModel = $profileModels[$i];
+				?>
+				<div class="profile-item grid__item grid__item_xs-12 grid__item_s-6 grid__item_l-auto">
+					<table class="form-table form-table_ticket">
+						<tr>
+							<td colspan="2">
+								<h3 class="title title_fz-s title_ta-r">Место №<?= $place ?></h3>
+							</td>
+						</tr>
+						<?php $this->renderPartial('UserInterface.views.profiles.item', compact('profileModel', 'i', 'userProfiles')) ?>
+					</table>
+				</div>
+			<?php } ?>
+		</div>
+	</div>
 </div>
+<div class="grid">
+	<div class="grid__item grid__item_xs-12">
+		<label>Посадка (адрес)</label>
+		<?= $form->textArea($checkoutModel, 'address_from', ['class' => "textarea"]) ?>
+	</div>
 
+	<div class="grid__item grid__item_xs-12">
+		<label>Высадка (адрес)</label>
+		<?= $form->textArea($checkoutModel, 'address_to', ['class' => "textarea"]) ?>
+	</div>
+</div>
+<div class="grid grid_jc-sb">
+	<div class="grid__item grid__item_xs-auto">
+		<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
+	</div>
+	<div class="grid__item grid__item_xs-auto">
+		<?php echo CHtml::submitButton('Продолжить', ['class' => 'btn']); ?>
+	</div>
+</div>
 <?php $this->endWidget(); ?>

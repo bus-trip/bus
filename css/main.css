@@ -536,12 +536,14 @@ body .ui-menu .ui-menu-item a {
 	/*width: 250px;*/
 	height: 320px;
 }
-
-#checkout-profiles-wrapper #profiles{
-    margin: 0 0 20px;
-    clear: both;
+#checkout-profiles-wrapper{
+	width: 100%;display: block;
 }
-#checkout-profiles-wrapper #profiles .profile-item{
+#checkout-profiles-wrapper #profiles{
+/*     margin: 0 0 20px; */
+/*     clear: both; */
+width: 100%;display: block;} 
+/* #checkout-profiles-wrapper #profiles .profile-item{
     width: 25%;
     float: left;
     box-sizing: border-box;
@@ -553,21 +555,21 @@ body .ui-menu .ui-menu-item a {
     padding-top: 20px;
     margin-bottom: 10px;
 }
-
-
+ */
+/* 
 #checkout-profiles-wrapper #profiles .profile-item:last-child{
 	border-right: 1px solid #ccc;
-}
+} */
 
-#checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap{
+/* #checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap{
 	margin: 0 12px 20px 0px;
 }
-
-#checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap select{
+ */
+/* #checkout-profiles-wrapper #profiles .profile-item .select-profile-wrap select{
 	width: 100%;
 }
-
-#checkout-profiles-wrapper #profiles .profile-item .del{
+ */
+/* #checkout-profiles-wrapper #profiles .profile-item .del{
 	margin: 10px 0 0;
     border-bottom: 1px dashed;
 
@@ -576,24 +578,24 @@ body .ui-menu .ui-menu-item a {
     cursor: pointer;
 	font-weight: bold;
 }
-
-#checkout-profiles-wrapper #profiles .profile-item .row{
+ */
+/* #checkout-profiles-wrapper #profiles .profile-item .row{
     margin: 0 0 10px;
 }
-
-#checkout-profiles-wrapper #profiles .profile-item .row .errorMessage{
+ */
+#checkout-profiles-wrapper #profiles .errorMessage{
     color: #F94444;
     font-size: 11px;
     margin: 4px 0 12px;
 }
-
+/* 
 #checkout-profiles-wrapper #profiles .profile-item .row label{
     width: 32%;
 
     display: inline-block;
-}
+} */
 
-#checkout-profiles-wrapper #profiles .profile-item .row .passport-input label{
+/* #checkout-profiles-wrapper #profiles .profile-item .row .passport-input label{
     width: 20%;
 }
 
@@ -619,7 +621,7 @@ body .ui-menu .ui-menu-item a {
     cursor: pointer;
     font-weight: bold;
 }
-
+ */
 .checkout-process{
     margin: 20px 0;
     background-color: #eee;

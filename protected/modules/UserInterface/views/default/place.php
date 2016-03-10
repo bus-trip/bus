@@ -48,11 +48,7 @@ $form = $this->beginWidget('CActiveForm'); ?>
 
 <div class="grid grid_jc-sb">
 	<div class="grid__item grid__item_xs-auto">
-		<?php if ($checkoutModel->scenario != 'find') { ?>
-			<div class="back">
-				<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
-			</div>
-		<?php } ?>
+		<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
 	</div>
 	<div class="grid__item grid__item_xs-auto">
 		<?php echo CHtml::submitButton('Продолжить', ['class' => 'btn']); ?>

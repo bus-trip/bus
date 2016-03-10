@@ -39,7 +39,7 @@ class DefaultController extends Controller
 			case self::STEP_PLACE:
 				return 'Выберите места';
 			case self::STEP_PROFILE:
-				return 'Профиль';
+				return 'Данные билетов';
 			case self::STEP_REVIEW:
 				return 'Проверка';
 			case self::STEP_PAYMENT:
