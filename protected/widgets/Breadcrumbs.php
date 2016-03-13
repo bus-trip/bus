@@ -6,6 +6,6 @@ class Breadcrumbs extends CBreadcrumbs
 {
 	public function init()
 	{
-		$this->homeLink = Chtml::link('Главная', '/');
+		$this->homeLink = CHtml::link('Главная', '/');
 	}
 }
