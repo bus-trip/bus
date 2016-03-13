@@ -77,32 +77,6 @@ $clientScript
 
 <div class="content-form">
 	<div class="content-form__layout">
-		<!-- mainmenu -->
-		<?php if (isset($this->breadcrumbs)): ?>
-			<?php $this->widget('application.widgets.Breadcrumbs', array(
-				'links' => $this->breadcrumbs,
-			)); ?><!-- breadcrumbs -->
-		<?php endif ?>
-		<?php if (Yii::app()->user->hasFlash('success')) { ?>
-			<div class="wrapper">
-				<div class="flash-success"><?php echo Yii::app()->user->getFlash('success'); ?></div>
-			</div>
-			<?php
-		}
-		if (Yii::app()->user->hasFlash('error')) {
-			?>
-			<div class="wrapper">
-				<div class="flash-error"><?php echo Yii::app()->user->getFlash('error'); ?></div>
-			</div>
-			<?php
-		}
-		if (Yii::app()->user->hasFlash('notice')) {
-			?>
-			<div class="wrapper">
-				<div class="flash-notice"><?php echo Yii::app()->user->getFlash('notice'); ?></div>
-			</div>
-		<?php } ?>
-
 		<?php echo $content; ?>
 	</div>
 </div>
