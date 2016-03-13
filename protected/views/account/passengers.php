@@ -13,8 +13,9 @@
 				   class="edit">Редактировать</a>
 				<?php /*
 				<a href="<?php print $this->createUrl('/account/passengers/delete/' . $profile->id); ?>"
-				   calss="remove">Удалить</a></div>
+				   calss="remove">Удалить</a>
  */ ?>
+			</div>
 			<div class="data">
 				<?php print $this->renderPartial('one_passenger_data', ['data' => $profile]); ?>
 			</div>
