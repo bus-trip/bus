@@ -8,18 +8,17 @@
  */
 
 $this->beginContent('//layouts/column1');
+$url = Yii::app()->request->url;
 ?>
 	<div id="profile-wrapper">
-		<ul id="tabs">
-			<li><a href="<?php echo $this->createUrl('/account'); ?>">Аккаунт</a></li>
-			<li><a href="<?php echo $this->createUrl('/account/edit'); ?>">Редактировать</a></li>
-			<li><a href="<?php echo $this->createUrl('/account/passengers'); ?>">Мои профили</a></li>
-			<li><a href="<?php echo $this->createUrl('/account/tickets'); ?>">Мои билеты</a></li>
+		<ul class="nav">
+			<?php foreach ([$this->createUrl('/account')            => 'Аккаунт',
+							$this->createUrl('/account/edit')       => 'Редактировать',
+							$this->createUrl('/account/passengers') => 'Мои профили',
+							$this->createUrl('/account/tickets')    => 'Мои билеты'] as $path => $item) {
+				print '<li><a href="' . $path . '" class="link' . ($path == $url ? ' link_active' : '') . '">' . $item . '</a></li>';
+			} ?>
 		</ul>
-		<h1><?php echo $this->pageTitle ?></h1>
-
-		<h2>Пользователь: <?php echo $this->user->login; ?></h2>
-
 		<?= $content ?>
 	</div>
 <?php $this->endContent();

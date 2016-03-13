@@ -6,7 +6,7 @@ class AccountController extends Controller
 	 * @var User
 	 */
 	public $user;
-	public $breadcrumbs = ['Аккаунт' => ['/account']];
+	public $breadcrumbs = null;
 
 	public function init()
 	{
@@ -25,7 +25,7 @@ class AccountController extends Controller
 	public function actionProfile()
 	{
 		$this->pageTitle   = 'Личный кабинет';
-		$this->breadcrumbs = ['Аккаунт'];
+//		$this->breadcrumbs = ['Аккаунт'];
 
 		$account = [
 			'values' => $this->user->attributes,
@@ -41,7 +41,7 @@ class AccountController extends Controller
 	public function actionEdit()
 	{
 		$this->pageTitle     = 'Редактирование аккаунта';
-		$this->breadcrumbs[] = 'Редактирование';
+//		$this->breadcrumbs[] = 'Редактирование';
 
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($this->user))) {
 			$this->user->setAttributes($attributes);
@@ -64,7 +64,7 @@ class AccountController extends Controller
 	public function actionPassengers()
 	{
 		$this->pageTitle     = 'Мои профили';
-		$this->breadcrumbs[] = 'Мои профили';
+//		$this->breadcrumbs[] = 'Мои профили';
 		$profiles            = [];
 		$userProfilesModels  = Profiles::model()
 									   ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
@@ -85,8 +85,8 @@ class AccountController extends Controller
 	public function actionPassengersAdd()
 	{
 		$this->pageTitle                  = 'Создание нового профиля';
-		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
-		$this->breadcrumbs[]              = 'Добавление профиля';
+//		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
+//		$this->breadcrumbs[]              = 'Добавление профиля';
 
 		$model = new Profiles();
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
@@ -134,8 +134,8 @@ class AccountController extends Controller
 	public function actionPassengersEdit($id)
 	{
 		$this->pageTitle                  = 'Редактирование профиля';
-		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
-		$this->breadcrumbs[]              = 'Редактирование профиля';
+//		$this->breadcrumbs['Мои профили'] = ['/account/passengers'];
+//		$this->breadcrumbs[]              = 'Редактирование профиля';
 
 		$model = $this->loadProfile($id);
 //		$model->birth = date('d.m.Y', $model->birth);
@@ -155,7 +155,7 @@ class AccountController extends Controller
 	public function actionTickets()
 	{
 		$this->pageTitle     = 'Мои билеты';
-		$this->breadcrumbs[] = 'Мои билеты';
+//		$this->breadcrumbs[] = 'Мои билеты';
 
 		$data    = Profiles::model()->with('tickets')
 						   ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],

@@ -332,6 +332,7 @@ html[xmlns] .clearfix {
 	border: 1px dotted;
 	margin: 10px 0;
 	padding: 10px;
+	width: 100%;
 }
 
 #passengers .item .name {

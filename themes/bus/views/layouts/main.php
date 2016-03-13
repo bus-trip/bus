@@ -46,6 +46,18 @@ $clientScript
 				<li><a href="#" class="link link_c-white">Акции</a></li>
 				<li><a href="#" class="link link_c-white">Контакты</a></li>
 			</ul>
+			<?php if (Yii::app()->user->name == 'admin') { ?>
+				<?php $this->widget('zii.widgets.CMenu', [
+					'items' => [
+						['label' => 'Рейсы на месяц', 'url' => ['/admin/index']],
+						['label' => 'Автобусы', 'url' => ['/buses/admin']],
+						['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
+						['label' => 'Направления', 'url' => ['/directions/admin']],
+						['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
+						['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
+					],
+				]); ?>
+			<?php } ?>
 		</div>
 		<div class="header__item">
 			<ul class="login-block">
@@ -62,48 +74,9 @@ $clientScript
 		</div>
 	</div>
 </div>
-<?php if (Yii::app()->user->name == 'admin') { ?>
-	<div id="mainmenu">
-		$this->widget('zii.widgets.CMenu', [
-		'items' => [
-		['label' => 'Рейсы на месяц', 'url' => ['/admin/index']],
-		['label' => 'Автобусы', 'url' => ['/buses/admin']],
-		['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
-		['label' => 'Направления', 'url' => ['/directions/admin']],
-		['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
-		['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
-		],
-		]);
-	</div>
-<?php } ?>
+
 <div class="content-form">
 	<div class="content-form__layout">
-		<!-- mainmenu -->
-		<?php if (isset($this->breadcrumbs)): ?>
-			<?php $this->widget('application.widgets.Breadcrumbs', array(
-				'links' => $this->breadcrumbs,
-			)); ?><!-- breadcrumbs -->
-		<?php endif ?>
-		<?php if (Yii::app()->user->hasFlash('success')) { ?>
-			<div class="wrapper">
-				<div class="flash-success"><?php echo Yii::app()->user->getFlash('success'); ?></div>
-			</div>
-			<?php
-		}
-		if (Yii::app()->user->hasFlash('error')) {
-			?>
-			<div class="wrapper">
-				<div class="flash-error"><?php echo Yii::app()->user->getFlash('error'); ?></div>
-			</div>
-			<?php
-		}
-		if (Yii::app()->user->hasFlash('notice')) {
-			?>
-			<div class="wrapper">
-				<div class="flash-notice"><?php echo Yii::app()->user->getFlash('notice'); ?></div>
-			</div>
-		<?php } ?>
-
 		<?php echo $content; ?>
 	</div>
 </div>

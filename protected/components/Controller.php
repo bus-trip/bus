@@ -40,4 +40,19 @@ class Controller extends CController
 	{
 		return Yii::app()->request->url == Yii::app()->params['frontPage']['user'];
 	}
+
+	public function init()
+	{
+		if (Yii::app()->user->name == 'admin'){
+			Yii::app()->theme = 'classic';
+		}
+
+		if(isset(Yii::app()->controller->module) && Yii::app()->controller->module->id == 'UserInterface'){
+			Yii::app()->theme = 'bus';
+		}
+
+
+
+		parent::init();
+	}
 }

@@ -20,26 +20,26 @@
 
 		<div class="row">
 			<?php echo $form->labelEx($model, 'pass'); ?>
-			<?php echo $form->passwordField($model, 'pass'); ?>
+			<?php echo $form->passwordField($model, 'pass', ['class'=>"input-text"]); ?>
 			<?php echo $form->error($model, 'pass'); ?>
 		</div>
 
 		<div class="row">
 			<?php echo $form->labelEx($model, 'pass2'); ?>
-			<?php echo $form->passwordField($model, 'pass2'); ?>
+			<?php echo $form->passwordField($model, 'pass2', ['class'=>"input-text"]); ?>
 			<?php echo $form->error($model, 'pass2'); ?>
 		</div>
 
 	</fieldset>
 	<div class="row">
 		<?php echo $form->labelEx($model, 'mail'); ?>
-		<?php echo $form->textField($model, 'mail'); ?>
+		<?php echo $form->textField($model, 'mail', ['class'=>"input-text"]); ?>
 		<?php echo $form->error($model, 'mail'); ?>
 	</div>
 
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Сохранить'); ?>
+		<?php echo CHtml::submitButton('Сохранить', ['class'=>"btn"]); ?>
 	</div>
 
 	<?php $this->endWidget(); ?>
