@@ -641,3 +641,7 @@ MIN-WIDTH: 1200px
 input[type="radio"] { -webkit-appearance: radio; }
 input[type="checkbox"] { -webkit-appearance: checkbox; }
 div.form label{margin-bottom: 0;}
+
+.war-error{
+  color: red;
+}

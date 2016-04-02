@@ -80,7 +80,7 @@ $form = $this->beginWidget('CActiveForm', [
 					$.each(data.errors, function (id, value) {
 						var el = $("[name='<?=CHtml::modelName($checkoutModel) ?>[" + id + "]']");
 						el.addClass('el-error');
-						el.after('<div class="war-error">' + value + '</div>');
+						el.parents('.grid__item').append('<div class="war-error">' + value + '</div>');
 					});
 				}
 
