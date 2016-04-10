@@ -25,11 +25,16 @@ $form = $this->beginWidget('CActiveForm'); ?>
 	</div>
 	<?php $places = array_chunk($places, 8, true); ?>
 	<div class="grid__item grid__item_xs-12 grid__item_s-auto">
-		<?= $form->checkBoxList($checkoutModel, 'places', $places[0], [
+		<?
+		$list1 = $form->checkBoxList($checkoutModel, 'places', $places[0], [
 			'class'     => 'input-checkbox',
 			'separator' => '',
 			'template'  => '<div class="input-container">{input} {label}</div>',
-		]) ?>
+		]);
+
+		print preg_replace('#(id="[^"]*)"([^>]*)(value=")([^"]*)("[^<]*<label for=")([^"]*)"#iUs', '$1_$4"$2$3$4$5$6_$4"', $list1);
+
+		?>
 	</div>
 	<?php if (isset($places[1])) { ?>
 		<div class="grid__item grid__item_xs-12 grid__item_s-auto">
