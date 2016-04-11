@@ -35,8 +35,8 @@ class UserController extends Controller
 			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
-				$wizerd = $this->read();
-				if (isset($wizerd['find'])) {
+				$wizard = $this->read();
+				if (isset($wizard['find'])) {
 					$url = $this->createUrl('/UserInterface/default/index/step/place');
 				} else {
 					$url = $this->createUrl('/site/index');
@@ -71,8 +71,8 @@ class UserController extends Controller
 				$this->password   = $attributes['pass'];
 				$this->rememberMe = $model->rememberMe;
 				if ($this->login()) {
-					$wizerd = $this->read();
-					if (isset($wizerd['find'])) {
+					$wizard = $this->read();
+					if (isset($wizard['find'])) {
 						$url = $this->createUrl('/UserInterface/default/index/step/place');
 					} else {
 						$url = $this->createUrl('/site/index');

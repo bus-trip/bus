@@ -7,4 +7,4 @@
  */
 
 
-$this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved', 'trip', 'points', 'selPoints', 'places', 'prices', 'back')); ?>
+$this->renderPartial($checkoutModel->scenario, compact('checkoutModel', 'profileModels', 'userProfiles', 'saved', 'trip', 'points', 'selPoints', 'places', 'prices', 'invoice', 'back')); ?>

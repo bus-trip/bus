@@ -54,6 +54,17 @@ return array(
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<profileId:\d+>'       => 'trips/createticket',
 			),
 		),
+		'robokassa'  => [
+			'class'          => 'application.components.Robokassa',
+			'sMerchantLogin' => 'bus.webjails.ru',
+			'sMerchantPass1' => 'F20wqziXYNpzp9TR28vn',
+			'sMerchantPass2' => 'Pe7dSx8SLE46bbnvmUR0',
+			'sCulture'       => 'ru',
+			'sIncCurrLabel'  => '',
+			'orderModel'     => 'Invoice', // ваша модель для выставления счетов
+			'priceField'     => 'amount', // атрибут модели, где хранится сумма
+			'isTest'         => true, // тестовый либо боевой режим работы
+		],
 		/*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',

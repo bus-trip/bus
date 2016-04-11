@@ -8,6 +8,7 @@ namespace UserInterface\components;
 
 use CMenu;
 use Controller as MainController;
+use Robokassa;
 use Yii;
 
 class Controller extends MainController
@@ -68,6 +69,10 @@ class Controller extends MainController
 		$this->getOwner()->_menu->items = $items;
 	}
 
+	public function robokassa()
+	{
+		return isset(Yii::app()->robokassa) && Yii::app()->robokassa instanceof Robokassa;
+	}
 //	public function init()
 //	{
 //		parent::init();

@@ -65,7 +65,12 @@ $form = $this->beginWidget('CActiveForm'); ?>
 			<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
 		</div>
 		<div class="grid__item grid__item_xs-auto">
-			<?php echo CHtml::submitButton('Оформить', ['class' => 'btn']); ?>
+			<?php
+			$label = 'Оформить';
+			if ($this->robokassa()) {
+				$label = 'Оплатить';
+			}
+			echo CHtml::submitButton($label, ['class' => 'btn']); ?>
 		</div>
 	</div>
 <?php $this->endWidget(); ?>

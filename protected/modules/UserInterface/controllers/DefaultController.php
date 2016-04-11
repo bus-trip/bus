@@ -13,10 +13,12 @@ use CHtml;
 use CJavaScript;
 use Directions;
 use Dirpoints;
+use Invoice;
 use Profiles;
 use TempReserve;
 use Tickets;
 use Trips;
+use User;
 use UserInterface\components\Controller;
 use UserInterface\models\Checkout;
 use WizardBehavior;
@@ -141,14 +143,18 @@ class DefaultController extends Controller
 
 	public function behaviors()
 	{
+		$steps = [self::STEP_FIND,
+				  self::STEP_PLACE,
+				  self::STEP_PROFILE,
+				  self::STEP_REVIEW,
+		];
+		if ($this->robokassa()) {
+			array_push($steps, self::STEP_PAYMENT);
+		}
 		return [
 			'wizard' => [
 				'class'       => 'ext.Wizard.WizardBehavior',
-				'steps'       => [self::STEP_FIND,
-								  self::STEP_PLACE,
-								  self::STEP_PROFILE,
-								  self::STEP_REVIEW,
-				],
+				'steps'       => $steps,
 				'autoAdvance' => false,
 				'finishedUrl' => '/UserInterface/default/complete',
 			]
@@ -182,6 +188,7 @@ class DefaultController extends Controller
 		$points        = ['' => '- Выберите -'];
 		$trip          = false;
 		$checkoutModel = new Checkout($event->getStep());
+		$invoice       = false;
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($checkoutModel))) {
 			$checkoutModel->setAttributes($attributes);
 			switch ($event->getStep()) {
@@ -230,66 +237,96 @@ class DefaultController extends Controller
 			}
 		}
 
-		if ($event->getStep() == self::STEP_FIND) {
-			$query               = Dirpoints::model()->findAll();
-			$checkoutModel->date = date("d.m.Y");
-			foreach ($query as $q) {
-				if ($q->direction->status != DIRTRIP_CANCELED) {
-					$points[$q->name] = $q->name;
+		switch ($event->getStep()) {
+			case self::STEP_FIND:
+				$query               = Dirpoints::model()->findAll();
+				$checkoutModel->date = date("d.m.Y");
+				foreach ($query as $q) {
+					if ($q->direction->status != DIRTRIP_CANCELED) {
+						$points[$q->name] = $q->name;
+					}
 				}
-			}
-			ksort($points);
-		} elseif ($event->getStep() == self::STEP_PLACE) {
-			if (Yii::app()->user->isGuest)
-				$this->redirect($this->createUrl('/user/login'));
+				ksort($points);
 
-			$savedData            = $this->read();
-			$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
-			$direction            = Directions::model()->findByPk($savedData[self::STEP_FIND]['directionId']);
-			$places               = $trip ? self::getAvailablePlaces($trip, $direction) : [];
-			$checkoutModel->plane = $trip->idBus0->plane;
-			if (isset($_SESSION['temp_reserve'][$trip->id . "|" . $savedData[self::STEP_FIND]['directionId']]) &&
-				!empty($savedData[self::STEP_PLACE]['places'])
-			) {
-				$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
-			}
-		} elseif ($event->getStep() == self::STEP_PROFILE) {
-			$savedDataProfile = $this->read(self::STEP_PROFILE);
-			$savedDataPlaces  = $this->read(self::STEP_PLACE);
+				break;
+			case self::STEP_PLACE:
+				if (Yii::app()->user->isGuest)
+					$this->redirect($this->createUrl('/user/login'));
 
-			foreach ($savedDataPlaces['places'] as $num) {
-				$profileModels[] = new Profiles();
-			}
-
-			$userProfilesModels = Profiles::model()
-										  ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
-																['order' => 'created DESC']);
-			foreach ($userProfilesModels as $p) {
-				$key                = md5($p->doc_type . '::' . $p->doc_num . '::' . $p->last_name . '::' . $p->black_list);
-				$userProfiles[$key] = $p;
-			}
-
-			if (!empty($savedDataProfile['profiles'])) {
-				foreach ($savedDataProfile['profiles'] as $i => $item) {
-					$profileModel = new Profiles();
-					$profileModel->setAttributes($item);
-					$profileModels[$i] = $profileModel;
+				$savedData            = $this->read();
+				$trip                 = Trips::model()->with('idBus0')->findByPk($savedData[self::STEP_FIND]['tripId']);
+				$direction            = Directions::model()->findByPk($savedData[self::STEP_FIND]['directionId']);
+				$places               = $trip ? self::getAvailablePlaces($trip, $direction) : [];
+				$checkoutModel->plane = $trip->idBus0->plane;
+				if (isset($_SESSION['temp_reserve'][$trip->id . "|" . $savedData[self::STEP_FIND]['directionId']]) &&
+					!empty($savedData[self::STEP_PLACE]['places'])
+				) {
+					$checkoutModel->places = $savedData[self::STEP_PLACE]['places'];
 				}
-			}
-		} elseif ($event->getStep() == self::STEP_REVIEW) {
-			$savedData = $this->read();
-			$trip      = Trips::model()->with('idBus0', 'idDirection0')
-							  ->findByPk($savedData[self::STEP_FIND]['tripId']);
 
-			$savedDataDirection = $this->read(self::STEP_FIND);
-			$selDir             = Directions::model()->findByPk($savedDataDirection['directionId']);
-			$savedDataPlaces    = $this->read(self::STEP_PLACE);
-			$savedDataProfile   = $this->read(self::STEP_PROFILE);
-			foreach ($savedDataPlaces['places'] as $i => $num) {
-				/** @var \DiscountsController $discount */
-				list($discount) = Yii::app()->createController('discounts');
-				$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $selDir->price);
-			}
+				break;
+			case self::STEP_PROFILE:
+				$savedDataProfile = $this->read(self::STEP_PROFILE);
+				$savedDataPlaces  = $this->read(self::STEP_PLACE);
+
+				foreach ($savedDataPlaces['places'] as $num) {
+					$profileModels[] = new Profiles();
+				}
+
+				$userProfilesModels = Profiles::model()
+											  ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
+																	['order' => 'created DESC']);
+				foreach ($userProfilesModels as $p) {
+					$key                = md5($p->doc_type . '::' . $p->doc_num . '::' . $p->last_name . '::' . $p->black_list);
+					$userProfiles[$key] = $p;
+				}
+
+				if (!empty($savedDataProfile['profiles'])) {
+					foreach ($savedDataProfile['profiles'] as $i => $item) {
+						$profileModel = new Profiles();
+						$profileModel->setAttributes($item);
+						$profileModels[$i] = $profileModel;
+					}
+				}
+
+				break;
+			case self::STEP_REVIEW:
+				$savedData = $this->read();
+				$trip      = Trips::model()->with('idBus0', 'idDirection0')
+								  ->findByPk($savedData[self::STEP_FIND]['tripId']);
+
+				$savedDataDirection = $this->read(self::STEP_FIND);
+				$selDir             = Directions::model()->findByPk($savedDataDirection['directionId']);
+				$savedDataPlaces    = $this->read(self::STEP_PLACE);
+				$savedDataProfile   = $this->read(self::STEP_PROFILE);
+				foreach ($savedDataPlaces['places'] as $i => $num) {
+					/** @var \DiscountsController $discount */
+					list($discount) = Yii::app()->createController('discounts');
+					$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $selDir->price);
+				}
+
+				break;
+			case self::STEP_PAYMENT:
+				$invoice              = new Invoice();
+				$invoice->amount      = 2000;
+				$invoice->user_id     = Yii::app()->user->id;
+				$invoice->description = 'оплата посадочных мест №1,2 на рейс Элиста-Москва 12.04.2016';
+
+				if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($invoice))) {
+					$invoice->created_at = new CDbExpression('NOW()');
+					if ($invoice->save()) {
+						$user = User::model()->findByPk(Yii::app()->user->id);
+						// Компонент переадресует пользователя в свой интерфейс оплаты
+						Yii::app()->robokassa->pay(
+							$invoice->amount,
+							$invoice->id,
+							$invoice->description,
+							$user->mail
+						);
+					}
+				}
+
+				break;
 		}
 
 		if (!$event->handled) {
@@ -301,6 +338,7 @@ class DefaultController extends Controller
 									 'points'        => $points,
 									 'places'        => $places,
 									 'prices'        => $prices,
+									 'invoice'       => $invoice,
 									 'back'          => $this->backButton(),
 									 'saved'         => $this->read()]);
 		}
