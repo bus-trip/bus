@@ -4,7 +4,7 @@
  * Part of bus 2016
  * Created by: Alexander Sumarokov on 12.04.2016:2:10
  */
-class Payment extends Controller
+class PaymentController extends Controller
 {
 	public function actionResult() {
 		$rc = Yii::app()->robokassa;
@@ -36,7 +36,7 @@ class Payment extends Controller
 	}
 
 	/*
-		Сюда из робокассы редиректится пользователь 
+		Сюда из робокассы редиректится пользователь
 		в случае отказа от оплаты счета.
 	*/
 	public function actionFailure() {
@@ -48,9 +48,9 @@ class Payment extends Controller
 	}
 
 	/*
-		Сюда из робокассы редиректится пользователь в случае успешного проведения 
-		платежа. Обратите внимание, что на этот момент робокасса возможно еще 
-		не обратилась к методу actionResult() и нам неизвестно, поступили средства 
+		Сюда из робокассы редиректится пользователь в случае успешного проведения
+		платежа. Обратите внимание, что на этот момент робокасса возможно еще
+		не обратилась к методу actionResult() и нам неизвестно, поступили средства
 		на счет или нет.
 	*/
 	public function actionSuccess() {

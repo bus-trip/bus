@@ -8,6 +8,7 @@ namespace UserInterface\controllers;
 
 use CArrayDataProvider;
 use CDbCriteria;
+use CDbExpression;
 use CException;
 use CHtml;
 use CJavaScript;
