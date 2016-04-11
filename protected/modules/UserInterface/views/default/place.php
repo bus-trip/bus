@@ -25,7 +25,7 @@ $form = $this->beginWidget('CActiveForm'); ?>
 	</div>
 	<?php $places = array_chunk($places, 8, true); ?>
 	<div class="grid__item grid__item_xs-12 grid__item_s-auto">
-		<?
+		<?php
 		$list1 = $form->checkBoxList($checkoutModel, 'places', $places[0], [
 			'class'     => 'input-checkbox',
 			'separator' => '',
