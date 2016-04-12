@@ -6,15 +6,16 @@
  */
 class PaymentController extends Controller
 {
-	public function actionResult() {
+	public function actionResult()
+	{
 		$rc = Yii::app()->robokassa;
 
 		// Коллбэк для события "оплата произведена"
-		$rc->onSuccess = function($event){
+		$rc->onSuccess = function ($event) {
 			$transaction = Yii::app()->db->beginTransaction();
 			// Отмечаем время оплаты счета
-			$InvId = Yii::app()->request->getParam('InvId');
-			$invoice = Invoice::model()->findByPk($InvId);
+			$InvId            = Yii::app()->request->getParam('InvId');
+			$invoice          = Invoice::model()->findByPk($InvId);
 			$invoice->paid_at = new CDbExpression('NOW()');
 			if (!$invoice->save()) {
 				$transaction->rollback();
@@ -25,7 +26,7 @@ class PaymentController extends Controller
 		};
 
 		// Коллбэк для события "отказ от оплаты"
-		$rc->onFail = function($event){
+		$rc->onFail = function ($event) {
 			// Например, удаляем счет из базы
 			$InvId = Yii::app()->request->getParam('InvId');
 			Invoice::model()->findByPk($InvId)->delete();
@@ -39,12 +40,13 @@ class PaymentController extends Controller
 		Сюда из робокассы редиректится пользователь
 		в случае отказа от оплаты счета.
 	*/
-	public function actionFailure() {
+	public function actionFailure()
+	{
 		Yii::app()->user->setFlash('global', 'Отказ от оплаты. Если вы столкнулись 
             с трудностями при внесении средств на счет, свяжитесь 
             с нашей технической поддержкой.');
 
-		$this->redirect(['index']);
+		$this->redirect(['UserInterface/default/index/step/payment']);
 	}
 
 	/*
@@ -53,14 +55,15 @@ class PaymentController extends Controller
 		не обратилась к методу actionResult() и нам неизвестно, поступили средства
 		на счет или нет.
 	*/
-	public function actionSuccess() {
-		$InvId = Yii::app()->request->getParam('InvId');
+	public function actionSuccess()
+	{
+		$InvId   = Yii::app()->request->getParam('InvId');
 		$invoice = Invoice::model()->findByPk($InvId);
 		if ($invoice) {
 			if ($invoice->paid_at) {
 				// Если робокасса уже сообщила ранее, что платеж успешно принят
 				Yii::app()->user->setFlash('global',
-										   'Средства зачислены на ваш личный счет. Спасибо.');
+										   'Оплата прошла успешно.');
 			} else {
 				// Если робокасса еще не отзвонилась
 				Yii::app()->user->setFlash('global', 'Ваш платеж принят. Средства 
@@ -69,6 +72,6 @@ class PaymentController extends Controller
 			}
 		}
 
-		$this->redirect(['index']);
+		$this->redirect(['UserInterface/default/index/step/payment']);
 	}
 }

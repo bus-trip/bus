@@ -308,11 +308,27 @@ class DefaultController extends Controller
 
 				break;
 			case self::STEP_PAYMENT:
-				$invoice              = new Invoice();
+				if (isset($_SESSION['temp_reserve'])) {
+					$criteria = new CDbCriteria();
+					$criteria->addCondition('ticket_ids=:ticket_ids');
+					$criteria->params = [':ticket_ids' => serialize($_SESSION['temp_reserve'])];
+					$invoices         = Invoice::model()->findAll($criteria);
+					if ($invoices) {
+						$invoice = reset($invoices);
+						if ($invoice && $invoice->paid_at !== null) {
+							$this->finished(true);
+						}
+					}
+				}
+
+				if ($invoice === false) {
+					$invoice = new Invoice();
+				}
+
 				$invoice->amount      = 2000;
 				$invoice->user_id     = Yii::app()->user->id;
 				$invoice->description = 'оплата посадочных мест №1,2 на рейс Элиста-Москва 12.04.2016';
-
+				$invoice->ticket_ids  = serialize($_SESSION['temp_reserve']);
 				if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($invoice))) {
 					$invoice->created_at = new CDbExpression('NOW()');
 					if ($invoice->save()) {
@@ -356,7 +372,20 @@ class DefaultController extends Controller
 		$address_to   = $event->data[self::STEP_PROFILE]['address_to'];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
-			$this->createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to);
+			$status = Tickets::STATUS_RESERVED;
+			if (isset($_SESSION['temp_reserve'])) {
+				$criteria = new CDbCriteria();
+				$criteria->addCondition('ticket_ids=:ticket_ids');
+				$criteria->params = [':ticket_ids' => serialize($_SESSION['temp_reserve'])];
+				$invoices         = Invoice::model()->findAll($criteria);
+				if ($invoices) {
+					$invoice = reset($invoices);
+					if ($invoice && $invoice->paid_at !== null) {
+						$status = Tickets::STATUS_CONFIRMED;
+					}
+				}
+			}
+			$this->createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to, $status);
 		}
 		$event->sender->reset();
 	}
@@ -383,7 +412,7 @@ class DefaultController extends Controller
 	 *
 	 * @return bool
 	 */
-	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to)
+	public function createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to, $status)
 	{
 		$tempReserve = TempReserve::model()
 								  ->findAllByAttributes(['tripId' => $tripId, 'placeId' => $placeId, 'directionId' => $directionId]);
@@ -393,7 +422,7 @@ class DefaultController extends Controller
 			$profile->setAttributes($profileData);
 			if ($profile->validate()) {
 				$ticket               = new Tickets();
-				$ticket->status       = Tickets::STATUS_RESERVED;
+				$ticket->status       = $status;
 				$ticket->idTrip       = $tripId;
 				$ticket->idDirection  = $directionId;
 				$ticket->place        = $placeId;

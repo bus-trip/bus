@@ -12,7 +12,7 @@ class Invoice extends CActiveRecord {
 
 	public function rules() {
 		return [
-			['user_id, amount, description', 'required'],
+			['user_id, amount, description, ticket_ids', 'required'],
 			['description, created_at, paid_at', 'length', 'max'=>200],
 		];
 	}
