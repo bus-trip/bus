@@ -324,10 +324,19 @@ class DefaultController extends Controller
 				if ($invoice === false) {
 					$invoice = new Invoice();
 				}
+				$savedDataDirection = $this->read(self::STEP_FIND);
+				$selDir             = Directions::model()->findByPk($savedDataDirection['directionId']);
+				$savedDataPlaces    = $this->read(self::STEP_PLACE);
+				$savedDataProfile   = $this->read(self::STEP_PROFILE);
+				foreach ($savedDataPlaces['places'] as $i => $num) {
+					/** @var \DiscountsController $discount */
+					list($discount) = Yii::app()->createController('discounts');
+					$prices[$num] = $discount->getDiscountAmount($savedDataProfile['profiles'][$i]['birth'], $num, $selDir->price);
+				}
 
-				$invoice->amount      = 2000;
+				$invoice->amount      = array_sum($prices);
 				$invoice->user_id     = Yii::app()->user->id;
-				$invoice->description = 'оплата посадочных мест №1,2 на рейс Элиста-Москва 12.04.2016';
+				$invoice->description = 'оплата посадочных мест №' . implode(',', array_keys($prices)) . ' на рейс ' . $savedDataDirection['pointFrom'] . '-' . $savedDataDirection['pointTo'] . ' ' . $savedDataDirection['date'];
 				$invoice->ticket_ids  = serialize($_SESSION['temp_reserve']);
 				if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($invoice))) {
 					$invoice->created_at = new CDbExpression('NOW()');
@@ -372,7 +381,7 @@ class DefaultController extends Controller
 		$address_to   = $event->data[self::STEP_PROFILE]['address_to'];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
-			$status = Tickets::STATUS_RESERVED;
+			$status      = Tickets::STATUS_RESERVED;
 			if (isset($_SESSION['temp_reserve'])) {
 				$criteria = new CDbCriteria();
 				$criteria->addCondition('ticket_ids=:ticket_ids');
