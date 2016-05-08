@@ -6,15 +6,15 @@ if (isset($error)) {
 	);
 	echo $error;
 
-	return false;
+	return FALSE;
 }
 
-$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'P', 'cm', 'A4', true, 'UTF-8');
+$pdf = Yii::createComponent('application.extensions.tcpdf.ETcPdf', 'P', 'cm', 'A4', TRUE, 'UTF-8');
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor("Trips operator");
 $pdf->SetTitle("Ticket");
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
+$pdf->setPrintHeader(FALSE);
+$pdf->setPrintFooter(FALSE);
 $pdf->AddPage();
 $pdf->SetFont("dejavuserif", "", 7);
 
@@ -62,8 +62,8 @@ $pdfTicket = '
 						</tr>
 						<tr>
 							<td style="border: 1px solid #000000">' . $profile->name . ' ' . $profile->middle_name . ' ' . $profile->last_name . '</td>
-							<td style="border: 1px solid #000000">Паспорт</td>
-							<td style="border: 1px solid #000000">' . Profiles::getDocType($profile->doc_type) . ': ' . $profile->doc_num . '</td>
+							<td style="border: 1px solid #000000">' . Profiles::getDocType($profile->doc_type) . '</td>
+							<td style="border: 1px solid #000000">' . $profile->doc_num . '</td>
 							<td style="border: 1px solid #000000">' . $ticket->place . '</td>
 							<td style="border: 1px solid #000000">' . $ticket->price . '</td>
 						</tr>
@@ -94,7 +94,7 @@ $pdfTicket = '
 					</div>
 					<div style="width: 100%; height: 60px; font-size: 24px; font-weight: bold; color: red; background-color: #ffffff;">Спринт - тур</div>
 				';
-$pdf->writeHTML($pdfTicket, true, true, false, false, '');
+$pdf->writeHTML($pdfTicket, TRUE, TRUE, FALSE, FALSE, '');
 ob_end_clean();
 $pdf->Output("ticket-" . $ticket->id . ".pdf", "I");
 ?>
