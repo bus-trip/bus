@@ -1,18 +1,25 @@
 <div class="item-profile form">
 
+	<p/>
+	<p/>
+	<?php
+		print CHtml::link("Вернуться к ведомости", ["/trips/sheet/" . $tripId]);
+	?>
+	<p/>
+
 	<?php $form = $this->beginWidget('CActiveForm', [
 		'id'                   => 'admin-ticket-form',
 		// Please note: When you enable ajax validation, make sure the corresponding
 		// controller action is handling ajax validation correctly.
 		// See class documentation of CActiveForm for details on this,
 		// you need to use the performAjaxValidation()-method described there.
-		'enableAjaxValidation' => false,
+		'enableAjaxValidation' => FALSE,
 	]); ?>
 
 	<fieldset>
 		<label>Профиль пассажира</label>
 
-		<?php $this->renderPartial('profile_form', ['form' => $form, 'model' => $profile, 'edit_bl' => true]); ?>
+		<?php $this->renderPartial('profile_form', ['form' => $form, 'model' => $profile, 'edit_bl' => TRUE]); ?>
 	</fieldset>
 
 

@@ -105,7 +105,7 @@ jQuery.expr[':'].regex = function (elem, index, match) {
 		validLabels = /^(data|css):/,
 		attr = {
 			method: matchParams[0].match(validLabels) ?
-			        matchParams[0].split(':')[0] : 'attr',
+				matchParams[0].split(':')[0] : 'attr',
 			property: matchParams.shift().replace(validLabels, '')
 		},
 		regexFlags = 'ig',
@@ -142,29 +142,32 @@ $(function () {
 				$('body').append('<div id="overlay-loading"><div id="loader"></div></div>');
 			}
 		}).done(function (data) {
-			var i = 0;
-			self.parents('tr').find('td').each(function (e, j) {
-				var index = $(this).index();
-				if (index != 0 && data.inputs[i] != undefined) {
-					$(this).html(data.inputs[i]);
-					i++;
-				}
-			});
+			if (data.notplace != undefined) {
+				alert(data.notplace);
+			} else {
+				var i = 0;
+				self.parents('tr').find('td').each(function (e, j) {
+					var index = $(this).index();
+					if (index != 0 && data.inputs[i] != undefined) {
+						$(this).html(data.inputs[i]);
+						i++;
+					}
+				});
 
-			var last_col = self.parents('tr').find('td.button-column');
-			last_col.find('a').hide();
-			var op = (self.hasClass('create-ticket')) ? 'add' : 'up';
-			last_col.append('<div class="save-line" data-tripid="' + tripId + '" data-directionid="' + directionId + '" data-placeid="' + placeId + '" data-op="' + op + '">Сохранить</div><div class="cancel-line" data-tripid="' + tripId + '" data-directionid="' + directionId + '" data-placeid="' + placeId + '">Отменить</div>');
-			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl + '" name="Profiles\[black_list\]" />');
-			last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl_desc + '" name="Profiles\[black_desc\]" />');
+				var last_col = self.parents('tr').find('td.button-column');
+				last_col.find('a').hide();
+				var op = (self.hasClass('create-ticket')) ? 'add' : 'up';
+				last_col.append('<div class="save-line" data-tripid="' + tripId + '" data-directionid="' + directionId + '" data-placeid="' + placeId + '" data-op="' + op + '">Сохранить</div><div class="cancel-line" data-tripid="' + tripId + '" data-directionid="' + directionId + '" data-placeid="' + placeId + '">Отменить</div>');
+				last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl + '" name="Profiles\[black_list\]" />');
+				last_col.append('<input class="autocomplete" type="hidden" value="' + data.black_list.in_bl_desc + '" name="Profiles\[black_desc\]" />');
 
-			self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
-			self.parents('tr').find('input[name="Profiles\[birth\]"]').mask("99.99.9999");
+				self.parents('tr').find('input[name="Profiles\[phone\]"]').mask("+9 (999) 999-9999");
+				self.parents('tr').find('input[name="Profiles\[birth\]"]').mask("99.99.9999");
 
-			self.parents('tr').show();
+				self.parents('tr').show();
 
-			autocompleteInit();
-
+				autocompleteInit();
+			}
 			$('#overlay-loading').remove();
 		});
 	});
@@ -183,8 +186,8 @@ $(function () {
 				newLine += '<td>' + placeId + '</td>';
 			} else if (i == (tr.find('td').length - 1)) {
 				newLine += '<td class="button-column">' +
-				           '<a id="part-ticket" class="create-ticket" data-tripid="' + tripId + '" title="Создать билет" href="/trips/sheet/' + tripId + '/' + placeId + '">' +
-				           '<img src="/images/add1.png" alt="Создать билет"></a><br><br></td>';
+				'<a id="part-ticket" class="create-ticket" data-tripid="' + tripId + '" title="Создать билет" href="/trips/sheet/' + tripId + '/' + placeId + '">' +
+				'<img src="/images/add1.png" alt="Создать билет"></a><br><br></td>';
 			} else {
 				newLine += '<td></td>';
 			}

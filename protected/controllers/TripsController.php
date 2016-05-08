@@ -359,6 +359,11 @@ class TripsController extends Controller
 			]
 		);
 
+		$trip = Trips::model()->findByPk($id);
+		$tripDir = Directions::model()->findByPk($trip->idDirection);
+		$direction['startPoint'] = $tripDir->startPoint;
+		$direction['endPoint'] = $tripDir->endPoint;
+
 		$this->render(
 			'sheet',
 			[
@@ -860,21 +865,54 @@ class TripsController extends Controller
 			$options .= '>' . $name . '</option>';
 		}
 
-		$trip = Trips::model()->findByPk($tripId);
-		$directions = Directions::model()
-								->findAll(['condition' => 'parentId=' . $trip->idDirection . ' and status!=' . DIRTRIP_CANCELED]);
-		$dirOptions = '<option value="0">Выберите участок</option>';
-		$dirHiddens = '';
-		$direction = '';
-		foreach ($directions as $d) {
-			$dirOptions .= '<option value=' . $d->id;
-			if ($d->id == $ticket->idDirection) {
-				$dirOptions .= ' selected="selected"';
-				$direction = $d->startPoint . " - " . $d->endPoint;
-			}
-			$dirOptions .= '>' . $d->startPoint . " - " . $d->endPoint . '</option>';
-			$dirHiddens .= '<input type="hidden" id="price' . $d->id . '" value="' . $d->price . '">';
+		// Поиск подходящих участков на выбранное место.
+		list($dirpoints) = Yii::app()->createController('dirpoints');
+
+		$directions = Directions::model()->findAll(['condition' => 'parentId="' . $parentDir->id . '"']);
+		$takenTickets = Tickets::model()
+							   ->findAll(['condition' => 'place=' . $placeId . ' and idTrip=' . $tripId . ' and status!=' . Tickets::STATUS_CANCELED]);
+		$allPoints = $dirpoints->getDirpoints($parentDir->id);
+		$takenDirs = [];
+		foreach ($takenTickets as $t) {
+			$direction = Directions::model()->findByPk($t->idDirection);
+			$sPoint = array_keys($allPoints, $direction["startPoint"]);
+			$ePoint = array_keys($allPoints, $direction["endtPoint"]);
+			array_push($takenDirs, $sPoint[0] . ' - ' . $ePoint[0]);
 		}
+
+//		$takenDirs = [];
+//		foreach ($takenTickets as $t) {
+//			$direction = Directions::model()->findByPk($t->idDirection);
+//			array_push($takenDirs, ['startPoint' => $direction->startPoint, 'endPoint' => $direction->endPoint]);
+//		}
+//
+//		$dirOptions = '<option value="0">Выберите участок</option>';
+//		$dirHiddens = '';
+//		$direction = '';
+//		foreach ($directions as $d) {
+//			$crossState = FALSE;
+//			if ($d->id == $ticket->idDirection) $direction = $d->startPoint . " - " . $d->endPoint;
+//			foreach ($takenDirs as $t) {
+//				$crossState = $dirpoints->checkCrossDirs([$d->startPoint, $d->endPoint], [$t['startPoint'], $t['endPoint']], $parentDir->id);
+//				if ($crossState) break;
+//			}
+//			if (!$crossState) {
+//				$dirOptions .= '<option value=' . $d->id;
+//				if ($d->id == $ticket->idDirection) {
+//					$dirOptions .= ' selected="selected"';
+//				}
+//				$dirOptions .= '>' . $d->startPoint . " - " . $d->endPoint . '</option>';
+//				$dirHiddens .= '<input type="hidden" id="price' . $d->id . '" value="' . $d->price . '">';
+//			}
+//		}
+
+		// Проверка на наличие доступных участков
+//		if (count($takenDirs) == count($directions) && empty($_POST['data'])) {
+		$this->layout = FALSE;
+		header('Content-type: application/json');
+		echo CJavaScript::jsonEncode(['notplace' => 'На место №' . $ticket->place . ' нет свободных участков.' . print_r($takenDirs, TRUE) . print_r($allPoints, TRUE)]);
+		Yii::app()->end();
+//		}
 
 		$inputs = [
 			'<input class="autocomplete" type="hidden"  name="Profiles[id]" value="' . (!empty($ticket->profiles) ? $profile->id : '') . '"/>' .
@@ -898,7 +936,7 @@ class TripsController extends Controller
 
 		$birth = '';
 		if (!empty($ticket->profiles)) {
-			if (strpos($profile->birth, '.') !== false) {
+			if (strpos($profile->birth, '.') !== FALSE) {
 				$birth = $profile->birth;
 			} else {
 				$birth = date('d.m.Y', $profile->birth);
