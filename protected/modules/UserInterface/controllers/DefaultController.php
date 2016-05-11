@@ -410,11 +410,12 @@ class DefaultController extends Controller
 				}
 			}
 		}
-		$body = Yii::app()->getController()->renderPartial('application.views.mail.create_ticket', [
-			'user'  => Yii::app()->getUser()->login,
+		$currentUser = User::model()->findByPk(Yii::app()->getUser()->id);
+		$body        = Yii::app()->getController()->renderPartial('application.views.mail.create_ticket', [
+			'user'  => $currentUser->login,
 			'links' => $links,
 		], true);
-		UserController::mail(Yii::app()->getUser()->mail, 'Бронирование билетов', $body);
+		UserController::mail($currentUser->mail, 'Бронирование билетов', $body);
 		$event->sender->reset();
 	}
 
