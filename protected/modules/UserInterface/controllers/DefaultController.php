@@ -466,7 +466,8 @@ class DefaultController extends Controller
 					TempReserve::model()
 							   ->deleteAllByAttributes(['tripId' => $tripId, 'directionId' => $directionId, 'placeId' => $placeId]);
 
-					return $ticket->save();
+					$ticket->save();
+					return $ticket;
 				}
 			}
 			if (isset($_SESSION['temp_reserve'][$tripId . "|" . $directionId])) {
