@@ -68,7 +68,7 @@ class PdfmakeController extends Controller
 		);
 	}
 
-	public function actionTicket($profileId)
+	public static function printPDF($profileId)
 	{
 		if (($Profile = Profiles::model()->findByPk($profileId))) {
 			$Profile->created = date('d.m.Y', strtotime($Profile->created));
@@ -84,19 +84,23 @@ class PdfmakeController extends Controller
 						$Trip->arrival   = date('d.m.Y H:i', strtotime($Trip->arrival));
 					}
 
-					$this->render(
-						'ticket',
-						array(
-							'profile'   => $Profile,
-							'ticket'    => $Ticket,
-							'bus'       => $Bus,
-							'direction' => $Direction,
-							'trip'      => $Trip
-						)
+					Yii::app()->getController()->render('application.views.pdfmake.ticket',
+														['profile'   => $Profile,
+														 'ticket'    => $Ticket,
+														 'bus'       => $Bus,
+														 'direction' => $Direction,
+														 'trip'      => $Trip
+														]
 					);
+					Yii::app()->end();
 				}
 			}
 		}
+	}
+
+	public function actionTicket($profileId)
+	{
+		self::printPDF($profileId);
 
 		$this->render(
 			'ticket',
