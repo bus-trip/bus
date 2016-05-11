@@ -18,8 +18,10 @@ use Invoice;
 use Profiles;
 use TempReserve;
 use Tickets;
+use Token;
 use Trips;
 use User;
+use UserController;
 use UserInterface\components\Controller;
 use UserInterface\models\Checkout;
 use WizardBehavior;
@@ -379,6 +381,7 @@ class DefaultController extends Controller
 		$directionId  = $event->data[self::STEP_FIND]['directionId'];
 		$address_from = $event->data[self::STEP_PROFILE]['address_from'];
 		$address_to   = $event->data[self::STEP_PROFILE]['address_to'];
+		$links        = [];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
 			$status      = Tickets::STATUS_RESERVED;
@@ -394,8 +397,24 @@ class DefaultController extends Controller
 					}
 				}
 			}
-			$this->createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to, $status);
+			/**
+			 * @var Tickets $ticket
+			 */
+			$ticket = $this->createOrder($tripId, $directionId, $placeId, $profileData, $address_from, $address_to, $status);
+			if ($ticket instanceof Tickets) {
+				$token            = new Token();
+				$token->ticket_id = $ticket->id;
+				$token->token     = md5(time() . $ticket->id);
+				if ($token->save()) {
+					$links[] = $this->createAbsoluteUrl('tickets/print', ['token' => $token->token]);
+				}
+			}
 		}
+		$body = Yii::app()->getController()->renderPartial('application.views.mail.create_ticket', [
+			'user'  => Yii::app()->getUser()->login,
+			'links' => $links,
+		], true);
+		UserController::mail(Yii::app()->getUser()->mail, 'Бронирование билетов', $body);
 		$event->sender->reset();
 	}
 

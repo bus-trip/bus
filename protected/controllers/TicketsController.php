@@ -28,7 +28,7 @@ class TicketsController extends Controller
 	{
 		return [
 			['allow',  // allow all users to perform 'index' and 'view' actions
-			 'actions' => ['index', 'view'],
+			 'actions' => ['index', 'view', 'print'],
 			 'users'   => ['*'],
 			],
 			['allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -144,7 +144,7 @@ class TicketsController extends Controller
 	 */
 	public function actionConfirm($id)
 	{
-		$model = $this->loadModel($id);
+		$model         = $this->loadModel($id);
 		$model->status = 2;
 
 		if ($model->save())
@@ -170,7 +170,7 @@ class TicketsController extends Controller
 				break;
 			case 'del':
 				$Profile->black_list = 0;
-				$Profile->black_desc = NULL;
+				$Profile->black_desc = null;
 				if ($Profile->validate()) $Profile->save();
 				$this->redirect(array('trips/sheet/' . $id));
 				break;
@@ -229,13 +229,15 @@ class TicketsController extends Controller
 
 		$sameProfiles = $this->getSameProfiles($profile);
 		foreach ($sameProfiles as $itemProfile) {
-			$criteria_tickets = new CDbCriteria();
+			$criteria_tickets            = new CDbCriteria();
 			$criteria_tickets->condition = 't.id=:id';
-			$criteria_tickets->params = array(':id' => $itemProfile->tid);
-			$ticketObj = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
-								->find($criteria_tickets);
+			$criteria_tickets->params    = array(':id' => $itemProfile->tid);
+			$ticketObj                   = Tickets::model()->with(['idTrip0', 'idDirection0' => 'idTrip0'])
+												  ->find($criteria_tickets);
 			if ($ticketObj) {
-				if($directionObj = Directions::model()->findByPk($ticketObj->idDirection)) $dir_part = $directionObj->startPoint . '-' . $directionObj->endPoint;
+				if ($directionObj = Directions::model()
+											  ->findByPk($ticketObj->idDirection)
+				) $dir_part = $directionObj->startPoint . '-' . $directionObj->endPoint;
 				else $dir_part = '';
 				$tickets[] = array(
 					'id'           => $ticketObj->id,
@@ -304,8 +306,8 @@ class TicketsController extends Controller
 
 	function actionPassengers()
 	{
-		$this->layout = '//layouts/column1';
-		$this->pageTitle = 'Все пассажиры';
+		$this->layout      = '//layouts/column1';
+		$this->pageTitle   = 'Все пассажиры';
 		$this->breadcrumbs = array($this->pageTitle);
 
 		$model = new Profiles('search');
@@ -328,7 +330,7 @@ class TicketsController extends Controller
 	public function loadModel($id)
 	{
 		$model = Tickets::model()->findByPk($id);
-		if ($model === NULL)
+		if ($model === null)
 			throw new CHttpException(404, 'The requested page does not exist.');
 
 		return $model;
@@ -345,5 +347,25 @@ class TicketsController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+
+	public function actionPrint($token = null)
+	{
+		if ($token === null)
+			Yii::app()->end();
+
+		/**
+		 * @var Token $tokenModel
+		 */
+		$tokenModel = Token::model()->findByAttributes(['token' => $token]);
+		if (!$tokenModel)
+			Yii::app()->end();
+
+		/**
+		 * @var Tickets $tickets
+		 */
+		$tickets = Tickets::model()->findByPk($tokenModel->ticket_id);
+		Yii::import('application.controllers.PdfmakeController');
+		PdfmakeController::printPDF($tickets->profiles[0]->id);
 	}
 }
