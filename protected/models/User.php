@@ -134,6 +134,13 @@ class User extends CActiveRecord
 	{
 		if ($this->isNewRecord) {
 			$user_e = User::model()->find('LOWER(login)=?', array(strtolower($this->login)));
+
+			$body = Yii::app()->getController()->renderPartial('application.views.mail.new_user', [
+				'user' => $this->login
+			], true);
+			Yii::import('application.controllers.UserController');
+			UserController::mail($this->mail, 'Создание аккаунта', $body);
+
 			if ($user_e !== null) {
 				$this->addError('login', 'Логин занят');
 
