@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "users".
  *
@@ -119,6 +118,12 @@ class User extends CActiveRecord
 		if (parent::beforeSave()) {
 			if ($this->pass == $this->pass2) {
 				$this->pass = md5('spyderman2' . $this->pass);
+
+				$body = Yii::app()->getController()->renderPartial('application.views.mail.change_pass', [
+					'user' => $this->login
+				], true);
+				Yii::import('application.controllers.UserController');
+				UserController::mail($this->mail, 'Изменение пароля', $body);
 			}
 		}
 
