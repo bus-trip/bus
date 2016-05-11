@@ -406,7 +406,7 @@ class DefaultController extends Controller
 				$token->ticket_id = $ticket->id;
 				$token->token     = md5(time() . $ticket->id);
 				if ($token->save()) {
-					$links[] = $this->createAbsoluteUrl('tickets/print', ['token' => $token->token]);
+					$links[] = $this->createAbsoluteUrl('/tickets/print', ['token' => $token->token]);
 				}
 			}
 		}
