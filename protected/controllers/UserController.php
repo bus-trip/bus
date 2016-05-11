@@ -101,7 +101,7 @@ class UserController extends Controller
 				), true);
 
 				if ($userRecover->user->mail) {
-					$this->mail($userRecover->user->mail, 'Восстановление пароля', $body);
+					self::mail($userRecover->user->mail, 'Восстановление пароля', $body);
 					$mess = 'Инструкции по восстановлению пароля направлены на эл.адрес';
 					if ($attributes['login'] == $userRecover->user->mail) {
 						$mess .= ' <b>' . $userRecover->user->mail . '</b>';
@@ -114,7 +114,7 @@ class UserController extends Controller
 		$this->render('recover', ['model' => $userRecover]);
 	}
 
-	public function mail($to, $title, $body)
+	public static function mail($to, $title, $body)
 	{
 		$mail = new YiiMailer();
 		$mail->setView('common');
