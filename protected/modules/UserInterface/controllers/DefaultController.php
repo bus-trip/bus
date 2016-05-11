@@ -415,6 +415,7 @@ class DefaultController extends Controller
 			'user'  => $currentUser->login,
 			'links' => $links,
 		], true);
+		Yii::import('application.controllers.UserController');
 		UserController::mail($currentUser->mail, 'Бронирование билетов', $body);
 		$event->sender->reset();
 	}
