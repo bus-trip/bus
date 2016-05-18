@@ -425,8 +425,8 @@ class TripsController extends Controller
 		$pdf->AddPage();
 
 		$tbl = '<h2>Рейс ' . $direction['startPoint'] . ' - ' . $direction['endPoint'] . '</h2><br/>';
-		$tbl .= 'Отправление: ' . $trips['departure'] . '&nbsp;&nbsp;&nbsp;&nbsp;';
-		$tbl .= 'Прибытие: ' . $trips['arrival'] . '&nbsp;&nbsp;&nbsp;&nbsp;Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
+		$tbl .= 'Отправление: ' . date('d.m.Y H:i', strtotime($trips['departure'])) . '&nbsp;&nbsp;&nbsp;&nbsp;';
+		$tbl .= 'Прибытие: ' . date('d.m.Y H:i', strtotime($trips['arrival'])) . '&nbsp;&nbsp;&nbsp;&nbsp;Автобус: ' . $bus['model'] . ', номер ' . $bus['number'] . '<br/><br/>';
 		$tbl .= '<table width="950px" cellpadding="2" style="border:1px solid #000000; padding: 8px;">
                     <tbody>
                     <tr bgcolor="#cccccc">

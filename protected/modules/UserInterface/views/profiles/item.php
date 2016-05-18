@@ -93,10 +93,16 @@
 				'attribute'   => '[' . $i . ']birth',
 				'language'    => 'ru',
 				'options'     => [
-					'altFormat' => 'd.m.Y',
+					'showAnim'    => 'fadeIn',//'slide','fold','slideDown','fadeIn','blind','bounce','clip','drop'
+					'changeMonth' => TRUE,
+					'changeYear'  => TRUE,
+					'yearRange'   => (date('Y') - 100) . ':' . date('Y'),
+					'altFormat'   => 'd.m.Y',
+					'maxDate'     => date('d.m.Y'),
 				],
 				'htmlOptions' => [
-					'class' => 'input-text  input-text_fz-s'
+					'class'    => 'input-text  input-text_fz-s',
+					'readonly' => 'readonly'
 				]
 			]) ?>
 			<?php echo CHtml::error($profileModel, '[' . $i . ']birth'); ?>

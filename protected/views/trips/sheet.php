@@ -30,8 +30,8 @@ $_SESSION['trip_id'] = $dataHeader["trips"]["id"];
 	<h2>Посадочная ведомость</h2>
 	Направление: <?php echo $dataHeader['direction']['startPoint'] . ' - ' . $dataHeader['direction']['endPoint']; ?>
 	<br/>
-	Отправление: <?php echo $dataHeader['trips']['departure']; ?>
-	&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo $dataHeader['trips']['arrival']; ?>
+	Отправление: <?php echo date('d.m.Y H:i', strtotime($dataHeader['trips']['departure'])); ?>
+	&nbsp;&nbsp;&nbsp;&nbsp;Прибытие: <?php echo date('d.m.Y H:i', strtotime($dataHeader['trips']['arrival'])); ?>
 	<br/>
 	Автобус: <?php echo $dataHeader['bus']['model'] . ', номер ' . $dataHeader['bus']['number']; ?>
 	&nbsp;&nbsp;
