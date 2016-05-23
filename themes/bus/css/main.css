@@ -611,7 +611,9 @@ MIN-WIDTH: 1200px
     padding: 2rem 4rem 2rem;
     box-sizing: border-box;
     width: auto;
-    display: inline-block; }
+    display: inline-block;
+    text-align: left;
+  }
 
 .logo {
   display: inline-block; }
@@ -644,4 +646,14 @@ div.form label{margin-bottom: 0;}
 
 .war-error{
   color: red;
+}
+
+.jq-selectbox__select-text{
+  display: inline;
+}
+
+.jq-selectbox__select{
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
 }
