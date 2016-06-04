@@ -25,12 +25,13 @@
  */
 class Profiles extends CActiveRecord
 {
-	const DOC_PASSPORT          = 1;
+	const DOC_PASSPORT 			= 1;
 	const DOC_BIRTH_CERTIFICATE = 2;
-	const DOC_FOREIGN_PASSPORT  = 3;
-	const DOC_MILITARY_ID       = 4;
-	const SEX_MALE              = 1;
-	const SEX_FEMALE            = 0;
+	const DOC_FOREIGN_PASSPORT 	= 3;
+	const DOC_MILITARY_ID 		= 4;
+	const DOC_OTHER_PASSPORT 	= 5;
+	const SEX_MALE 				= 1;
+	const SEX_FEMALE 			= 0;
 
 	/**
 	 * @return string the associated database table name
@@ -49,7 +50,7 @@ class Profiles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('last_name, name, middle_name, doc_num, doc_type, phone, birth', 'required'),
-			array('uid, tid, sex, birth, black_list, doc_type, birth', 'numerical', 'integerOnly' => true),
+			array('uid, tid, sex, birth, black_list, doc_type, birth', 'numerical', 'integerOnly' => TRUE),
 			array('last_name, name, middle_name, black_desc', 'length', 'max' => 255),
 			array('doc_num', 'length', 'max' => 64),
 			array('phone', 'length', 'max' => 17),
@@ -69,7 +70,7 @@ class Profiles extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'tickets' => array(self::BELONGS_TO, 'Tickets', 'tid'),
-			'u' => array(self::BELONGS_TO, 'User', 'uid'),
+			'u'       => array(self::BELONGS_TO, 'User', 'uid'),
 		);
 	}
 
@@ -107,6 +108,8 @@ class Profiles extends CActiveRecord
 				return 'Загран паспорт';
 			case self::DOC_MILITARY_ID:
 				return 'Военный билет';
+			case self::DOC_OTHER_PASSPORT:
+				return 'Паспорт другой страны';
 			default:
 				return '';
 		}
@@ -132,6 +135,7 @@ class Profiles extends CActiveRecord
 				$this->sex = self::SEX_FEMALE;
 				break;
 		}
+
 		return parent::beforeValidate();
 	}
 
@@ -156,17 +160,17 @@ class Profiles extends CActiveRecord
 		$criteria->compare('id', $this->id);
 		$criteria->compare('uid', $this->uid);
 		$criteria->compare('tid', $this->tid);
-		$criteria->compare('last_name', $this->last_name, true);
-		$criteria->compare('name', $this->name, true);
-		$criteria->compare('middle_name', $this->middle_name, true);
+		$criteria->compare('last_name', $this->last_name, TRUE);
+		$criteria->compare('name', $this->name, TRUE);
+		$criteria->compare('middle_name', $this->middle_name, TRUE);
 		$criteria->compare('doc_num', $this->doc_num);
 		$criteria->compare('doc_type', $this->doc_type);
-		$criteria->compare('phone', $this->phone, true);
+		$criteria->compare('phone', $this->phone, TRUE);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('black_desc', $this->black_desc);
-		$criteria->compare('created', $this->created, true);
+		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
 			'criteria' => $criteria,
@@ -186,10 +190,10 @@ class Profiles extends CActiveRecord
 		return parent::model($className);
 	}
 
-	public function validate($attributes = null, $clearErrors = true)
+	public function validate($attributes = NULL, $clearErrors = TRUE)
 	{
 		if ($this->sex === 'none') {
-			$this->sex = null;
+			$this->sex = NULL;
 		}
 
 		if (preg_match('#\.#', $this->birth)) {
@@ -202,26 +206,26 @@ class Profiles extends CActiveRecord
 	protected function beforeSave()
 	{
 		if (parent::beforeSave()) {
-			if ($this->birth == ''){
-				$this->birth = null;
+			if ($this->birth == '') {
+				$this->birth = NULL;
 			}
 
-			$this->name      = mb_ucfirst($this->name);
+			$this->name = mb_ucfirst($this->name);
 			$this->last_name = mb_ucfirst($this->last_name);
 			if ($this->middle_name)
 				$this->middle_name = mb_ucfirst($this->middle_name);
 		}
 
-		return true;
+		return TRUE;
 	}
 
 	public function afterSave()
 	{
 		// сохраняем значение черного листа всем профилям с одной фамилией и с одним номером паспорта
-		$criteria            = new CDbCriteria;
+		$criteria = new CDbCriteria;
 		$criteria->condition = 'doc_type=:doc_type AND doc_num=:doc_num AND last_name=:last_name';
-		$criteria->params    = array(':doc_type' => $this->doc_type, ':doc_num' => $this->doc_num, ':last_name' => $this->last_name);
-		$Profiles            = Profiles::model()->findAll($criteria);
+		$criteria->params = array(':doc_type' => $this->doc_type, ':doc_num' => $this->doc_num, ':last_name' => $this->last_name);
+		$Profiles = Profiles::model()->findAll($criteria);
 		if (!empty($Profiles)) {
 			foreach ($Profiles as $profile) {
 				if ($profile->black_list != $this->black_list) {
@@ -240,7 +244,7 @@ class Profiles extends CActiveRecord
 		if ($this->birth)
 			$this->birth = date('d.m.Y', $this->birth);
 
-		if ($this->sex !== null) {
+		if ($this->sex !== NULL) {
 			switch ($this->sex) {
 				case self::SEX_MALE:
 					$this->sex = 'Мужской';
@@ -266,23 +270,23 @@ class Profiles extends CActiveRecord
 
 	public function searchWithGroupBy($fields)
 	{
-		$criteria        = new CDbCriteria;
+		$criteria = new CDbCriteria;
 		$criteria->group = implode(', ', $fields);
 
 		$criteria->compare('id', $this->id);
 		$criteria->compare('uid', $this->uid);
 		$criteria->compare('tid', $this->tid);
-		$criteria->compare('last_name', $this->last_name, true);
-		$criteria->compare('name', $this->name, true);
-		$criteria->compare('middle_name', $this->middle_name, true);
+		$criteria->compare('last_name', $this->last_name, TRUE);
+		$criteria->compare('name', $this->name, TRUE);
+		$criteria->compare('middle_name', $this->middle_name, TRUE);
 		$criteria->compare('doc_num', $this->doc_num);
 		$criteria->compare('doc_type', $this->doc_type);
-		$criteria->compare('phone', $this->phone, true);
+		$criteria->compare('phone', $this->phone, TRUE);
 		$criteria->compare('sex', $this->sex);
 		$criteria->compare('birth', $this->birth);
 		$criteria->compare('black_list', $this->black_list);
 		$criteria->compare('black_desc', $this->black_desc);
-		$criteria->compare('created', $this->created, true);
+		$criteria->compare('created', $this->created, TRUE);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'   => $criteria,

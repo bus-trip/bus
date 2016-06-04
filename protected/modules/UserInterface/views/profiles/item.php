@@ -52,18 +52,19 @@
 <tr>
 	<td class="form-table__name"><?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']doc_type'); ?></td>
 	<td>
-		<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт',
+		<?php echo CHtml::activeDropDownList($profileModel, '[' . $i . ']doc_type', [Profiles::DOC_PASSPORT          => 'Паспорт РФ',
 																					 Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
 																					 Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
-																					 Profiles::DOC_MILITARY_ID       => 'Военный билет'],
-											 ['class' => "select select_fz-s", 'data-placeholder' => "Выберите"]); ?>
+																					 Profiles::DOC_MILITARY_ID       => 'Военный билет',
+																					 Profiles::DOC_OTHER_PASSPORT    => 'Паспорт другой страны'],
+											 ['class' => "select select_fz-s", 'data-placeholder' => "Выберите", 'onChange' => 'setDocNumMask(this)']); ?>
 		<?php echo CHtml::error($profileModel, '[' . $i . ']doc_type'); ?>
 	</td>
 </tr>
 <tr>
 	<td class="form-table__name"><?php echo CHtml::activeLabelEx($profileModel, '[' . $i . ']doc_num'); ?></td>
 	<td>
-		<?php echo CHtml::activeTextField($profileModel, '[' . $i . ']doc_num', ['class' => "input-text input-text_fz-s"]); ?>
+		<?php echo CHtml::activeTextField($profileModel, '[' . $i . ']doc_num', ['class' => "doc_num input-text input-text_fz-s"]); ?>
 		<?php echo CHtml::error($profileModel, '[' . $i . ']doc_num'); ?>
 	</td>
 </tr>

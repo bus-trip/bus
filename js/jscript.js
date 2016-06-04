@@ -105,12 +105,22 @@ jQuery.expr[':'].regex = function (elem, index, match) {
 		validLabels = /^(data|css):/,
 		attr = {
 			method: matchParams[0].match(validLabels) ?
-			        matchParams[0].split(':')[0] : 'attr',
+				matchParams[0].split(':')[0] : 'attr',
 			property: matchParams.shift().replace(validLabels, '')
 		},
 		regexFlags = 'ig',
 		regex = new RegExp(matchParams.join('').replace(/^\s+|\s+$/g, ''), regexFlags);
 	return regex.test(jQuery(elem)[attr.method](attr.property));
+}
+
+
+function setDocNumMask(elem) {
+	maskedElemId = elem.id.replace('doc_type', 'doc_num');
+	if (elem.value == 1) {
+		$('#' + maskedElemId).mask("9999 999999");
+	} else {
+		$('#' + maskedElemId).unmask();
+	}
 }
 
 $(function () {
@@ -123,6 +133,7 @@ $(function () {
 
 	$('.code, .number').on('keyup', phonekey);
 	$('.phone').mask("+9 (999) 999-9999");
+	$('.doc_num').mask("9999 9999");
 
 
 	$('.create-ticket, .edit-ticket').live('click', function (e) {
@@ -183,8 +194,8 @@ $(function () {
 				newLine += '<td>' + placeId + '</td>';
 			} else if (i == (tr.find('td').length - 1)) {
 				newLine += '<td class="button-column">' +
-				           '<a id="part-ticket" class="create-ticket" data-tripid="' + tripId + '" title="Создать билет" href="/trips/sheet/' + tripId + '/' + placeId + '">' +
-				           '<img src="/images/add1.png" alt="Создать билет"></a><br><br></td>';
+					'<a id="part-ticket" class="create-ticket" data-tripid="' + tripId + '" title="Создать билет" href="/trips/sheet/' + tripId + '/' + placeId + '">' +
+					'<img src="/images/add1.png" alt="Создать билет"></a><br><br></td>';
 			} else {
 				newLine += '<td></td>';
 			}

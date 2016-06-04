@@ -847,10 +847,11 @@ class TripsController extends Controller
 		}
 
 		$options = '';
-		foreach ([Profiles::DOC_PASSPORT          => 'Паспорт',
+		foreach ([Profiles::DOC_PASSPORT          => 'Паспорт РФ',
 				  Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
 				  Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
-				  Profiles::DOC_MILITARY_ID       => 'Военный билет'
+				  Profiles::DOC_MILITARY_ID       => 'Военный билет',
+				  Profiles::DOC_OTHER_PASSPORT    => 'Паспорт другой страны'
 				 ] as $value => $name) {
 
 			$options .= '<option value="' . $value . '"';
@@ -898,7 +899,7 @@ class TripsController extends Controller
 
 		$birth = '';
 		if (!empty($ticket->profiles)) {
-			if (strpos($profile->birth, '.') !== false) {
+			if (strpos($profile->birth, '.') !== FALSE) {
 				$birth = $profile->birth;
 			} else {
 				$birth = date('d.m.Y', $profile->birth);
