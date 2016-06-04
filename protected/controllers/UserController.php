@@ -1,6 +1,7 @@
 <?php
 
 use UserInterface\controllers\DefaultController;
+use UserInterface\models\Checkout;
 
 class UserController extends Controller
 {
@@ -31,11 +32,12 @@ class UserController extends Controller
 	{
 		$this->pageTitle = 'Авторизация';
 		$model           = new LoginForm();
+		$wizard          = $this->read();
+
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
-				$wizard = $this->read();
 				if (isset($wizard['find'])) {
 					$url = $this->createUrl('/UserInterface/default/index/step/place');
 				} else {
@@ -44,8 +46,24 @@ class UserController extends Controller
 				$this->redirect($url);
 			}
 		}
+
+		$vars = ['model' => $model];
+
+		if (isset($wizard['find'])) {
+			$vars['wizard_bus']['schema'] = false;
+
+			$savedData = $this->read();
+			$trip      = Trips::model()->with('idBus0')->findByPk($savedData[DefaultController::STEP_FIND]['tripId']);
+			$direction = Directions::model()->findByPk($savedData[DefaultController::STEP_FIND]['directionId']);
+
+			$vars['wizard_bus']['places'] = $trip ? DefaultController::getAvailablePlaces($trip, $direction) : [];
+			if ($trip->idBus0->plane) {
+				$vars['wizard_bus']['schema'] = Yii::app()->baseUrl . "/" . Buses::UPLOAD_DIR . "/" . $trip->idBus0->plane;
+			}
+		}
+
 		// display the login form
-		$this->render('login', array('model' => $model));
+		$this->render('login', $vars);
 	}
 
 	/**
