@@ -571,8 +571,8 @@ class DefaultController extends Controller
 								'trip'        => $checkoutModel->pointFrom . ' - ' . $checkoutModel->pointTo,
 								'direction'   => $parent->startPoint . ' - ' . $parent->endPoint,
 								'directionId' => $d['id'],
-								'departure'   => $t->attributes['departure'],
-								'arrival'     => $t->attributes['arrival'],
+								'departure'   => date("d.m.Y H:m", strtotime($t->attributes['departure'])),
+								'arrival'     => date("d.m.Y H:m", strtotime($t->attributes['arrival'])),
 								'price'       => $d['price'],
 								'places'      => $freePlaces
 							];
