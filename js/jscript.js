@@ -133,7 +133,7 @@ $(function () {
 
 	$('.code, .number').on('keyup', phonekey);
 	$('.phone').mask("+9 (999) 999-9999");
-	$('.doc_num').mask("9999 9999");
+	$('.doc_num').mask("9999 999999");
 
 
 	$('.create-ticket, .edit-ticket').live('click', function (e) {
