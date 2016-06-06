@@ -25,7 +25,7 @@
 	<hr/>
 	<div class="ticketId">
 		<div>
-			Билет №<?php echo $ticketId; ?>
+			Посадочный талон №<?php echo $ticketId; ?>
 		</div>
 	</div>
 	<div class="ticketInfo">
