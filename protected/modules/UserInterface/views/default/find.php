@@ -11,18 +11,21 @@
 
 $form = $this->beginWidget('CActiveForm', [
 	'id'                   => 'searchtrip-form',
-	'enableAjaxValidation' => false,
+	'enableAjaxValidation' => FALSE,
 ]); ?>
 
 <div class="grid grid_jc-c">
 	<?php echo $form->errorSummary($checkoutModel); ?>
 	<?= $form->error($checkoutModel, 'pointFrom') ?>
 	<?= $form->error($checkoutModel, 'pointTo') ?>
+	<!--	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">-->
+	<!--		--><? //= $form->dropDownList($checkoutModel, 'pointFrom', $points, ['class' => "select", 'data-placeholder' => "Откуда"]) ?>
+	<!--	</div>-->
+	<!--	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">-->
+	<!--		--><? //= $form->dropDownList($checkoutModel, 'pointTo', $points, ['class' => "select", 'data-placeholder' => "Куда"]) ?>
+	<!--	</div>-->
 	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
-		<?= $form->dropDownList($checkoutModel, 'pointFrom', $points, ['class' => "select", 'data-placeholder' => "Откуда"]) ?>
-	</div>
-	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
-		<?= $form->dropDownList($checkoutModel, 'pointTo', $points, ['class' => "select", 'data-placeholder' => "Куда"]) ?>
+		<?= $form->dropDownList($checkoutModel, 'direction', $points, ['class' => "select", 'data-placeholder' => "Направление"]) ?>
 	</div>
 	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
 		<?php
@@ -34,8 +37,8 @@ $form = $this->beginWidget('CActiveForm', [
 			'value'       => $checkoutModel->date,
 			'options'     => [
 				'dateFormat'  => 'dd.mm.yy',
-				'changeMonth' => true,
-				'changeYear'  => true,
+				'changeMonth' => TRUE,
+				'changeYear'  => TRUE,
 				'minDate'     => 0,
 			],
 			'language'    => 'ru',

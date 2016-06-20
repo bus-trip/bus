@@ -20,12 +20,13 @@ class Checkout extends CFormModel
 	public $directionId;
 	public $pointFrom;
 	public $pointTo;
+	public $direction;
 	public $date;
 	public $profiles;
 	public $profileStep = 1;
 	public $places;
-	public $placesStep  = 1;
-	public $reviewStep  = 1;
+	public $placesStep = 1;
+	public $reviewStep = 1;
 	public $address_from;
 	public $address_to;
 	public $plane;
@@ -33,8 +34,9 @@ class Checkout extends CFormModel
 	public function attributeLabels()
 	{
 		return [
-			'pointFrom'    => 'Откуда',
-			'pointTo'      => 'Куда',
+			'direction'    => 'Направление',
+			//			'pointFrom'    => 'Откуда',
+			//			'pointTo'      => 'Куда',
 			'date'         => 'Отправление',
 			'places'       => 'Место',
 			'address_from' => 'Посадка (адрес)',
@@ -45,7 +47,8 @@ class Checkout extends CFormModel
 	public function rules()
 	{
 		return [
-			['pointFrom, pointTo', 'required', 'on' => DefaultController::STEP_FIND],
+			['direction', 'required', 'on' => DefaultController::STEP_FIND],
+//			['pointFrom, pointTo', 'required', 'on' => DefaultController::STEP_FIND],
 			['tripId, directionId, date', 'safe', 'on' => DefaultController::STEP_FIND],
 			['profileStep, profiles', 'required', 'on' => DefaultController::STEP_PROFILE],
 			['profileStep', 'in', 'range' => [1], 'on' => DefaultController::STEP_PROFILE],
@@ -64,12 +67,13 @@ class Checkout extends CFormModel
 	{
 		if (empty($this->places)) {
 			$this->addError($attribute, 'Необходимо выбрать места');
+
 			return;
 		}
 
-		$trip   = Trips::model()->with('idBus0')->findByPk($this->tripId);
+		$trip = Trips::model()->with('idBus0')->findByPk($this->tripId);
 		$direction = Directions::model()->findByPk($this->directionId);
-		$places = $trip ? DefaultController::getAvailablePlaces($trip, $direction, true) : [];
+		$places = $trip ? DefaultController::getAvailablePlaces($trip, $direction, TRUE) : [];
 		foreach ($this->places as $place) {
 			if (!isset($places[$place]))
 				$this->addError($attribute, $place);
