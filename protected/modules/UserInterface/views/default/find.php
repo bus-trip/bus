@@ -18,12 +18,6 @@ $form = $this->beginWidget('CActiveForm', [
 	<?php echo $form->errorSummary($checkoutModel); ?>
 	<?= $form->error($checkoutModel, 'pointFrom') ?>
 	<?= $form->error($checkoutModel, 'pointTo') ?>
-	<!--	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">-->
-	<!--		--><? //= $form->dropDownList($checkoutModel, 'pointFrom', $points, ['class' => "select", 'data-placeholder' => "Откуда"]) ?>
-	<!--	</div>-->
-	<!--	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">-->
-	<!--		--><? //= $form->dropDownList($checkoutModel, 'pointTo', $points, ['class' => "select", 'data-placeholder' => "Куда"]) ?>
-	<!--	</div>-->
 	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
 		<?= $form->dropDownList($checkoutModel, 'direction', $points, ['class' => "select", 'data-placeholder' => "Направление"]) ?>
 	</div>
