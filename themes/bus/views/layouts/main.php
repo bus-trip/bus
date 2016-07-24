@@ -219,8 +219,8 @@ $clientScript
 	</div>
 </div>
 <div class="popup"></div>
-<link href="./f/css/style.css" rel="stylesheet">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="/f/js/script.js"></script>
+<!--<link href="./f/css/style.css" rel="stylesheet">-->
+<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>-->
+<!--<script src="/f/js/script.js"></script>-->
 </body>
 </html>

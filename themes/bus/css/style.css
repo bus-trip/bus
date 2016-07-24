@@ -306,7 +306,8 @@ textarea {
 	text-decoration: none
 }
 
-.form-nav {
+/*.form-nav {*/
+.nav {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -317,7 +318,8 @@ textarea {
 	justify-content: center
 }
 
-.form-nav__item {
+/*.form-nav__item {*/
+.nav li {
 	display: inline-block;
 	padding: 6px 12px;
 	margin: 0;
@@ -330,17 +332,20 @@ textarea {
 	border: 2px dotted transparent
 }
 
-.form-nav__item:hover {
+/*.form-nav__item:hover {*/
+.nav li:hover {
 	opacity: 1
 }
 
-.form-nav__item_active {
+/*.form-nav__item_active {*/
+.nav li a.link_active {
 	border-color: #fff;
 	opacity: 1;
 	pointer-events: none
 }
 
-.form-nav__item_disable {
+/*.form-nav__item_disable {*/
+.nav li a.link_disactive {
 	opacity: .5;
 	pointer-events: none
 }
@@ -507,14 +512,16 @@ textarea {
 	border-bottom: 2px solid #d72d4e
 }
 
-.search-form {
+/*.search-form {*/
+.search-ticket__form {
 	margin: 0 auto;
 	max-width: 740px;
 	padding: 40px;
 	background-color: rgba(0, 0, 0, .5)
 }
 
-.search-form__title {
+/*.search-form__title {*/
+.search-ticket .title {
 	color: #fff;
 	margin: 0 0 20px
 }
@@ -523,7 +530,8 @@ textarea {
 	margin: 0 0 20px
 }
 
-.search-form__container {
+/*.search-form__container {*/
+.searchtrip-form div.grid {
 	margin: 0 0 20px
 }
 
