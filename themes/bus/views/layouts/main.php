@@ -11,7 +11,6 @@ $clientScript
 	->registerScriptFile($baseUrl . '/themes/bus/js/fonts.js')
 	->registerScriptFile($baseUrl . '/themes/bus/js/dynamic.js');
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>

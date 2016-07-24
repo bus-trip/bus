@@ -94,7 +94,7 @@ body {
 	text-transform: uppercase
 }
 
-input[type=date], input[type=text], select {
+input[type=date], input[type=text], select, .select {
 	font-size: 16px;
 	height: 40px;
 	padding: 0 10px;
@@ -104,7 +104,7 @@ input[type=date], input[type=text], select {
 	transition: .1s
 }
 
-input[type=date]:focus, input[type=text]:focus, select:focus {
+input[type=date]:focus, input[type=text]:focus, select:focus, .select {
 	border: 2px solid rgba(37, 109, 147, .75)
 }
 
@@ -259,7 +259,8 @@ textarea {
 	color: #d72d4e
 }
 
-.direction {
+/*.direction {*/
+.grid.grid_jc-c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -271,7 +272,8 @@ textarea {
 	margin: 0 0 20px
 }
 
-.direction__item {
+/*.direction__item {*/
+.grid__item {
 	margin: 0 10px
 }
 
@@ -526,12 +528,13 @@ textarea {
 	margin: 0 0 20px
 }
 
-.search-form__nav {
+/*.search-form__nav {*/
+.search-ticket__form .nav {
 	margin: 0 0 20px
 }
 
 /*.search-form__container {*/
-.searchtrip-form div.grid {
+#searchtrip-form div.grid {
 	margin: 0 0 20px
 }
 
