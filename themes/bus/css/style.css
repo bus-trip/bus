@@ -556,7 +556,7 @@ textarea {
 	justify-content: space-between
 }
 
-.profile {
+.profile, #checkout-profiles-wrapper {
 	background: #fff;
 	padding: 40px 0
 }

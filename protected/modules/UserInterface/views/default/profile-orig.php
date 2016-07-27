@@ -36,8 +36,8 @@ $form = $this->beginWidget('CActiveForm'); ?>
 
 <?= CHtml::activeHiddenField($checkoutModel, 'profileStep') ?>
 <div id="checkout-profiles-wrapper">
-	<div id="profile" class="clearfix">
-		<div class="profile__wrapper">
+	<div id="profiles" class="clearfix">
+		<div class="grid">
 			<?php foreach ($saved[DefaultController::STEP_PLACE]['places'] as $i => $place) {
 				$profileModel = $profileModels[$i];
 				?>
@@ -54,12 +54,15 @@ $form = $this->beginWidget('CActiveForm'); ?>
 			<?php } ?>
 		</div>
 	</div>
-	<div class="profile__address">
-		<label>Адрес посадки</label>
+</div>
+<div class="grid">
+	<div class="grid__item grid__item_xs-12">
+		<label>Посадка (адрес)</label>
 		<?= $form->textArea($checkoutModel, 'address_from', ['class' => "textarea"]) ?>
 	</div>
-	<div class="profile__address">
-		<label>Адрес высадки</label>
+
+	<div class="grid__item grid__item_xs-12">
+		<label>Высадка (адрес)</label>
 		<?= $form->textArea($checkoutModel, 'address_to', ['class' => "textarea"]) ?>
 	</div>
 </div>
