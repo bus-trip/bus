@@ -259,18 +259,19 @@ textarea {
 	color: #d72d4e
 }
 
+/* отключил, т.к. используется div.grid.grid_jc-c везде */
 /*.direction {*/
-.grid.grid_jc-c {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: center;
-	-webkit-justify-content: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	margin: 0 0 20px
-}
+/*.grid.grid_jc-c {*/
+	/*display: -webkit-box;*/
+	/*display: -webkit-flex;*/
+	/*display: -ms-flexbox;*/
+	/*display: flex;*/
+	/*-webkit-box-pack: center;*/
+	/*-webkit-justify-content: center;*/
+	/*-ms-flex-pack: center;*/
+	/*justify-content: center;*/
+	/*margin: 0 0 20px*/
+/*}*/
 
 /*.direction__item {*/
 .grid__item {
@@ -352,7 +353,8 @@ textarea {
 	pointer-events: none
 }
 
-.form-nav__icon {
+/*.form-nav__icon {*/
+.nav li .icon {
 	display: inline-block;
 	vertical-align: middle;
 	width: 24px;
@@ -360,7 +362,8 @@ textarea {
 	margin: 0 6px 0 0
 }
 
-.form-nav__name {
+/*.form-nav__name {*/
+.nav li a, li span {
 	color: #fff;
 	font: normal 300 18px/1 Decima, Helvetica, Arial, sans-serif;
 	display: inline-block;
@@ -449,26 +452,30 @@ textarea {
 	margin: 0 0 20px
 }
 
-.list-direction {
+/*.list-direction {*/
+.items {
 	background-color: #fff;
 	width: 100%;
 	border-radius: 2px;
 	overflow: hidden
 }
 
-.list-direction th {
+/*.list-direction th {*/
+.items th {
 	background-color: #d72d4e;
 	color: #fff;
 	padding: 8px;
 	text-align: left
 }
 
-.list-direction td {
+/*.list-direction td {*/
+.items td {
 	font-size: 14px;
 	padding: 8px
 }
 
-.list-direction td span {
+/*.list-direction td span {*/
+.items td span {
 	opacity: .75
 }
 
@@ -652,7 +659,8 @@ textarea {
 	display: inline-block
 }
 
-.seats {
+/*.seats {*/
+.grid.grid_jc-c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -665,11 +673,13 @@ textarea {
 	padding: 40px
 }
 
-.seats__scheme {
+/*.seats__scheme {*/
+.img-scheme {
 	max-width: 240px
 }
 
-.seats__scheme img {
+/*.seats__scheme img {*/
+.img-scheme img {
 	max-width: 100%
 }
 
