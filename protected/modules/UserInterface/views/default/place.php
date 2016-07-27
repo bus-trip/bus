@@ -24,12 +24,12 @@ $form = $this->beginWidget('CActiveForm'); ?>
 		</div>
 	</div>
 	<?php $places = array_chunk($places, 8, true); ?>
-	<div class="grid__item grid__item_xs-12 grid__item_s-auto">
+	<div class="seats__list">
 		<?php
 		$list1 = $form->checkBoxList($checkoutModel, 'places', $places[0], [
-			'class'     => 'input-checkbox',
+			'class'     => '',
 			'separator' => '',
-			'template'  => '<div class="input-container">{input} {label}</div>',
+			'template'  => '<div class="seat_choose">{input} {label}</div>',
 		]);
 
 		print preg_replace('#(id="[^"]*)"([^>]*)(value=")([^"]*)("[^<]*<label for=")([^"]*)"#iUs', '$1_$4"$2$3$4$5$6_$4"', $list1);
@@ -37,12 +37,12 @@ $form = $this->beginWidget('CActiveForm'); ?>
 		?>
 	</div>
 	<?php if (isset($places[1])) { ?>
-		<div class="grid__item grid__item_xs-12 grid__item_s-auto">
+		<div class="seats__list">
 			<?= $form->checkBoxList($checkoutModel, 'places', $places[1], [
-				'class'        => 'input-checkbox',
+				'class'        => '',
 				'separator'    => '',
 				'uncheckValue' => null,
-				'template'     => '<div class="input-container">{input} {label}</div>',
+				'template'     => '<div class="seat__choose">{input} {label}</div>',
 			]) ?>
 		</div>
 	<?php } ?>
