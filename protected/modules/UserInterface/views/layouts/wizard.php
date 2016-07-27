@@ -6,7 +6,6 @@
 
 $this->beginContent('//layouts/main'); ?>
 	<div class="search-ticket">
-<!--		--><?//= isset($this->pageTitle) && $this->pageTitle ? '<h1 class="title title_c-white title_ta-c">' . $this->pageTitle . '</h1>' : ''; ?>
 		<div class="search-ticket__form">
 			<?= isset($this->pageTitle) && $this->pageTitle ? '<h1 class="title title_c-white title_ta-c">' . $this->pageTitle . '</h1>' : ''; ?>
 			<ul class="nav">
