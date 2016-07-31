@@ -179,8 +179,8 @@ class AccountController extends Controller
 				'status'       => $statuses[$d->tickets->status],
 				'address_from' => $d->tickets->address_from,
 				'address_to'   => $d->tickets->address_to,
-				'departure'    => $trip->departure,
-				'arrival'      => $trip->arrival,
+				'departure'    => date("d.m.Y H:i", strtotime($trip->departure)),
+				'arrival'      => date("d.m.Y H:i", strtotime($trip->arrival)),
 				'startPoint'   => $direction->startPoint,
 				'endPoint'     => $direction->endPoint,
 				'profileId'    => $d->id
