@@ -7,7 +7,7 @@
  * @var string $content
  */
 
-$this->beginContent('//layouts/column1');
+$this->beginContent('//layouts/column1_without_wrap');
 $url = Yii::app()->request->url;
 ?>
 	<div class="search-form__nav">
