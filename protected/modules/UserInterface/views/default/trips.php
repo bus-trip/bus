@@ -5,20 +5,17 @@
  */
 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'           => 'trips-grid',
-	'dataProvider' => $trips,
-	'template'     => '{items}{pager}',
-	'ajaxUpdate'   => false,
-	'columns'      => array(
+	'id'            => 'trips-grid',
+	'dataProvider'  => $trips,
+	'template'      => '{items}{pager}',
+	'ajaxUpdate'    => false,
+	'itemsCssClass' => 'list-direction',
+	'columns'       => array(
 		array(
 			'header' => '',
 			'name'   => 'id',
 			'type'   => 'raw',
 			'value'  => 'CHtml::radioButton("' . CHtml::modelName($model) . '[tripId]",false, array("value" => $data["id"], "onClick" => "document.getElementById(\'tripsSelect\').removeAttribute(\'disabled\')"))."<br/>".CHtml::hiddenField("' . CHtml::modelName($model) . '[directionId]", $data["directionId"])',
-		),
-		array(
-			'name'   => 'trip',
-			'header' => 'Маршрут следования',
 		),
 		array(
 			'name'   => 'direction',
@@ -27,10 +24,12 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array(
 			'name'   => 'departure',
 			'header' => 'Отправление',
+			'type'   => 'raw'
 		),
 		array(
 			'name'   => 'arrival',
 			'header' => 'Прибытие',
+			'type'   => 'raw'
 		),
 		array(
 			'name'   => 'price',
@@ -42,5 +41,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 ));
-
-echo CHtml::submitButton('Выбрать', ['id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled', 'class' => "btn"]);
+?>
+<div class="search-form__footer">
+	<?= CHtml::submitButton('Выбрать', ['id' => 'tripsSelect', 'name' => 'tripsSelect', 'disabled' => 'disabled', 'class' => "search-form__next-step btn"]); ?>
+</div>

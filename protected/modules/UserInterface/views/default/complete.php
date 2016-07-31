@@ -8,6 +8,6 @@
 
 $this->pageTitle = 'Оформление закончено';
 ?>
-<div id="checkout-complete-wrapper">
+<div id="checkout-complete-wrapper" class="wrap">
 	<p>Вы можете распечатать билеты из <a href="<?= $this->createUrl('/account/tickets') ?>">личного кабинета</a>.</p>
 </div>

@@ -8,28 +8,29 @@
  */
 use UserInterface\controllers\DefaultController;
 
-$profile       = new Profiles();
-$profileLabels = $profile->attributeLabels();
+$profileLabels = (new Profiles())->attributeLabels();
 
 ?>
-<?php print $this->renderPartial('trip', compact('trip', 'prices'), true) ?>
-	<div id="checkout-profiles-wrapper">
-		<h2><?= count($saved[DefaultController::STEP_PROFILE]['profiles']) == 1 ? 'Билет' : 'Билеты' ?></h2>
-		<div class="grid">
-			<?php foreach ($saved[DefaultController::STEP_PROFILE]['profiles'] as $i => $profileItem) { ?>
-				<div class="grid__item grid__item_xs-12 grid__item_s-6 grid__item_l-auto">
-					<table class="form-table form-table_ticket">
-						<tr>
-							<td class="form-table__name">Место</td>
-							<td><b>№<?= $saved[DefaultController::STEP_PLACE]['places'][$i] ?></b></td>
-						</tr>
-						<tr>
-							<td class="form-table__name">Стоимость</td>
-							<td><b><?= $prices[$saved[DefaultController::STEP_PLACE]['places'][$i]] ?></b> руб.</td>
-						</tr>
+	<div class="search-form__container">
+		<div class="check">
+			<div class="check__wrapper">
+				<?php print $this->renderPartial('trip', compact('trip', 'prices'), true); ?>
+			</div>
+			<div class="check__tickets">
+				<h3 class="check__title"><?= count($saved[DefaultController::STEP_PROFILE]['profiles']) === 1 ? 'Билет' : 'Билеты' ?></h3>
+				<?php foreach ($saved[DefaultController::STEP_PROFILE]['profiles'] as $i => $profileItem) { ?>
+					<div class="check__tickets-info">
+						<p>
+							<span>Место: </span>
+							<strong><?= $saved[DefaultController::STEP_PLACE]['places'][$i] ?></strong>
+						</p>
+						<p>
+							<span>Стоимость: </span>
+							<strong><?= $prices[$saved[DefaultController::STEP_PLACE]['places'][$i]] ?>₽</strong>
+						</p>
 						<?php
 						foreach ($profileItem as $id => $item) {
-							if ($id == 'sex') {
+							if ($id === 'sex') {
 								switch ($item) {
 									case 'none':
 										$item = 'Не указано';
@@ -41,18 +42,18 @@ $profileLabels = $profile->attributeLabels();
 										$item = 'Женский';
 										break;
 								}
-							} elseif ($id == 'doc_type') {
+							} elseif ($id === 'doc_type') {
 								$item = Profiles::getDocType($item);
 							}
 							?>
-							<tr>
-								<td class="form-table__name"><?= $profileLabels[$id] ?></td>
-								<td><?= $item ?></td>
-							</tr>
+							<p>
+								<span><?= $profileLabels[$id] ?>: </span>
+								<strong><?= $item ?></strong>
+							</p>
 						<?php } ?>
-					</table>
-				</div>
-			<?php } ?>
+					</div>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
 <?php
@@ -60,17 +61,8 @@ $profileLabels = $profile->attributeLabels();
 $form = $this->beginWidget('CActiveForm'); ?>
 
 <?= CHtml::activeHiddenField($checkoutModel, 'reviewStep') ?>
-	<div class="grid grid_jc-sb">
-		<div class="grid__item grid__item_xs-auto">
-			<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
-		</div>
-		<div class="grid__item grid__item_xs-auto">
-			<?php
-			$label = 'Оформить';
-			if ($this->robokassa()) {
-				$label = 'Оплатить';
-			}
-			echo CHtml::submitButton($label, ['class' => 'btn']); ?>
-		</div>
+	<div class="search-form__footer">
+		<a class="search-form__prev-step btn btn_border" href="<?= $back ?>">Назад</a>
+		<?php echo CHtml::submitButton(($this->robokassa() ? 'Оплатить' : 'Оформить'), ['class' => 'search-form__next-step btn']); ?>
 	</div>
-<?php $this->endWidget(); ?>
+<?php $this->endWidget();

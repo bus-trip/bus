@@ -1,13 +1,13 @@
 <?php
 
 use UserInterface\controllers\DefaultController;
-use UserInterface\models\Checkout;
 
 class UserController extends Controller
 {
 	protected $username;
 	protected $password;
 	protected $rememberMe;
+	public $layout = '//layouts/column1_without_wrap';
 
 	public function behaviors()
 	{
@@ -25,14 +25,21 @@ class UserController extends Controller
 		];
 	}
 
+	protected function hasWizaedStarted()
+	{
+		$session = Yii::app()->getSession();
+		return isset($session[$this->sessionKey . '.steps']);
+	}
+
 	/**
 	 * Displays the login page
 	 */
 	public function actionLogin()
 	{
 		$this->pageTitle = 'Авторизация';
-		$model           = new LoginForm();
-		$wizard          = $this->read();
+
+		$model  = new LoginForm();
+		$wizard = $this->hasWizaedStarted() ? $this->read() : [];
 
 		if ($attributes = Yii::app()->getRequest()->getPost(CHtml::modelName($model))) {
 			$model->setAttributes($attributes);

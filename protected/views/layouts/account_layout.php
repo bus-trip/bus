@@ -10,15 +10,20 @@
 $this->beginContent('//layouts/column1');
 $url = Yii::app()->request->url;
 ?>
-	<div id="profile-wrapper">
-		<ul class="nav">
+	<div class="search-form__nav">
+		<div class="form-nav">
 			<?php foreach ([$this->createUrl('/account')            => 'Аккаунт',
 							$this->createUrl('/account/edit')       => 'Редактировать',
 							$this->createUrl('/account/passengers') => 'Мои профили',
 							$this->createUrl('/account/tickets')    => 'Мои билеты'] as $path => $item) {
-				print '<li><a href="' . $path . '" class="link' . ($path == $url ? ' link_active' : '') . '">' . $item . '</a></li>';
+				print '<a href="' . $path . '" class="form-nav__item' . ($path === $url ? ' form-nav__item_active' : '') . '">' .
+					'<span class="form-nav__name">' . $item . '</span></a>';
 			} ?>
-		</ul>
-		<?= $content ?>
+		</div>
+	</div>
+	<div class="search-form__container">
+		<div class="seats-form">
+			<?= $content ?>
+		</div>
 	</div>
 <?php $this->endContent();
