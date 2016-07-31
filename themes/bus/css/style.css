@@ -78,14 +78,14 @@ body {
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%;
 	position: relative;
-	font: normal normal 14px/1.5 Decima, Helvetica, Arial, sans-serif;
 	color: #333;
 	overflow-y: scroll;
 	background-color: #f3f3f3
 }
 
 .page {
-	position: relative
+	position: relative;
+	font: normal normal 14px/1.5 Decima, Helvetica, Arial, sans-serif;
 }
 
 .title {
@@ -94,7 +94,7 @@ body {
 	text-transform: uppercase
 }
 
-input[type=date], input[type=text], select, .select {
+input[type=date], input[type=text], select, .select, input.input-text {
 	font-size: 16px;
 	height: 40px;
 	padding: 0 10px;
@@ -141,11 +141,17 @@ textarea {
 }
 
 .btn:hover {
-	background-color: #d93757
+	background-color: #d93757;
+	color: #fff;
 }
 
 .btn:active {
 	background-color: #cf2848
+}
+
+.btn[disabled="disabled"] {
+	background: #ccc;
+	cursor: default;
 }
 
 .btn_border {
@@ -166,7 +172,7 @@ textarea {
 
 .check {
 	background: #fff;
-	padding: 40px
+	padding: 40px 40px 20px;
 }
 
 .check p {
@@ -208,7 +214,8 @@ textarea {
 }
 
 .check__tickets-info {
-	width: 50%
+	width: 50%;
+	margin-bottom: 20px;
 }
 
 .check__tickets-info:nth-child(odd) {
@@ -259,22 +266,19 @@ textarea {
 	color: #d72d4e
 }
 
-/* отключил, т.к. используется div.grid.grid_jc-c везде */
-/*.direction {*/
-/*.grid.grid_jc-c {*/
-	/*display: -webkit-box;*/
-	/*display: -webkit-flex;*/
-	/*display: -ms-flexbox;*/
-	/*display: flex;*/
-	/*-webkit-box-pack: center;*/
-	/*-webkit-justify-content: center;*/
-	/*-ms-flex-pack: center;*/
-	/*justify-content: center;*/
-	/*margin: 0 0 20px*/
-/*}*/
+.direction {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+	margin: 0 0 20px
+}
 
-/*.direction__item {*/
-.grid__item {
+.direction__item {
 	margin: 0 10px
 }
 
@@ -309,8 +313,7 @@ textarea {
 	text-decoration: none
 }
 
-/*.form-nav {*/
-.nav {
+.form-nav {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -321,8 +324,7 @@ textarea {
 	justify-content: center
 }
 
-/*.form-nav__item {*/
-.nav li {
+.form-nav__item {
 	display: inline-block;
 	padding: 6px 12px;
 	margin: 0;
@@ -335,26 +337,22 @@ textarea {
 	border: 2px dotted transparent
 }
 
-/*.form-nav__item:hover {*/
-.nav li:hover {
+.form-nav__item:hover {
 	opacity: 1
 }
 
-/*.form-nav__item_active {*/
-.nav li a.link_active {
+.form-nav__item_active {
 	border-color: #fff;
 	opacity: 1;
 	pointer-events: none
 }
 
-/*.form-nav__item_disable {*/
-.nav li a.link_disactive {
+.form-nav__item_disable {
 	opacity: .5;
 	pointer-events: none
 }
 
-/*.form-nav__icon {*/
-.nav li .icon {
+.form-nav__icon {
 	display: inline-block;
 	vertical-align: middle;
 	width: 24px;
@@ -362,8 +360,7 @@ textarea {
 	margin: 0 6px 0 0
 }
 
-/*.form-nav__name {*/
-.nav li a, li span {
+.form-nav__name {
 	color: #fff;
 	font: normal 300 18px/1 Decima, Helvetica, Arial, sans-serif;
 	display: inline-block;
@@ -395,14 +392,14 @@ textarea {
 	height: 100%
 }
 
-.header .logo {
+.header__logo {
 	width: 200px;
 	height: 60px;
 	border: 1px solid #ccc;
 	margin: 0 40px 0 0
 }
 
-.header .logo a {
+.header__logo a {
 	display: block;
 	width: 100%;
 	height: 100%
@@ -429,8 +426,6 @@ textarea {
 	padding-left: 20px;
 }
 
-
-
 .image {
 	width: 100%;
 	margin: 0 0 40px
@@ -452,30 +447,35 @@ textarea {
 	margin: 0 0 20px
 }
 
-/*.list-direction {*/
-.items {
+.list-direction {
 	background-color: #fff;
 	width: 100%;
 	border-radius: 2px;
 	overflow: hidden
 }
 
-/*.list-direction th {*/
-.items th {
+.font-size-small, .font-size-small td {
+	font-size: 10px !important;
+}
+
+.list-direction th {
 	background-color: #d72d4e;
 	color: #fff;
 	padding: 8px;
-	text-align: left
+	text-align: left;
+	font-weight: normal;
 }
 
-/*.list-direction td {*/
-.items td {
+.list-direction th a {
+	color: #fff;
+}
+
+.list-direction td {
 	font-size: 14px;
 	padding: 8px
 }
 
-/*.list-direction td span {*/
-.items td span {
+.list-direction td span {
 	opacity: .75
 }
 
@@ -521,27 +521,23 @@ textarea {
 	border-bottom: 2px solid #d72d4e
 }
 
-/*.search-form {*/
-.search-ticket__form {
+.search-form {
 	margin: 0 auto;
 	max-width: 740px;
 	padding: 40px;
 	background-color: rgba(0, 0, 0, .5)
 }
 
-/*.search-form__title {*/
-.search-ticket .title {
+.search-form__title {
 	color: #fff;
 	margin: 0 0 20px
 }
 
-/*.search-form__nav {*/
-.search-ticket__form .nav {
+.search-form__nav {
 	margin: 0 0 20px
 }
 
-/*.search-form__container {*/
-#searchtrip-form div.grid {
+.search-form__container {
 	margin: 0 0 20px
 }
 
@@ -659,8 +655,7 @@ textarea {
 	display: inline-block
 }
 
-/*.seats {*/
-.grid.grid_jc-c {
+.seats {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -673,13 +668,16 @@ textarea {
 	padding: 40px
 }
 
-/*.seats__scheme {*/
-.img-scheme {
+.seats-form {
+	background-color: #fff;
+	padding: 40px;
+}
+
+.seats__scheme {
 	max-width: 240px
 }
 
-/*.seats__scheme img {*/
-.img-scheme img {
+.seats__scheme img {
 	max-width: 100%
 }
 
@@ -693,12 +691,17 @@ textarea {
 }
 
 .seats__choose {
-	line-height: 2.5
+	line-height: 2.5;
+	list-style: none;
 }
 
-.seats__choose label > * {
+.seats__choose > * {
 	vertical-align: middle;
 	display: inline-block
+}
+
+.seats .title-2 {
+
 }
 
 .text {
@@ -716,4 +719,101 @@ textarea {
 	margin: 0 0 20px;
 	list-style: square;
 	padding: 0 0 0 20px
+}
+
+.form .row label {
+	width: 150px;
+	display: inline-block;
+}
+
+.form .row {
+	margin-bottom: 10px;
+}
+
+.errorMessage {
+	color: red;
+}
+
+.errorSummary {
+	padding: 25px 40px 5px;
+	background: #fff;
+	color: red;
+	margin-bottom: 10px;
+}
+
+.wrap {
+	background: #fff;
+	padding: 40px 40px 20px;
+}
+
+/*
+ * Edit profiles
+ */
+.profiles-data .label, .profiles-data .value {
+	display: inline-block;
+}
+
+#passengers .item {
+	border: 1px dotted;
+	margin: 10px 0;
+	padding: 10px;
+	width: 100%;
+}
+
+#passengers .item .name {
+	float: left;
+}
+
+#passengers .item .name span {
+	border-bottom: 1px dashed;
+	cursor: pointer;
+}
+
+#passengers .item .rule {
+	float: right;
+}
+
+#passengers .item .data {
+	clear: both;
+	display: none;
+	padding: 10px 0;
+}
+
+#passengers .item .data .label {
+	font-weight: bold;
+}
+
+.align-center {
+	text-align: center;
+}
+
+.advantage {
+	font-size: 0;
+	text-align: center;
+	padding: 0 0 2rem;
+}
+
+.advantage__item {
+	display: inline-block;
+	width: 20%;
+	max-width: 200px;
+	padding: 0 1rem;
+	vertical-align: top;
+	font-size: 12px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.advantage__image {
+	width: 100px;
+	height: 100px;
+	background-color: #cccccc;
+	border-radius: 50%;
+	margin-bottom: 1rem;
+	display: inline-block;
+}
+
+.advantage__title {
+	text-transform: uppercase;
+	font-size: 12px;
 }

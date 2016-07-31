@@ -35,40 +35,31 @@ JS
 $form = $this->beginWidget('CActiveForm'); ?>
 
 <?= CHtml::activeHiddenField($checkoutModel, 'profileStep') ?>
-<div id="checkout-profiles-wrapper">
-	<div id="profile" class="clearfix">
+<div class="search-form__container">
+	<?php echo $form->errorSummary($checkoutModel); ?>
+	<div class="profile">
 		<div class="profile__wrapper">
 			<?php foreach ($saved[DefaultController::STEP_PLACE]['places'] as $i => $place) {
 				$profileModel = $profileModels[$i];
 				?>
-				<div class="profile-item grid__item grid__item_xs-12 grid__item_s-6 grid__item_l-auto">
-					<table class="form-table form-table_ticket">
-						<tr>
-							<td colspan="2">
-								<h3 class="title title_fz-s title_ta-r">Место №<?= $place ?></h3>
-							</td>
-						</tr>
-						<?php $this->renderPartial('UserInterface.views.profiles.item', compact('profileModel', 'i', 'userProfiles')) ?>
-					</table>
+				<div class="profile__item">
+					<h3 class="profile__title">Место №<?= $place ?></h3>
+					<?php $this->renderPartial('UserInterface.views.profiles.item', compact('profileModel', 'i', 'userProfiles')) ?>
 				</div>
 			<?php } ?>
 		</div>
-	</div>
-	<div class="profile__address">
-		<label>Адрес посадки</label>
-		<?= $form->textArea($checkoutModel, 'address_from', ['class' => "textarea"]) ?>
-	</div>
-	<div class="profile__address">
-		<label>Адрес высадки</label>
-		<?= $form->textArea($checkoutModel, 'address_to', ['class' => "textarea"]) ?>
+		<div class="profile__address">
+			<label>Адрес посадки</label>
+			<?= $form->textArea($checkoutModel, 'address_from', ['class' => 'textarea', 'rows' => '3', 'placeholder' => 'Например, г. Москва, ул. Бобруйская улица, д. 3']) ?>
+		</div>
+		<div class="profile__address">
+			<label>Адрес высадки</label>
+			<?= $form->textArea($checkoutModel, 'address_to', ['class' => 'textarea', 'placeholder' => 'Например, г. Элиста, ул. Ленина, д. 23', 'rows' => '3']) ?>
+		</div>
 	</div>
 </div>
-<div class="grid grid_jc-sb">
-	<div class="grid__item grid__item_xs-auto">
-		<a href="<?= $back ?>" class="btn btn_br-blue" title="Назад">Назад</a>
-	</div>
-	<div class="grid__item grid__item_xs-auto">
-		<?php echo CHtml::submitButton('Продолжить', ['class' => 'btn']); ?>
-	</div>
+<div class="search-form__footer">
+	<a class="search-form__prev-step btn btn_border" href="<?= $back ?>">Назад</a>
+	<?php echo CHtml::submitButton('Продолжить', ['class' => 'search-form__next-step btn']); ?>
 </div>
 <?php $this->endWidget(); ?>

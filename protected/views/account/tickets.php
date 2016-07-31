@@ -7,12 +7,13 @@
  */
 ?>
 	<p style="font-weight: bold;">Для отмены бронирования позвоните <a
-			href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>#contacts">по телефонам</a>.</p>
+			href="<?= Yii::app()->createUrl('contacts') ?>">по телефонам</a>.</p>
 <?php
 $this->widget('zii.widgets.grid.CGridView', [
 	'id'           => 'user-auth-data-grid',
 	'dataProvider' => $modelData,
 	'template'     => '{items}{pager}',
+	'itemsCssClass' => 'list-direction font-size-small',
 	'columns'      => [
 		['name'   => 'name',
 		 'header' => 'ФИО'],

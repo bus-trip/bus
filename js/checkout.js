@@ -11,6 +11,8 @@ $(function () {
 			wrap.find('select').val('none');
 		} else {
 			var wrapIndex = wrap.index();
+			console.log(wrapIndex);
+			console.log(window.profiles[id]);
 			$.each(window.profiles[id], function (index, value) {
 				var input = wrap.find('input[name="Profiles[' + wrapIndex + '][' + index + ']"]');
 				if (input.length > 0) {
@@ -29,13 +31,13 @@ $(function () {
 		}
 	};
 
-	$('#checkout-profiles-wrapper #profiles select.select-profile').on('change', function () {
+	$('select.select-profile').on('change', function () {
 		var val = $(this).val(),
-			wrap = $(this).parents('.profile-item');
+			wrap = $(this).parents('.profile__item');
 		setProfile(wrap, val);
 	});
 
-	$('#UserInterface_models_Checkout_places input[value^="not-"]').attr('disabled', 'disabled');
+	$('input[value^="not-"]').attr('disabled', 'disabled');
 
 
 });

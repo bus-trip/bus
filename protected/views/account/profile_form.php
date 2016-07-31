@@ -41,7 +41,7 @@
 														Profiles::DOC_BIRTH_CERTIFICATE => 'Свидетельство о рождении',
 														Profiles::DOC_FOREIGN_PASSPORT  => 'Загран паспорт',
 														Profiles::DOC_MILITARY_ID       => 'Военный билет'],
-								   ['class' => "select", 'data-placeholder' => "Выберите"]); ?>
+								   ['data-placeholder' => 'Выберите']); ?>
 	<?php echo $form->error($model, 'doc_type'); ?>
 </div>
 
@@ -72,7 +72,7 @@
 							 ['none'               => '-Выберите-',
 							  Profiles::SEX_MALE   => 'Мужской',
 							  Profiles::SEX_FEMALE => 'Женский'],
-							 ['class' => "select", 'data-placeholder' => "Выберите"]); ?>
+							 ['data-placeholder' => 'Выберите']); ?>
 	<?php echo $form->error($model, 'sex'); ?>
 </div>
 

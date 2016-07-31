@@ -11,45 +11,43 @@
 
 $form = $this->beginWidget('CActiveForm', [
 	'id'                   => 'searchtrip-form',
-	'enableAjaxValidation' => FALSE,
+	'enableAjaxValidation' => false,
 ]); ?>
 
-<div class="grid grid_jc-c">
+<div class="search-form__container">
 	<?php echo $form->errorSummary($checkoutModel); ?>
-	<?= $form->error($checkoutModel, 'pointFrom') ?>
-	<?= $form->error($checkoutModel, 'pointTo') ?>
-	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
-		<?= $form->dropDownList($checkoutModel, 'direction', $points, ['class' => "profile__select", 'data-placeholder' => "Направление"]) ?>
+	<div class="direction">
+		<div class="direction__item">
+			<?= $form->dropDownList($checkoutModel, 'direction', $points, ['class' => "profile__select", 'data-placeholder' => "Направление"]) ?>
+		</div>
+		<div class="direction__item">
+			<?php
+			Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
+			$this->widget('CJuiDateTimePicker', [
+				'model'       => $checkoutModel,
+				'attribute'   => 'date',
+				'mode'        => 'date',
+				'value'       => $checkoutModel->date,
+				'options'     => [
+					'dateFormat'  => 'dd.mm.yy',
+					'changeMonth' => true,
+					'changeYear'  => true,
+					'minDate'     => 0,
+				],
+				'language'    => 'ru',
+				'htmlOptions' => [
+					'class' => 'input-text'
+				]
+			]);
+			?>
+			<?= $form->error($checkoutModel, 'date') ?>
+		</div>
+		<div class="direction__item">
+			<?= CHtml::submitButton('Найти', ['id' => 'ajax-submit', 'class' => "btn"]) ?>
+		</div>
 	</div>
-	<div class="grid__item grid__item_xs-12 grid__item_s-3 grid__item_l-auto">
-		<?php
-		Yii::import('application.extensions.CJuiDateTimePicker.CJuiDateTimePicker');
-		$this->widget('CJuiDateTimePicker', [
-			'model'       => $checkoutModel,
-			'attribute'   => 'date',
-			'mode'        => 'date',
-			'value'       => $checkoutModel->date,
-			'options'     => [
-				'dateFormat'  => 'dd.mm.yy',
-				'changeMonth' => TRUE,
-				'changeYear'  => TRUE,
-				'minDate'     => 0,
-			],
-			'language'    => 'ru',
-			'htmlOptions' => [
-				'class' => 'input-text'
-			]
-		]);
-		?>
-		<?= $form->error($checkoutModel, 'date') ?>
-	</div>
-	<div class="grid__item grid__item_xs-12 grid__item_s-auto grid__item_l-auto">
-		<?= CHtml::submitButton('Найти', ['id' => 'ajax-submit', 'class' => "btn"]) ?>
-	</div>
+	<div id="trip-id"></div>
 </div>
-
-<div id="trip-id"></div>
-
 <?php $this->endWidget(); ?>
 
 <script type="application/javascript">

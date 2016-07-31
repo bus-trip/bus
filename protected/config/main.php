@@ -52,6 +52,10 @@ return array(
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<directionId:\d+>'     => 'trips/profiles',
 				'trips/sheetpart/<tripId:\d+>/<placeId:\d+>/<directionId:\d+>' => 'trips/sheetpart',
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<profileId:\d+>'       => 'trips/createticket',
+				'about' => 'page/about',
+				'bus-schedule' => 'page/busSchedule',
+				'contacts' => 'page/contacts',
+				'actions' => 'page/actions',
 			),
 		),
 //		'robokassa'  => [

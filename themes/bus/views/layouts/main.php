@@ -1,9 +1,11 @@
 <?php
 $baseUrl = Yii::app()->request->baseUrl;
+
+/** @var CClientScript $clientScript */
 $clientScript = Yii::app()->getClientScript();
 $clientScript
-	->registerCssFile($baseUrl . '/css/main.css')
-	->registerCssFile($baseUrl . '/css/form.css')
+//	->registerCssFile($baseUrl . '/css/main.css')
+	->registerCssFile($baseUrl . '/themes/bus/css/fonts.css')
 	->registerCssFile($baseUrl . '/themes/bus/css/style.css')
 	->registerScriptFile($baseUrl . '/themes/bus/js/plugins.js')
 	->registerScriptFile($baseUrl . '/themes/bus/js/singlepagenav.jquery.js')
@@ -33,23 +35,48 @@ $clientScript
 <div class="page">
 	<div class="header">
 		<div class="header__wrapper">
-			<?php if ($this->isFront()) { ?>
-				<div class="header__logo">
-					<a href="#top"
-					   title="<?php echo CHtml::encode(Yii::app()->name); ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				</div>
-				<div class="header__container">
-					<div class="header__menu">
-						<div class="menu">
-							<a class="menu__item menu__item_active" href="#"><span
-									class="menu__name">О компании</span></a>
-							<a class="menu__item" href="#"><span class="menu__name">Расписание</span></a>
-							<a class="menu__item" href="#"><span class="menu__name">Контакты</span></a>
-							<a class="menu__item" href="#"><span class="menu__name">Акции</span></a>
-						</div>
+			<div class="header__logo">
+				<a href="/"
+				   title="<?php echo CHtml::encode(Yii::app()->name); ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
+			</div>
+			<div class="header__container">
+				<div class="header__menu">
+					<div class="menu">
+						<?php $url = Yii::app()->request->url; ?>
+
+						<a class="menu__item<?= $url === $this->createUrl('/about') ? ' menu__item_active' : '' ?>"
+						   href="<?= $this->createUrl('/about') ?>"><span
+								class="menu__name">О компании</span></a>
+						<a class="menu__item<?= $url === $this->createUrl('/bus-schedule') ? ' menu__item_active' : '' ?>"
+						   href="<?= $this->createUrl('/bus-schedule') ?>"><span class="menu__name">Расписание</span></a>
+						<a class="menu__item<?= $url === $this->createUrl('/contacts') ? ' menu__item_active' : '' ?>"
+						   href="<?= $this->createUrl('/contacts') ?>"><span class="menu__name">Контакты</span></a>
+						<a class="menu__item<?= $url === $this->createUrl('/actions') ? ' menu__item_active' : '' ?>"
+						   href="<?= $this->createUrl('/actions') ?>"><span
+								class="menu__name">Акции</span></a>
 					</div>
-					<div class="header__authorization">
-						<div class="authorization">
+				</div>
+				<div class="header__authorization">
+					<div class="authorization">
+						<?php if ($this->isFront()) { ?>
+							<?php if (Yii::app()->user->isGuest) { ?>
+								<div class="authorization__reg">
+									<a href="<?php echo $this->createUrl('/user/register') ?>"
+									   rel="nofollow">Регистрация</a>
+								</div>
+								<div class="authorization__login">
+									<a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a>
+								</div>
+							<?php } else { ?>
+								<div class="authorization__reg">
+									<a href="<?php echo $this->createUrl('/account'); ?>" rel="nofollow">Личный
+										кабинет</a>&nbsp;(<?php echo Yii::app()->user->name; ?>)
+								</div>
+								<div class="authorization__login">
+									<a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a>
+								</div>
+							<?php } ?>
+						<?php } else { ?>
 							<?php if (Yii::app()->user->isGuest) { ?>
 								<div class="authorization__reg">
 									<a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a>
@@ -66,144 +93,33 @@ $clientScript
 									<a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a>
 								</div>
 							<?php } ?>
-						</div>
+						<?php } ?>
 					</div>
 				</div>
-			<?php } else { ?>
-				<div class="header__logo">
-					<a href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>"
-					   title="<?php echo CHtml::encode(Yii::app()->name); ?>"><?php echo CHtml::encode(Yii::app()->name); ?></a>
-				</div>
-				<div class="header__container">
-					<div class="header__menu">
-						<div class="menu">
-							<a class="menu__item menu__item_active"
-							   href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>#"><span
-									class="menu__name">О компании</span></a>
-							<a class="menu__item"
-							   href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>#"><span
-									class="menu__name">Расписание</span></a>
-							<a class="menu__item"
-							   href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>#"><span
-									class="menu__name">Контакты</span></a>
-							<a class="menu__item"
-							   href="<?= Yii::app()->createUrl('UserInterface/default/index/step/find') ?>#"><span
-									class="menu__name">Акции</span></a>
-						</div>
-					</div>
-					<div class="header__authorization">
-						<div class="authorization">
-							<?php if (Yii::app()->user->isGuest) { ?>
-								<div class="authorization__reg">
-									<a href="<?php echo $this->createUrl('/user/register') ?>" rel="nofollow">Регистрация</a>
-								</div>
-								<div class="authorization__login">
-									<a href="<?php echo $this->createUrl('/user/login') ?>" rel="nofollow">Вход</a>
-								</div>
-							<?php } else { ?>
-								<div class="authorization__reg">
-									<a href="<?php echo $this->createUrl('/account'); ?>" rel="nofollow">Личный
-										кабинет</a>&nbsp;(<?php echo Yii::app()->user->name; ?>)
-								</div>
-								<div class="authorization__login">
-									<a href="<?php echo $this->createUrl('/user/logout') ?>" rel="nofollow">Выход</a>
-								</div>
-							<?php } ?>
-						</div>
-					</div>
-				</div>
-			<?php } ?>
-			<?php if (Yii::app()->user->name == 'admin') { ?>
-				<?php $this->widget('zii.widgets.CMenu', [
-					'items' => [
-						['label' => 'Рейсы на месяц', 'url' => ['/admin/index']],
-						['label' => 'Автобусы', 'url' => ['/buses/admin']],
-						['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
-						['label' => 'Направления', 'url' => ['/directions/admin']],
-						['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
-						['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
-					],
-				]); ?>
-			<?php } ?>
+				<?php if (Yii::app()->user->name === 'admin') { ?>
+					<?php $this->widget('zii.widgets.CMenu', [
+						'items' => [
+							['label' => 'Рейсы на месяц', 'url' => ['/admin/index']],
+							['label' => 'Автобусы', 'url' => ['/buses/admin']],
+							['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
+							['label' => 'Направления', 'url' => ['/directions/admin']],
+							['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
+							['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
+						],
+					]); ?>
+				<?php } ?>
+			</div>
 		</div>
 	</div>
 	<div class="content">
 		<div class="main">
 			<?php echo $content; ?>
-
-
-			<!--			<div class="search-form">-->
-			<!--				<h1 class="search-form__title title">Найти билеты</h1>-->
-			<!--				<div class="search-form__nav">-->
-			<!--					<div class="form-nav">-->
-			<!--						<a class="form-nav__item form-nav__item_active" href="/"><span class="form-nav__icon"><img-->
-			<!--									src="/f/svg/icn-search.svg"/></span><span class="form-nav__name">Найти билеты</span></a>-->
-			<!--						<a class="form-nav__item form-nav__item_disable" href="/seats.html"><span-->
-			<!--								class="form-nav__icon"><img src="/f/svg/icn-seat.svg"/></span><span-->
-			<!--								class="form-nav__name">Выбрать места</span></a>-->
-			<!--						<a class="form-nav__item form-nav__item_disable" href="/profile.html"><span-->
-			<!--								class="form-nav__icon"><img src="/f/svg/icn-ticket.svg"/></span><span-->
-			<!--								class="form-nav__name">Данные билетов</span></a>-->
-			<!--						<a class="form-nav__item form-nav__item_disable" href="/check.html"><span-->
-			<!--								class="form-nav__icon"><img src="/f/svg/icn-check.svg"/></span><span-->
-			<!--								class="form-nav__name">Проверка</span></a>-->
-			<!--					</div>-->
-			<!--				</div>-->
-			<!--				<div class="search-form__container">-->
-			<!--					<div class="direction">-->
-			<!--						<div class="direction__item">-->
-			<!--							<select>-->
-			<!--								<option value="Элиста — Москва">Элиста — Москва</option>-->
-			<!--								<option value="Москва — Элиста">Москва — Элиста</option>-->
-			<!--							</select>-->
-			<!--						</div>-->
-			<!--						<div class="direction__item">-->
-			<!--							<input type="date">-->
-			<!--						</div>-->
-			<!--						<div class="direction__item">-->
-			<!--							<button class="btn" type="submit">Найти</button>-->
-			<!--						</div>-->
-			<!--					</div>-->
-			<!--					<table class="list-direction">-->
-			<!--						<thead>-->
-			<!--						<tr>-->
-			<!--							<th></th>-->
-			<!--							<th>Направление</th>-->
-			<!--							<th>Отправление</th>-->
-			<!--							<th>Прибытие</th>-->
-			<!--							<th>Стоимость</th>-->
-			<!--							<th>Мест</th>-->
-			<!--						</tr>-->
-			<!--						</thead>-->
-			<!--						<tbody class="table-direction">-->
-			<!--						<tr>-->
-			<!--							<td>-->
-			<!--								<input type="radio">-->
-			<!--							</td>-->
-			<!--							<td>Элиста - Москва</td>-->
-			<!--							<td class="table-direction__date">-->
-			<!--								09.07.2016-->
-			<!--								<span>12:07</span>-->
-			<!--							</td>-->
-			<!--							<td class="table-direction__date">-->
-			<!--								10.07.2016-->
-			<!--								<span>04:07</span>-->
-			<!--							</td>-->
-			<!--							<td class="table-direction__cost">2200 ₽</td>-->
-			<!--							<td>15</td>-->
-			<!--						</tr>-->
-			<!--						</tbody>-->
-			<!--					</table>-->
-			<!--				</div>-->
-			<!--				<div class="search-form__footer">-->
-			<!--					<a class="search-form__next-step btn" href="/seats.html">Выбрать</a>-->
-			<!--				</div>-->
-			<!--			</div>-->
 		</div>
 	</div>
 	<div class="footer">
 		<div class="footer__wrapper">
-			<div class="footer__copyright">© 2016, OOO «Спринт-Тур». Все права защищены. «Спринт-Тур» — Онлайн сервис
+			<div class="footer__copyright">© 2016, OOO «Спринт-Тур». Все права защищены. «Спринт-Тур» — Онлайн
+				сервис
 				продажи билетов
 			</div>
 			<div class="footer__contacts">
