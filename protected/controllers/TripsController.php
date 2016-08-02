@@ -502,7 +502,7 @@ class TripsController extends Controller
 //		$direction = $data->attributes;
 
 		$criteria = new CDbCriteria();
-		$criteria->condition = 't.idTrip=' . $id . ' and (t.status = 1 or t.status = 2)';
+		$criteria->condition = 't.idTrip=' . $id . ' and t.status in ('.Tickets::STATUS_CONFIRMED.', '.Tickets::STATUS_RESERVED.', '.Tickets::STATUS_USERRESERVED.')';
 		$criteria->join = 'left join trips as tr on tr.id = t.idTrip';
 		$data = Tickets::model()->findAll($criteria);
 		$tickets = [];

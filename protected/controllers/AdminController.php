@@ -114,7 +114,7 @@ class AdminController extends Controller
 					);
 					$trCountAll = Tickets::model()->count(
 						array(
-							'condition' => 'idTrip=' . $data[$j]->attributes['id'] . ' and (status=2 or status=1)'
+							'condition' => 'idTrip=' . $data[$j]->attributes['id'] . ' and status in ('.Tickets::STATUS_CONFIRMED.', '.Tickets::STATUS_RESERVED.', '.Tickets::STATUS_USERRESERVED.')'
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
@@ -136,7 +136,7 @@ class AdminController extends Controller
 					);
 					$trCountAll = Tickets::model()->count(
 						array(
-							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=2 or status=1)'
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and status in ('.Tickets::STATUS_CONFIRMED.', '.Tickets::STATUS_RESERVED.', '.Tickets::STATUS_USERRESERVED.')'
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
@@ -162,7 +162,7 @@ class AdminController extends Controller
 					);
 					$trCountAll = Tickets::model()->count(
 						array(
-							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and (status=2 or status=1)'
+							'condition' => 'idTrip=' . $data[0]->attributes['id'] . ' and status in ('.Tickets::STATUS_CONFIRMED.', '.Tickets::STATUS_RESERVED.', '.Tickets::STATUS_USERRESERVED.')'
 						)
 					);
 					if ($trCountCheck == $trCountAll && $trCountAll != 0) $trFull = 'full';
