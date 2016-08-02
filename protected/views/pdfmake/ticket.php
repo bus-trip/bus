@@ -18,6 +18,8 @@ $pdf->setPrintFooter(FALSE);
 $pdf->AddPage();
 $pdf->SetFont("dejavuserif", "", 7);
 
+$ticketStatus ='';
+
 $pdfTicket = '
 					<table>
 						<tr>
@@ -76,7 +78,7 @@ $pdfTicket = '
 						</tr>
 					</table>
 					<br/>
-					<div style="width: 100%; float: left; height: 40px; font-size:16px;"><b>Статус билета:</b> <span style="color: ' . ($ticket->status == Tickets::STATUS_RESERVED ? "red" : "green") . '">' . ($ticket->status == Tickets::STATUS_RESERVED ? "Забронировано" : "Оплачено") . '</span></div>
+					<div style="width: 100%; float: left; height: 40px; font-size:16px;"><b>Статус билета:</b> <span style="color: ' . ($ticket->status == Tickets::STATUS_RESERVED || Tickets::STATUS_USERRESERVED ? "red" : "green") . '">' . ($ticket->status == Tickets::STATUS_RESERVED || Tickets::STATUS_USERRESERVED ? "Забронировано" : "Оплачено") . '</span></div>
 					<div style="width: 100%; float: left; height: 150px; font-size:10px;">
 						Примечание:
 						<ul>

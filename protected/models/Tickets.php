@@ -23,6 +23,7 @@ class Tickets extends CActiveRecord
 	const STATUS_CANCELED = 0;
 	const STATUS_RESERVED = 1;
 	const STATUS_CONFIRMED = 2;
+	const STATUS_USERRESERVED = 3;
 
 	/**
 	 * @return string the associated database table name
@@ -137,6 +138,7 @@ class Tickets extends CActiveRecord
 			self::STATUS_CANCELED  => 'Отменен',
 			self::STATUS_RESERVED  => 'Забронирован',
 			self::STATUS_CONFIRMED => 'Подтвержден',
+			self::STATUS_USERRESERVED => 'Забронирован с сайта',
 		);
 	}
 

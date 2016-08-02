@@ -370,6 +370,10 @@ html[xmlns] .clearfix {
 	background-color: #89EE89
 }
 
+.grid-view table.items .row-status-3 td, .row-status-3 {
+	background-color: #ee8989
+}
+
 .legends .legend-ico {
 	width: 10px;
 	height: 10px;

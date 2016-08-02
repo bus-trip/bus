@@ -403,7 +403,7 @@ class DefaultController extends Controller
 		$links        = [];
 		foreach ($event->data[self::STEP_PLACE]['places'] as $id => $placeId) {
 			$profileData = $event->data[self::STEP_PROFILE]['profiles'][$id];
-			$status      = Tickets::STATUS_RESERVED;
+			$status      = Tickets::STATUS_USERRESERVED;
 			if (isset($_SESSION['temp_reserve'])) {
 				$criteria = new CDbCriteria();
 				$criteria->addCondition('ticket_ids=:ticket_ids');
@@ -634,7 +634,7 @@ class DefaultController extends Controller
 		$criteria->condition = 'idTrip=:idTrip';
 //		$criteria->params = [':idTrip' => $trip->id, ':idDirection' => $direction->id];
 		$criteria->params = [':idTrip' => $trip->id];
-		$criteria->addInCondition('t.status', [Tickets::STATUS_RESERVED, Tickets::STATUS_CONFIRMED]);
+		$criteria->addInCondition('t.status', [Tickets::STATUS_RESERVED, Tickets::STATUS_CONFIRMED, Tickets::STATUS_USERRESERVED]);
 
 		$tickets = Tickets::model()->findAll($criteria);
 

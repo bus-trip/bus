@@ -63,8 +63,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'          => $dataProvider,
 	'template'              => '{items}',
 	'rowCssClassExpression' => '
-	  ( $row%2 ? $this->rowCssClass[1] : $this->rowCssClass[0] ) .
-	  (isset($data["status"])?" row-status-".$data["status"]:"")',
+	  ( $row%2 ? $this->rowCssClass[1] : $this->rowCssClass[0] ) . (isset($data["status"])?" row-status-".$data["status"]:"")',
 	'columns'               => array(
 		array(
 			'name'   => 'place',
