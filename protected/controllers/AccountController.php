@@ -159,7 +159,7 @@ class AccountController extends Controller
 
 		$data    = Profiles::model()->with('tickets')
 						   ->findAllByAttributes(['uid' => Yii::app()->getUser()->id],
-												 ['order' => 'tid DESC']);
+												 ['order' => 'tid ASC']);
 		$arrData = [];
 		foreach ($data as $d) {
 			if (!$d->tickets) {
