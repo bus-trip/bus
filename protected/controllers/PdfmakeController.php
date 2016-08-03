@@ -74,7 +74,7 @@ class PdfmakeController extends Controller
 			$Profile->created = date('d.m.Y', strtotime($Profile->created));
 			if ($Profile) {
 				$Ticket = Tickets::model()->findByPk($Profile->tid);
-				if ($Ticket) {
+				if ($Ticket && $Ticket->status != Tickets::STATUS_CANCELED) {
 					$Trip = Trips::model()->findByPk($Ticket->idTrip);
 					if ($Trip) {
 						$Direction       = Directions::model()->findByPk($Ticket->idDirection);

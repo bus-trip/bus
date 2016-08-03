@@ -179,8 +179,8 @@ class AccountController extends Controller
 				'status'       => $statuses[$d->tickets->status],
 				'address_from' => $d->tickets->address_from,
 				'address_to'   => $d->tickets->address_to,
-				'departure'    => date("d.m.Y H:i", strtotime($trip->departure)),
-				'arrival'      => date("d.m.Y H:i", strtotime($trip->arrival)),
+				'departure'    => $trip->departure,
+				'arrival'      => $trip->arrival,
 				'startPoint'   => $direction->startPoint,
 				'endPoint'     => $direction->endPoint,
 				'profileId'    => $d->id
@@ -188,9 +188,9 @@ class AccountController extends Controller
 		}
 
 		usort($arrData, function ($a, $b) {
-			if ($a['departure'] == $b['departure'])
+			if (strtotime($a['departure']) == strtotime($b['departure']))
 				return 0;
-			else if ($a['departure'] > $b['departure'])
+			else if (strtotime($a['departure']) > strtotime($b['departure']))
 				return -1;
 			else
 				return 1;
