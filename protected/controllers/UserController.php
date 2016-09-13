@@ -46,7 +46,7 @@ class UserController extends Controller
 			// validate user input and redirect to the previous page if valid
 			if ($model->validate() && $model->login()) {
 				if (isset($wizard['find'])) {
-					$url = $this->createUrl('/UserInterface/default/index/step/place');
+					$url = $this->createUrl('/checkout/place');
 				} else {
 					$url = $this->createUrl('/site/index');
 				}
@@ -98,7 +98,7 @@ class UserController extends Controller
 				if ($this->login()) {
 					$wizard = $this->read();
 					if (isset($wizard['find'])) {
-						$url = $this->createUrl('/UserInterface/default/index/step/place');
+						$url = $this->createUrl('/checkout/place');
 					} else {
 						$url = $this->createUrl('/site/index');
 					}

@@ -104,7 +104,7 @@ $clientScript
 							['label' => 'Рейсы', 'url' => ['/trips/admin/status/actual']],
 							['label' => 'Направления', 'url' => ['/directions/admin']],
 							['label' => 'Все пассажиры', 'url' => ['/tickets/passengers?Profiles_sort=last_name']],
-							['label' => 'Оформление билета', 'url' => ['/UserInterface/default/index']],
+							['label' => 'Оформление билета', 'url' => ['/']],
 						],
 					]); ?>
 				<?php } ?>

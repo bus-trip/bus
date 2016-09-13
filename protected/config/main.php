@@ -42,6 +42,7 @@ return array(
 			'urlFormat'      => 'path',
 			'showScriptName' => false,
 			'rules'          => array(
+				'checkout/<step:\w+>'                                          => 'UserInterface/default/index/<step:\w+>',
 				'<controller:\w+>/<id:\d+>'                                    => '<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'                       => '<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'                                => '<controller>/<action>',
@@ -57,7 +58,6 @@ return array(
 				'contacts'                                                     => 'page/contacts',
 				'actions'                                                      => 'page/actions',
 				'/'                                                            => 'UserInterface/default/index/step/find',
-				'checkout'                                                     => 'UserInterface/default/index'
 			),
 		),
 		//		'robokassa'  => [
@@ -118,7 +118,7 @@ return array(
 		'siteEmail'  => 'no-reply@bus.webjails.ru',
 		'frontPage'  => [
 			'admin' => '/admin/index',
-			'user'  => '/UserInterface/default/index/step/find'
+			'user'  => '/'
 		]
 	),
 );

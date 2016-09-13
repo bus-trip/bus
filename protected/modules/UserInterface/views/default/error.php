@@ -7,6 +7,6 @@
 <div id="checkout-complete-wrapper" class="wrap">
 	<h2><?= $this->pageTitle ?></h2>
 
-	<p><a href="<?= $this->createUrl('/UserInterface/default/index/step/find') ?>">Начните оформление заново</a>.</p>
+	<p><a href="<?= $this->createUrl('/') ?>">Начните оформление заново</a>.</p>
 </div>
 

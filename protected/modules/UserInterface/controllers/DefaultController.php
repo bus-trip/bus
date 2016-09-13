@@ -539,13 +539,9 @@ class DefaultController extends Controller
 		$CurrentStep = $this->getCurrentStep() - 1;
 		if ($CurrentStep > 0) {
 			$previousStep = $this->steps[$CurrentStep - 1];
-			$url          = '/' . $this->getModule()->getId() .
-				'/' . $this->getId() .
-				'/' . $this->getAction()->getId() .
-				'/' . $this->queryParam .
-				'/' . $previousStep;
+			$url          = '/checkout/' . $previousStep;
 		} else {
-			$url = '/UserInterface/default/index';
+			$url = '/';
 		}
 
 		$output = $this->createUrl($url);

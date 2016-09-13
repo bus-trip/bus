@@ -38,7 +38,7 @@ class Controller extends MainController
 		/** @var \WizardBehavior $this */
 		$previous = true;
 		$items    = [];
-		$url      = [$this->getOwner()->id . '/' . $this->getOwner()->getAction()->getId()];
+		$url      = '/checkout';
 
 		foreach ($this->steps as $id => $step) {
 			if ($step == 'completed' || $step == 'test_completed') continue;
@@ -48,7 +48,7 @@ class Controller extends MainController
 			$item['label'] = $this->getOwner()->getWizardTitle($step);
 			$CurrentStep   = $this->getCurrentStep() - 1;
 			if (($previous && !$this->forwardOnly) || ($id === $CurrentStep) || $this->isValidStep($step)) {
-				$item['url']  = $url + [$this->queryParam => $step];
+				$item['url']  = $url . '/' . $step;
 				$item['data'] = $this->read($step);
 				if ($id === $CurrentStep) {
 					$previous = false;

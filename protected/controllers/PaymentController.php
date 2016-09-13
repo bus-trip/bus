@@ -46,7 +46,7 @@ class PaymentController extends Controller
             с трудностями при внесении средств на счет, свяжитесь 
             с нашей технической поддержкой.');
 
-		$this->redirect(['UserInterface/default/index/step/payment']);
+		$this->redirect(['/checkout/payment']);
 	}
 
 	/*
@@ -72,6 +72,6 @@ class PaymentController extends Controller
 			}
 		}
 
-		$this->redirect(['UserInterface/default/index/step/payment']);
+		$this->redirect(['/checkout/payment']);
 	}
 }
