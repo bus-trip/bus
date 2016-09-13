@@ -7,5 +7,3 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteEngine on
 # otherwise forward it to index.php
 RewriteRule . index.php
-
-RewriteRule ^/UserInterface/default/index/step/(.*)$ /checkout/$1 [L]
