@@ -52,23 +52,24 @@ return array(
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<directionId:\d+>'     => 'trips/profiles',
 				'trips/sheetpart/<tripId:\d+>/<placeId:\d+>/<directionId:\d+>' => 'trips/sheetpart',
 				'trips/sheet/<tripId:\d+>/<placeId:\d+>/<profileId:\d+>'       => 'trips/createticket',
-				'about' => 'page/about',
-				'bus-schedule' => 'page/busSchedule',
-				'contacts' => 'page/contacts',
-				'actions' => 'page/actions',
+				'about'                                                        => 'page/about',
+				'bus-schedule'                                                 => 'page/busSchedule',
+				'contacts'                                                     => 'page/contacts',
+				'actions'                                                      => 'page/actions',
+				'/'                                                            => 'UserInterface/default/index/step/find'
 			),
 		),
-//		'robokassa'  => [
-//			'class'          => 'application.components.Robokassa',
-//			'sMerchantLogin' => 'bus.webjails.ru',
-//			'sMerchantPass1' => 'F20wqziXYNpzp9TR28vn',
-//			'sMerchantPass2' => 'Pe7dSx8SLE46bbnvmUR0',
-//			'sCulture'       => 'ru',
-//			'sIncCurrLabel'  => '',
-//			'orderModel'     => 'Invoice', // ваша модель для выставления счетов
-//			'priceField'     => 'amount', // атрибут модели, где хранится сумма
-//			'isTest'         => true, // тестовый либо боевой режим работы
-//		],
+		//		'robokassa'  => [
+		//			'class'          => 'application.components.Robokassa',
+		//			'sMerchantLogin' => 'bus.webjails.ru',
+		//			'sMerchantPass1' => 'F20wqziXYNpzp9TR28vn',
+		//			'sMerchantPass2' => 'Pe7dSx8SLE46bbnvmUR0',
+		//			'sCulture'       => 'ru',
+		//			'sIncCurrLabel'  => '',
+		//			'orderModel'     => 'Invoice', // ваша модель для выставления счетов
+		//			'priceField'     => 'amount', // атрибут модели, где хранится сумма
+		//			'isTest'         => true, // тестовый либо боевой режим работы
+		//		],
 		/*
 		'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
