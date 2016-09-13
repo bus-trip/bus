@@ -56,7 +56,8 @@ return array(
 				'bus-schedule'                                                 => 'page/busSchedule',
 				'contacts'                                                     => 'page/contacts',
 				'actions'                                                      => 'page/actions',
-				'/'                                                            => 'UserInterface/default/index/step/find'
+				'/'                                                            => 'UserInterface/default/index/step/find',
+				'checkout'                                                     => 'UserInterface/default/index'
 			),
 		),
 		//		'robokassa'  => [
